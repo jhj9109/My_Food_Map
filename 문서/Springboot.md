@@ -221,6 +221,71 @@
 
 
 
+# 외부 설정 :airplane:
+
+> 외부 설정 파일 : 애플리케이션에서 사용하는 여러 가지 설정 값들을 애플리케이션의 밖이나 안에 정의할 수 있는 기능
+
+
+
+## 1. Application.properties
+
+> 스프링부트가 애플리케이션을 구동할 때 자동으로 로딩하는 파일
+
+- key-value 형식으로 값을 정의하면 애플리케이션에서 참조하여 사용 가능
+
+
+
+### 값을 참조하는 방법
+
+1. @Value로 값을 받아올 수 있음
+
+   ```java
+   @Value("${my.name}")
+   String name;
+   ```
+
+2. application.properties에 ${random.~}으로 랜덤 값을 줄 수 있음
+
+   ```java
+   my.age = ${random.int}
+   ```
+
+3. 프로퍼티 우선순위
+
+
+
+## 2. @ConfigurationProperties
+
+> properties 파일의 key 값이 같은 값으로 시작할 때, 그것을 묶어서 Bean으로 등록
+
+
+
+# Spring data JPA
+
+## 1. ORM
+
+> **O**bject **R**elational **M**apping
+
+- 객체와 테이블을 mapping할 때 발생하는 개념적인 불일치를 해결하는 프레임워크
+
+- 프로그램의 복잡도를 줄이고 자바 객체와 쿼리를 분리
+- 트랜잭션 처리나 기타 데이터베이스 관련 작업들을 좀 더 편리하게 처리
+
+
+
+## 2. JPA
+
+> **J**ava **P**ersistence **A**PI\
+
+- 자바 ORM 기술에 대한 API 표준 규격
+
+- 스프링 데이터 JPA는 JPA 표준 스펙을 쉽게 사용할 수 있게 스프링 데이터로 추상화 시켜놓은 것
+
+- ORM을 사용하기 위한 인터페이스를 모아둔 것
+- 자바 어플리케이션에서 관계형 데이터베이스를 사용하는 방식을 정의한 인터페이스
+
+
+
 ---
 
 
