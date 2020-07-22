@@ -27,36 +27,14 @@ const requestUserInFo = (callback, errorCallback) => {
     .then(callback)
     .catch(errorCallback)
 }
-const requestChangePw = (data, callback, errorCallback) => {
-    axios.put(hosturl+appname+'/changepw', data)
-    .then(callback)
-    .catch(errorCallback)
-}
-const requestCheckNickname = (data, callback, errorCallback) => {
-    axios.put(hosturl+appname+`/checkNickname`,data)
-    .then(callback)
-    .catch(errorCallback)
-}
 
-const requestDeleteUser = (data, callback, errorCallback) =>{
-    axios.put(hosturl+appname+'/delete', data)
-    .then(callback)
-    .catch(errorCallback)
-}
-const requestUpdateUser = (data, callback, errorCallback) =>{
-    axios.put(hosturl+appname+'/update', data)
-    .then(callback)
-    .catch(errorCallback)
-}
+
 
 const UserApi = {
     requestLogin:(data,callback,errorCallback)=>requestLogin(data,callback,errorCallback),
     requestSignup:(data,callback,errorCallback)=>requestSignup(data,callback,errorCallback),
     requestUserInFo:(callback,errorCallback)=>requestUserInFo(callback,errorCallback),
-    requestChangePw:(data,callback,errorCallback)=>requestChangePw(data,callback,errorCallback),
-    requestDeleteUser:(data,callback,errorCallback)=>requestDeleteUser(data,callback,errorCallback),
-    requestUpdateUser:(data,callback,errorCallback)=>requestUpdateUser(data,callback,errorCallback),
-    requestCheckNickname:(data,callback,errorCallback)=>requestCheckNickname(data,callback,errorCallback),
+ 
 }
 
 export default UserApi

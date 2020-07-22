@@ -63,11 +63,11 @@
       :disabled="!valid"
       @click="Join()"
     >
-      submit
+      회원 가입
     </v-btn>
       </v-row>
-
-    <v-btn>clear</v-btn>
+    <br>
+    <v-btn>초기화</v-btn>
 
     </v-container>
 

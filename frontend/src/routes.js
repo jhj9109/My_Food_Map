@@ -1,7 +1,10 @@
 
 import Login from './views/user/Login.vue'
 import Join from './views/user/Join.vue'
+import Mypage from './views/user/Mypage.vue'
+import Findpw from './views/user/Findpw.vue'
 
+import Map from './views/map/map.vue'
 
 /*
 const checkToken = function(token){
@@ -39,6 +42,21 @@ export default [
         path : '/user/join',
         name : 'Join',
         component : Join
+    },
+    {
+        path : '/user/mypage',
+        name : 'Mypage',
+        component : Mypage
+    },
+    {
+        path : '/user/findpw',
+        name : 'Findpw',
+        component : Findpw
+    },
+    {
+        path : '/map/map',
+        name : 'Map',
+        component : Map
     },
    
 ]

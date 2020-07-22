@@ -4,7 +4,6 @@ import http from "@/util/http-common";
 const axios = require('axios').default
 
 const state = {
-  
     userInfo : {}, 
     id: localStorage.getItem("id")
 }
@@ -21,30 +20,19 @@ const getters = {
 }
 
 const actions = {
-  getUser(context, payload) {
-    http.post(payload).then(({ data }) => {
-      context.commit("setUserInfo", data);
-    });
-  },
+
   getUserInfo({ commit }){
     UserApi.requestUserInFo(res=>{
-      if (res.data.state === 'ok'){
-        commit('setUserInfo', res.data.message)
+      if (res.data.userid != null){
+        commit('setUserInfo', res.data)
       }else{
-        console.log(`유저 정보 조회 실패 : ${res.data.message}`)
+        console.log(`유저 정보 조회 실패 : ${res.data}`)
       }
     },error=>{
       console.log(error)
     })
   },
-    login({  },data){
-      return UserApi.requestLogin(data,res=>{
-          alert('로그인에 성공하였습니다.')
-          console.log(data);
-          localStorage.clear();
-          localStorage.setItem('id', data.email);
-      });
-    },
+
   
     Join({ commit },data){
       UserApi.requestSignup(data,
@@ -72,7 +60,7 @@ const mutations = {
     },
     setUserInfo(state, data){
       state.userInfo = data
-      // console.log('성공', state.userInfo)
+      console.log('성공', state.userInfo)
     },
 }
 

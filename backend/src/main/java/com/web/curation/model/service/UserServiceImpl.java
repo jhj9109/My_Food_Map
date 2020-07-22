@@ -7,13 +7,16 @@ import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
+import org.apache.commons.mail.EmailException;
 import org.apache.ibatis.session.SqlSessionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.web.curation.exception.MyException;
 import com.web.curation.model.dto.MemberDto;
 import com.web.curation.model.dto.MemberPwDto;
 import com.web.curation.model.repository.RegisterDao;
+import com.web.curation.util.MailUtil;
 @Service
 public class UserServiceImpl implements UserService{
 	@Autowired
@@ -22,27 +25,20 @@ public class UserServiceImpl implements UserService{
 
 	
 	@Override
-	public boolean create(MemberDto user) throws Exception {
-			userRepository.join(user);
-			return true;
+	public void join(MemberDto member) throws Exception {
+			userRepository.join(member);
 	}
 	
 	@Override
-	public String login(String id,String pw) throws Exception {
-		MemberDto user =userRepository.select(id);
-			if(user==null) {
-				throw new RuntimeException("등록되지 않은 회원입니다.");
-			}else {
-				if(user.getEmail()==null) {
-					throw new EntityNotFoundException("등록되지 않은 회원입니다.");
-				}else {
-					if(pw.equals(user.getPassword())) {
-						return user.getEmail();
-					}else {
-						throw new MyException("비밀번호 오류");
-					}
-				}
-			}
+	public MemberDto login(String id,String pw) throws Exception {
+		MemberDto info =userRepository.select(id);
+		System.out.println(info);
+		System.out.println(pw);
+		if (info != null && info.getPassword().equals(pw)) {
+			return info;
+		} else {
+			return null;
+		}
 	}
 	@Override
 	public boolean signOut(String id, String pw) {
@@ -122,18 +118,37 @@ public class UserServiceImpl implements UserService{
 		}
 	}
 
-	@Override
-	public MemberDto rlogin(String id, String pw) throws Exception {
-		MemberDto info =  userRepository.select(id);
-		if (info != null && info.getPassword().equals(pw)) {
-			return info;
-		} else {
-			return null;
-		}
-	}
 
 	@Override
 	public MemberDto select(String userid) throws SQLException {
 		return userRepository.select(userid);
 	}
+
+	@Override
+	public String email(String id) throws Exception {
+		MailUtil mu = new MailUtil();
+
+		String code = mu.CreateAuthCode();// 이메일 인증 코드 생성부
+		String subject = "[SSAFY SNS] 이메일 인증 코드 입니다. ";
+		StringBuffer sbuff = new StringBuffer();
+		sbuff.append("<div align='center' style='border:1px solid black; font-family:verdana'>")
+				.append("<h3 style='font-size: 130%'> SSAFY SNS 이메일 인증 코드를 안내해 드리겠습니다.</h3>")
+				.append("<div style='font-size: 130%'> SSAFY SNS 이메일 인증 코드는 <strong>").append(code)
+				.append("</strong> 입니다.</div> <br/></div>");
+		String msg = sbuff.toString();
+
+		if (userRepository.select(id) != null) {
+			try {
+				mu.sendMail(id, subject, msg);
+				return code;
+			} catch (Exception e1) {
+				e1.printStackTrace();
+				throw new Exception();
+			}
+		}
+		return null;
+	}
+
+
+
 }

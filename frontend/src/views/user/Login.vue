@@ -24,12 +24,11 @@
                   dark
                   flat
                 >
-                  <v-toolbar-title>Login form</v-toolbar-title>
+                  <v-toolbar-title> Login form</v-toolbar-title>
                   <v-spacer></v-spacer>
                   <v-tooltip bottom>
                     <template v-slot:activator="{ on }">
                       <v-btn
-                        :href="source"
                         icon
                         large
                         target="_blank"
@@ -59,6 +58,7 @@
                       id="password"
                       label="Password"
                       name="password"
+                      v-model="password"
                       prepend-icon="mdi-lock"
                       :rules="passwordRules"
                       :counter="20"
@@ -80,7 +80,7 @@
                   <v-btn color="primary"
                   tile
                     @click="login()">
-                  >Login</v-btn>
+                  Login</v-btn>
                 </v-card-actions>
               </v-card>
               <br><br>
@@ -94,6 +94,7 @@
           <br><br>
             Don`t remember password?
             <v-btn
+            to="/user/findpw"
             >
             비밀번호 찾기
             </v-btn>
@@ -111,20 +112,20 @@
 
 
 <script>
-import PV from "password-validator";
-import { mapActions, mapState } from 'vuex'
+import {  mapState, mapGetters } from 'vuex'
+import http from '../../util/http-common';
 
 
 export default {
     data: () => {
     return {
+      info:{},
       email: "",
        emailRules:[
         v => !!v || '이메일을 입력해주세요.',
         v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || '이메일 형식을 지켜주세요'
       ],
       password: "",
-      passwordSchema: new PV(),
        passwordRules:[
         v => !!v || '비밀번호를 입력해주세요',
         v => /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(v) || '비밀번호는 글자, 숫자 포함 8자 이상입니다.',
@@ -137,49 +138,33 @@ export default {
       component: this
     };
   },
-
+  computed: {
+    ...mapGetters(['user']),
+  },
+  
    methods:{
-    ...mapActions({
-      loginSubmit:'user/login',
- 
-    }),
     login(){
-      this.loginSubmit({'id':this.email, 'password': this.password})
-      this.$router.push('/');
+      http.post('/user/login', {
+            email: this.email,
+            password: this.password,
+        })
+        .then(response => {
+          let msg = '로그인 실패.';
+          window.console.log(response);
+          if (response.data.email != null) {
+            this.info = response.data
+            localStorage.clear();
+            localStorage.setItem('id', response.data.email);
+          }else{
+             alert(msg);
+          }
+          //홈으로 이동 + 새로고침
+          this.$router.push('/');
+          this.$router.go('/');
+         
+        });
    },
   },
-
-   /*
-    OnLogin() {
-      if (this.isSubmit) {
-        let { email, password } = this;
-        let data = {
-          email,
-          password
-        };
-
-        this.isSubmit = false;
-
-        UserApi.requestLogin(
-          data,
-          res => {
-
-          alert('로그인에 성공하였습니다.')
-          localStorage.clear();
-          localStorage.setItem('id', data.email);
-          localStorage.setItem('name', data.nickname);
-
-          this.isSubmit = true;
-          this.$router.push("/feed/main");
-
-          },
-          error => {
-            this.isSubmit = true;
-          }
-        );
-      }
-    }
-      */
 
 
 };
