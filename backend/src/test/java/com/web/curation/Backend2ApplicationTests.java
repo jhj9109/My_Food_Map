@@ -1,10 +1,13 @@
-package com.web.blog;
+package com.web.curation;
 
 import org.junit.jupiter.api.Test;
-
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class WebBlogApplicationTests {
+class Backend2ApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
 
 }
