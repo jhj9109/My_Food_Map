@@ -5,11 +5,12 @@
     max-width="374"
   >
     <v-img
+			@click="onClick"
       height="250"
       src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
     ></v-img>
 
-    <v-card-title>어썸한 가게</v-card-title>
+    <v-card-title @click="onClick">어썸한 가게</v-card-title>
 
     <v-card-text>
       <v-row
@@ -54,6 +55,9 @@
     }),
 
     methods: {
+			onClick(){
+				this.$router.push('/restaurant/review');
+			}
     },
   }
 </script>
