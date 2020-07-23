@@ -12,35 +12,18 @@
         class="red lighten-1 text-center"
       >
         <v-card-text>
-           <v-btn v-if="this.islogin" to="/user/mypage">
-        <v-icon>mdi-account</v-icon>
-        </v-btn>
+          <v-btn :to=" this.islogin ? '/user/mypage' : '/user/login' ">
+            <v-icon>mdi-account</v-icon>
+          </v-btn>
 
-      <v-btn v-else to="/user/login">
-        <v-icon>mdi-account</v-icon>
-      </v-btn>
-
-          <v-btn
-            class="mx-4"
-            icon
-          >
+          <v-btn to="/restaurant" class="mx-4" icon>
             <v-icon size="24px">mdi-home</v-icon>
           </v-btn>
 
-           <v-btn
-            class="mx-4"
-            icon
-          >
-            <v-icon size="24px" @click="Posting">mdi-lead-pencil</v-icon>
+           <v-btn to="/review/create" class="mx-4" icon >
+            <!-- <v-icon size="24px" @click="Posting">mdi-lead-pencil</v-icon> -->
+            <v-icon size="24px">mdi-lead-pencil</v-icon>
           </v-btn>
-        </v-card-text>
-
-        
-
-        <v-divider></v-divider>
-
-        <v-card-text class="white--text">
-          {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
         </v-card-text>
       </v-card>
     </v-footer>
@@ -122,7 +105,6 @@ export default {
 
 }
 </script>
-<style scoped>
-
+<style >
 </style>
      
