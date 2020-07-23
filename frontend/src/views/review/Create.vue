@@ -7,8 +7,9 @@
               md="4"
             >
                 <v-card-title>
-                    <h1 class="display-1">리뷰 작성</h1>
+                    <h1 class="display-1">리뷰 작성</h1>    
                 </v-card-title>
+				
                 <v-card-text>
                     <v-form>
                         <v-text-field
@@ -16,23 +17,34 @@
                             :autofocus="true"
                             v-model="review.place"
                         />
+                        <v-img
+                            v-if="review.image.url"
+                            :src="review.image.url"
+                            height="250px"
+                            width="375px"
+                        ></v-img>
                         <v-textarea 
                             label="Content"
                             :outlined="true"
                             v-model="review.content"
                         />
-                        <v-file-input
-                            :rules="rules"
-                            prepend-icon="mdi-camera"
-                            accept="image/png, image/jpeg, image/bmp"
-                            label="이미지 첨부하기"
-                            v-model="review.image"
+                        <v-text-field
+                            label="이미지 첨부"
+                            @click='pickFile'
+                            v-model='review.image.name'
+                            prepend-inner-icon='mdi-camera'>
+                        </v-text-field>
+                        <input
+                            type="file"
+                            style="display: none"
+                            ref="image"
+                            accept="image/*"
+                            @change="onFilePicked"
                         >
-                        </v-file-input>
                     </v-form>
 
                 </v-card-text>
-                <v-card-actions class="ml-5 mr-5">
+                    <v-card-actions class="ml-5 mr-5">
                     <v-select
                         width="50"
                         :loader-height="1"
@@ -61,19 +73,25 @@ export default {
                 place: "",
                 content: "",
                 rank: null,
-                image: '',
+				image: {
+					name: '',
+					url: '',
+					file: '',
+				}
             },
+            title: "Image Upload",
+            dialog: false,
             rules: [
                 value => !value || value.size < 2000000 || 'Img size should be less than 2 MB!',
             ],
         }
     },
     methods: {
-        onCreate() {
-            console.log("onCraete",this.review)
-            // this.requestCreate(this.review)
-            // this.$router.push('/review/리뷰아티클주소');
-        },
+        // onCreate() {
+        //     console.log("onCraete",this.review)
+        //     // this.requestCreate(this.review)
+        //     // this.$router.push('/review/리뷰아티클주소');
+        // },
         // onCreate2(){
         //     http.post('/review/create', {
         //             review: this.review
@@ -89,6 +107,47 @@ export default {
         //             //에러페이지로 이동?
         //         })
         // },
+        // onClickImageUpload() {
+        //     this.$refs.imageInput.click();
+        // },
+        // onChangeImages(e) {
+        //     console.log("이미지체인지",e)
+        //     console.log(e.target.files)
+        //     const file = e.target.files[0];
+        //     this.image = URL.createObjectURL(e.target.files[0]);
+        // },
+        pickFile() {
+			console.log("픽파일")
+			console.log(this)
+			console.log(this.$refs)
+			console.log(this.$refs.image) // ref에 등록된 이름 기준으로 찾아냄 => input
+            this.$refs.image.click()
+        },
+        onFilePicked(e) {
+            console.log("e입니다",e) // change 이벤트
+            console.log("e.target입니다",e.target) // input
+            console.log("e.target.files입니다",e.target.files) // Filelist
+            console.log("e.target.files[0]입니다",e.target.files[0]) // Filelist
+            console.log("URL.createObjectURL(e.target.files[0])입니다",URL.createObjectURL(e.target.files[0])) // Filelist
+        
+            const files = e.target.files
+            if (files[0] !== undefined) {
+                this.review.image.name = files[0].name
+                if (this.review.image.name.lastIndexOf('.') <= 0) {
+                    return
+                }
+                const fr = new FileReader()
+                fr.readAsDataURL(files[0])
+                fr.addEventListener('load', () => {
+                    this.review.image.url = fr.result
+                    this.review.image.file = files[0] // this is an image file that can be sent to server...
+                })
+            } else {
+                this.review.image.name = ''
+                this.review.image.url = ''
+                this.review.image.file = ''
+            }
+        }
 
     }
 }
