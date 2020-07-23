@@ -105,18 +105,18 @@
     </v-navigation-drawer>
 
 
- <div style="width:100%;height:150px;"></div>
+  <div style="width:100%;height:109px;"></div> 
     <v-sheet
       id="scrolling-techniques-3"
       class="overflow-y-auto"
     >
 
 
-<router-view></router-view>
+      <router-view></router-view>
 
-<div style="width:100%;height:20px;"></div>
-  <Footerbar />
     </v-sheet>
+  <div style="width:100%;height:85px;"></div>
+  <Footerbar />
   </v-app>
 </template>
 
