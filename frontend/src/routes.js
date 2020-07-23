@@ -7,6 +7,7 @@ import Findpw from './views/user/Findpw.vue'
 import Map from './views/map/map.vue'
 
 import Create from './views/review/Create.vue'
+import Restaurant from './views/review/Restaurant.vue'
 
 /*
 const checkToken = function(token){
@@ -64,5 +65,10 @@ export default [
         path : '/review/create',
         name : 'Create',
         component : Create
+    },
+    {
+        path : '/restaurant',
+        name : 'Restaurant',
+        component : Restaurant
     },   
 ]
