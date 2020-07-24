@@ -47,7 +47,7 @@
                       name="email"
                       v-model="email"
                       :rules="emailRules"
-                     placeholder="E-mail"
+                      placeholder="E-mail"
                       prepend-icon="mdi-account"
                       @keyup.enter="login"
                       type="text"
@@ -64,7 +64,7 @@
                       :counter="20"
                       placeholder="비밀번호"
                       outlined
-                       @keyup.enter="login"
+                      @keyup.enter="login"
                       type="password"
                     ></v-text-field>
 
@@ -112,8 +112,8 @@
 
 
 <script>
-import {  mapState, mapGetters } from 'vuex'
-import http from '../../util/http-common';
+import {  mapGetters } from 'vuex'
+// import http from '../../util/http-common';
 
 
 export default {
@@ -121,12 +121,12 @@ export default {
     return {
       info:{},
       email: "",
-       emailRules:[
+      emailRules:[
         v => !!v || '이메일을 입력해주세요.',
         v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || '이메일 형식을 지켜주세요'
       ],
       password: "",
-       passwordRules:[
+      passwordRules:[
         v => !!v || '비밀번호를 입력해주세요',
         v => /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(v) || '비밀번호는 글자, 숫자 포함 8자 이상입니다.',
       ],
@@ -143,27 +143,36 @@ export default {
   },
   
    methods:{
-    login(){
-      http.post('/user/login', {
-            email: this.email,
-            password: this.password,
-        })
-        .then(response => {
-          let msg = '로그인 실패.';
-          window.console.log(response);
-          if (response.data.email != null) {
-            this.info = response.data
-            localStorage.clear();
-            localStorage.setItem('id', response.data.email);
-          }else{
-             alert(msg);
-          }
-          //홈으로 이동 + 새로고침
-          this.$router.push('/');
-          this.$router.go('/');
+    // login(){
+    //   http.post('/user/login', {
+    //         email: this.email,
+    //         password: this.password,
+    //     })
+    //     .then(response => {
+    //       let msg = '로그인 실패.';
+    //       window.console.log(response);
+    //       if (response.data.email != null) {
+    //         this.info = response.data
+    //         localStorage.clear();
+    //         localStorage.setItem('id', response.data.email);
+    //       }else{
+    //          alert(msg);
+    //       }
+    //       //홈으로 이동 + 새로고침
+    //       this.$router.push('/');
+    //       this.$router.go('/');
          
-        });
-   },
+    //     });
+    // },
+    login(){
+      console.log("데이터 넣기", this.email, this.password)
+      const loginData = {
+        email: this.email,
+        password: this.password
+      }
+      console.log("데이터", loginData)
+      this.$store.dispatch('user/login', loginData)
+    }
   },
 
 
