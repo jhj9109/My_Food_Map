@@ -1,7 +1,7 @@
 import UserApi from '@/api/UserApi'
 import router from '../main'
-import http from "@/util/http-common";
-const axios = require('axios').default
+// import http from "@/util/http-common";
+// const axios = require('axios').default
 
 export default {
     namespaced: true,
@@ -50,23 +50,50 @@ export default {
           console.log(error)
         })
       },
-      join({ commit } , data) {
-        console.log(commit)
+      join(context , data) {
+        console.log(context)
         UserApi.requestSignup(
           data,
-          res=>{
+          res => {
+            console.log("res=>", res)
             if(res.data.state === 'ok'){
+              // res.data  : message:"회원가입에 성공하셨습니다.", status: "ok"
               alert('회원가입에 성공하셨습니다.')
               router.push({name:'Login'})
             } else {
               alert(res.data.message)
-              console.log(res)
             }
           },
-          err=>{
-            console.log(err)
+          err => {
+            console.error(err)
           }
         )
+      },
+      login(context , data) {
+        console.log("login 진입", data)
+        console.log(context)
+        UserApi.requestLogin(
+          data,
+          res => {
+            console.log("res =>", res)
+            if(!!res.data.userid) {
+              // alert('로그인에 성공하였습니다.')
+              // res.data : createDate, email, nickname, password, userid
+              console.log("성공, res.data =>", res.data)
+              router.push( {name : 'Map'})
+            } else {
+              console.log("실패, res.data =>", res.data)
+              // alert(res.data.message)
+            }
+          },
+          err => {
+            console.log("에러")
+            console.error(err)
+          }
+        )
+      },
+      logout() {
+        
       },      
     },
   }
