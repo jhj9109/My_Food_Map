@@ -77,6 +77,7 @@
                   </v-form>
                 </v-card-text>
                 <v-card-actions>
+                <v-spacer/>
                   <v-btn color="primary"
                   tile
                     @click="login()">
