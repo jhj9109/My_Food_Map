@@ -15,7 +15,4 @@ public class BackendApplication implements WebMvcConfigurer {
 	public static void main(String[] args) {
 		SpringApplication.run(BackendApplication.class, args);
 	}
-	
-	
-
 }
