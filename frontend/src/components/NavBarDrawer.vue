@@ -47,7 +47,7 @@ import { mapState } from 'vuex';
 export default {
   name: 'NavBarDrawer',
   computed: {
-    ...mapState(['drawerToggle', 'items'])
+    ...mapState('nav', ['drawerToggle', 'items'])
   },
   methods: {
     tempSetListData() {
@@ -55,7 +55,7 @@ export default {
         { title: 'Home', icon: 'mdi-home' },
         { title: 'About', icon: 'mdi-comment-account-outline' },
       ]
-      this.$store.commit('setItems', listData)
+      this.$store.commit('nav/setItems', listData)
     }
   },
   mounted() {

@@ -78,8 +78,8 @@ export default {
     ...mapState({
       id :state => state.user.id,
       userInfo: state => state.user.userInfo,
-      drawerToggle: state => state.drawerToggle, //필요
-      sampleData: state => state.sampleData,
+      drawerToggle: state => state.nav.drawerToggle, //필요
+      sampleData: state => state.nav.sampleData,
     })
   },
   
@@ -88,7 +88,7 @@ export default {
       getUserInfo: 'user/getUserInfo',
     }),
     ...mapMutations({
-      setDrawerToggle: 'setDrawerToggle', //불필요?
+      setDrawerToggle: 'nav/setDrawerToggle',
     }),
     logout(){
       localStorage.clear();
