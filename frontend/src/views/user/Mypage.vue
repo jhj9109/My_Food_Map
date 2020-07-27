@@ -60,13 +60,13 @@ computed:{
       })
     },
     methods:{
-    ...mapActions({
-      getUserInfo: 'user/getUserInfo',
-    }),
-    logout(){
-         localStorage.clear();
-         this.$router.push('/');
-         this.$router.go('/');
+      ...mapActions({
+        getUserInfo: 'user/getUserInfo',
+      }),
+      logout(){
+        localStorage.clear();
+        this.$router.push('/');
+        this.$router.go('/');
       },
     },
   created(){

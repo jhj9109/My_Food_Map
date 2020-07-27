@@ -6,6 +6,10 @@ import Findpw from './views/user/Findpw.vue'
 
 import Map from './views/map/map.vue'
 
+import Create from './views/review/Create.vue'
+import Restaurant from './views/review/Restaurant.vue'
+import RestaurantReview from './views/review/RestaurantReview.vue'
+
 /*
 const checkToken = function(token){
     return token===null || token==='';
@@ -58,5 +62,19 @@ export default [
         name : 'Map',
         component : Map
     },
-   
+    {
+        path : '/review/create',
+        name : 'Create',
+        component : Create
+    },
+    {
+        path : '/restaurant',
+        name : 'Restaurant',
+        component : Restaurant
+    },
+    {
+        path : '/restaurant/review',
+        name : 'RestaurantReview',
+        component : RestaurantReview
+    },
 ]
