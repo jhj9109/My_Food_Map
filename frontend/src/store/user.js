@@ -1,74 +1,100 @@
 import UserApi from '@/api/UserApi'
 import router from '../main'
-import http from "@/util/http-common";
-const axios = require('axios').default
-
-const state = {
-    userInfo : {}, 
-    id: localStorage.getItem("id")
-}
-
-const getters = {
-  isLogin: function(state){
-    var id = state.id
-    if(id==null){
-      return false
-    }else{
-      return true
-    }
-  }
-}
-
-const actions = {
-
-  getUserInfo({ commit }){
-    UserApi.requestUserInFo(res=>{
-      if (res.data.userid != null){
-        commit('setUserInfo', res.data)
-      }else{
-        console.log(`유저 정보 조회 실패 : ${res.data}`)
-      }
-    },error=>{
-      console.log(error)
-    })
-  },
-
-  
-    Join({ commit },data){
-      UserApi.requestSignup(data,
-        res=>{
-          if(res.data.state === 'ok'){
-            alert('회원가입에 성공하셨습니다.')
-            router.push({name:'Login'})
-          }else{
-            alert(res.data.message)
-            console.log(res)
-          }
-        },err=>{
-          console.log(err)
-        })
-    },
-}
-
-const mutations = {
-    getId (state) {
-      state.id = localStorage.getItem("id")
-    },
-    delId (state) {
-      localStorage.removeItem("id")
-      state.id = null
-    },
-    setUserInfo(state, data){
-      state.userInfo = data
-      console.log('성공', state.userInfo)
-    },
-}
+// import http from "@/util/http-common";
+// const axios = require('axios').default
 
 export default {
     namespaced: true,
-    state,
-    getters,
-    actions,
-    mutations
+
+    state: {
+      userInfo : {}, 
+      id: localStorage.getItem("id"),
+    },
+    
+    getters: {
+      isLogin: function(state){
+        var id = state.id
+        if(id==null){
+          return false
+        }else{
+          return true
+        }
+      },
+    },
+    
+    mutations: {
+      getId (state) {
+        state.id = localStorage.getItem("id")
+        console.log('getId 성공', state.id)
+      },
+      delId (state) {
+        localStorage.removeItem("id")
+        state.id = null
+        console.log('delId 성공', state.id)
+      },
+      setUserInfo(state, data){
+        state.userInfo = data
+        console.log('setUserInfo 성공', state.userInfo)
+      },
+    },
+    
+    actions: {
+      getUserInfo({ commit }){
+        UserApi.requestUserInFo(res=>{
+          if (res.data.userid != null){
+            commit('setUserInfo', res.data)
+          }else{
+            console.log(`유저 정보 조회 실패 : ${res.data}`)
+          }
+        },error=>{
+          console.log(error)
+        })
+      },
+      join(context , data) {
+        console.log(context)
+        UserApi.requestSignup(
+          data,
+          res => {
+            console.log("res=>", res)
+            if(res.data.state === 'ok'){
+              // res.data  : message:"회원가입에 성공하셨습니다.", status: "ok"
+              alert('회원가입에 성공하셨습니다.')
+              router.push({name:'Login'})
+            } else {
+              alert(res.data.message)
+            }
+          },
+          err => {
+            console.error(err)
+          }
+        )
+      },
+      login(context , data) {
+        console.log("login 진입", data)
+        console.log(context)
+        UserApi.requestLogin(
+          data,
+          res => {
+            console.log("res =>", res)
+            if(!!res.data.userid) {
+              // alert('로그인에 성공하였습니다.')
+              // res.data : createDate, email, nickname, password, userid
+              console.log("성공, res.data =>", res.data)
+              router.push( {name : 'Map'})
+            } else {
+              console.log("실패, res.data =>", res.data)
+              // alert(res.data.message)
+            }
+          },
+          err => {
+            console.log("에러")
+            console.error(err)
+          }
+        )
+      },
+      logout() {
+        
+      },      
+    },
   }
   
