@@ -1,11 +1,11 @@
 <template>
-
+    
   <v-navigation-drawer
     v-model="drawerToggle"
     fixed
     temporary
     right
-    width="380"
+    width="250"
   >
     <v-list-item>
       <v-list-item-avatar>
@@ -13,14 +13,13 @@
       </v-list-item-avatar>
 
       <v-list-item-content>
-        <v-list-item-title>>유저님</v-list-item-title>
+        <v-list-item-title> "User_id" 유저님</v-list-item-title>
       </v-list-item-content>
     </v-list-item>
 
     <v-divider></v-divider>
 
     <v-list dense>
-
       <v-list-item
         v-for="item in items"
         :key="item.title"
@@ -54,6 +53,7 @@ export default {
       const listData = [
         { title: 'Home', icon: 'mdi-home' },
         { title: 'About', icon: 'mdi-comment-account-outline' },
+        { title: "Settings", icon: 'mdi-settings'},
       ]
       this.$store.commit('nav/setItems', listData)
     }
