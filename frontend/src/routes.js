@@ -10,6 +10,7 @@ import Create from './views/review/Create.vue'
 import Restaurant from './views/review/Restaurant.vue'
 import RestaurantReview from './views/review/RestaurantReview.vue'
 
+import ReviewList from './views/review/ReviewList.vue'
 /*
 const checkToken = function(token){
     return token===null || token==='';
@@ -76,5 +77,10 @@ export default [
         path : '/restaurant/review',
         name : 'RestaurantReview',
         component : RestaurantReview
+    },
+    {
+        path : '/review/list',
+        name : 'ReviewList',
+        component : ReviewList,
     },
 ]

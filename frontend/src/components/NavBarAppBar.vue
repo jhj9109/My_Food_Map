@@ -60,7 +60,7 @@
       fixed-tabs
       >
         <v-tab to="/map/map">지도</v-tab>
-        <v-tab>전체 게시글</v-tab>
+        <v-tab to="/review/list">전체 게시글</v-tab>
         <v-tab>Tab 3</v-tab>
       </v-tabs>
     </template>
