@@ -77,13 +77,17 @@ export default {
           res => {
             console.log("res =>", res)
             if(!!res.data.userid) {
-              // alert('로그인에 성공하였습니다.')
               // res.data : createDate, email, nickname, password, userid
+              alert('로그인에 성공하였습니다.')
               console.log("성공, res.data =>", res.data)
+              
+              // 임시로 이메일 저장
+              localStorage.token = res.data.email
+
               router.push( {name : 'Map'})
             } else {
               console.log("실패, res.data =>", res.data)
-              // alert(res.data.message)
+              alert(res.data.message || '로그인에 실패하였습니다')
             }
           },
           err => {
