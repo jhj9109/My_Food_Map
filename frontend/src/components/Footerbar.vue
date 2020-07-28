@@ -9,7 +9,7 @@
         flat
         tile
         width="100%"
-        class="red lighten-1 text-center"
+        class="amber darken-1 text-center"
       >
         <v-card-text>
           <v-btn :to=" this.islogin ? '/user/mypage' : '/user/login' ">

@@ -53,7 +53,7 @@ export default {
       const listData = [
         { title: 'Home', icon: 'mdi-home' },
         { title: 'About', icon: 'mdi-comment-account-outline' },
-        { title: "Settings", icon: 'mdi-settings'},
+        { title: "Settings", icon: 'mdi-settings-box'},
       ]
       this.$store.commit('nav/setItems', listData)
     }

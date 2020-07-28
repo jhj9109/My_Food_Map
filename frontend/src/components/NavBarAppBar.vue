@@ -1,6 +1,6 @@
 <template>
   <v-app-bar
-    color="red lighten-1"
+    color="amber darken-1"
     dark
     fixed
     scroll-target="#scrolling-techniques-3"
@@ -43,10 +43,10 @@
   </v-btn>
   </div>
 
-    
+    <!-- https://materialdesignicons.com/cdn/2.0.46/ MID 아이콘 -->
     <v-btn icon style="margin-top:10px"
     @click.native.stop="setDrawerToggle">
-      <v-icon>mdi-dots-vertical</v-icon>
+      <v-icon>mdi-dots-horizontal</v-icon>
     </v-btn>
 
     <v-badge dot style="margin-top:10px">
@@ -54,7 +54,7 @@
     넣어서 새로운 알람 있을때 불들어오게-->
       <v-icon>mdi-bell</v-icon>
     </v-badge>
-      
+    
     <template v-slot:extension>
       <v-tabs 
       fixed-tabs
