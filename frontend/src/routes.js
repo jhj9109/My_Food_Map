@@ -10,6 +10,14 @@ import Create from './views/review/Create.vue'
 import Restaurant from './views/review/Restaurant.vue'
 import RestaurantReview from './views/review/RestaurantReview.vue'
 
+import ErrorPage from './views/exception/Error.vue'
+import NotFound from './views/exception/NotFound.vue'
+
+import IndexFeed from './views/feed/IndexFeed.vue'
+import Components from './views/Components.vue'
+
+
+
 /*
 const checkToken = function(token){
     return token===null || token==='';
@@ -76,5 +84,25 @@ export default [
         path : '/restaurant/review',
         name : 'RestaurantReview',
         component : RestaurantReview
+    },
+    {
+        path : '/error',
+        name : 'ErrorPage',
+        component : ErrorPage
+    },
+    {
+        path : '/components',
+        name : 'Components',
+        component : Components
+    },
+    {
+        path : '/IndexFeed',
+        name : 'IndexFeed',
+        component : IndexFeed
+    },
+    {
+        path : '*',
+        name : 'NotFound',
+        component : NotFound
     },
 ]
