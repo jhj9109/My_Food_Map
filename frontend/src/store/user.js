@@ -83,7 +83,7 @@ export default {
               
               // 임시로 이메일 저장
               localStorage.token = res.data.email
-
+              // 로그인 후 Map으로 일괄 이동 (나중에 수정 요구됨)
               router.push( {name : 'Map'})
             } else {
               console.log("실패, res.data =>", res.data)
@@ -96,8 +96,23 @@ export default {
           }
         )
       },
-      logout() {
-        
+      logout(context , header) {
+        console.log(context)
+        UserApi.requestLogout(
+          header,
+          res => {
+            if(res.data.status === 'ok') {
+              console.log("서버의 토큰도 삭제 되었습니다.")
+            } else {
+              console.log("서버의 토큰 삭제엔 실패했습니다.")
+            }
+          },
+          err => {
+            console.error(err)
+          }
+        )
+        delete localStorage.token
+        router.push({ name : 'Login'})
       },      
     },
   }
