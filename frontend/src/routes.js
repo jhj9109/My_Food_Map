@@ -44,7 +44,10 @@ const  ifNotAuthenticated = (to, from, next) => {
 
 
 export default [
-
+    {
+        path : '/',
+        redirect : { name : 'Map'}
+    },
     {
         path : '/user/login',
         name : 'Login',
