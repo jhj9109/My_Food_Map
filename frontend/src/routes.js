@@ -2,7 +2,9 @@
 import Login from './views/user/Login.vue'
 import Join from './views/user/Join.vue'
 import Mypage from './views/user/Mypage.vue'
+import UserPage from './views/user/UserPage.vue'
 import Findpw from './views/user/Findpw.vue'
+import Logout from './views/user/Logout.vue'
 
 import Map from './views/map/map.vue'
 
@@ -42,70 +44,79 @@ const  ifNotAuthenticated = (to, from, next) => {
 
  */
 
-
 export default [
-    {
-        path : '/',
-        redirect : { name : 'Map'}
-    },
-    {
-        path : '/user/login',
-        name : 'Login',
-        component : Login,
-    },
-    {
-        path : '/user/join',
-        name : 'Join',
-        component : Join
-    },
-    {
-        path : '/user/mypage',
-        name : 'Mypage',
-        component : Mypage
-    },
-    {
-        path : '/user/findpw',
-        name : 'Findpw',
-        component : Findpw
-    },
-    {
-        path : '/map/map',
-        name : 'Map',
-        component : Map
-    },
-    {
-        path : '/review/create',
-        name : 'Create',
-        component : Create
-    },
-    {
-        path : '/restaurant',
-        name : 'Restaurant',
-        component : Restaurant
-    },
-    {
-        path : '/restaurant/review',
-        name : 'RestaurantReview',
-        component : RestaurantReview
-    },
-    {
-        path : '/error',
-        name : 'ErrorPage',
-        component : ErrorPage
-    },
-    {
-        path : '/components',
-        name : 'Components',
-        component : Components
-    },
-    {
-        path : '/IndexFeed',
-        name : 'IndexFeed',
-        component : IndexFeed
-    },
-    {
-        path : '*',
-        name : 'NotFound',
-        component : NotFound
-    },
+	{
+		path : '/',
+		redirect : { name : 'Map'}
+	},
+	{
+		path : '/user/login',
+		name : 'Login',
+		component : Login,
+	},
+	{
+		path : '/user/join',
+		name : 'Join',
+		component : Join
+	},
+	{
+		path: '/user/logout',
+		name: 'Logout',
+		component : Logout,
+	},
+	{
+		path : '/user/mypage',
+		name : 'Mypage',
+		component : Mypage
+	},
+	{
+		path : '/user/findpw',
+		name : 'Findpw',
+		component : Findpw
+	},
+	{
+		path : '/user/:userId',
+		name : 'UserPage',
+		component : UserPage
+	},
+	{
+		path : '/map/map',
+		name : 'Map',
+		component : Map
+	},
+	{
+		path : '/review/create',
+		name : 'Create',
+		component : Create
+	},
+	{
+		path : '/restaurant',
+		name : 'Restaurant',
+		component : Restaurant
+	},
+	{
+		path : '/restaurant/review',
+		name : 'RestaurantReview',
+		component : RestaurantReview
+	},
+	{
+		path : '/error',
+		name : 'ErrorPage',
+		component : ErrorPage
+	},
+	{
+		path : '/components',
+		name : 'Components',
+		component : Components
+	},
+	{
+		path : '/IndexFeed',
+		name : 'IndexFeed',
+		component : IndexFeed
+	},
+	{
+		path : '*',
+		name : 'NotFound',
+		component : NotFound
+	},
 ]
