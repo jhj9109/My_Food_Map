@@ -262,6 +262,18 @@ public String personalWrite(@PathVariable String id, Model model, HttpSession se
 
 
 
+## 2020-07-29 :cloud_with_rain:
+
+### Follow
+
+#### Modeling
+
+- `follow` 테이블
+- no(pk), followerId(fk), followingId(fk)
+- 
+
+
+
 # :honey_pot: Tip
 
 - `Ctrl + Shift + O` : 자동으로 import
