@@ -2,28 +2,22 @@ package com.web.curation.model.service;
 
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Optional;
 
-import javax.persistence.EntityNotFoundException;
-
-import org.apache.commons.mail.EmailException;
-import org.apache.ibatis.session.SqlSessionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.web.curation.exception.MyException;
+import com.web.curation.model.dto.FollowDto;
 import com.web.curation.model.dto.MemberDto;
 import com.web.curation.model.dto.MemberPwDto;
+import com.web.curation.model.repository.FollowDao;
 import com.web.curation.model.repository.RegisterDao;
 import com.web.curation.util.MailUtil;
 @Service
 public class UserServiceImpl implements UserService{
 	@Autowired
 	RegisterDao userRepository;
+	FollowDao followDao;
 
-
-	
 	@Override
 	public void join(MemberDto member) throws Exception {
 			userRepository.join(member);
@@ -148,7 +142,27 @@ public class UserServiceImpl implements UserService{
 		}
 		return null;
 	}
+	
+	// follow
 
+	@Override
+	public void insertFollow(FollowDto follow) {
+		followDao.insertFollow(follow);
+	}
 
+	@Override
+	public void deleteFollow(FollowDto follow) {
+		followDao.deleteFollow(follow);
+	}
+
+	@Override
+	public boolean searchFollow(FollowDto follow) {
+		FollowDto dto = followDao.searchFollow(follow);
+		if (dto==null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 
 }
