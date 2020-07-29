@@ -35,8 +35,8 @@ export default {
     data() {
         return {
             review_list: [],
-            review_id: '',
-            user_id: '',
+            reviewid: '',
+            userid: '',
         }
     },
     methods: {
@@ -44,22 +44,30 @@ export default {
             const API_REVIEW_LIST_URL = API_BASE_URL + '/review/list'
             const config = {}
             http.post(API_REVIEW_LIST_URL, config)
-                .then(res => {
-                    this.review_list = res.data
-                })
-                .catch(err => {
-                    console.error(err)
-                })
+              .then(res => {
+                this.review_list = res.data
+              })
+              .catch(err => {
+                console.error(err)
+              })
         },
         ...mapActions({
             getUserInfo: 'user/getUserInfo',
         }),
         likeReview(review) {
-            // const API_REVIEW_LIST_URL = API_BASE_URL + '/review/like'
-            // const config = {}
-            this.review_id = review.no
-            this.user_id = this.userInfo.userid
-            console.log(this.review_id, this.user_id)
+            const API_LIKE_URL = API_BASE_URL + '/review/like'
+            const config = {
+                reviewid: review.no,
+                userid: this.userInfo.userid
+            }
+            http.post(API_LIKE_URL, config)
+              .then(res => {
+                console.log('dd')
+              })
+              .catch(err => {
+                console.error(err)
+              })
+            // console.log(this.review_id, this.user_id)
         }
     },
     created() {

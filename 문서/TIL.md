@@ -262,6 +262,29 @@ public String personalWrite(@PathVariable String id, Model model, HttpSession se
 
 
 
+## 2020-07-29 :cloud_with_rain:
+
+### Follow
+
+#### Modeling
+
+- `follow` 테이블
+- no(pk), followerId(fk: user-userId), followingId(fk: user-userId)
+
+#### 함수
+
+- follow 테이블에 데이터를 insert, delete
+- follower, following 몇 명인지 세는 함수?
+
+
+
+### Git 폴더와 sts 연동
+
+1. sts의 Git repositories에 깃 폴더 추가
+   - Git 폴더가 이미 존재하면 Add ~
+   - 아닐 땐 Clone ~
+2. 해당 repository를 Import
+
 # :honey_pot: Tip
 
 - `Ctrl + Shift + O` : 자동으로 import
