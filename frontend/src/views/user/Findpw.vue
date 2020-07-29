@@ -18,17 +18,18 @@
     </v-card-text>
 
     <v-text-field
-            v-model="checkemail"
-            :counter="6"
-            label="인증코드"
-            required
-          ></v-text-field>
+      v-model="checkemail"
+      :counter="6"
+      label="인증코드"
+      required
+    >
+    </v-text-field>
 
     <v-card-actions>
       <v-btn
         color="orange"
         text
-        @click="check()"
+        @click="tempCheck()"
       >
         확인
       </v-btn>
@@ -45,9 +46,6 @@
 
 
 <script>
-import {  mapState, mapGetters } from 'vuex'
-import http from '../../util/http-common';
-
 
 export default {
     data: () => {
@@ -55,17 +53,14 @@ export default {
       info:{},
       checkemail:'',
       isSubmit: false,
-
     };
   },
 
    methods:{
-    check(){
-     
+    tempCheck(){
+     console.log("확인 버튼 눌림")
    },
   },
-
-
 };
 </script>
 
