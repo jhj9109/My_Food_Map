@@ -266,6 +266,13 @@ public String personalWrite(@PathVariable String id, Model model, HttpSession se
 
 ### Follow
 
+- Review List 페이지에서 리뷰 작성자를 조회할 수 있어야 함
+  - review 테이블에는 작성자 nickname이 없어서 user 테이블도 참조해야 함
+    - back에서 같이 넘겨줘야 하는 건가?
+  - 상세 페이지 url에 들어갈 userid를 가져오기 위해 작성자 데이터 필요
+  - profile page url로 넘어갈 때 프론트에서 작성자와 관련된 특정 데이터(nickname?)를 백으로 넘겨주고, 백에서 그걸 이용해서 작성자와 관련된 데이터를 가져와 다시 프론트로 넘겨주면서 profile page 나오게? 하는 건가?? 후...
+  - 팔로우 상태에 따라서 버튼 다르게 보여줘야 하니까 팔로우 상태를 갱신하기 위한 그런 함수.. 필요하겠지...
+
 #### Modeling
 
 - `follow` 테이블
@@ -278,7 +285,7 @@ public String personalWrite(@PathVariable String id, Model model, HttpSession se
 - follower list, following list 조회하는 함수?
   - 이게 있으면 몇 명인지 세는 함수가 따로 필요 없을까?
 
-#### 
+
 
 ### Like
 
