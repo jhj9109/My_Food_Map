@@ -18,7 +18,13 @@
         </v-card-text>
         <v-card-actions>
         <v-btn icon @click="likeReview(review)">
-            <v-icon>mdi-heart</v-icon>
+            <v-icon color="#FF1744">mdi-heart</v-icon>
+        </v-btn>
+        <v-btn icon>
+            <v-icon>mdi-bookmark</v-icon>
+        </v-btn>
+        <v-btn icon>
+            <v-icon>mdi-share-variant</v-icon>
         </v-btn>
         </v-card-actions>
     </v-card>
@@ -35,8 +41,6 @@ export default {
     data() {
         return {
             review_list: [],
-            reviewid: '',
-            userid: '',
         }
     },
     methods: {
@@ -60,6 +64,7 @@ export default {
                 reviewid: review.no,
                 userid: this.userInfo.userid
             }
+            console.log(config)
             http.post(API_LIKE_URL, config)
               .then(res => {
                 console.log('dd')

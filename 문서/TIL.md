@@ -275,6 +275,21 @@ public String personalWrite(@PathVariable String id, Model model, HttpSession se
 
 - follow 테이블에 데이터를 insert, delete
 - follower, following 몇 명인지 세는 함수?
+- follower list, following list 조회하는 함수?
+  - 이게 있으면 몇 명인지 세는 함수가 따로 필요 없을까?
+
+#### 
+
+### Like
+
+- 아이콘 색깔을 바로바로 바꿔줄 수 있도록, 현재 로그인 된 사용자가 해당 리뷰에 좋아요를 했는지 판단하는 함수? 가 필요할까?
+
+
+
+### Error
+
+- Optional int parameter 'reviewid' is present but cannot be translated into a null value due to being declared as a primitive type. Consider declaring it as object wrapper for the corresponding primitive type."
+  - int 타입은 null 값이 들어갈 수 없어서 나는 거 같은데 해결 방법을 못 찾겠다 :cry:
 
 
 
@@ -291,3 +306,4 @@ public String personalWrite(@PathVariable String id, Model model, HttpSession se
 
 - `Ctrl + Shift + O` : 자동으로 import
 - `Ctrl + Space bar` : 자동완성
+- `Ctrl + y` : 실행 앞으로 (**Crtl + z**와 반대)

@@ -59,7 +59,7 @@ public class ReviewController {
 
 	@ApiOperation(value="좋아요")
 	@RequestMapping(value="/review/like", method=RequestMethod.POST)
-	public ResponseEntity<Map<String, Object>> insertUser(@PathVariable  int reviewid, int userid) throws Exception {
+	public ResponseEntity<Map<String, Object>> insertUser(int reviewid, int userid) throws Exception {
 		LikeDto dto = new LikeDto();
 		dto.setReviewid(reviewid);
 		dto.setUserid(userid);
