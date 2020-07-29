@@ -21,6 +21,7 @@
                         <v-list-item-action style="width:30%;">
                             <v-btn
                                 depressed="depressed"
+                                @click="onInfoChange()"
                                 class="ma-2 widfull"
                                 outlined="outlined"
                                 color="primary">
@@ -29,7 +30,7 @@
                             </v-btn>
                             <v-btn
                                 depressed="depressed"
-                                @click="logout()"
+                                @click="onPasswordChange()"
                                 class="ma-2 widfull"
                                 outlined="outlined"
                                 color="primary">
@@ -53,22 +54,22 @@
 import { mapActions,mapState } from 'vuex';
 
 export default {
-
-computed:{
-      ...mapState({
-        userInfo: state => state.user.userInfo,
+  computed:{
+    ...mapState({
+      userInfo: state => state.user.userInfo,
       })
+  },
+  methods:{
+    ...mapActions({
+      getUserInfo: 'user/getUserInfo',
+    }),
+    onInfoChange(){
+      console.log("유저 정보 변경 버튼 눌림")
     },
-    methods:{
-      ...mapActions({
-        getUserInfo: 'user/getUserInfo',
-      }),
-      logout(){
-        localStorage.clear();
-        this.$router.push('/');
-        this.$router.go('/');
-      },
+    onPasswordChange(){
+      console.log("비밀번호 변경 버튼 눌림")
     },
+  },
   created(){
     this.getUserInfo()
   },
@@ -76,5 +77,5 @@ computed:{
 
 </script>
 <style scoped>
-hr.sero{height:100%; width:1px; border-right:1px solid black;}
+  hr.sero{height:100%; width:1px; border-right:1px solid black;}
 </style>
