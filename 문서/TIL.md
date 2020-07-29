@@ -1,15 +1,8 @@
-# Today I Learned
+# :pencil2: ​Today I Learned
 
 
 
-## :honey_pot: Tip
-
-- `Ctrl + Shift + O` : 자동으로 import
-- `Ctrl + Space bar` : 자동완성
-
-
-
-## 2020-07-24
+## 2020-07-24 :sun_behind_rain_cloud:
 
 ### 흐름
 
@@ -48,7 +41,7 @@
 
 
 
-## 2020-07-26
+## 2020-07-26 :sunny:
 
 ### 스프링 코드 짜는 흐름
 
@@ -91,3 +84,185 @@
 
 1. Dao(Data Access Object)
 2. Strorage에 접근해 데이터를 조작
+
+
+
+### 좋아요 기능 구현
+
+> 참고
+> [https://kwakkwakkwak.github.io/spring/2017/12/18/Sprng-%EC%A2%8B%EC%95%84%EC%9A%94%EA%B8%B0%EB%8A%A5/](https://kwakkwakkwak.github.io/spring/2017/12/18/Sprng-좋아요기능/)
+
+
+
+#### 1. DB 모델링
+
+- table : review_like - 좋아요 기능을 위한 테이블
+  - 좋아요를 누른 사용자와 해당 게시글 각각의 id를 저장
+  - reviewLikeId - PK
+  - userId(email) - FK
+  - reviewId - FK
+
+#### 2. Mapper
+
+```java
+// 좋아요 데이터 추가
+<insert id="createReviewLike">
+     INSERT INTO review_like (review_id, email)
+     VALUES (#{reviewId}, #{email})
+</insert>
+
+// 요청 보낸 사용자의 해당 리뷰 좋아요 데이터 삭제
+<delete id="deleteReviewLike">
+     DELETE FROM review_like
+     WHERE review_id = #{reviewId} AND email = #{email}
+</delete>
+
+// 해당 리뷰의 좋아요 개수 갱신
+<select id="updateReviewLike">
+    UPDATE review
+    SET
+    review_like_cnt = (SELECT COUNT(*)
+                     FROM review_like
+                     WHERE review_id = #{reviewId})
+    WHERE review_id = #{reviewId}
+</select>
+
+// 해당 리뷰의 좋아요 개수 반환
+<select id="getReviewLike" resultType="int">
+    SELECT COUNT(review_like_id) FROM review_like WHERE review_id = #{reviewId} AND email = #{email}
+</select>
+```
+
+#### 3. Dao
+
+- session을 이용해 데이터를 조작하는 함수를 정의
+
+#### 4. Service
+
+- 함수를 정의하고, 그 함수에서 실행할 dao 함수 실행
+- 좋아요, 좋아요 취소 함수는 그에 해당하는 함수도 실행하고, review의 like 개수를 갱신하는 함수도 실행해야 함
+
+#### 5. Controller
+
+- 함수를 실행할 url과 요청 받을 method를 mapping
+- 좋아요 돼 있으면 delete, 안 돼 있으면 insert
+- 좋아요 여부를 나타내는 변수(heart)의 값도 변경
+
+
+
+## 2020-07-27 :sun_behind_rain_cloud:
+
+### swagger-ui
+
+localhost:`server port`/swagger-ui.html
+
+
+
+### Follow 기능 구현
+
+> 참고
+> https://yeahajeong.tistory.com/102
+
+
+
+#### Controller
+
+```java
+@Autowired
+private IFollowService followService;
+
+//personal-list 요청 : 개인 게시물 보이는 페이지
+@RequestMapping(value="/{id}", method=RequestMethod.GET)
+public String personalList(@PathVariable String id, Model model, HttpSession session) throws Exception {
+	
+	//개인 페이지 주인 정보 담기
+	UsersVO user = usersService.inquiryOfUserById(id);
+	//로그인한 회원 (=나) 정보 담기
+	Object object = session.getAttribute("login");
+	UsersVO loginUser = (UsersVO)object;
+	
+	//개인페이지의 유저 번호 가져오기
+	int userNo = user.getUserNo();
+	//로그인 회원 유저 번호 가져오기
+	int loginUserNo = loginUser.getUserNo();
+	logger.info("현재 페이지 주인의 번호 : " + userNo + ", 로그인 유저의 번호 : " + loginUserNo);
+	
+	//팔로우 객체 생성
+	FollowVO follow = new FollowVO();
+	follow.setActiveUser(loginUserNo); 	//하는놈
+	follow.setPassiveUser(userNo);		//당하는놈
+	
+	//팔로우 유무 체크
+	int followCheck = followService.isFollow(follow);
+	logger.info("팔로우 유무 체크 : " + followCheck);
+
+	//팔로워 리스트 -> (개인페이지에서)나를 팔로우하는 놈들 목록
+	List<FollowVO> followerList = followService.selectPassiveUserList(userNo);
+	//팔로잉리스트 -> (개인페이지에서) 내가 팔로우 하는 놈들 목록
+	List<FollowVO> followingList = followService.selectActiveUserList(userNo);
+	
+	//사용자 아이디로 사용자 번호(pk)를 조회해서 그 번호로 게시물 가져오기
+	model.addAttribute("post", postsService.selectPostListById(id));
+	//사용자 아이디로 회원의 모든 정보 조회하기
+	model.addAttribute("user", user);
+	//팔로우 체크 유무
+	model.addAttribute("followCheck", followCheck);
+	//팔로워 리스트
+	model.addAttribute("followerList", followerList);
+	//팔로잉 리스트
+	model.addAttribute("followingList", followingList);
+	
+	return "post/personal-list";
+}
+//게시글 작성 페이지 personal-write.jsp 요청
+@RequestMapping(value="/{id}/personal-write", method=RequestMethod.GET)
+public String personalWrite(@PathVariable String id, Model model, HttpSession session) throws Exception {
+
+	//id로 회원의 모든 정보 조회
+	UsersVO user = usersService.inquiryOfUserById(id);
+	
+	//로그인한 회원 (=나) 정보 담기
+	Object object = session.getAttribute("login");
+	UsersVO loginUser = (UsersVO)object;
+	
+	//개인페이지의 유저 번호 가져오기
+	int userNo = user.getUserNo();
+	//로그인 회원 유저 번호 가져오기
+	int loginUserNo = loginUser.getUserNo();
+	logger.info("현재 페이지 주인의 번호 : " + userNo + ", 로그인 유저의 번호 : " + loginUserNo);
+	
+	//팔로우 객체 생성
+	FollowVO follow = new FollowVO();
+	follow.setActiveUser(loginUserNo); 	//하는놈
+	follow.setPassiveUser(userNo);		//당하는놈
+	
+	//팔로우 유무 체크
+	int followCheck = followService.isFollow(follow);
+	logger.info("팔로우 유무 체크 : " + followCheck);
+	
+	//팔로워 리스트 -> (개인페이지에서)나를 팔로우하는 놈들 목록
+	List<FollowVO> followerList = followService.selectPassiveUserList(userNo);
+	//팔로잉리스트 -> (개인페이지에서) 내가 팔로우 하는 놈들 목록
+	List<FollowVO> followingList = followService.selectActiveUserList(userNo);
+	
+	//사용자 아이디로 사용자 번호(pk)를 조회해서 그 번호로 게시물 가져오기
+	model.addAttribute("post", postsService.selectPostListById(id));
+	//회원의 정보
+	model.addAttribute("user", user);
+	//팔로우 체크 유무
+	model.addAttribute("followCheck", followCheck);
+	//팔로워 리스트
+	model.addAttribute("followerList", followerList);
+	//팔로잉 리스트
+	model.addAttribute("followingList", followingList);	
+	
+	return "post/personal-write";
+}
+```
+
+
+
+# :honey_pot: Tip
+
+- `Ctrl + Shift + O` : 자동으로 import
+- `Ctrl + Space bar` : 자동완성
