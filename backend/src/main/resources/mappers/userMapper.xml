@@ -31,16 +31,4 @@
 		select * from user
 	</select>
 	
-	
-	<!-- follow -->
-	<insert id="insertFollow">
-		insert into follow(followerId, followingId) values(#{followerId}, #{followingId})
-	</insert>
-	<delete id="deleteFollow">
-		delete from follow where followerId=#{followerId} and followingId=#{followingId}
-	</delete>
-	<select id="searchFollow" resultType="FollowDto">
-		select * from follow where followerId=#{followerId} and followingId=#{followingId}
-	</select>
-	
 </mapper>

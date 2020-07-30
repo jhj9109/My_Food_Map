@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.web.curation.model.dto.RestaurantsDto;
 import com.web.curation.model.dto.ReviewDto;
 
 @Repository
@@ -14,8 +15,28 @@ public class StoreDaoImpl implements StoreDao {
 	SqlSession session;
 
 	@Override
-	public List<ReviewDto> searchAll() {
-		return session.selectList("review.selectlist");
+	public RestaurantsDto search(int no) {
+		return session.selectOne("review.select",no);
+	}
+
+	@Override
+	public List<ReviewDto> searchreview(int no) {
+		return session.selectList("review.selectreviewlist",no);
+	}
+
+	@Override
+	public int register(RestaurantsDto dto) {
+		return session.insert("review.insert",dto);
+	}
+
+	@Override
+	public List<ReviewDto> searchAllreview() {
+		return session.selectList("review.selectreviewlist");
+	}
+
+	@Override
+	public List<RestaurantsDto> searchAll() {
+		return session.selectList("review.selectreslist");
 	}
 	
 	
