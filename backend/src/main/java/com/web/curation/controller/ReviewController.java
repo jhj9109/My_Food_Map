@@ -1,53 +1,34 @@
 package com.web.curation.controller;
 
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.persistence.EntityNotFoundException;
-
-import org.apache.commons.mail.EmailException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.web.curation.exception.MyException;
-import com.web.curation.model.dto.MemberDto;
-import com.web.curation.model.dto.MemberPwDto;
+import com.web.curation.model.dto.LikeDto;
 import com.web.curation.model.dto.ReviewDto;
-import com.web.curation.model.service.StoreService;
-import com.web.curation.model.service.UserService;
+import com.web.curation.model.service.ReviewService;
 
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
 @RestController
 @EnableAutoConfiguration
-public class StoreController {
+public class ReviewController {
 
 	@Autowired
-	private UserService userService;
+	private ReviewService reviewService;
 	
-	@Autowired
-	private StoreService storeservice;
-	
-	private String loginid;
-
 	@ExceptionHandler
 	private ResponseEntity<Map<String, Object>> Success(Object data) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -61,14 +42,34 @@ public class StoreController {
 		resultMap.put("message", data);
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
+	
+	@ApiOperation(value = "전체 리뷰 조회")
+	@RequestMapping(value = "/review/list", method = RequestMethod.POST)
+	public ResponseEntity<List<ReviewDto>> ReviewList() throws Exception {
+		List<ReviewDto> review_list = reviewService.review_list();
+		return new ResponseEntity(review_list, HttpStatus.OK);
+	}
 
-//	@ApiOperation(value = "모든 리뷰 조회")
-//	@RequestMapping(value ="review/list", method = RequestMethod.POST)
-//	public ResponseEntity<List<ReviewDto>> listReview() {
-//		List<ReviewDto> list = null;
-//		list = storeservice.searchAllreview();
-//		
-//		return new ResponseEntity(list,HttpStatus.OK);
-//		
-//	}
+	@ApiOperation(value="사용자별 리뷰 조회")
+	@RequestMapping(value="/review/{email}", method=RequestMethod.GET)
+	public ResponseEntity<List<ReviewDto>> UserReview(@PathVariable String email) throws Exception {
+		List<ReviewDto> user_review = reviewService.user_review(email);
+		return new ResponseEntity(user_review, HttpStatus.OK);
+	}
+
+	@ApiOperation(value="좋아요")
+	@RequestMapping(value="/review/like", method=RequestMethod.POST)
+	public ResponseEntity<Map<String, Object>> insertUser(int reviewid, int userid) throws Exception {
+		LikeDto dto = new LikeDto();
+		dto.setReviewid(reviewid);
+		dto.setUserid(userid);
+		boolean check = reviewService.searchLike(dto);
+		if (check) {
+			reviewService.deleteLike(dto);
+			return Success("Like -1");
+		} else {
+			reviewService.insertLike(dto);
+			return Success("Like +1");
+		}
+	}
 }

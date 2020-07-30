@@ -2,12 +2,8 @@ package com.web.curation.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import javax.persistence.EntityNotFoundException;
-
-import org.apache.commons.mail.EmailException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
@@ -16,22 +12,18 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.web.curation.exception.MyException;
+import com.web.curation.model.dto.FollowDto;
 import com.web.curation.model.dto.MemberDto;
 import com.web.curation.model.dto.MemberPwDto;
 import com.web.curation.model.service.UserService;
 
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
 @RestController
@@ -188,4 +180,22 @@ public class UserController {
 		return Success(user);
 	}
 
+	// follow
+	// userId : 로그인 상태인 사용자
+	// followingId : 팔로우되는 사용자
+	@ApiOperation(value="팔로우")
+	@RequestMapping(value="/user/follow", method=RequestMethod.POST)
+	public ResponseEntity<Map<String, Object>> followUser(@PathVariable  int userId, int followingId) throws Exception {
+		FollowDto dto = new FollowDto();
+		dto.setFollowerId(userId);
+		dto.setFollowingId(followingId);
+		boolean check = userService.searchFollow(dto);
+		if (check) {
+			userService.deleteFollow(dto);
+			return Success("Following -1");
+		} else {
+			userService.insertFollow(dto);
+			return Success("Following +1");
+		}
+	}
 }
