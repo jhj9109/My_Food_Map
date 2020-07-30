@@ -1,13 +1,15 @@
 <template>
 	<v-card>
 		<v-app-bar
-			color="#6A76AB"
+			color="red lighten-1"
 			dark
 			fixed
-			src="https://picsum.photos/1920/1080?random"
 			scroll-target="#scrolling-techniques-3"
 		>
+			<v-btn to="/restaurant" class="ml-10 title" icon>
 			<v-toolbar-title> My Food Diary </v-toolbar-title>
+			</v-btn>
+
 
 			<v-spacer></v-spacer>
 
@@ -23,7 +25,7 @@
 									to = "/user/logout"
 									class="ma-2 widfull"
 									outlined="outlined"
-									color="primary">
+									color="white">
 									로그아웃
 							</v-btn>
 					</v-list-item-action>
@@ -33,14 +35,14 @@
 			<v-btn
 					depressed="depressed"
 					to = "/user/login"
-					class="ma-2 widfull"
+					class="widfull"
 					outlined="outlined"
-					color="primary">
+					color="white">
 					로그인
 			</v-btn>
 			</div>
 			<v-btn icon style="margin-top:10px">
-				<v-icon>mdi-dots-vertical</v-icon>
+				<v-icon>mdi-dots-horizontal</v-icon>
 			</v-btn>
 			<v-badge
 				dot
@@ -56,8 +58,8 @@
 				<v-tabs 
 				fixed-tabs
 				>
-					<v-tab to="/map/map">지도</v-tab>
-					<v-tab>전체 게시글</v-tab>
+					<v-tab to="/map/map">Map</v-tab>
+					<v-tab>Home</v-tab>
 					<v-tab>Tab 3</v-tab>
 				</v-tabs>
 			</template>
@@ -68,7 +70,7 @@
 			fixed
 			temporary
 			right
-			width="380"
+			width="250"
 		>
 			<v-list-item>
 				<v-list-item-avatar>
