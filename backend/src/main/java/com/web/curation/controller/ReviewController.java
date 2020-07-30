@@ -11,6 +11,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
+<<<<<<< HEAD
+=======
+import org.springframework.web.bind.annotation.RequestBody;
+>>>>>>> 383c6138f0bede7017bc4921ff9861d0bd31cee0
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -59,6 +63,7 @@ public class ReviewController {
 
 	@ApiOperation(value="좋아요")
 	@RequestMapping(value="/review/like", method=RequestMethod.POST)
+<<<<<<< HEAD
 	public ResponseEntity<Map<String, Object>> insertUser(int reviewid, int userid) throws Exception {
 		LikeDto dto = new LikeDto();
 		dto.setReviewid(reviewid);
@@ -69,6 +74,19 @@ public class ReviewController {
 			return Success("Like -1");
 		} else {
 			reviewService.insertLike(dto);
+=======
+	public ResponseEntity<Map<String, Object>> insertUser(@RequestBody LikeDto like) throws Exception {
+		LikeDto dto = new LikeDto();
+
+		
+		System.out.println(like);
+		boolean check = reviewService.searchLike(like);
+		if (check) {
+			reviewService.deleteLike(like);
+			return Success("Like -1");
+		} else {
+			reviewService.insertLike(like);
+>>>>>>> 383c6138f0bede7017bc4921ff9861d0bd31cee0
 			return Success("Like +1");
 		}
 	}
