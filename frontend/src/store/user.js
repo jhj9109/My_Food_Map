@@ -28,7 +28,7 @@ export default {
       UserApi.requestUserInfo(
         userId,
         res => {
-          if (res.data.userid != null) {
+          if (userId != null) {
             commit('setUserInfo', res.data)
           } else {
             console.log(`유저 정보 조회 실패 : ${res.data}`)

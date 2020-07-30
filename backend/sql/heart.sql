@@ -1,6 +1,6 @@
-﻿﻿DROP TABLE IF EXISTS `like`;
+﻿﻿DROP TABLE IF EXISTS `heart`;
 
-CREATE TABLE `like` (
+CREATE TABLE `heart` (
   `no` int auto_increment,
   `userid` int,
   `reviewid` int,

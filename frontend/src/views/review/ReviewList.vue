@@ -43,6 +43,7 @@ export default {
             review_list: [],
         }
     },
+    props: ['userInfo'],
     methods: {
         fetchReviewList() {
             const API_REVIEW_LIST_URL = API_BASE_URL + '/review/list'
@@ -55,35 +56,25 @@ export default {
                 console.error(err)
               })
         },
-        ...mapActions({
-            getUserInfo: 'user/getUserInfo',
-        }),
         likeReview(review) {
+            console.log(this.userInfo)
             const API_LIKE_URL = API_BASE_URL + '/review/like'
             const config = {
                 reviewid: review.no,
-                userid: this.userInfo.userid
+                userid: this.userInfo.userId
             }
             console.log(config)
             http.post(API_LIKE_URL, config)
               .then(res => {
-                console.log('dd')
+                console.log(res)
               })
               .catch(err => {
                 console.error(err)
               })
-            // console.log(this.review_id, this.user_id)
         }
     },
     created() {
         this.fetchReviewList()
-        this.getUserInfo()
-    },
-    computed: {
-        ...mapState({
-            id: state => state.user.id,
-            userInfo: state => state.user.userInfo,
-        })
     },
 }
 </script>

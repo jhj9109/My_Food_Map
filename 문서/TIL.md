@@ -296,7 +296,8 @@ public String personalWrite(@PathVariable String id, Model model, HttpSession se
 ### Error
 
 - Optional int parameter 'reviewid' is present but cannot be translated into a null value due to being declared as a primitive type. Consider declaring it as object wrapper for the corresponding primitive type."
-  - int 타입은 null 값이 들어갈 수 없어서 나는 거 같은데 해결 방법을 못 찾겠다 :cry:
+  - ~~int 타입은 null 값이 들어갈 수 없어서 나는 거 같은데 해결 방법을 못 찾겠다 :cry:~~
+  - userId가 String 타입으로 들어가 있어서, int 대신 String으로 받도록 해주었고, `like` table이 SQL의 like와 중복되어 에러나, table 이름을 `heart`로 바꾸니 해결됨!
 
 
 
@@ -306,6 +307,14 @@ public String personalWrite(@PathVariable String id, Model model, HttpSession se
    - Git 폴더가 이미 존재하면 Add ~
    - 아닐 땐 Clone ~
 2. 해당 repository를 Import
+
+
+
+## 2020-07-30 :cloud:
+
+### Error
+
+- SQL 문법에서 사용하는 단어는 Table 이름으로 사용하면 안 됨
 
 
 

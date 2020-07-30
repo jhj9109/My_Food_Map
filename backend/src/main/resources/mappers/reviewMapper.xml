@@ -10,12 +10,12 @@
 	</select>
 	
 	<insert id="insertLike">
-		insert into like(reviewid, userid) values(#{reviewid}, #{userid})
+		insert into heart(reviewid, userid) values(#{reviewid}, #{uid})
 	</insert>
 	<delete id="deleteLike">
-		delete from like where userid=#{userid} and reviewid=#{reviewid}
+		delete from heart where userid=#{userid} and reviewid=#{reviewid}
 	</delete>
 	<select id="searchLike" resultType="LikeDto">
-		select * from like where userid=#{userid} and reviewid=#{reviewid}
+		select * from heart where userid=#{uid} and reviewid=#{reviewid}
 	</select>
 </mapper>
