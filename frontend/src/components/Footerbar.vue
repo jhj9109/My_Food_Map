@@ -4,6 +4,9 @@
       <v-footer
         fixed
         flat
+        tile
+        width="100%"
+        class="amber darken-1 text-center"
       >
         <v-card
           flat
