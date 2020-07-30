@@ -1,0 +1,10 @@
+INSERT INTO `ssafysk`.`user` (`userid`, `email`, `password`, `nickname`, `create_date`) VALUES ('1', 'lkm@ssafy.com', 'rudalsl61', 'lkmlkm', '2020-07-27 21:35:35');
+INSERT INTO `ssafysk`.`user` (`userid`, `email`, `password`, `nickname`, `create_date`) VALUES ('2', 'asdf@naver.com', '12345678*', 'wowow', '2010-07-20');
+INSERT INTO `ssafysk`.`user` (`userid`, `email`, `password`, `nickname`, `create_date`) VALUES ('3', 'qwerty@qwerty.com', 'qwerty', '쿼티', '2014-07-24');
+INSERT INTO `ssafysk`.`user` (`userid`, `email`, `password`, `nickname`, `create_date`) VALUES ('4', 'foodfighter@naver.com', 'slfkjsf', 'foodfighter', '2020-06-23');
+INSERT INTO `ssafysk`.`user` (`userid`, `email`, `password`, `nickname`, `create_date`) VALUES ('5', 'east@ssafy.com', 'west', 'king', '2019-03-12');
+INSERT INTO `ssafysk`.`user` (`userid`, `email`, `password`, `nickname`, `create_date`) VALUES ('6', 'hhh@adfa.com', '123123', 'lksjalkdj', '2015-05-23');
+INSERT INTO `ssafysk`.`user` (`userid`, `email`, `password`, `nickname`, `create_date`) VALUES ('7', 'hjoon@naver.com', 'hshfjaf', 'jhj', '2012-04-03');
+INSERT INTO `ssafysk`.`user` (`userid`, `email`, `password`, `nickname`, `create_date`) VALUES ('8', 'ham@ssafy.com', 'hamham', 'dnsrod', '2018-12-11');
+INSERT INTO `ssafysk`.`user` (`userid`, `email`, `password`, `nickname`, `create_date`) VALUES ('9', 'django@gmail.com', 'master', 'D장고', '2014-05-07');
+INSERT INTO `ssafysk`.`user` (`userid`, `email`, `password`, `nickname`, `create_date`) VALUES ('10', 'java@spring.com', 'python', 'python', '2020-03-21');

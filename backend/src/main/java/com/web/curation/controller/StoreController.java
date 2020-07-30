@@ -62,15 +62,13 @@ public class StoreController {
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 
-	@ApiOperation(value = "모든 리뷰 조회")
-	@RequestMapping(value ="review/list", method = RequestMethod.POST)
-	public ResponseEntity<List<ReviewDto>> listReview() {
-		List<ReviewDto> list = null;
-		list = storeservice.searchAllreview();
-		
-		return new ResponseEntity(list,HttpStatus.OK);
-		
-	}
-
-
+//	@ApiOperation(value = "모든 리뷰 조회")
+//	@RequestMapping(value ="review/list", method = RequestMethod.POST)
+//	public ResponseEntity<List<ReviewDto>> listReview() {
+//		List<ReviewDto> list = null;
+//		list = storeservice.searchAllreview();
+//		
+//		return new ResponseEntity(list,HttpStatus.OK);
+//		
+//	}
 }
