@@ -45,10 +45,22 @@ public class ReviewController {
 	}
 	
 	@ApiOperation(value = "전체 리뷰 조회")
-	@RequestMapping(value = "/review/list", method = RequestMethod.POST)
-	public ResponseEntity<List<ReviewDto>> ReviewList() throws Exception {
+	@RequestMapping(value = "/review/list/{userId}", method = RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> ReviewList(@PathVariable String userId) throws Exception {
 		List<ReviewDto> review_list = reviewService.review_list();
-		return new ResponseEntity(review_list, HttpStatus.OK);
+		try {
+			for (int i=0; i<review_list.size();i++) {
+				LikeDto dto = null;
+				ReviewDto review = review_list.get(i);
+				dto.setReviewid(review.getNo());
+				dto.setUserid(userId);
+				review.setLike(reviewService.searchLike(dto));
+			}
+			return Success(review_list);
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		return Fail("리뷰 조회 실패", HttpStatus.OK);
 	}
 
 	@ApiOperation(value="사용자별 리뷰 조회")
@@ -62,7 +74,6 @@ public class ReviewController {
 	@RequestMapping(value="/review/like", method=RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> insertUser(@RequestBody LikeDto like) throws Exception {
 		LikeDto dto = new LikeDto();
-
 		
 		System.out.println(like);
 		boolean check = reviewService.searchLike(like);
