@@ -49,7 +49,7 @@
                       :rules="emailRules"
                       placeholder="E-mail"
                       prepend-icon="mdi-account"
-                      @keyup.enter="login"
+                      @keyup.enter="onLogin"
                       type="text"
                       outlined
                     ></v-text-field>
@@ -64,7 +64,7 @@
                       :counter="20"
                       placeholder="비밀번호"
                       outlined
-                      @keyup.enter="login"
+                      @keyup.enter="onLogin"
                       type="password"
                     ></v-text-field>
 
@@ -80,7 +80,7 @@
                 <v-spacer/>
                   <v-btn color="primary"
                   tile
-                    @click="login()">
+                    @click="onLogin">
                   Login</v-btn>
                 </v-card-actions>
               </v-card>
@@ -113,9 +113,7 @@
 
 
 <script>
-import {  mapGetters } from 'vuex'
 // import http from '../../util/http-common';
-
 
 export default {
     data: () => {
@@ -129,7 +127,7 @@ export default {
       password: "",
       passwordRules:[
         v => !!v || '비밀번호를 입력해주세요',
-        v => /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(v) || '비밀번호는 글자, 숫자 포함 8자 이상입니다.',
+        // v => /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(v) || '비밀번호는 글자, 숫자 포함 8자 이상입니다.',
       ],
       error: {
         email: false,
@@ -139,33 +137,9 @@ export default {
       component: this
     };
   },
-  computed: {
-    ...mapGetters(['user']),
-  },
-  
-   methods:{
-    // login(){
-    //   http.post('/user/login', {
-    //         email: this.email,
-    //         password: this.password,
-    //     })
-    //     .then(response => {
-    //       let msg = '로그인 실패.';
-    //       window.console.log(response);
-    //       if (response.data.email != null) {
-    //         this.info = response.data
-    //         localStorage.clear();
-    //         localStorage.setItem('id', response.data.email);
-    //       }else{
-    //          alert(msg);
-    //       }
-    //       //홈으로 이동 + 새로고침
-    //       this.$router.push('/');
-    //       this.$router.go('/');
-         
-    //     });
-    // },
-    login(){
+
+  methods:{
+    onLogin(){
       console.log("데이터 넣기", this.email, this.password)
       const loginData = {
         email: this.email,

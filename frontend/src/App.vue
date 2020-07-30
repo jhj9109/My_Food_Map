@@ -1,16 +1,9 @@
 <template>
   <v-app>
-    <v-card>
-      <NavBarAppBar
-        color="#6A76AB"
-        dark
-        fixed
-        src="https://picsum.photos/1920/1080?random"
-        scroll-target="#scrolling-techniques-3"
-      />
-      <NavBarDrawer
-      />
-    </v-card>
+    <NavBar 
+      :userInfo="userInfo"
+      :items="items"
+    />
 
     <div style="width:100%;height:109px;"></div> 
       <v-sheet
@@ -18,48 +11,95 @@
         class="overflow-y-auto"
       >
 
-
-        <router-view></router-view>
-
+        <router-view
+          :userInfo="userInfo"
+        />
       </v-sheet>
     <div style="width:100%;height:85px;"></div>
-    <Footerbar />
+    <Footerbar
+      :token="token"
+      :userInfo="userInfo"
+    />
   </v-app>
 </template>
 
 <script>
 import Footerbar from './components/Footerbar';
-import NavBarAppBar from './components/NavBarAppBar';
-import NavBarDrawer from './components/NavBarDrawer';
-import { mapState } from 'vuex'
+import NavBar from './components/NavBar';
+
+import { mapState, mapMutations } from 'vuex';
 
 export default {
   name: 'App',
 
   components: {
     Footerbar,
-    NavBarAppBar,
-    NavBarDrawer,
+    NavBar,
   },
-
-  computed:{
-
+  computed: {
     ...mapState({
-      id :state => state.user.id,
+      token: state => state.user.token,
       userInfo: state => state.user.userInfo,
-    })
+      items: state => state.nav.items,
+    }),
   },
-  methods:{
-    
-    logout(){
-      localStorage.clear();
-      this.$router.push('/');
-      this.$router.go('/');
+  methods: {
+    ...mapMutations({
+      setToken: 'user/setToken',
+      setUserInfo: 'user/setUserInfo',
+    }),
+    checkToken() {
+      // Vue에 token이 없지만, 로컬스토리지에 userInfo가 있다면 업데이트
+      if(!this.token && !!localStorage.token) {
+        this.setToken(localStorage.token)
+      }
+      // 어떤 로직을 구현할지에 대해서 고민이 필요하다!!!
+
+      // // 로컬스토리지 토큰 값과 state.token값 동기화(?)
+      // if(!!localStorage.token) {
+      //   // 로컬에 토큰 있는데
+      //   if (!this.token || localStorage.token !== this.token) {
+      //     //state.token과 값이 다르면 state토큰 업데이트
+      //     this.setToken(localStorage.token)
+      //   }
+      // } else {
+      //   // 로컬에 토큰 없는데(else)
+      //   if(!!this.token) {
+      //     // state에 토큰 있으면 state토큰 삭제
+      //     this.setToken(null)
+      //   }
+      // }
     },
-    
-    login(){
-      this.$router.push('/user/login');
+    checkUserInfo() {
+      // Vue에 userInfo가 없지만, 로컬스토리지에 userInfo가 있다면 업데이트
+      if(!this.userInfo && !!localStorage.userInfo) {
+        const storageObj = JSON.parse(localStorage.getItem('userInfo'))
+        this.setUserInfo(storageObj)
+      }
+    },
+    tempSetListData() { 
+      // 임시데이터 생성용
+      const listData = [
+        { title: 'Home wow!', icon: 'mdi-home' },
+        { title: 'About wow!', icon: 'mdi-comment-account-outline' },
+      ]
+      this.$store.commit('nav/setItems', listData)
     },
   },
+  created() {
+    console.log("생성시 토큰 체크")
+    this.checkToken()
+    this.checkUserInfo()
+  },
+  mounted() {
+    // 임시데이터 생성용
+    this.tempSetListData()
+  },
+  beforeUpdate() { 
+    // 필요성에 대해서 아직 모르겠음
+    console.log("업데이트전 토큰 체크")
+    this.checkToken()
+    this.checkUserInfo()
+  }
 };
 </script>
