@@ -128,4 +128,4 @@ export default [
 		name : 'NotFound',
 		component : NotFound
 	},
-}
+]
