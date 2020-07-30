@@ -322,7 +322,6 @@ public String personalWrite(@PathVariable String id, Model model, HttpSession se
 
 - 하트 색을 바로바로 바꾸기 위해서 어떻게 해야 할까?
   1. Dto에 추가하기
-  2. 
 
 
 
