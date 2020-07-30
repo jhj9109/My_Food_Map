@@ -18,4 +18,11 @@
 	<select id="searchLike" resultType="LikeDto">
 		select * from heart where userid=#{uid} and reviewid=#{reviewid}
 	</select>
+	
+	<update id="plusLikeCnt">
+		update review set like_cnt=like_cnt+1 where no=#{reviewid}
+	</update>
+	<update id="minusLikeCnt">
+		update review set like_cnt=like_cnt-1 where no=#{reviewid}
+	</update>
 </mapper>

@@ -12,6 +12,7 @@
             be•nev•o•lent
         </p>
         <p>{{ review.rank }}</p>
+        <p>{{ review.like_cnt }}</p>
         <div class="text--primary">
             {{ review.content }}
         </div>
@@ -46,11 +47,12 @@ export default {
     props: ['userInfo'],
     methods: {
         fetchReviewList() {
-            const API_REVIEW_LIST_URL = API_BASE_URL + '/review/list'
+            console.log(this.userInfo.userId)
+            const API_REVIEW_LIST_URL = API_BASE_URL + `/review/list/${this.userInfo.userId}`
             const config = {}
-            http.post(API_REVIEW_LIST_URL, config)
+            http.get(API_REVIEW_LIST_URL, config)
               .then(res => {
-                this.review_list = res.data
+                this.review_list = res.data.message
               })
               .catch(err => {
                 console.error(err)

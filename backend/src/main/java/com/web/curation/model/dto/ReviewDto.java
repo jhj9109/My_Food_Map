@@ -11,7 +11,14 @@ public class ReviewDto {
 	private String image;
 	private int userid;
 	private boolean isLike;
+	private int like_cnt;
 	
+	public int getLike_cnt() {
+		return like_cnt;
+	}
+	public void setLike_cnt(int like_cnt) {
+		this.like_cnt = like_cnt;
+	}
 	public boolean isLike() {
 		return isLike;
 	}

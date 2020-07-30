@@ -50,12 +50,14 @@ public class ReviewController {
 		try {
 			List<ReviewDto> review_list = reviewService.review_list();
 			for (int i=0; i<review_list.size();i++) {
-				LikeDto dto = null;
+				LikeDto dto = new LikeDto();
 				ReviewDto review = review_list.get(i);
+				System.out.println(review);
 				dto.setReviewid(review.getNo());
 				dto.setUserid(userId);
-				review.setLike(reviewService.searchLike(dto));
+				review_list.get(i).setLike(reviewService.searchLike(dto));
 			}
+			System.out.println();
 			return Success(review_list);
 		} catch (Exception e){
 			e.printStackTrace();
@@ -91,6 +93,7 @@ public class ReviewController {
 		boolean check = reviewService.searchLike(like);
 		if (check) {
 			reviewService.deleteLike(like);
+			
 			return Success("Like -1");
 		} else {
 			reviewService.insertLike(like);
