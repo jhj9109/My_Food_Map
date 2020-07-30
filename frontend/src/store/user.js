@@ -28,11 +28,7 @@ export default {
       UserApi.requestUserInfo(
         userId,
         res => {
-<<<<<<< HEAD
           if (res.data.userid != null) {
-=======
-          if (userId != null) {
->>>>>>> 383c6138f0bede7017bc4921ff9861d0bd31cee0
             commit('setUserInfo', res.data)
           } else {
             console.log(`유저 정보 조회 실패 : ${res.data}`)
@@ -68,7 +64,7 @@ export default {
         data,
         res => {
           console.log("login후 res =>", res)
-          if(!!res.data.userid) {
+          if(res.data.userid) {
 
             // res.data : createDate, email, nickname, password, userid
             
