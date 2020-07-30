@@ -23,5 +23,21 @@
         values (#{no}, #{userid}, #{content}, #{rank}, curdate(),#{img}) 
     </insert>
     
+    <select id="selectAll" resultType="ReviewDto">
+		select * from review
+	</select>
+	<select id="selectUser" resultType="ReviewDto">
+		select * from review where email=#{email}
+	</select>
+	
+	<insert id="insertLike">
+		insert into heart(reviewid, userid) values(#{reviewid}, #{uid})
+	</insert>
+	<delete id="deleteLike">
+		delete from heart where userid=#{userid} and reviewid=#{reviewid}
+	</delete>
+	<select id="searchLike" resultType="LikeDto">
+		select * from heart where userid=#{uid} and reviewid=#{reviewid}
+	</select>
 	
 </mapper>
