@@ -2,33 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="review">
-<<<<<<< HEAD
-	<select id="selectAll" resultType="ReviewDto">
-		select * from review
-=======
 	<select id="selectreslist" resultType="RestaurantsDto">
 		select * from restaurants
 	</select>
 	
 	<select id="select" resultType="RestaurantsDto">
 		select * from restaurants where idrestaurants = #{no}
->>>>>>> 383c6138f0bede7017bc4921ff9861d0bd31cee0
 	</select>
 	<select id="selectUser" resultType="ReviewDto">
 		select * from review where email=#{email}
 	</select>
 	
-<<<<<<< HEAD
-	<insert id="insertLike">
-		insert into like(reviewid, userid) values(#{reviewid}, #{userid})
-	</insert>
-	<delete id="deleteLike">
-		delete from like where userid=#{userid} and reviewid=#{reviewid}
-	</delete>
-	<select id="searchLike" resultType="LikeDto">
-		select * from like where userid=#{userid} and reviewid=#{reviewid}
-	</select>
-=======
 	 <select id="selectreviewalllist" resultType="ReviewDto">
 		select * from review where no = #{no}
 	</select>
@@ -59,5 +43,4 @@
 		select * from heart where userid=#{uid} and reviewid=#{reviewid}
 	</select>
 	
->>>>>>> 383c6138f0bede7017bc4921ff9861d0bd31cee0
 </mapper>

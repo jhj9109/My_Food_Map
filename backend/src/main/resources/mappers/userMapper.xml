@@ -31,10 +31,6 @@
 		select * from user
 	</select>
 	
-<<<<<<< HEAD
-	
-=======
->>>>>>> 383c6138f0bede7017bc4921ff9861d0bd31cee0
 	<!-- follow -->
 	<insert id="insertFollow">
 		insert into follow(followerId, followingId) values(#{followerId}, #{followingId})
