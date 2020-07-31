@@ -6,10 +6,8 @@
        <package name="com.web.curation.model.dto"/>
     </typeAliases>
 	<mappers>	  
-
 		<mapper resource="mappers/userMapper.xml"/>
 		<mapper resource="mappers/reviewMapper.xml"/>
 		<mapper resource="mappers/mapMapper.xml"/>
-
 	</mappers>
 </configuration>

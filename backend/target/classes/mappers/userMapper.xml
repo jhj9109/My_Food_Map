@@ -5,36 +5,24 @@
 	<select id="select" resultType="MemberDto">
 		select * from user where email=#{id}
 	</select>
-	
 	<select id="selectone" resultType="MemberDto">
 		select * from user where userid=#{userid}
 	</select>
-	
 	<select id="nickname" resultType="MemberDto">
 		select * from user where nickname=#{nickname}
 	</select>
-	
 	<insert id="insert">
 		insert into user(email,password,nickname,create_date) values(#{email}, #{password},#{nickname}, CURRENT_TIME())
 	</insert>
-	
 	<delete id="delete">
 		delete from user where userid=#{userid}
 	</delete>
-	
 	<update id="update">
 		update user set nickname=#{nickname}, password=#{password} where userid=#{userid}
 	</update>
-
-
 	<select id="selectAllUsers" resultType="MemberDto">
 		select * from user
 	</select>
-	
-<<<<<<< HEAD
-	
-=======
->>>>>>> 383c6138f0bede7017bc4921ff9861d0bd31cee0
 	<!-- follow -->
 	<insert id="insertFollow">
 		insert into follow(followerId, followingId) values(#{followerId}, #{followingId})
