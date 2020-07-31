@@ -64,7 +64,7 @@ export default {
         data,
         res => {
           console.log("login후 res =>", res)
-          if(!!res.data.userid) {
+          if(res.data.userid) {
 
             // res.data : createDate, email, nickname, password, userid
             

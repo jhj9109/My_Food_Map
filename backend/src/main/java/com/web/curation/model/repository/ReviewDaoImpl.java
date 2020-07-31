@@ -40,6 +40,10 @@ public class ReviewDaoImpl implements ReviewDao {
 	@Override
 	public LikeDto searchLike(LikeDto like) {
 		like.setUid(Integer.parseInt(like.getUserid()));
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9a9d8c97f8d5907ee3e1fa294c63fe7c7bfb439e
 		return session.selectOne("review.searchLike", like);
 	}
 }

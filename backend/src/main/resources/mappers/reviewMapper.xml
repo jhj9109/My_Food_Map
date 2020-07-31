@@ -2,7 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="review">
-	<select id="selectAll" resultType="ReviewDto">
+	<select id="selectreslist" resultType="RestaurantsDto">
+		select * from restaurants
+	</select>
+	
+	<select id="select" resultType="RestaurantsDto">
+		select * from restaurants where idrestaurants = #{no}
+	</select>
+	<select id="selectUser" resultType="ReviewDto">
+		select * from review where email=#{email}
+	</select>
+	
+	 <select id="selectreviewalllist" resultType="ReviewDto">
+		select * from review where no = #{no}
+	</select>
+	
+	<select id="selectreviewlist" resultType="ReviewDto">
+		select * from review
+	</select>
+	
+	 <insert id="insert">
+       INSERT INTO ssafysk.review(no, , userid,content, rank, create_date,img ) 
+        values (#{no}, #{userid}, #{content}, #{rank}, curdate(),#{img}) 
+    </insert>
+    
+    <select id="selectAll" resultType="ReviewDto">
 		select * from review
 	</select>
 	<select id="selectUser" resultType="ReviewDto">
@@ -19,10 +43,13 @@
 		select * from heart where userid=#{uid} and reviewid=#{reviewid}
 	</select>
 	
+<<<<<<< HEAD
 	<update id="plusLikeCnt">
 		update review set like_cnt=like_cnt+1 where no=#{reviewid}
 	</update>
 	<update id="minusLikeCnt">
 		update review set like_cnt=like_cnt-1 where no=#{reviewid}
 	</update>
+=======
+>>>>>>> 9a9d8c97f8d5907ee3e1fa294c63fe7c7bfb439e
 </mapper>

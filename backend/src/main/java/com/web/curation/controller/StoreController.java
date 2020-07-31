@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.web.curation.exception.MyException;
 import com.web.curation.model.dto.MemberDto;
 import com.web.curation.model.dto.MemberPwDto;
+import com.web.curation.model.dto.RestaurantsDto;
 import com.web.curation.model.dto.ReviewDto;
 import com.web.curation.model.service.StoreService;
 import com.web.curation.model.service.UserService;
@@ -62,13 +63,49 @@ public class StoreController {
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 
-//	@ApiOperation(value = "모든 리뷰 조회")
-//	@RequestMapping(value ="review/list", method = RequestMethod.POST)
-//	public ResponseEntity<List<ReviewDto>> listReview() {
-//		List<ReviewDto> list = null;
-//		list = storeservice.searchAllreview();
-//		
-//		return new ResponseEntity(list,HttpStatus.OK);
-//		
-//	}
+	@ApiOperation(value = "모든 리뷰 조회")
+	@RequestMapping(value ="review/list", method = RequestMethod.POST)
+	public ResponseEntity<Map<String,Object>> listReview() {
+		List<ReviewDto> list = null;
+		list = storeservice.searchAllreview();
+		
+		return Success(list);
+	}
+	
+  	@ApiOperation(value="해당 음식점 모든 리뷰 조회 서비스", response=List.class)
+	@RequestMapping(value = "/restaurants/{idrestarunts}/reviews", method = RequestMethod.GET)
+  	public ResponseEntity<Map<String,Object>> listSearch(@PathVariable int idrestaurnts)  throws Exception {
+  		
+  		List<ReviewDto> list=null;
+  		list=storeservice.searchreview(idrestaurnts);
+  		
+  		if (list==null || list.size()==0) {
+  			return Fail("no",HttpStatus.NO_CONTENT);
+  		}
+  		return Success(list);
+	}
+    
+  	
+	 @ApiOperation(value = "restaurants 번호로 idrestaurants 의 정보를 찾는다.", response = List.class)
+		@RequestMapping(value = "/restaurants/{idrestarunts}", method = RequestMethod.GET)
+		public ResponseEntity<Map<String,Object>> findResByNo(@PathVariable int idrestaurnts) throws Exception {
+		 	RestaurantsDto one = storeservice.search(idrestaurnts);
+	    	System.out.println(one);
+	    	
+			if (one==null || one.getIdrestaurants()==0) {
+				return Fail("no",HttpStatus.NO_CONTENT);
+			}
+			return Success(one);
+		}
+    
+    
+    @ApiOperation(value = "음식점 list를 받아온다 ", response = List.class)
+   	@RequestMapping(value = "/restaurants", method = RequestMethod.POST)
+   	public ResponseEntity<Map<String,Object>> listRes() throws Exception {
+    	
+   		List<RestaurantsDto> list = storeservice.searchAll();
+   		System.out.println(list);
+   		
+   		return Success(list);
+   	}
 }

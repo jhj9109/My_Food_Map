@@ -88,12 +88,19 @@ public class ReviewController {
 	@RequestMapping(value="/review/like", method=RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> insertUser(@RequestBody LikeDto like) throws Exception {
 		LikeDto dto = new LikeDto();
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9a9d8c97f8d5907ee3e1fa294c63fe7c7bfb439e
 		
 		System.out.println(like);
 		boolean check = reviewService.searchLike(like);
 		if (check) {
 			reviewService.deleteLike(like);
+<<<<<<< HEAD
 			
+=======
+>>>>>>> 9a9d8c97f8d5907ee3e1fa294c63fe7c7bfb439e
 			return Success("Like -1");
 		} else {
 			reviewService.insertLike(like);
