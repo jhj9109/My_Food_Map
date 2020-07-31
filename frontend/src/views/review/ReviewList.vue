@@ -7,26 +7,26 @@
         v-for="review in review_list" :key="review.no"
     >
         <v-card-text>
-        <div>Word of the Day</div>
-        <p class="display-1 text--primary">
-            be•nev•o•lent
-        </p>
-        <p>{{ review.rank }}</p>
-        <p>{{ review.like_cnt }}</p>
-        <div class="text--primary">
-            {{ review.content }}
-        </div>
+            <div>Word of the Day</div>
+            <p class="display-1 text--primary">
+                be•nev•o•lent
+            </p>
+            <p>{{ review.rank }}</p>
+            <div class="text--primary">
+                {{ review.content }}
+            </div>
         </v-card-text>
         <v-card-actions>
-        <v-btn icon @click="likeReview(review)">
-            <v-icon color="#FF1744">mdi-heart</v-icon>
-        </v-btn>
-        <v-btn icon>
-            <v-icon>mdi-bookmark</v-icon>
-        </v-btn>
-        <v-btn icon>
-            <v-icon>mdi-share-variant</v-icon>
-        </v-btn>
+            <v-btn icon @click="likeReview(review)">
+                <v-icon color="#FF1744">mdi-heart</v-icon>
+            </v-btn>
+            <p>{{ review.like_cnt }}</p>
+            <v-btn icon>
+                <v-icon>mdi-bookmark</v-icon>
+            </v-btn>
+            <v-btn icon>
+                <v-icon>mdi-share-variant</v-icon>
+            </v-btn>
         </v-card-actions>
     </v-card>
   </div>
