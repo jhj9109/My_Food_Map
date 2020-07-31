@@ -7,11 +7,11 @@
         v-for="review in review_list" :key="review.no"
     >
         <v-card-text>
-            <div>Word of the Day</div>
+            <div>작성자 : {{ review.userid }}</div>
             <p class="display-1 text--primary">
                 be•nev•o•lent
             </p>
-            <p>{{ review.rank }}</p>
+            <p>평점 : {{ review.rank }}</p>
             <div class="text--primary">
                 {{ review.content }}
             </div>
@@ -42,6 +42,7 @@ export default {
     data() {
         return {
             review_list: [],
+            // review_like_cnt: 0,
         }
     },
     props: ['userInfo'],
@@ -77,6 +78,9 @@ export default {
     },
     created() {
         this.fetchReviewList()
+    },
+    watch() {
+
     },
 }
 </script>

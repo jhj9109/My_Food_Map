@@ -321,7 +321,19 @@ public String personalWrite(@PathVariable String id, Model model, HttpSession se
 ### Like
 
 - 하트 색을 바로바로 바꾸기 위해서 어떻게 해야 할까?
-  1. Dto에 추가하기
+  - 프론트에서 리뷰에 관한 정보들만 리턴해줬음
+  - Review Dto에 해당 사용자의 좋아요 여부를 판단하는 변수 isLike 추가
+  - 흐름
+    1. 리뷰 리스트를 가져옴
+    2. 모든 리뷰들을 포문을 돌려서 userid reviewid를 heart 테이블을 통해 비교
+    3. 비교한 결과값을 변수에 저장
+-  해당 리뷰의 좋아요 개수를 보여주자!
+  1. `review` table에 like_cnt 필드 추가
+  2. 좋아요 기능에서 like_cnt +-1
+     - Update review set like_cnt=like_cnt +-1 where reviewId=#{reviewId}
+- 해결해야 할 부분
+  - 좋아요를 눌러도 like_cnt가 바로 바뀌지 않고 새로고침해야 함
+  - 좋아요 여부에 따라 하트 색을 바꾸는 걸 아직 구현하지 않음
 
 
 
