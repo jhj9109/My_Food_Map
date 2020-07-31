@@ -30,22 +30,21 @@
 	<thead>
 		<tr>
 			<th>번 호</th>
-			<th>법정동</th>
-			<th>아파트이름</th>
+			<th>음식점 이름</th>
 			<th>지번</th>
 			<th>지역코드</th>
-			<th>위도</th>
-			<th>경도</th>
+			<th>메뉴</th>
+			<th>이용시간</th>
 		</tr>
 
     <tr v-for="item in list" v-bind:key="item.no" >
-        <td>{{item.no}} </td>
-        <td>{{item.dong}} </td>
-        <td  @click="view(item.no)" style="color:gray;">{{item.aptName}} </td>
+        <td>{{item.idrestaurants}} </td>
+        <td@click="view(item.no)" style="color:gray;">{{item.name}} </td>
         <td>{{item.jibun}} </td>
         <td>{{item.code}} </td>
-        <td>{{item.lat}} </td>
-        <td>{{item.lng}} </td>
+        <td>{{item.menu}} </td>
+        <td>{{item.time}} </td>
+        <td>{{item.grade}} </td>
      </tr>
 	</thead>
 	<tbody>
@@ -141,11 +140,8 @@ export default {
 
     //마커추가하려면 객체를 아래와 같이 하나 만든다
     for (var i = 1; i < this.list.length; i++) {
-
-        tempstr = this.list[i].name;
         geocoder.addressSearch(this.list[i].jibun, function (result, status) {
             if (status === kakao.maps.services.Status.OK) {
-
                 var coords = new kakao
                     .maps
                     .LatLng(result[0].y, result[0].x);
@@ -156,12 +152,9 @@ export default {
                     .Marker({map: map, position: coords});
 
                 // 인포윈도우로 장소에 대한 설명을 표시합니다
-                var infowindow = new kakao
-                    .maps
-                     .InfoWindow({
-                    content: '<div style="padding:2px;">' + this.list[i].name + '<br><a href="https://map.kakao.com/link/to/Hello World!,' +
+                var iwContent = '<div style="padding:2px;">' +this.list[i].name+ '<br><a href="https://map.kakao.com/link/to/Hello World!,' +
                     result[0].y + ',' + result[0].x + '" style="color:blue" target="_blank">길찾기</a></div>'
-                    });
+                var infowindow = new kakao.maps.InfoWindow({ content : iwContent });
                 infowindow.open(map, marker);
 
             }
@@ -171,7 +164,7 @@ export default {
            var marker = new kakao.maps.Marker({ position:  new kakao.maps.LatLng(this.list[i].lat, this.list[i].lng) });
            marker.setMap(map);
            var iwContent ='<div style="padding:5px;">' + this.list[i].aptName+  '<br><a href="https://map.kakao.com/link/to/Hello World!,'+this.list[i].lat+','+this.list[i].lng+'" style="color:blue" target="_blank">길찾기</a></div>'
-           var infowindow = new kakao.maps.InfoWindow({ content : iwContent });
+          
            infowindow.open(map, marker);
            */
 

@@ -62,15 +62,6 @@ public class StoreController {
 		resultMap.put("message", data);
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
-
-	@ApiOperation(value = "모든 리뷰 조회")
-	@RequestMapping(value ="review/list", method = RequestMethod.POST)
-	public ResponseEntity<Map<String,Object>> listReview() {
-		List<ReviewDto> list = null;
-		list = storeservice.searchAllreview();
-		
-		return Success(list);
-	}
 	
   	@ApiOperation(value="해당 음식점 모든 리뷰 조회 서비스", response=List.class)
 	@RequestMapping(value = "/restaurants/{idrestarunts}/reviews", method = RequestMethod.GET)
