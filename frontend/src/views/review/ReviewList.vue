@@ -2,7 +2,6 @@
   <div>
     <h1>Review List</h1>
     <v-card
-<<<<<<< HEAD
         class="mx-auto my-1"
         max-width="344"
         v-for="review in review_list" :key="review.no"
@@ -29,7 +28,6 @@
                 <v-icon>mdi-share-variant</v-icon>
             </v-btn>
         </v-card-actions>
-=======
 			class="mx-auto my-1"
 			max-width="344"
 			v-for="review in reviews" :key="review.no"
@@ -55,7 +53,6 @@
 						<v-icon>mdi-share-variant</v-icon>
 				</v-btn>
 			</v-card-actions>
->>>>>>> 9a9d8c97f8d5907ee3e1fa294c63fe7c7bfb439e
     </v-card>
   </div>
 </template>
@@ -65,7 +62,6 @@ import { mapState, mapActions, mapMutations } from 'vuex'
 import ReviewApi from '@/api/ReviewApi'
 
 export default {
-<<<<<<< HEAD
     name: 'ReviewList',
     data() {
         return {
@@ -110,7 +106,6 @@ export default {
     watch() {
 
     },
-=======
 	name: 'ReviewList',
 	props: ['userInfo'],
 	computed: {
@@ -150,7 +145,6 @@ export default {
 	created() {
 		this.getReviewList()
 	},
->>>>>>> 9a9d8c97f8d5907ee3e1fa294c63fe7c7bfb439e
 }
 </script>
 
