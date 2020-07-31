@@ -1,6 +1,10 @@
 
+﻿﻿DROP TABLE IF EXISTS `heart`;
+
+
 
 use ssafysk;
+
 
 CREATE TABLE `heart` (
   `no` int auto_increment,

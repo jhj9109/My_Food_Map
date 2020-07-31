@@ -24,14 +24,28 @@ DROP TABLE IF EXISTS `review`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `review` (
   `no` int NOT NULL AUTO_INCREMENT,
+<<<<<<< HEAD
+  `userid` int NOT NULL,
+  `resid` int NOT NULL,
+=======
   `userid` int DEFAULT NULL,
+>>>>>>> 9a9d8c97f8d5907ee3e1fa294c63fe7c7bfb439e
   `content` varchar(255) DEFAULT NULL,
   `rank` int NOT NULL,
   `create_date` datetime DEFAULT CURRENT_TIMESTAMP,
   `image` varchar(128) DEFAULT NULL,
+<<<<<<< HEAD
+  `like_cnt` int DEFAULT 0,
+  PRIMARY KEY (`no`),
+  KEY `userid` (`userid`),
+  KEY `resid` (`resid`),
+  CONSTRAINT `review_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `user` (`userid`),
+  CONSTRAINT `review_ibfk_2` FOREIGN KEY (`resid`) REFERENCES `restaurant` (`resid`)
+=======
   PRIMARY KEY (`no`),
   KEY `userid` (`userid`),
   CONSTRAINT `review_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `user` (`userid`)
+>>>>>>> 9a9d8c97f8d5907ee3e1fa294c63fe7c7bfb439e
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -41,7 +55,11 @@ CREATE TABLE `review` (
 
 LOCK TABLES `review` WRITE;
 /*!40000 ALTER TABLE `review` DISABLE KEYS */;
+<<<<<<< HEAD
+INSERT INTO `review` VALUES (1,1,1,'맛있는데 비싸서 1점 깎았습니다.',4,'2020-07-30 00:00:00',NULL,0),(2,2,2,'웨이팅 1시간 해서 짜증났는데 음식 먹는 순간 다 풀림',5,'2020-07-30 00:00:00',NULL,0),(3,3,3,'jmt,, 사장님이 쫌 불친절하시지만 너무 맛있어서 다시 갈 거예요,,,',4,'2020-07-15 00:00:00',NULL,0),(4,5,4,'음식에서 머리카락 나오고 진짜 최악;;; 절대 가지 마세요ㅜㅜㅜ',1,'2020-07-21 00:00:00',NULL,0),(5,7,5,'그냥저냥 평범ㅇㅇ 재방문 하진 않을 듯 ?',3,'2020-07-08 00:00:00',NULL,0);
+=======
 INSERT INTO `review` VALUES (1,1,'맛있는데 비싸서 1점 깎았습니다.',4,'2020-07-30 00:00:00',NULL),(2,2,'웨이팅 1시간 해서 짜증났는데 음식 먹는 순간 다 풀림',5,'2020-07-30 00:00:00',NULL),(3,3,'jmt,, 사장님이 쫌 불친절하시지만 너무 맛있어서 다시 갈 거예요,,,',4,'2020-07-15 00:00:00',NULL),(4,5,'음식에서 머리카락 나오고 진짜 최악;;; 절대 가지 마세요ㅜㅜㅜ',1,'2020-07-21 00:00:00',NULL),(5,7,'그냥저냥 평범ㅇㅇ 재방문 하진 않을 듯 ?',3,'2020-07-08 00:00:00',NULL);
+>>>>>>> 9a9d8c97f8d5907ee3e1fa294c63fe7c7bfb439e
 /*!40000 ALTER TABLE `review` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

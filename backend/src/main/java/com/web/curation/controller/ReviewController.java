@@ -45,29 +45,52 @@ public class ReviewController {
 	}
 	
 	@ApiOperation(value = "전체 리뷰 조회")
-	@RequestMapping(value = "/review/list", method = RequestMethod.POST)
-	public ResponseEntity<List<ReviewDto>> ReviewList() throws Exception {
-		List<ReviewDto> review_list = reviewService.review_list();
-		return new ResponseEntity(review_list, HttpStatus.OK);
+	@RequestMapping(value = "/review/list/{userId}", method = RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> ReviewList(@PathVariable String userId) throws Exception {
+		try {
+			List<ReviewDto> review_list = reviewService.review_list();
+			for (int i=0; i<review_list.size();i++) {
+				LikeDto dto = new LikeDto();
+				ReviewDto review = review_list.get(i);
+				System.out.println(review);
+				dto.setReviewid(review.getNo());
+				dto.setUserid(userId);
+				review_list.get(i).setLike(reviewService.searchLike(dto));
+			}
+			System.out.println();
+			return Success(review_list);
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		return Fail("리뷰 조회 실패", HttpStatus.OK);
 	}
 
 	@ApiOperation(value="사용자별 리뷰 조회")
-	@RequestMapping(value="/review/{email}", method=RequestMethod.GET)
-	public ResponseEntity<List<ReviewDto>> UserReview(@PathVariable String email) throws Exception {
-		List<ReviewDto> user_review = reviewService.user_review(email);
-		return new ResponseEntity(user_review, HttpStatus.OK);
+	@RequestMapping(value="/review/{writerId}/{userId}", method=RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> UserReview(@PathVariable("writerId") String writerId, @PathVariable("userId") String userId) throws Exception {
+		try {
+			List<ReviewDto> user_review = reviewService.user_review(writerId);
+			for (int i=0; i<user_review.size();i++) {
+				LikeDto dto = null;
+				ReviewDto review = user_review.get(i);
+				dto.setReviewid(review.getNo());
+				dto.setUserid(userId);
+				review.setLike(reviewService.searchLike(dto));
+			}
+			return Success(user_review);
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		return Fail("리뷰 조회 실패", HttpStatus.OK);
 	}
 
 	@ApiOperation(value="좋아요")
 	@RequestMapping(value="/review/like", method=RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> insertUser(@RequestBody LikeDto like) throws Exception {
 		LikeDto dto = new LikeDto();
-
-		
 		System.out.println(like);
 		boolean check = reviewService.searchLike(like);
 		if (check) {
-			reviewService.deleteLike(like);
 			return Success("Like -1");
 		} else {
 			reviewService.insertLike(like);
