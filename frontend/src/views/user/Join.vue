@@ -1,9 +1,3 @@
-
-<!--
-    가입하기는 기본적인 폼만 제공됩니다
-    기능명세에 따라 개발을 진행하세요.
-    Sub PJT I에서는 UX, 디자인 등을 포함하여 백엔드를 제외하여 개발합니다.
- -->
 <template>
   <v-form v-model="valid">
     <v-container>
@@ -61,13 +55,13 @@
         </v-col>
             <v-btn
       :disabled="!valid"
-      @click="Join()"
+      @click.prevent="onJoin()"
     >
-      submit
+      회원 가입
     </v-btn>
       </v-row>
-
-    <v-btn>clear</v-btn>
+    <br>
+    <v-btn>초기화</v-btn>
 
     </v-container>
 
@@ -75,30 +69,23 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
 
 export default {
   data: () => {
     return {
       valid: true,
       email: "",
+      nickName: "",
       password: "",
       passwordConfirm: "",
-      nickName: "",
       isTerm: false,
       isLoading: false,
       error: {
         email: false,
-        password: false,
         nickName: false,
+        password: false,
         passwordConfirm: false,
         term: false
-      },
-      signUpForm:{
-                uid: '',
-                email: '',
-                password: '',
-                nickname:'',
       },
       isSubmit: false,
       passwordType: "password",
@@ -122,18 +109,15 @@ export default {
   },
 
   methods: {
-     ...mapActions({
-      requestSignup:'user/Join'
-    }),
-
-    Join(){
-     this.signUpForm.nickname = this.nickName
-      this.signUpForm.email = this.email
-      this.signUpForm.password = this.password
-      console.log(this.signUpForm)
-      this.requestSignup(this.signUpForm)
-      this.$router.push('/user/login');
-      
+    onJoin(){
+      // 클릭단계에서 유효성 검증 이미 진행하였음 => :disable="valid"
+      const singUpData = {
+        nickname : this.nickName,
+        email : this.email,
+        password : this.password
+      }
+      this.$store.dispatch('user/join', singUpData)
+      // 라우터 push도 user/join 진행
     },
   }
 };

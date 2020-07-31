@@ -1,0 +1,10 @@
+INSERT INTO `ssafysk`.`heart` (`no`, `userid`, `reviewid`) VALUES ('1', '2', '1');
+INSERT INTO `ssafysk`.`heart` (`no`, `userid`, `reviewid`) VALUES ('2', '6', '1');
+INSERT INTO `ssafysk`.`heart` (`no`, `userid`, `reviewid`) VALUES ('3', '8', '1');
+INSERT INTO `ssafysk`.`heart` (`no`, `userid`, `reviewid`) VALUES ('4', '1', '2');
+INSERT INTO `ssafysk`.`heart` (`no`, `userid`, `reviewid`) VALUES ('5', '10', '2');
+INSERT INTO `ssafysk`.`heart` (`no`, `userid`, `reviewid`) VALUES ('6', '4', '3');
+INSERT INTO `ssafysk`.`heart` (`no`, `userid`, `reviewid`) VALUES ('7', '5', '3');
+INSERT INTO `ssafysk`.`heart` (`no`, `userid`, `reviewid`) VALUES ('8', '6', '3');
+INSERT INTO `ssafysk`.`heart` (`no`, `userid`, `reviewid`) VALUES ('9', '7', '4');
+INSERT INTO `ssafysk`.`heart` (`no`, `userid`, `reviewid`) VALUES ('10', '9', '5');

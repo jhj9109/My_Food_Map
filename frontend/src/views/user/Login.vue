@@ -24,12 +24,11 @@
                   dark
                   flat
                 >
-                  <v-toolbar-title>Login form</v-toolbar-title>
+                  <v-toolbar-title> Login form</v-toolbar-title>
                   <v-spacer></v-spacer>
                   <v-tooltip bottom>
                     <template v-slot:activator="{ on }">
                       <v-btn
-                        :href="source"
                         icon
                         large
                         target="_blank"
@@ -48,9 +47,9 @@
                       name="email"
                       v-model="email"
                       :rules="emailRules"
-                     placeholder="E-mail"
+                      placeholder="E-mail"
                       prepend-icon="mdi-account"
-                      @keyup.enter="login"
+                      @keyup.enter="onLogin"
                       type="text"
                       outlined
                     ></v-text-field>
@@ -59,12 +58,13 @@
                       id="password"
                       label="Password"
                       name="password"
+                      v-model="password"
                       prepend-icon="mdi-lock"
                       :rules="passwordRules"
                       :counter="20"
                       placeholder="비밀번호"
                       outlined
-                       @keyup.enter="login"
+                      @keyup.enter="onLogin"
                       type="password"
                     ></v-text-field>
 
@@ -77,10 +77,11 @@
                   </v-form>
                 </v-card-text>
                 <v-card-actions>
+                <v-spacer/>
                   <v-btn color="primary"
                   tile
-                    @click="login()">
-                  >Login</v-btn>
+                    @click="onLogin">
+                  Login</v-btn>
                 </v-card-actions>
               </v-card>
               <br><br>
@@ -94,6 +95,7 @@
           <br><br>
             Don`t remember password?
             <v-btn
+            to="/user/findpw"
             >
             비밀번호 찾기
             </v-btn>
@@ -111,23 +113,21 @@
 
 
 <script>
-import PV from "password-validator";
-import { mapActions, mapState } from 'vuex'
-
+// import http from '../../util/http-common';
 
 export default {
     data: () => {
     return {
+      info:{},
       email: "",
-       emailRules:[
+      emailRules:[
         v => !!v || '이메일을 입력해주세요.',
         v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || '이메일 형식을 지켜주세요'
       ],
       password: "",
-      passwordSchema: new PV(),
-       passwordRules:[
+      passwordRules:[
         v => !!v || '비밀번호를 입력해주세요',
-        v => /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(v) || '비밀번호는 글자, 숫자 포함 8자 이상입니다.',
+        // v => /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(v) || '비밀번호는 글자, 숫자 포함 8자 이상입니다.',
       ],
       error: {
         email: false,
@@ -138,48 +138,17 @@ export default {
     };
   },
 
-   methods:{
-    ...mapActions({
-      loginSubmit:'user/login',
- 
-    }),
-    login(){
-      this.loginSubmit({'id':this.email, 'password': this.password})
-      this.$router.push('/');
-   },
-  },
-
-   /*
-    OnLogin() {
-      if (this.isSubmit) {
-        let { email, password } = this;
-        let data = {
-          email,
-          password
-        };
-
-        this.isSubmit = false;
-
-        UserApi.requestLogin(
-          data,
-          res => {
-
-          alert('로그인에 성공하였습니다.')
-          localStorage.clear();
-          localStorage.setItem('id', data.email);
-          localStorage.setItem('name', data.nickname);
-
-          this.isSubmit = true;
-          this.$router.push("/feed/main");
-
-          },
-          error => {
-            this.isSubmit = true;
-          }
-        );
+  methods:{
+    onLogin(){
+      console.log("데이터 넣기", this.email, this.password)
+      const loginData = {
+        email: this.email,
+        password: this.password
       }
+      console.log("데이터", loginData)
+      this.$store.dispatch('user/login', loginData)
     }
-      */
+  },
 
 
 };

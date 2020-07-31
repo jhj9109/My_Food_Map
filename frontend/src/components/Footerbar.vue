@@ -1,41 +1,44 @@
 <template>
   <div class="Footerbar">
-    <v-bottom-navigation
-      fixed
-    >
+    <v-card height="200px">
+      <v-footer
+        fixed
+        flat
+        tile
+        width="100%"
+        class="amber darken-1 text-center"
+      >
+        <v-card
+          flat
+          tile
+          width="100%"
+          class="red lighten-1 text-center"
+        >
+          <v-card-text>
+            <v-btn :to=" this.userInfo ? '/user/mypage' : '/user/login' ">
+              <v-icon>mdi-account</v-icon>
+            </v-btn>
 
-      <v-btn to="/user/login">
-        <v-icon>mdi-account</v-icon>
-      </v-btn>
+            <v-btn to="/restaurant" class="mx-4" icon>
+              <v-icon size="24px">mdi-home</v-icon>
+            </v-btn>
 
-      <v-btn>
-        <v-icon>mdi-home</v-icon>
-      </v-btn>
-
-      <v-btn >
-        <v-icon>mdi-lead-pencil</v-icon> 
-      </v-btn>
-      
-
-    </v-bottom-navigation>
-
-
-    
+            <v-btn to="/review/create" class="mx-4" icon >
+              <v-icon size="24px">mdi-lead-pencil</v-icon>
+            </v-btn>
+          </v-card-text>
+        </v-card>
+      </v-footer>
+    </v-card>
   </div>  
 </template>
 
 <script>
 
-
 export default {
-  data:()=>{
-    return{
-
-    }
-  },
-
+  props: ['userInfo'],
 }
 </script>
-<style scoped>
-
+<style >
 </style>
+     
