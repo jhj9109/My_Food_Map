@@ -17,10 +17,10 @@
           </v-icon>
           <v-list-item-content>
             <v-list-item-title class="body-1">
-              {{targetData.nickname}}님
+              {{profileUser.nickname}}님
             </v-list-item-title>
             <v-list-item-subtitle>이메일 :
-              {{targetData.email}}
+              {{profileUser.email}}
             </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -29,12 +29,12 @@
         <v-layout align-space-around justify-space-around row fill-height>
             
           <v-subheader>
-            <v-btn text large color="error">Follower: </v-btn> {{ targetData.follower }}<hr class="sero">
-            <v-btn text large color="error">Following: </v-btn> {{ targetData.Following }}
+            <v-btn text large color="error">Follower: </v-btn> {{ profileUser.follower }}<hr class="sero">
+            <v-btn text large color="error">Following: </v-btn> {{ profileUser.following }}
           </v-subheader>
 
           <v-btn class="mx-2" fab dark small color="primary">
-            <v-icon dark @click="follow">mdi-plus</v-icon>
+            <v-icon dark @click="onFollow">mdi-plus</v-icon>
           </v-btn>
 
         </v-layout>
@@ -50,7 +50,7 @@ export default {
   props: ['userInfo'],
   data() {
     return {
-      targetData: {
+      profileUser: {
         id: "",
         email: "",
         nickname: "",
@@ -68,11 +68,11 @@ export default {
         res => {
           if (res.data.status == 'ok') {
             // UserPage 접근 성공
-            this.targetData.id = res.data.id
-            this.targetData.email = res.data.email
-            this.targetData.nickname = res.data.nickname
-            this.targetData.follower = res.data.follower
-            this.targetData.following = res.data.following
+            this.profileUser.id = res.data.id
+            this.profileUser.email = res.data.email
+            this.profileUser.nickname = res.data.nickname
+            this.profileUser.follower = res.data.follower
+            this.profileUser.following = res.data.following
           } else {
             // UserPage 접근 실패 === 올바른 주소 접근이 아님
             // replace : history 남기지 않음 => 404페이지에서 뒤로가기 버튼 올바르게 동작
@@ -85,13 +85,33 @@ export default {
         }
       )
     },
-    follow() {
-      console.log('팔로우')
-      // UserApi.requestFollow(
-      //   {
-          
-      //   }
-      // )
+    onFollow() {
+      console.log('팔로우', this.userInfo.userId, this.profileUser.id)
+      UserApi.requestFollow(
+        {
+          userId: this.userInfo.userId,
+          followingId: this.profileUser.id
+        },
+
+        res => {
+          if (res.data.message === "Following -1") {
+            this.profileUser.follower -= 1
+            console.log("팔로워 숫자 -1")
+          } else {
+            if (res.data.message === "Following +1") {
+              this.profileUser.follwer += 1
+              console.log("팔로워 숫자 +1")
+            } else {
+              // 성공외 다른 응답이 왔을때 동작
+              console.log("팔로우 실패", res)
+            }
+          }
+        },
+        err => {
+          console.error(err)
+          // 라우팅 하지 않음
+        }
+      )
     },
   },
   created() {
