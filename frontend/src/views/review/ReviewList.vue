@@ -62,50 +62,6 @@ import { mapState, mapActions, mapMutations } from 'vuex'
 import ReviewApi from '@/api/ReviewApi'
 
 export default {
-    name: 'ReviewList',
-    data() {
-        return {
-            review_list: [],
-            // review_like_cnt: 0,
-        }
-    },
-    props: ['userInfo'],
-    methods: {
-        fetchReviewList() {
-            console.log(this.userInfo.userId)
-            const API_REVIEW_LIST_URL = API_BASE_URL + `/review/list/${this.userInfo.userId}`
-            const config = {}
-            http.get(API_REVIEW_LIST_URL, config)
-              .then(res => {
-                this.review_list = res.data.message
-              })
-              .catch(err => {
-                console.error(err)
-              })
-        },
-        likeReview(review) {
-            console.log(this.userInfo)
-            const API_LIKE_URL = API_BASE_URL + '/review/like'
-            const config = {
-                reviewid: review.no,
-                userid: this.userInfo.userId
-            }
-            console.log(config)
-            http.post(API_LIKE_URL, config)
-              .then(res => {
-                console.log(res)
-              })
-              .catch(err => {
-                console.error(err)
-              })
-        }
-    },
-    created() {
-        this.fetchReviewList()
-    },
-    watch() {
-
-    },
 	name: 'ReviewList',
 	props: ['userInfo'],
 	computed: {
