@@ -114,10 +114,10 @@ export default {
 		})
 	},
 	methods: {
-		mapActions: [
+		...mapActions(
 			'review',
 			['getReviewList']
-		],
+        ),
 		onLike(review) {
 			// store 반영시, review.js에 작성해도 됨
 			const data = {
