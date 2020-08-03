@@ -1,48 +1,30 @@
 <template>
   <div>
-    <v-card
+    <ReviewCard
       v-for="review in reviews"
-      :loading="loading"
-      class="mx-auto my-3"
-      max-width="374"
-    >
-      <v-img
-        v-if="review.imgUrl"
-        height="250"
-        :src="review.imgUrl"
-      ></v-img>
-
-      <v-card-text>
-
-        <div class="float-right">
-          <v-row
-            align="center"
-            class="ml-3"
-          >
-            <v-rating
-              :value="review.rank"
-              color="amber"
-              dense
-              half-increments
-              readonly
-              size="14"
-            ></v-rating>
-          </v-row>
-        </div>
-
-        <div> {{ review.content }}</div>
-      </v-card-text>
-    </v-card>
-    
+      :key="review.id"
+      :reviewInfo="review"
+    />
   </div>
 </template>
 
 <script>
-  export default {
-    name: "RestaurantReview",
-    data: () => ({
+import ReviewCard from '@/components/review/ReviewCard';
+export default {
+  name: "RestaurantReview",
+  components: {
+    ReviewCard,
+  },
+  data(){
+    return {
       loading: false,
-      reviews: [
+      reviews: []
+    }
+  },
+  methods:{
+    // 아래는 임시 데이터 세팅 메소드
+    tempSetData() {
+      this.reviews = [
         {
           imgUrl: "https://cdn.pixabay.com/photo/2015/04/08/13/13/food-712665__340.jpg",
           rank: 5.0,
@@ -64,11 +46,13 @@
           content: "강력!!!! 추천은 아니지만.... ㅎㅎ 괜찮은 식당이에요 ^^"
         },
       ]
-    }),
-
-    methods: {
     },
+  },
+  mounted() {
+    // 아래의 임시 데이터 세팅을 바꿔주면 됌
+    this.tempSetData()
   }
+}
 </script>
 <style>
 
