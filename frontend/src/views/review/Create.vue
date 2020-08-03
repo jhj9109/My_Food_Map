@@ -65,14 +65,15 @@
 </template>
 
 <script>
-// import http from '../../util/http-common';
+import ReviewApi from "@/api/ReviewApi.js";
+
 export default {
     data() {
         return {
             review: {
                 place: "",
                 content: "",
-                rank: null,
+                rank: 0,
 				image: {
 					name: '',
 					url: '',
@@ -86,36 +87,35 @@ export default {
             ],
         }
     },
+    props: ['userInfo'],
     methods: {
-        // onCreate() {
-        //     console.log("onCraete",this.review)
-        //     // this.requestCreate(this.review)
-        //     // this.$router.push('/review/리뷰아티클주소');
-        // },
-        // onCreate2(){
-        //     http.post('/review/create', {
-        //             review: this.review
-        //         })
-        //         .then(res => {
-        //             console.log("onCraete2",res)
-        //             //아티클로 이동
-        //             //this.$router.push('/review/리뷰아티클주소');
-        //             //this.$router.go('/review/리뷰아티클주소');
-        //         })
-        //         .catch(err => {
-        //             console.log("onCraete2",err)
-        //             //에러페이지로 이동?
-        //         })
-        // },
-        // onClickImageUpload() {
-        //     this.$refs.imageInput.click();
-        // },
-        // onChangeImages(e) {
-        //     console.log("이미지체인지",e)
-        //     console.log(e.target.files)
-        //     const file = e.target.files[0];
-        //     this.image = URL.createObjectURL(e.target.files[0]);
-        // },
+        onCreate() {
+            console.log("onCraete",this.review)
+            const data = {
+                userId: this.userInfo.userId,
+                review: this.review
+            }
+            ReviewApi.requestCreate(
+                data,
+                res => {
+                    console.log("resquestCreate 성공, res : ", res)
+                    if(res.data.status === 'ok') {
+                        // 리뷰 작성 성공 => 작성한 리뷰 페이지로 라우팅
+                        alert("리뷰가 작성 되었습니다.")
+                        this.$router.push( { name: 'Review', params: {reviewId: res.data.reviewId }} );
+                    } else {
+                        // 리뷰 작성 실패 => 에러 원인 알려주기?
+                        console.log("리뷰작성 실패, res.data: ", res.data)
+                        alert(res.data.message || "리뷰가 작성에 실패했습니다.")
+                    }
+                },
+                err => {
+                    console.log(err)
+                    // 에러작성 페이지로
+                    this.$router.push( { name: 'ErrorPage' })
+                }
+            )
+        },
         pickFile() {
 			console.log("픽파일")
 			console.log(this)
