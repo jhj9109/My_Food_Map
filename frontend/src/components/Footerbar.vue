@@ -14,15 +14,15 @@
           class="red lighten-1 text-center"
         >
           <v-card-text>
-            <v-btn :to=" this.userInfo ? '/user/mypage' : '/user/login' ">
+            <v-btn :to="{ name: this.userInfo ? 'Mypage' : 'Login' }">
               <v-icon>mdi-account</v-icon>
             </v-btn>
 
-            <v-btn to="/restaurant" class="mx-4" icon>
+            <v-btn :to="{ name: 'Restaurant' }" class="mx-4" icon>
               <v-icon size="24px">mdi-home</v-icon>
             </v-btn>
 
-            <v-btn to="/review/create" class="mx-4" icon >
+            <v-btn :to="{ name: 'ReviewCreate' }" class="mx-4" icon >
               <v-icon size="24px">mdi-lead-pencil</v-icon>
             </v-btn>
           </v-card-text>
