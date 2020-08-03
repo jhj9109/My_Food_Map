@@ -1,12 +1,11 @@
 <template>
-  <div class="Footerbar">
-    <v-card height="200px">
+    <v-card height="100px">
       <v-footer
         fixed
         flat
         tile
         width="100%"
-        class="amber darken-1 text-center"
+        class="red lighten-1 text-center"
       >
         <v-card
           flat
@@ -30,7 +29,6 @@
         </v-card>
       </v-footer>
     </v-card>
-  </div>  
 </template>
 
 <script>

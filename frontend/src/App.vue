@@ -5,7 +5,6 @@
       :items="items"
     />
 
-    <div style="width:100%;height:109px;"></div> 
       <v-sheet
         id="scrolling-techniques-3"
         class="overflow-y-auto"
@@ -15,7 +14,7 @@
           :userInfo="userInfo"
         />
       </v-sheet>
-    <div style="width:100%;height:85px;"></div>
+
     <Footerbar
       :token="token"
       :userInfo="userInfo"
