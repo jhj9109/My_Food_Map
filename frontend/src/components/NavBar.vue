@@ -1,7 +1,7 @@
 <template>
 	<v-card height="100px">
 		<v-app-bar
-			color="red lighten-1"
+			color="backgroud_gradient"
 			dark
 			fixed
 			scroll-target="#scrolling-techniques-3"
@@ -12,7 +12,7 @@
 
 
 			<v-spacer></v-spacer>
-
+			<!-- 로그인 디자인을 위해 일단 제거 밑에 있어서 없어도 될 것 같기도
 			<div v-if="userInfo">
 			<v-list-item>
 					<v-icon size="50" color="grey" style="margin:8px 16px 8px 0px;padding:0px;">mdi-account-circle</v-icon>
@@ -41,13 +41,17 @@
 					로그인
 			</v-btn>
 			</div>
-			<v-btn icon style="margin-top:10px">
+			-->
+			<!-- drawer dots로 옮김 -->
+			<v-btn 
+				@click.native.stop="drawerToggle = true"
+				icon style="margin-top:10px">
 				<v-icon>mdi-dots-horizontal</v-icon>
 			</v-btn>
+			<!-- drawer dots로 옮김 -->
 			<v-badge
 				dot
 				style="margin-top:15px"
-				@click.native.stop="drawerToggle = true"
 			>
 			<!--:value="userInfo.알람==true"
 			넣어서 새로운 알람 있을때 불들어오게-->
@@ -59,8 +63,9 @@
 				fixed-tabs
 				>
 					<v-tab to="/map/map">Map</v-tab>
-					<v-tab>Home</v-tab>
-					<v-tab>Tab 3</v-tab>
+					<v-tab to="/restaurant">Home</v-tab>
+					<!-- 임의로 프로필 설정 -->
+					<v-tab>Profile</v-tab>
 				</v-tabs>
 			</template>
 		</v-app-bar>

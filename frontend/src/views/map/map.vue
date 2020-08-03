@@ -1,9 +1,15 @@
 <template>
 <div class="container">
-   <h1 id="boardtitle">
-           Map
-    </h1>
-    <hr style="margin-bottom: 40px;">
+    <!-- 기존 주소 설정 삭제 / 검색 창 추가 -->
+      <v-text-field
+        solo-inverted
+        flat
+        style="margin-top: 5px;"
+        hide-details
+        label="맛집 혹은 유저 정보를 검색해보세요."
+      ></v-text-field>
+      <v-spacer></v-spacer>
+      <hr style="margin-top: 10px; margin-bottom: 10px;">
     <div>
         시도 : <select id="sido" v-model="sidovalue" @change="initgugun(sidovalue)">
 	    <option v-for="item in sido" v-bind:key="item.sido_code" >{{item.sido_name}}</option>
