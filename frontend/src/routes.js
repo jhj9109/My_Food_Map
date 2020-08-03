@@ -10,12 +10,12 @@ import Logout from './views/user/Logout.vue'
 import Map from './views/map/map.vue'
 
 
-import Restaurant from './views/review/Restaurant.vue'
-import RestaurantDetail from './views/review/RestaurantDetail.vue'
-import RestaurantReview from './views/review/RestaurantReview.vue'
+import Restaurant from './views/restaurant/Restaurant.vue'
+import RestaurantDetail from './views/restaurant/RestaurantDetail.vue'
+import RestaurantReview from './views/restaurant/RestaurantReview.vue'
 
 import ReviewList from './views/review/ReviewList.vue'
-import Create from './views/review/Create.vue'
+import ReviewCreate from './views/review/ReviewCreate.vue'
 
 import ErrorPage from './views/exception/Error.vue'
 import NotFound from './views/exception/NotFound.vue'
@@ -108,8 +108,8 @@ export default [
 
 	{
 		path : '/review/create',
-		name : 'Create',
-		component : Create
+		name : 'ReviewCreate',
+		component : ReviewCreate
 	},
     {
         path : '/review',
