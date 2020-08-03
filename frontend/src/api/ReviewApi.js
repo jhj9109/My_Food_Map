@@ -18,9 +18,25 @@ const requestReviewList = (callback, errorCallback) => {
     .catch(errorCallback)
 }
 
+const requestReviewInfo = (reviewId, callback, errorCallback) => {
+    axios.get(hosturl+appname+'/'+reviewId)
+    .then(callback)
+    .catch(errorCallback)
+}
+
+const requestCreate = (data, callback, errorCallback) => {
+    setAuthToken()
+    axios.post(hosturl+appname+'/create', data)
+    // data : userId, review (place, content, rank, image(name, url, file))
+    .then(callback)
+    .catch(errorCallback)
+}
+
 const ReviewApi = {
     requestLike:(data,callback,errorCallback)=>requestLike(data,callback,errorCallback),
     requestReviewList:(callback,errorCallback)=>requestReviewList(callback,errorCallback),
+    requestReviewInfo:(reviewId,callback,errorCallback)=>requestReviewInfo(reviewId,callback,errorCallback),
+    requestCreate:(data,callback,errorCallback)=>requestCreate(data,callback,errorCallback),
 }
 
 export default ReviewApi
