@@ -23,6 +23,7 @@ import NotFound from './views/exception/NotFound.vue'
 import IndexFeed from './views/feed/IndexFeed.vue'
 import Components from './views/Components.vue'
 
+import TestVue from './views/testvue/TestVue.vue'
 
 
 /*
@@ -130,6 +131,11 @@ export default [
 		path : '/IndexFeed',
 		name : 'IndexFeed',
 		component : IndexFeed
+	},
+	{
+		path : '/test',
+		name : 'TestVue',
+		component : TestVue
 	},
 	{
 		path : '*',
