@@ -22,7 +22,7 @@ public class RestaurantsDto {
 	private int code;
 	private String time;
 	private String doro;
-	private float garde;
+	private float grade;
 	private int countgrade;
 	private int typeint;
 	public int getIdrestaurants() {
@@ -79,11 +79,11 @@ public class RestaurantsDto {
 	public void setDoro(String doro) {
 		this.doro = doro;
 	}
-	public float getGarde() {
-		return garde;
+	public float getgrade() {
+		return grade;
 	}
-	public void setGarde(float garde) {
-		this.garde = garde;
+	public void setgrade(float grade) {
+		this.grade = grade;
 	}
 	public int getCountgrade() {
 		return countgrade;
@@ -101,11 +101,11 @@ public class RestaurantsDto {
 	public String toString() {
 		return "RestaurantsDto [idrestaurants=" + idrestaurants + ", res_type=" + res_type + ", menu=" + menu
 				+ ", store_number=" + store_number + ", jibun=" + jibun + ", name=" + name + ", code=" + code
-				+ ", time=" + time + ", doro=" + doro + ", garde=" + garde + ", countgrade=" + countgrade + ", typeint="
+				+ ", time=" + time + ", doro=" + doro + ", grade=" + grade + ", countgrade=" + countgrade + ", typeint="
 				+ typeint + "]";
 	}
 	public RestaurantsDto(int idrestaurants, String res_type, String menu, String store_number, String jibun,
-			String name, int code, String time, String doro, float garde, int countgrade, int typeint) {
+			String name, int code, String time, String doro, float grade, int countgrade, int typeint) {
 		super();
 		this.idrestaurants = idrestaurants;
 		this.res_type = res_type;
@@ -116,7 +116,7 @@ public class RestaurantsDto {
 		this.code = code;
 		this.time = time;
 		this.doro = doro;
-		this.garde = garde;
+		this.grade = grade;
 		this.countgrade = countgrade;
 		this.typeint = typeint;
 	}
