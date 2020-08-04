@@ -10,7 +10,7 @@
         :src="restaurantInfo.imgUrl"
     ></v-img>
 
-    <v-card-title @click="onClick">{{ restaurantInfo.title }}</v-card-title>
+    <v-card-title @click="onClick">{{ restaurantInfo.name }}</v-card-title>
 
     <v-card-text>
       <v-row
@@ -18,7 +18,7 @@
         class="mx-0"
       >
         <v-rating
-          :value="restaurantInfo.rank"
+          :value="restaurantInfo.grade"
           color="amber"
           dense
           half-increments
@@ -26,16 +26,16 @@
           size="14"
         ></v-rating>
 
-        <div class="grey--text ml-4">{{ restaurantInfo.value }} ({{ restaurantInfo.likeCount }})</div>
+        <div class="grey--text ml-4">{{ restaurantInfo.value }} ({{ restaurantInfo.countgrade }})</div>
       </v-row>
 
       <div class="my-4 subtitle-1">
-        <template v-for="type in restaurantInfo.types">
+        <template v-for="type in restaurantInfo.res_type">
             {{ type }}
         </template>
       </div>
 
-      <div>{{ restaurantInfo.content }}</div>
+      <!-- <div>{{ restaurantInfo.content }}</div> -->
     </v-card-text>
 
     <v-divider class="mx-4"></v-divider>
@@ -43,7 +43,7 @@
     <v-card-title>영업 시간</v-card-title>
 
     <v-card-text>
-			{{ restaurantInfo.deal_date }}
+			{{ restaurantInfo.time }}
     </v-card-text>
 
   </v-card>
@@ -60,14 +60,14 @@
 
     methods: {
 			onClick(){
-                console.log(`id :${this.restaurantInfo.id} 음식점 페이지로 이동`)
-                console.log(this.$router)
-                console.log(this.$route)
-                if (this.$route.fullPath === "/restaurant") {
-                    this.$router.push({ name: 'RestaurantDetail', params: { restaurantId: this.restaurantInfo.id}}); //리스트 => 특정 음식점
-                } else {
-                    this.$router.push({ name: 'RestaurantReview', params: { restaurantId: this.restaurantInfo.id}}); //특정 음식점 => 해당 리뷰
-                }
+        console.log(`id :${this.restaurantInfo.idrestaurants} 음식점 페이지로 이동`)
+        console.log(this.$router)
+        console.log(this.$route)
+        if (this.$route.fullPath === "/restaurant") {
+            this.$router.push({ name: 'RestaurantDetail', params: { restaurantId: this.restaurantInfo.idrestaurants}}); //리스트 => 특정 음식점
+        } else {
+            this.$router.push({ name: 'RestaurantReview', params: { restaurantId: this.restaurantInfo.idrestaurants}}); //특정 음식점 => 해당 리뷰
+        }
 			}
     },
   }
