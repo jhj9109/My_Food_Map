@@ -5,9 +5,10 @@
     max-width="374"
   >
     <v-img
+        v-if="restaurantInfo.image"
         @click="onClick"
         height="250"
-        :src="restaurantInfo.imgUrl"
+        :src="restaurantInfo.image"
     ></v-img>
 
     <v-card-title @click="onClick">{{ restaurantInfo.name }}</v-card-title>
@@ -60,6 +61,7 @@
 
     methods: {
 			onClick(){
+        console.log(`Info :${this.restaurantInfo}`)
         console.log(`id :${this.restaurantInfo.idrestaurants} 음식점 페이지로 이동`)
         console.log(this.$router)
         console.log(this.$route)
