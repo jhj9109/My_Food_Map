@@ -20,6 +20,7 @@ const requestList = (callback, errorCallback) => {
 }
 
 const requestInfo = (restaurantId, callback, errorCallback) => {
+    console.log(hosturl+appname+'/'+restaurantId)
     axios.get(hosturl+appname+'/'+restaurantId)
     .then(callback)
     .catch(errorCallback)
@@ -31,12 +32,19 @@ const requestCreate = (data, callback, errorCallback) => {
     .then(callback)
     .catch(errorCallback)
 }
+const requestReviews = (restaurantId, callback, errorCallback) => {
+    console.log(hosturl+appname+'/'+restaurantId+'/reviews')
+    axios.get(hosturl+appname+'/'+restaurantId+'/reviews')
+    .then(callback)
+    .catch(errorCallback)
+}
 
 const RestaurantApi = {
     requestLike:(data,callback,errorCallback)=>requestLike(data,callback,errorCallback),
     requestList:(callback,errorCallback)=>requestList(callback,errorCallback),
-    requestInfo:(RestaurantId,callback,errorCallback)=>requestInfo(RestaurantId,callback,errorCallback),
+    requestInfo:(restaurantId,callback,errorCallback)=>requestInfo(restaurantId,callback,errorCallback),
     requestCreate:(data,callback,errorCallback)=>requestCreate(data,callback,errorCallback),
+    requestReviews:(restaurantId,callback,errorCallback)=>requestReviews(restaurantId,callback,errorCallback),
 }
 
 export default RestaurantApi
