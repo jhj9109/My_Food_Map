@@ -5,7 +5,7 @@
 	<select id="selectreslist" resultType="RestaurantsDto">
 		select * from restaurants
 	</select>
-	<select id="select" resultType="RestaurantsDto">
+	<select id="selectres" resultType="RestaurantsDto">
 		select * from restaurants where idrestaurants = #{no}
 	</select>
 	<select id="selectUser" resultType="ReviewDto">

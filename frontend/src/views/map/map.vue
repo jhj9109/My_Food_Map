@@ -24,6 +24,20 @@
   
     </div>
       <br>
+<div>
+    <v-row align="center">
+      <v-col class="text-center" cols="12" sm="4">
+        <div class="my-2">
+          <v-btn text large color="primary" @click="onclick">위치정보받기</v-btn>
+          <v-btn text large color="primary" @click="addScript">지도세팅하기</v-btn>
+          <v-btn text large color="primary" @click="initMap">지도세팅하기2</v-btn>
+        </div>
+        <v-card-text> 경도:{{lat}}<br>위도:{{lon}} </v-card-text>
+        <div id="map" style="width:500px;height:400px;"></div>
+      </v-col>
+    </v-row>
+  </div>
+
 
 
   <div id="dmap">
@@ -65,6 +79,8 @@
 
 <script>
 import http from '../../util/http-common';
+import AppApi from '@/api/AppApi.js';
+
 export default {
     data() {
       return {
@@ -77,6 +93,10 @@ export default {
         gugunvalue : '',
         dong : {},
         dongvalue:'',
+        comment: "",
+        url: "",
+        lat: 37.512,
+        lon: 127.031,
       }
     },
 
@@ -86,10 +106,28 @@ export default {
     }, 
 
     methods : {
+      onclick() {
+      // this.getGeolocation()
+      AppApi.getGeolocation(
+        position => {
+            console.log("position.coords", position.coords)
+            this.lat = position.coords.latitude
+            this.lon = position.coords.longitude
+          },
+        err => {
+          console.log("err", err)
+          if (err.code === 1) {
+            console.log("사용자가 위치 정보 제공에 거부하였습니다.")
+          } else {            
+            console.log('기타 에러입니다')
+            }
+        }
+      )
+    },
      initMap() { 
         var container = document.getElementById('map'); 
         var options = {
-              center: new kakao.maps.LatLng(33.450701, 126.570667), level: 3 
+              center: new kakao.maps.LatLng(this.lat, this.lon), level: 3 
         }; 
         var map = new kakao.maps.Map(container, options);
          //마커추가하려면 객체를 아래와 같이 하나 만든다

@@ -16,6 +16,8 @@ import com.web.curation.util.MailUtil;
 public class UserServiceImpl implements UserService{
 	@Autowired
 	RegisterDao userRepository;
+	
+	@Autowired
 	FollowDao followDao;
 
 	@Override
@@ -156,7 +158,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public boolean searchFollow(FollowDto follow) {
+	public boolean searchFollow(FollowDto follow) throws Exception {
 		FollowDto dto = followDao.searchFollow(follow);
 		if (dto==null) {
 			return false;

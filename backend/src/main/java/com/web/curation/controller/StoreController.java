@@ -78,9 +78,10 @@ public class StoreController {
     
   	
 	 @ApiOperation(value = "restaurants 번호로 idrestaurants 의 정보를 찾는다.", response = List.class)
-		@RequestMapping(value = "/restaurants/{idrestarunts}", method = RequestMethod.GET)
-		public ResponseEntity<Map<String,Object>> findResByNo(@PathVariable int idrestaurnts) throws Exception {
-		 	RestaurantsDto one = storeservice.search(idrestaurnts);
+		@RequestMapping(value = "/restaurants/{idrestaurants}", method = RequestMethod.GET)
+		public ResponseEntity<Map<String,Object>> findResByNo(@PathVariable int idrestaurants) throws Exception {
+		 	System.out.println(idrestaurants);
+		 	RestaurantsDto one = storeservice.search(idrestaurants);
 	    	System.out.println(one);
 	    	
 			if (one==null || one.getIdrestaurants()==0) {

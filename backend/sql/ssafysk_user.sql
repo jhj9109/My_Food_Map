@@ -28,6 +28,8 @@ CREATE TABLE `user` (
   `password` varchar(128) DEFAULT NULL,
   `nickname` varchar(128) DEFAULT NULL,
   `create_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `follower_cnt` int DEFAULT '0',
+  `following_cnt` int DEFAULT '0',
   PRIMARY KEY (`userid`),
   UNIQUE KEY `user_idx_unique_email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
@@ -39,7 +41,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'lkm@ssafy.com','rudalsl61','lkmlkm','2020-07-27 21:35:35'),(2,'asdf@naver.com','12345678*','wowow','2010-07-20 00:00:00'),(3,'qwerty@qwerty.com','qwerty','쿼티','2014-07-24 00:00:00'),(4,'foodfighter@naver.com','slfkjsf','foodfighter','2020-06-23 00:00:00'),(5,'east@ssafy.com','west','king','2019-03-12 00:00:00'),(6,'hhh@adfa.com','123123','lksjalkdj','2015-05-23 00:00:00'),(7,'hjoon@naver.com','hshfjaf','jhj','2012-04-03 00:00:00'),(8,'ham@ssafy.com','hamham','dnsrod','2018-12-11 00:00:00'),(9,'django@gmail.com','master','D장고','2014-05-07 00:00:00'),(10,'java@spring.com','python','python','2020-03-21 00:00:00');
+INSERT INTO `user` VALUES (1,'lkm@ssafy.com','rudalsl61','lkmlkm','2020-07-27 21:35:35',3,2),(2,'asdf@naver.com','12345678*','wowow','2010-07-20 00:00:00',2,0),(3,'qwerty@qwerty.com','qwerty','쿼티','2014-07-24 00:00:00',1,3),(4,'foodfighter@naver.com','slfkjsf','foodfighter','2020-06-23 00:00:00',1,2),(5,'east@ssafy.com','west','king','2019-03-12 00:00:00',0,2),(6,'hhh@adfa.com','123123','lksjalkdj','2015-05-23 00:00:00',0,0),(7,'hjoon@naver.com','hshfjaf','jhj','2012-04-03 00:00:00',1,0),(8,'ham@ssafy.com','hamham','dnsrod','2018-12-11 00:00:00',1,0),(9,'django@gmail.com','master','D장고','2014-05-07 00:00:00',0,1),(10,'java@spring.com','python','python','2020-03-21 00:00:00',1,0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-07-30 14:38:04
+-- Dump completed on 2020-08-04 14:47:07
