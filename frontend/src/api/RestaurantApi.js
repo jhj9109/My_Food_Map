@@ -1,7 +1,7 @@
 const axios = require('axios')
 // const hosturl = 'http://localhost:9999'
 const hosturl = 'http://i3a409.p.ssafy.io:8399'
-const appname = '/restaurant'
+const appname = '/restaurants'
 
 const setAuthToken = () => {
     const AuthToken = `Bearer ${localStorage.getItem('JWT')}`
@@ -14,7 +14,7 @@ const requestLike = (data, callback, errorCallback) => {
     .catch(errorCallback)
 }
 const requestList = (callback, errorCallback) => {
-    axios.get(hosturl+appname+'/list')
+    axios.post(hosturl+appname)
     .then(callback)
     .catch(errorCallback)
 }
