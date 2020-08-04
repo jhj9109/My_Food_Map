@@ -9,11 +9,11 @@
     >
       <v-card-actions>
         <v-list-item>
-          <!-- 아이콘 디자인 변경 -->
+          <!-- 아이콘 디자인 변경, 위치 이동 사진 추가 유무에 따른 분기 필요-->
           <v-icon
               size="70"
               color="#F7B675"
-              style="margin:4px 4px 8px 0px; padding:0px;">mdi-account-circle
+              style="margin:4px 4px 0px -16px;">mdi-account-circle
           >
           </v-icon>
           <v-list-item-content>
@@ -21,22 +21,22 @@
               {{profileUser.nickname}}님
             </v-list-item-title>
           <!-- 팔로워 팔로잉 변경 -->
-            <v-list-item-subtitle class="d-flex flex-column-reverse mb-1"
+            <v-list-item-subtitle class="mb-1"
             >
               팔로워: {{profileUser.follower}}
               팔로잉: {{ profileUser.following }}
             </v-list-item-subtitle>
           <!-- 이메일 -> 자기소개로 변경  -->
-            <v-list-item-subtitle 
+            <v-list-item-subtitle
             >
               {{profileUser.email}}
             </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
         
-      <!-- 팔로워/팔로잉 디자인 수정 -->
+      <!-- 팔로워/팔로잉 디자인 수정 팔로우 했을 경우 팔로우 취소로 변경-->
       </v-card-actions>
-        <v-layout class="mb-2 mr-3 justify-end">
+        <v-layout class="mb-3 mr-3 justify-end">
           <!--
           <v-subheader>
             <v-btn text large color="error">Follower: {{ profileUser.follower }} </v-btn> 
@@ -44,7 +44,7 @@
           </v-subheader>
           -->
           <v-btn  @click="onFollow" dark small color=#F7B675>
-            <v-icon> mdi-plus </v-icon>
+            팔로우
           </v-btn>
 
         </v-layout>
@@ -99,7 +99,8 @@ export default {
     // ↓↓↓↓↓↓↓↓↓↓↓↓↓↓ 디자인에 사용할 더미 데이터
     fetchProfile() {
             this.profileUser.id = 1
-            this.profileUser.email = "이메일 대신 자기소개면 될 것 같아요. 만약 길어지면 밖으로 나가지 않고 밑으로 내려가게 or 최대 글자 수 제한"
+            //email을 소개문으로 바꾸고, 글자 수 제한 23개를 두면 될 것 같습니다(한국어가 다르게 처리되면 또 아닐수도)
+            this.profileUser.email = "최대 글자 수 제한을 넣어둔 소개문 글자 23!"
             this.profileUser.nickname = "my_nickname"
             this.profileUser.follower = 1234
             this.profileUser.following = 5678
