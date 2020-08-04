@@ -101,7 +101,7 @@
           회원가입
           </v-btn>
           </div>
-          <div class="d-flex align-end flex-column mb-16 pb-7" to="/user/findpw">
+          <div class="d-flex align-end flex-column mb-16 pb-8" to="/user/findpw">
             ID/비밀번호를 잊으셨나요?
             <v-btn
             to="/user/findpw"

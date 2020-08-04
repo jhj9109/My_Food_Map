@@ -79,7 +79,8 @@
 		>
 			<v-list-item>
 				<v-list-item-avatar>
-					<v-img src="https://randomuser.me/api/portraits/men/78.jpg"></v-img>
+					<!-- 아이콘 수정 -->
+					<v-icon size="40">mdi-account-circle</v-icon>
 				</v-list-item-avatar>
 				
 				<v-list-item-content v-if="userInfo">
@@ -90,7 +91,7 @@
 			<v-divider></v-divider>
 
 			<v-list dense>
-
+				
 				<v-list-item
 					v-for="item in items"
 					:key="item.title"
