@@ -5,9 +5,9 @@
     max-width="374"
   >
     <v-img
-      v-if="reviewInfo.imgUrl"
+      v-if="reviewInfo.image"
       height="250"
-      :src="reviewInfo.imgUrl"
+      :src="reviewInfo.image"
     />
     
     <v-card-text>
@@ -43,9 +43,10 @@
 
     methods: {
 			onClick(){
-        console.log(`id :${this.restaurantInfo.id} 음식점 페이지로 이동`)
-        this.$router.push({ name: 'RestaurantDetail', params: { restaurantId: this.restaurantInfo.id}}); //리스트 => 특정 음식점
-				// this.$router.push('/restaurant/review'); 특정 음식점의 리뷰
+        // 클릭시 모달 => 도움이 됐어요
+        console.log("onClick 발동")
+        // console.log(`id :${this.restaurantInfo.id} 음식점 페이지로 이동`)
+        // this.$router.push({ name: 'RestaurantDetail', params: { restaurantId: this.restaurantInfo.id}}); //리뷰 => 리뷰 디테일?
 			}
     },
   }
