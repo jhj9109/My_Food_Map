@@ -19,8 +19,9 @@
             >
 
               <v-card class="elevation-12">
+                <!-- 로그인창 색상 변경 -->
                 <v-toolbar
-                  color="primary"
+                  color="backgroud_gradient"
                   dark
                   flat
                 >
@@ -78,29 +79,34 @@
                 </v-card-text>
                 <v-card-actions>
                 <v-spacer/>
-                  <v-btn color="primary"
+                <!-- 버튼 색상 변경 -->
+                  <v-btn dark color="#F7B675"
                   tile
                     @click="onLogin">
                   Login</v-btn>
                 </v-card-actions>
               </v-card>
               <br><br>
-              
+          <!-- 버튼 크기 및 하단 배열 변경 -->
+          <div class="mb-4">
           Don`t have an account?
           <v-btn
            to="/user/join"
+           small
            >
           회원가입
           </v-btn>
-          <br><br>
+          </div>
+          <div class="mb-16">
             Don`t remember password?
             <v-btn
             to="/user/findpw"
+            small
             >
             비밀번호 찾기
             </v-btn>
+          </div>
             </v-col>
-            
           </v-row>
 
 

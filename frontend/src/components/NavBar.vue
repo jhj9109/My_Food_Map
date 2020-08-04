@@ -7,7 +7,7 @@
 			scroll-target="#scrolling-techniques-3"
 		>
 			<v-btn to="/restaurant" class="ml-10 title" icon>
-			<v-toolbar-title> My Food Diary </v-toolbar-title>
+			<v-toolbar-title class="ml-4"> My Food Diary </v-toolbar-title>
 			</v-btn>
 
 
