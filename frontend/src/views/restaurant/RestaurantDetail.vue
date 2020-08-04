@@ -9,8 +9,7 @@
 
 <script>
 import RestaurantCard from '@/components/restaurant/RestaurantCard';
-
-// import { mapState, mapMutations } from 'vuex';
+import RestaurantApi from '@/api/RestaurantApi.js'
 
 export default {
   name: 'Restaurant',
@@ -19,17 +18,28 @@ export default {
   },
   data() {
     return {
-      restaurant: {
-        id: 1,
-        title: "어썸한 가게",
-        content: "아직 id 받아 데이터 받기 구현 안함!",
-        imgUrl: "https://cdn.vuetifyjs.com/images/cards/cooking.png",
-        types: ["이탈리안","레스토랑"],
-        rank: 4.5,
-        likeCount: 404,
-        deal_date: "10:00 ~ 21:00"
-      }
+      restaurant: {},
     }
+  },
+  methods: {
+    setRestaurant() {
+      const restaruantId = this.$route.params.restaurantId
+      console.log("realSetData 요청 Id 값 : ", restaruantId, typeof(restaruantId))
+      RestaurantApi.requestInfo(
+        restaruantId,
+        res => {
+          console.log("realSetData 콜백 성공, res:", res.data.message)
+          this.restaurant = res.data.message
+        },
+        err => {
+          console.error(err)
+          console.log("에러반응")
+        }
+      )
+    },
+  },
+  mounted() {
+    this.setRestaurant()
   },
 }
 </script>
