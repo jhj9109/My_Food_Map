@@ -1,5 +1,15 @@
 <template>
   <div>
+    <!-- 기존 주소 설정 삭제 / 검색 창 추가 -->
+      <v-text-field
+        solo-inverted
+        flat
+        hide-details
+        style="margin-top: 5px;"
+        label="맛집 혹은 유저 정보를 검색해보세요."
+      ></v-text-field>  
+      <v-spacer></v-spacer>
+    <!-- 기존 주소 설정 삭제 / 검색 창 추가 -->
     <RestaurantCard
       v-for="restaurant in restaurants"
       :key="restaurant.idrestaurants"

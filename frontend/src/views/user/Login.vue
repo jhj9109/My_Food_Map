@@ -19,13 +19,15 @@
             >
 
               <v-card class="elevation-12">
+                <!-- 로그인창 색상 변경 -->
                 <v-toolbar
-                  color="primary"
+                  color="backgroud_gradient"
                   dark
                   flat
                 >
-                  <v-toolbar-title> Login form</v-toolbar-title>
+                  <v-toolbar-title> 로그인 </v-toolbar-title>
                   <v-spacer></v-spacer>
+                  <!-- 없어도 괜찮은 아이콘
                   <v-tooltip bottom>
                     <template v-slot:activator="{ on }">
                       <v-btn
@@ -39,6 +41,7 @@
                     </template>
                     <span>Source</span>
                   </v-tooltip>
+                  -->
                 </v-toolbar>
                 <v-card-text>
                   <v-form>
@@ -47,7 +50,7 @@
                       name="email"
                       v-model="email"
                       :rules="emailRules"
-                      placeholder="E-mail"
+                      placeholder="이메일"
                       prepend-icon="mdi-account"
                       @keyup.enter="onLogin"
                       type="text"
@@ -69,7 +72,7 @@
                     ></v-text-field>
 
                     <v-checkbox
-                     light label='Stay logged in?'
+                     light label='로그인 상태 유지'
                      hide-details
                      >
                     </v-checkbox>
@@ -78,29 +81,37 @@
                 </v-card-text>
                 <v-card-actions>
                 <v-spacer/>
-                  <v-btn color="primary"
+                <!-- 버튼 색상 변경 -->
+                  <v-btn dark color="#F7B675"
                   tile
                     @click="onLogin">
-                  Login</v-btn>
+                  로그인
+                  </v-btn>
                 </v-card-actions>
               </v-card>
               <br><br>
-              
-          Don`t have an account?
+          <!-- 버튼 크기 및 하단 배열 변경 -->
+          <div class="mb-4 d-flex align-end flex-column">
+            계정이 없으신가요?
           <v-btn
            to="/user/join"
+           small
+           class="mt-1"
            >
           회원가입
           </v-btn>
-          <br><br>
-            Don`t remember password?
+          </div>
+          <div class="d-flex align-end flex-column mb-16 pb-8" to="/user/findpw">
+            ID/비밀번호를 잊으셨나요?
             <v-btn
             to="/user/findpw"
+            small
+            class="mt-1 mb-16"
             >
-            비밀번호 찾기
+            ID/비밀번호 찾기
             </v-btn>
+          </div>
             </v-col>
-            
           </v-row>
 
 

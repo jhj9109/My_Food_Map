@@ -79,8 +79,9 @@ export default {
     tempSetListData() { 
       // 임시데이터 생성용
       const listData = [
-        { title: 'Home wow!', icon: 'mdi-home' },
-        { title: 'About wow!', icon: 'mdi-comment-account-outline' },
+        { title: 'Home', icon: 'mdi-home' },
+        { title: 'Map', icon: 'mdi-map' },
+        { title: 'Profile', icon: 'mdi-comment-account-outline' },
       ]
       this.$store.commit('nav/setItems', listData)
     },
