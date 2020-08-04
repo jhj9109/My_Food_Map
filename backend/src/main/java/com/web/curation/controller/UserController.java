@@ -185,10 +185,7 @@ public class UserController {
 	// followingId : 팔로우되는 사용자
 	@ApiOperation(value="팔로우")
 	@RequestMapping(value="/user/follow", method=RequestMethod.POST)
-	public ResponseEntity<Map<String, Object>> followUser(@PathVariable  int userId, int followingId) throws Exception {
-		FollowDto dto = new FollowDto();
-		dto.setFollowerId(userId);
-		dto.setFollowingId(followingId);
+	public ResponseEntity<Map<String, Object>> followUser(@RequestBody FollowDto dto) throws Exception {
 		boolean check = userService.searchFollow(dto);
 		if (check) {
 			userService.deleteFollow(dto);

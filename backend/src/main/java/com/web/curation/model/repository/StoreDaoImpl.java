@@ -9,14 +9,16 @@ import org.springframework.stereotype.Repository;
 import com.web.curation.model.dto.RestaurantsDto;
 import com.web.curation.model.dto.ReviewDto;
 
+
 @Repository
-public class StoreDaoImpl implements StoreDao {
+public class StoreDaoImpl implements StoreDao{
+	
 	@Autowired
 	SqlSession session;
 
 	@Override
 	public RestaurantsDto search(int no) {
-		return session.selectOne("review.select",no);
+		return session.selectOne("review.selectres",no);
 	}
 
 	@Override
@@ -29,7 +31,6 @@ public class StoreDaoImpl implements StoreDao {
 		return session.insert("review.insert",dto);
 	}
 
-	@Override
 	public List<ReviewDto> searchAllreview() {
 		return session.selectList("review.selectreviewlist");
 	}
@@ -38,6 +39,5 @@ public class StoreDaoImpl implements StoreDao {
 	public List<RestaurantsDto> searchAll() {
 		return session.selectList("review.selectreslist");
 	}
-	
 	
 }

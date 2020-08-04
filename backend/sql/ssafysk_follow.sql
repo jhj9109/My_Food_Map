@@ -31,7 +31,7 @@ CREATE TABLE `follow` (
   KEY `followingId` (`followingId`),
   CONSTRAINT `follow_ibfk_1` FOREIGN KEY (`followerId`) REFERENCES `user` (`userid`),
   CONSTRAINT `follow_ibfk_2` FOREIGN KEY (`followingId`) REFERENCES `user` (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `follow` (
 
 LOCK TABLES `follow` WRITE;
 /*!40000 ALTER TABLE `follow` DISABLE KEYS */;
-INSERT INTO `follow` VALUES (1,3,1),(2,4,1),(3,5,1),(4,1,2),(5,3,2),(6,9,3),(7,1,4),(8,4,7),(9,5,8),(10,3,10);
+INSERT INTO `follow` VALUES (1,3,1),(2,4,1),(3,5,1),(5,3,2),(6,9,3),(7,1,4),(8,4,7),(9,5,8),(10,3,10);
 /*!40000 ALTER TABLE `follow` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-07-30 14:38:03
+-- Dump completed on 2020-08-04 14:47:06

@@ -21,5 +21,5 @@ public interface UserService {
 	// follow
 	public void insertFollow(FollowDto follow);
 	public void deleteFollow(FollowDto follow);
-	public boolean searchFollow(FollowDto follow);
+	public boolean searchFollow(FollowDto follow) throws Exception;
 }

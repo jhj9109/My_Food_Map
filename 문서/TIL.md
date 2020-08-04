@@ -337,6 +337,26 @@ public String personalWrite(@PathVariable String id, Model model, HttpSession se
 
 
 
+## 2020-08-04 :cloud:
+
+-  Follow 구현할 때 자꾸 Null 값을 참조한다는 에러 발생
+
+  - 코드 곳곳에 print문을 넣어 확인하고, dao의 함수를 실행할 때 문제가 발생한다는 것을 알아냄
+
+  - 하지만 문제는 다른 곳에 있었음...
+
+    ```java
+    @Autowired
+    FollowDao followDao;
+    ```
+
+    - Dao를 선언할 때 `@Autowired`를 안 붙여놓고 있었음
+    - `@Autowired` 붙여주니까 바로 해결!
+
+  - 코치님 정말 감사합니다... :pray:
+
+
+
 # :honey_pot: Tip
 
 - `Ctrl + Shift + O` : 자동으로 import
