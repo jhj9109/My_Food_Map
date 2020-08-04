@@ -2,7 +2,8 @@ const axios = require('axios')
 // const token = `Bearer ${localStorage.getItem('JWT')}`
 // axios.defaults.headers.common['Authorization'] = token
 
-const hosturl = 'http://localhost:9999'
+// const hosturl = 'http://localhost:9999'
+const hosturl = 'http://i3a409.p.ssafy.io:8399'
 const appname = '/user'
 
 const refreshAuthToken = () => {
@@ -18,6 +19,7 @@ const requestFollow = (data, callback, errorCallback) => {
 
 
 const requestSignup = (data, callback, errorCallback) => {
+    console.log(hosturl)
     console.log("requestSignup data=>" + data)
     axios.post(hosturl+appname+'/join', data)
     .then(callback)

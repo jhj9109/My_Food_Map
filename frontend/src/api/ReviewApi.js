@@ -1,5 +1,6 @@
 const axios = require('axios')
-const hosturl = 'http://localhost:9999'
+// const hosturl = 'http://localhost:9999'
+const hosturl = 'http://i3a409.p.ssafy.io:8399'
 const appname = '/reviews'
 
 const setAuthToken = () => {
