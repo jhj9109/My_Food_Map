@@ -49,14 +49,24 @@
 
         </v-layout>
     </v-card>
+    <ReviewCard
+      v-for="review in reviews"
+      :key="review.id"
+      :reviewInfo="review"
+      @onFollow="onFollow"
+    />
   </div>
 </template>
 
 <script>
-import UserApi from '@/api/UserApi.js'
+import UserApi from '@/api/UserApi.js';
+import ReviewCard from '@/components/review/ReviewCard';
 
 export default {
   name: 'Profile',
+  components: {
+    ReviewCard
+  },
   props: ['userInfo'],
   data() {
     return {
@@ -66,7 +76,8 @@ export default {
         nickname: "",
         follower: 0,
         following: 0,
-      }
+      },
+      reviews: null,
     }
   },
   methods: {
@@ -112,7 +123,6 @@ export default {
           userId: this.userInfo.userId,
           followingId: this.profileUser.id
         },
-
         res => {
           if (res.data.message === "Following -1") {
             this.profileUser.follower -= 1
@@ -133,9 +143,34 @@ export default {
         }
       )
     },
+    fetchReview() {
+      // 임시 하드코딩
+      this.reviews = [
+        {
+          content: "임시로 띄우는 리뷰입니다1",
+          rank: 3.0,
+          image: '',
+        },
+        {
+          content: "임시로 띄우는 리뷰입니다2",
+          rank: 4.0,
+          image: '',
+        },
+        {
+          content: "임시로 띄우는 리뷰입니다3",
+          rank: 5.0,
+          image: 'https://images.unsplash.com/photo-1531480197551-16ddf280ba62?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1054&q=80',
+        },        {
+          content: "임시로 띄우는 리뷰입니다4",
+          rank: 2.0,
+          image: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
+        },
+      ]
+    }
   },
   created() {
     this.fetchProfile()
+    this.fetchReview()
   }
 }
 </script>
