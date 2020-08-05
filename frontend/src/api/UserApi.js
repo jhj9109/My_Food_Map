@@ -10,32 +10,23 @@ const refreshAuthToken = () => {
     const AuthToken = `Bearer ${localStorage.getItem('JWT')}`
     axios.defaults.headers.common['Authorization'] = AuthToken
 }
-const requestFollow = (data, callback, errorCallback) => {
-    refreshAuthToken()
-    axios.post(hosturl+appname+'/follow', data)
-    .then(callback)
-    .catch(errorCallback)
-}
-
 
 const requestSignup = (data, callback, errorCallback) => {
-    console.log(hosturl)
-    console.log("requestSignup data=>" + data)
+    console.log("Signup 요청 : ", hosturl+appname+'/join', data)
     axios.post(hosturl+appname+'/join', data)
     .then(callback)
     .catch(errorCallback)
 }
 
 const requestLogin = (data,callback,errorCallback) => {
-    console.log("requestLogin data =>" + data)
+    console.log("Login 요청 : ", hosturl+appname+'/login', data)
     axios.post(hosturl+appname+'/login', data)
     .then(callback)
     .catch(errorCallback)
 }
 
 const requestLogout = (data,callback,errorCallback) => {
-    console.log("requestLogout data =>" + data)
-    console.log("data.token값은" + data.token)
+    console.log("Logout 요청 : ", hosturl+appname+'/logout', data)
     refreshAuthToken()
     axios.post(hosturl+appname+'/logout', data)
     .then(callback)
@@ -43,13 +34,19 @@ const requestLogout = (data,callback,errorCallback) => {
 }
 
 const requestUserInfo = (userId, callback, errorCallback) => {
-    console.log("requestUserInfo :", hosturl+appname+'/'+userId )
+    console.log("UserInfo 요청 : ", hosturl+appname+'/'+userId)
     axios.get(hosturl+appname+'/'+userId)
     .then(callback)
     .catch(errorCallback)
 }
 
-
+const requestFollow = (data, callback, errorCallback) => {
+    refreshAuthToken()
+    console.log("Follow 요청 :", hosturl+appname+'/follow', data)
+    axios.post(hosturl+appname+'/follow', data)
+    .then(callback)
+    .catch(errorCallback)
+}
 
 const UserApi = {
     requestSignup:(data,callback,errorCallback)=>requestSignup(data,callback,errorCallback),
