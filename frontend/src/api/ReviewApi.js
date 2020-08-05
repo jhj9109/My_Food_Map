@@ -1,7 +1,7 @@
 const axios = require('axios')
 // const hosturl = 'http://localhost:9999'
 const hosturl = 'http://i3a409.p.ssafy.io:8399'
-const appname = '/reviews'
+const appname = '/review'
 
 const setAuthToken = () => {
     const AuthToken = `Bearer ${localStorage.getItem('JWT')}`
@@ -32,12 +32,19 @@ const requestCreate = (data, callback, errorCallback) => {
     .then(callback)
     .catch(errorCallback)
 }
+const requestUserReview = (profileUserId, callback, errorCallback) => {
+    console.log("요청주소", hosturl+appname+'/list/'+profileUserId )
+    axios.get(hosturl+appname+'/list/'+profileUserId)
+    .then(callback)
+    .catch(errorCallback)
+}
 
 const ReviewApi = {
     requestLike:(data,callback,errorCallback)=>requestLike(data,callback,errorCallback),
     requestReviewList:(callback,errorCallback)=>requestReviewList(callback,errorCallback),
     requestReviewInfo:(reviewId,callback,errorCallback)=>requestReviewInfo(reviewId,callback,errorCallback),
     requestCreate:(data,callback,errorCallback)=>requestCreate(data,callback,errorCallback),
+    requestUserReview:(profileUserId,callback,errorCallback)=>requestUserReview(profileUserId,callback,errorCallback),
 }
 
 export default ReviewApi
