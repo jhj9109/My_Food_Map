@@ -2,6 +2,7 @@
   <div>
     <UserProfileCard
       :profileUser="profileUser"
+      @onFollow="onFollow"
     />
     <ReviewCard
       v-for="review in reviews"
@@ -81,8 +82,9 @@ export default {
       console.log('팔로우', this.userInfo.userId, this.profileUser.id)
       UserApi.requestFollow(
         {
-          userId: this.userInfo.userId,
-          followingId: this.profileUser.id
+          followerId: this.userInfo.userId,
+          followingId: this.profileUser.id,
+          no: 0
         },
         res => {
           if (res.data.message === "Following -1") {
@@ -90,7 +92,7 @@ export default {
             console.log("팔로워 숫자 -1")
           } else {
             if (res.data.message === "Following +1") {
-              this.profileUser.follwer += 1
+              this.profileUser.follower += 1
               console.log("팔로워 숫자 +1")
             } else {
               // 성공외 다른 응답이 왔을때 동작
