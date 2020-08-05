@@ -43,6 +43,7 @@ const requestLogout = (data,callback,errorCallback) => {
 }
 
 const requestUserInfo = (userId, callback, errorCallback) => {
+    console.log("requestUserInfo :", hosturl+appname+'/'+userId )
     axios.get(hosturl+appname+'/'+userId)
     .then(callback)
     .catch(errorCallback)
