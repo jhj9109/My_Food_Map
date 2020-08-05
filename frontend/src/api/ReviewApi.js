@@ -3,37 +3,41 @@ const axios = require('axios')
 const hosturl = 'http://i3a409.p.ssafy.io:8399'
 const appname = '/review'
 
-const setAuthToken = () => {
+const refreshAuthToken = () => {
     const AuthToken = `Bearer ${localStorage.getItem('JWT')}`
     axios.defaults.headers.common['Authorization'] = AuthToken
 }
 const requestLike = (data, callback, errorCallback) => {
-    setAuthToken()
+    refreshAuthToken()
+    console.log("Like 요청 : ", hosturl+appname+'/like', data)
     axios.post(hosturl+appname+'/like', data)
     .then(callback)
     .catch(errorCallback)
 }
 const requestReviewList = (callback, errorCallback) => {
+    console.log("ReviewList 요청 : ", hosturl+appname+'/list')
     axios.get(hosturl+appname+'/list')
     .then(callback)
     .catch(errorCallback)
 }
 
 const requestReviewInfo = (reviewId, callback, errorCallback) => {
+    console.log("ReviewInfo 요청 : ", hosturl+appname+'/'+reviewId)
     axios.get(hosturl+appname+'/'+reviewId)
     .then(callback)
     .catch(errorCallback)
 }
 
 const requestCreate = (data, callback, errorCallback) => {
-    setAuthToken()
+    refreshAuthToken()
+    console.log("Create 요청 : ", hosturl+appname+'/create', data)
     axios.post(hosturl+appname+'/create', data)
     // data : userId, review (place, content, rank, image(name, url, file))
     .then(callback)
     .catch(errorCallback)
 }
 const requestUserReview = (profileUserId, callback, errorCallback) => {
-    console.log("요청주소", hosturl+appname+'/list/'+profileUserId )
+    console.log("UserReview 요청 : ", hosturl+appname+'/list/'+profileUserId)
     axios.get(hosturl+appname+'/list/'+profileUserId)
     .then(callback)
     .catch(errorCallback)
