@@ -21,8 +21,8 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public List<ReviewDto> user_review(String email) {
-		return reviewDao.user_review(email);
+	public List<ReviewDto> user_review(int userId) {
+		return reviewDao.user_review(userId);
 	}
 
 	@Override
@@ -44,4 +44,5 @@ public class ReviewServiceImpl implements ReviewService {
 			return true;
 		}
 	}
+	
 }

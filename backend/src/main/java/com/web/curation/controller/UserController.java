@@ -33,7 +33,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	private String loginid;
+	private int loginid;
 
 	@ExceptionHandler
 	private ResponseEntity<Map<String, Object>> Success(Object data) {
@@ -49,38 +49,34 @@ public class UserController {
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 
-	
-	@ApiOperation(value = "회원가입.")
+	@ApiOperation(value = "회원가입")
 	@RequestMapping(value = "/user/join", method = RequestMethod.POST)
 	public  ResponseEntity<Map<String, Object>> Join(@RequestBody MemberDto dto) throws Exception {
 		try {
 			userService.join(dto);
 			boolean check=false;
 			if(dto!=null)check =true;
-		if (check) {
-			return Success("회원가입에 성공하셨습니다");
-
-		}else {
-			return Fail("다시 확인해주세요", HttpStatus.OK);
-		}
+			if (check) {
+				return Success("회원가입에 성공하셨습니다");
+			}else {
+				return Fail("다시 확인해주세요", HttpStatus.OK);
+			}
 		}catch(Exception e) {
 			e.printStackTrace();
 			return Fail(e.toString(),HttpStatus.OK);
 		}
 	}
 
-
-	@ApiOperation(value = "로그인.")
+	@ApiOperation(value = "로그인")
 	@RequestMapping(value = "/user/login", method = RequestMethod.POST)
 	public ResponseEntity<MemberDto> Login(@RequestBody MemberDto dto) throws Exception {
-		System.out.println(dto.getEmail());
 		MemberDto result = userService.login(dto.getEmail(), dto.getPassword());
-		System.out.println(result);
-		loginid=result.getEmail();
+//		System.out.println(result);
+//		loginid = result.getUserid();
 		return new ResponseEntity<MemberDto>(result, HttpStatus.OK);
 	}
 
-	@ApiOperation("user 업데이트. ")
+	@ApiOperation("user 업데이트")
 	@PutMapping("/user")
 	public ResponseEntity<Map<String, Object>> update(@RequestBody MemberPwDto user) {
 		try {
@@ -94,7 +90,6 @@ public class UserController {
 			e.printStackTrace();
 			return Fail("회원정보 변경 실패", HttpStatus.OK);
 		}
-
 	}
 
 	@ApiOperation("닉네임 중복확인")
@@ -110,7 +105,7 @@ public class UserController {
 
 	@ApiOperation("이메일 인증 코드 생성")
 	@GetMapping("/user/emailAuth/{id}")
-	public ResponseEntity<Map<String, Object>> emailAuth(@PathVariable String id) {
+	public ResponseEntity<Map<String, Object>> emailAuth(@PathVariable int id) {
 		String code = null;
 		try {
 			code = userService.email(id);
@@ -124,17 +119,17 @@ public class UserController {
 		}
 	}
 
-	@ApiOperation("회원 탈퇴. ")
+	@ApiOperation("회원 탈퇴")
 	@PutMapping("/user/delete")
 	public ResponseEntity<Map<String, Object>> signOut(@RequestBody MemberDto user) {
-		if (userService.signOut(user.getEmail(), user.getPassword())) {
+		if (userService.signOut(user.getUserid(), user.getPassword())) {
 			return Success("회원 탈퇴 성공");
 		} else {
 			return Fail("비밀번호가 맞지 않습니다.", HttpStatus.OK);
 		}
 	}
 
-	@ApiOperation("비밀번호 변경, ")
+	@ApiOperation("비밀번호 변경")
 	@PutMapping("/user/changepw")
 	public ResponseEntity<Map<String, Object>> changePW(@RequestBody MemberPwDto user) {
 		if (user.getNewpassword().equals(user.getPassword())) {
@@ -152,20 +147,23 @@ public class UserController {
 		return Fail("이전 비밀번호를 다시 입력해주세요.", HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "id로 정보를 반환한다.", response = MemberDto.class)
-	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
-	public ResponseEntity<MemberDto> findById(@PathVariable String id) throws Exception {
-		System.out.println(id);
+	@ApiOperation(value = "특정 회원 정보 반환", response = MemberDto.class)
+	@RequestMapping(value = "/user/{id}/{userId}", method = RequestMethod.GET)
+	public ResponseEntity<MemberDto> findById(@PathVariable("id") int id, @PathVariable("userId") int userId) throws Exception {
 		MemberDto dto = userService.select(id);
-		System.out.println(loginid+"로긴아디");
+		FollowDto follow = new FollowDto();
+		follow.setFollowerId(userId);
+		follow.setFollowingId(id);
+		dto.setFollowed(userService.searchFollow(follow));
 		if (dto == null) {
 			return new ResponseEntity(HttpStatus.NO_CONTENT);
+		} else {
+			System.out.println(dto);
+			return new ResponseEntity<MemberDto>(dto, HttpStatus.OK);			
 		}
-		System.out.println(dto);
-		return new ResponseEntity<MemberDto>(dto, HttpStatus.OK);
 	}
 	
-	@ApiOperation("회원 정보 반환한다")
+	@ApiOperation("로그인한 회원 정보 반환")
 	@GetMapping("/user")
 	public ResponseEntity<Map<String,Object>> MyInfo(){
 		MemberDto user=null;
@@ -175,7 +173,6 @@ public class UserController {
 			e.printStackTrace();
 		}
 		if(user==null) return Fail("오류발생", HttpStatus.OK);
-		
 		user.setPassword(null);
 		return Success(user);
 	}

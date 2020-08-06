@@ -21,8 +21,8 @@ public class ReviewDaoImpl implements ReviewDao {
 	}
 	
 	@Override
-	public List<ReviewDto> user_review(String email) {
-		return session.selectList("review.selectUser", email);
+	public List<ReviewDto> user_review(int userId) {
+		return session.selectList("review.selectUser", userId);
 	}
 
 	@Override
@@ -39,7 +39,6 @@ public class ReviewDaoImpl implements ReviewDao {
 	
 	@Override
 	public LikeDto searchLike(LikeDto like) {
-		like.setUid(Integer.parseInt(like.getUserid()));
 		return session.selectOne("review.searchLike", like);
 	}
 }

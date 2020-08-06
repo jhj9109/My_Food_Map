@@ -46,7 +46,7 @@ public class ReviewController {
 	
 	@ApiOperation(value = "전체 리뷰 조회")
 	@RequestMapping(value = "/review/list/{userId}", method = RequestMethod.GET)
-	public ResponseEntity<Map<String, Object>> ReviewList(@PathVariable String userId) throws Exception {
+	public ResponseEntity<Map<String, Object>> ReviewList(@PathVariable int userId) throws Exception {
 		try {
 			List<ReviewDto> review_list = reviewService.review_list();
 			for (int i=0; i<review_list.size();i++) {
@@ -67,11 +67,11 @@ public class ReviewController {
 
 	@ApiOperation(value="사용자별 리뷰 조회")
 	@RequestMapping(value="/review/{writerId}/{userId}", method=RequestMethod.GET)
-	public ResponseEntity<Map<String, Object>> UserReview(@PathVariable("writerId") String writerId, @PathVariable("userId") String userId) throws Exception {
+	public ResponseEntity<Map<String, Object>> UserReview(@PathVariable("writerId") int writerId, @PathVariable("userId") int userId) throws Exception {
 		try {
 			List<ReviewDto> user_review = reviewService.user_review(writerId);
 			for (int i=0; i<user_review.size();i++) {
-				LikeDto dto = null;
+				LikeDto dto = new LikeDto();
 				ReviewDto review = user_review.get(i);
 				dto.setReviewid(review.getNo());
 				dto.setUserid(userId);

@@ -21,7 +21,7 @@ public class RegisterDaoImpl implements RegisterDao {
 	SqlSession session;
 	
 	@Override
-	public MemberDto select(String id) throws SQLException {
+	public MemberDto select(int id) throws SQLException {
 		MemberDto info = session.selectOne("user.select", id);
 		return info;
 	}
@@ -32,8 +32,14 @@ public class RegisterDaoImpl implements RegisterDao {
 	}
 
 	@Override
-	public MemberDto selectone(String userid) throws SQLException {
+	public MemberDto selectone(int userid) throws SQLException {
 		MemberDto info = session.selectOne("user.selectone", userid);
+		return info;
+	}
+
+	@Override
+	public MemberDto selectByEmail(String email) throws SQLException {
+		MemberDto info = session.selectOne("user.selectByEmail", email);
 		return info;
 	}
 

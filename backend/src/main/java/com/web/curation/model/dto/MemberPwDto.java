@@ -4,9 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public class MemberPwDto implements Serializable {
-
-
-	private String userid;
+	private int userid;
 	private String email;
 	private String password;
 	private String newpassword;
@@ -41,10 +39,10 @@ public class MemberPwDto implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public String getUserid() {
+	public int getUserid() {
 		return userid;
 	}
-	public void setUserid(String userid) {
+	public void setUserid(int userid) {
 		this.userid = userid;
 	}
 	public String getNickname() {
@@ -58,7 +56,7 @@ public class MemberPwDto implements Serializable {
 		return "MemberDto [userid=" + userid + ", email=" + email + ", password=" + password + ", nickname=" + nickname
 				+ ", createDate=" + createDate + "]";
 	}
-	public MemberPwDto(String userid, String email, String password, String nickname, LocalDateTime createDate) {
+	public MemberPwDto(int userid, String email, String password, String nickname, LocalDateTime createDate) {
 		super();
 		this.userid = userid;
 		this.email = email;
@@ -66,7 +64,7 @@ public class MemberPwDto implements Serializable {
 		this.nickname = nickname;
 		this.createDate = createDate;
 	}
-	public MemberPwDto(String userid, String email, String password, String nickname) {
+	public MemberPwDto(int userid, String email, String password, String nickname) {
 		super();
 		this.userid = userid;
 		this.email = email;

@@ -26,10 +26,9 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	@Override
-	public MemberDto login(String id,String pw) throws Exception {
-		MemberDto info =userRepository.select(id);
-		System.out.println(info);
-		System.out.println(pw);
+	public MemberDto login(String email, String pw) throws Exception {
+		MemberDto info = userRepository.selectByEmail(email);
+		System.out.println("info " + info);
 		if (info != null && info.getPassword().equals(pw)) {
 			return info;
 		} else {
@@ -37,7 +36,7 @@ public class UserServiceImpl implements UserService{
 		}
 	}
 	@Override
-	public boolean signOut(String id, String pw) {
+	public boolean signOut(int id, String pw) {
 		try {
 			MemberDto finduser = userRepository.select(id);
 			if(pw.equals(finduser.getPassword())) {
@@ -56,7 +55,7 @@ public class UserServiceImpl implements UserService{
 	public String update(MemberPwDto user) throws UnsupportedEncodingException {
 	try {
 			
-			MemberDto finduser = userRepository.select(user.getEmail());
+			MemberDto finduser = userRepository.select(user.getUserid());
 
 			if(user.getNickname()!=null&&!user.getNickname().equals("")) {
 				finduser.setNickname(user.getNickname());
@@ -94,7 +93,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public boolean changePw(MemberPwDto user) throws Exception {
 		try {
-			MemberDto finduser = userRepository.select(user.getEmail());
+			MemberDto finduser = userRepository.select(user.getUserid());
 
 			if (user.getNickname() != null && !user.getNickname().equals("")) {
 				finduser.setNickname(user.getNickname());
@@ -114,14 +113,13 @@ public class UserServiceImpl implements UserService{
 		}
 	}
 
-
 	@Override
-	public MemberDto select(String userid) throws SQLException {
+	public MemberDto select(int userid) throws SQLException {
 		return userRepository.select(userid);
 	}
 
 	@Override
-	public String email(String id) throws Exception {
+	public String email(int id) throws Exception {
 		MailUtil mu = new MailUtil();
 
 		String code = mu.CreateAuthCode();// 이메일 인증 코드 생성부
@@ -132,10 +130,11 @@ public class UserServiceImpl implements UserService{
 				.append("<div style='font-size: 130%'> SSAFY SNS 이메일 인증 코드는 <strong>").append(code)
 				.append("</strong> 입니다.</div> <br/></div>");
 		String msg = sbuff.toString();
-
-		if (userRepository.select(id) != null) {
+		
+		MemberDto dto = userRepository.select(id);
+		if (dto != null) {
 			try {
-				mu.sendMail(id, subject, msg);
+				mu.sendMail(dto.getEmail(), subject, msg);
 				return code;
 			} catch (Exception e1) {
 				e1.printStackTrace();

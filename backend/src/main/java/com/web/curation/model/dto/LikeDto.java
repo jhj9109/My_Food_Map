@@ -3,14 +3,14 @@ package com.web.curation.model.dto;
 public class LikeDto {
 	private int no;
 	private int reviewid;
-	private String userid;
-	private int uid;
-	public int getUid() {
-		return uid;
-	}
-	public void setUid(int uid) {
-		this.uid = uid;
-	}
+	private int userid;
+//	private int uid;
+//	public int getUid() {
+//		return uid;
+//	}
+//	public void setUid(int uid) {
+//		this.uid = uid;
+//	}
 	public int getNo() {
 		return no;
 	}
@@ -24,16 +24,16 @@ public class LikeDto {
 		this.reviewid = reviewid;
 	}
 	
-	public String getUserid() {
+	public int getUserid() {
 		return userid;
 	}
-	public void setUserid(String userid) {
-		this.userid = userid;
+	public void setUserid(int userId2) {
+		this.userid = userId2;
 	}
 	public LikeDto() {
 		super();
 	}
-	public LikeDto(int no, int reviewid, String userid) {
+	public LikeDto(int no, int reviewid, int userid) {
 		super();
 		this.no = no;
 		this.reviewid = reviewid;
