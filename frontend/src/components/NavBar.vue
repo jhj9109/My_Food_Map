@@ -1,5 +1,5 @@
 <template>
-	<v-card height="100px">
+	<v-card height="107px">
 		<v-app-bar
 			color="backgroud_gradient"
 			dark

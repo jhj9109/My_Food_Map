@@ -4,17 +4,17 @@
       :userInfo="userInfo"
       :items="items"
     />
-
       <v-sheet
         id="scrolling-techniques-3"
         class="overflow-y-auto"
+        v-scroll.self="onScroll"
+        style="max-height: 650px"
       >
-
         <router-view
           :userInfo="userInfo"
+          :isScrollEnd="isScrollEnd"
         />
       </v-sheet>
-
     <Footerbar
       :token="token"
       :userInfo="userInfo"
@@ -30,7 +30,11 @@ import { mapState, mapMutations } from 'vuex';
 
 export default {
   name: 'App',
-
+  data() {
+    return {
+    isScrollEnd: false,
+    }
+  },
   components: {
     Footerbar,
     NavBar,
@@ -84,6 +88,19 @@ export default {
         { title: 'Profile', icon: 'mdi-comment-account-outline' },
       ]
       this.$store.commit('nav/setItems', listData)
+    },
+    onScroll(e) {
+      const s = e.target
+      const maxLevel = s.scrollHeight - 650 // 최대 깊이
+      const margin = 1 // 여유 마진
+      // console.log (`maxlevel:${maxLevel}, 위치:${s.scrollTop}`)
+      if (maxLevel - margin - s.scrollTop < 0) {
+        // console.log("끝에 도달했어")
+        this.isScrollEnd = true
+        // console.log("스크롤엔드 값은 현재 : ", this.isScrollEnd)
+      } else {
+        this.isScrollEnd = false
+      }
     },
   },
   created() {

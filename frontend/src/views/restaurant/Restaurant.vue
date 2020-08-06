@@ -14,6 +14,7 @@
       v-for="restaurant in restaurants"
       :key="restaurant.idrestaurants"
       :restaurantInfo="restaurant"
+      :isScrollEnd=isScrollEnd
     />
   </div>
 
@@ -28,9 +29,13 @@ export default {
   components: {
     RestaurantCard,
   },
+  props: ['isScrollEnd'],
   data() {
     return {
       restaurants: [],
+      allRestaurants: [],
+      loading: true,
+      offset: 0,
     }
   },
   methods: {
@@ -39,14 +44,44 @@ export default {
       console.log("setRestaurants 요청")
       RestaurantApi.requestList(
         res => {
-          console.log("setRestaurants 콜백 성공, 5개 슬라이싱", res.data.message.slice(0,5))
-          this.restaurants = res.data.message.slice(0,5)
+          // const start = this.offset*5
+          // const end = start + 5
+          // const newArray = res.data.message.slice(start, end)
+          // console.log(`setRestaurants 콜백 성공 ${start}~${end}, 5개 슬라이싱`, newArray)
+          // this.restaurants = [ ...this.restaurants, ...newArray ]
+          // this.offset += 1
+          // this.loading = false
+          this.allRestaurants = res.data.message
+          console.log("레스토랑 전체 데이터 받기 성공", this.allRestaurants)
+          this.fetchRestaurants()
         },
         err => {
           console.error(err)
           console.log("에러반응")
         }
       )
+    },
+    fetchRestaurants() {
+      console.log("레스토랑 데이터 갱신 요청", this.allRestaurants.slice(start, end))
+      const start = this.offset * 5
+      const end = start + 4
+      const newArray = this.allRestaurants.slice(start, end)
+      // console.log(`fetchRestaurants 대상은 ${start}~${end}, 5개 슬라이싱`, newArray)
+      this.restaurants = [ ...this.restaurants, ...newArray ]
+      this.offset += 1
+      this.loading = false
+    }
+  },
+  watch: {
+    isScrollEnd: function(val) {
+      // console.log("스크롤엔드 감지 :", val, this.loading)
+      if (val && !this.loading) {
+        this.loading = true
+        // console.log("데이터 로딩 중", this.loading)
+        this.fetchRestaurants()
+      } else {
+        // console.log("지나간다")
+      }
     }
   },
   mounted() {

@@ -1,5 +1,5 @@
 <template>
-    <v-card height="200px">
+    <v-card height="70px">
       <v-footer
         fixed
         flat
