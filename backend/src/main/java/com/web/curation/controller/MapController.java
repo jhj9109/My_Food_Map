@@ -22,7 +22,7 @@ import io.swagger.annotations.ApiOperation;
 @CrossOrigin(origins = {"*"}, maxAge = 6000)
 @RestController
 public class MapController {
-	// http://localhost:8080/swagger-ui.html
+	// http://localhost:8080/swagger-ui.html hi
 	public static final Logger logger = LoggerFactory.getLogger(MapController.class);
 	
 	@Autowired
