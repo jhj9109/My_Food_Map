@@ -92,7 +92,7 @@ export default {
     onScroll(e) {
       const s = e.target
       const maxLevel = s.scrollHeight - 650 // 최대 깊이
-      const margin = 1 // 여유 마진
+      const margin = 10 // 여유 마진
       // console.log (`maxlevel:${maxLevel}, 위치:${s.scrollTop}`)
       if (maxLevel - margin - s.scrollTop < 0) {
         // console.log("끝에 도달했어")
