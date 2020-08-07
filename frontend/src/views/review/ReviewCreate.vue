@@ -68,6 +68,7 @@
 import ReviewApi from "@/api/ReviewApi.js";
 
 export default {
+    name: 'ReviewCreate',
     data() {
         return {
             review: {
@@ -90,11 +91,12 @@ export default {
     props: ['userInfo'],
     methods: {
         onCreate() {
-            console.log("onCraete",this.review)
+            console.log("onCraete 메소드 실행",this.review)
             const data = {
                 userId: this.userInfo.userId,
                 review: this.review
             }
+            console.log(typeof(data.userId))
             ReviewApi.requestCreate(
                 data,
                 res => {

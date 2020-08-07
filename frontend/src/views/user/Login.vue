@@ -3,7 +3,7 @@
 <template>
   <div class="user" id="login">
      <v-app id="inspire">
-      <v-content>
+      <v-main>
         <v-container
           class="fill-height"
           fluid
@@ -27,21 +27,7 @@
                 >
                   <v-toolbar-title> 로그인 </v-toolbar-title>
                   <v-spacer></v-spacer>
-                  <!-- 없어도 괜찮은 아이콘
-                  <v-tooltip bottom>
-                    <template v-slot:activator="{ on }">
-                      <v-btn
-                        icon
-                        large
-                        target="_blank"
-                        v-on="on"
-                      >
-                        <v-icon>mdi-code-tags</v-icon>
-                      </v-btn>
-                    </template>
-                    <span>Source</span>
-                  </v-tooltip>
-                  -->
+                  
                 </v-toolbar>
                 <v-card-text>
                   <v-form>
@@ -116,7 +102,7 @@
 
 
         </v-container>
-      </v-content>
+      </v-main>
     </v-app>
   </div>
 </template>
@@ -124,12 +110,10 @@
 
 
 <script>
-// import http from '../../util/http-common';
 
 export default {
     data: () => {
     return {
-      info:{},
       email: "",
       emailRules:[
         v => !!v || '이메일을 입력해주세요.',
@@ -138,25 +122,21 @@ export default {
       password: "",
       passwordRules:[
         v => !!v || '비밀번호를 입력해주세요',
-        // v => /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(v) || '비밀번호는 글자, 숫자 포함 8자 이상입니다.',
       ],
       error: {
         email: false,
         passowrd: false
       },
       isSubmit: false,
-      component: this
     };
   },
 
   methods:{
     onLogin(){
-      console.log("데이터 넣기", this.email, this.password)
       const loginData = {
         email: this.email,
         password: this.password
       }
-      console.log("데이터", loginData)
       this.$store.dispatch('user/login', loginData)
     }
   },

@@ -56,22 +56,6 @@ export default {
       if(!this.token && !!localStorage.token) {
         this.setToken(localStorage.token)
       }
-      // 어떤 로직을 구현할지에 대해서 고민이 필요하다!!!
-
-      // // 로컬스토리지 토큰 값과 state.token값 동기화(?)
-      // if(!!localStorage.token) {
-      //   // 로컬에 토큰 있는데
-      //   if (!this.token || localStorage.token !== this.token) {
-      //     //state.token과 값이 다르면 state토큰 업데이트
-      //     this.setToken(localStorage.token)
-      //   }
-      // } else {
-      //   // 로컬에 토큰 없는데(else)
-      //   if(!!this.token) {
-      //     // state에 토큰 있으면 state토큰 삭제
-      //     this.setToken(null)
-      //   }
-      // }
     },
     checkUserInfo() {
       // Vue에 userInfo가 없지만, 로컬스토리지에 userInfo가 있다면 업데이트

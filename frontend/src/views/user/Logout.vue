@@ -4,7 +4,6 @@
 </template>
 
 <script>
-import {  mapActions } from 'vuex'
 
 export default {
   // 아래와 동일한 기능 & 다른 타이밍
