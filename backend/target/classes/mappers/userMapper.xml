@@ -1,42 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="review">
-	<select id="selectreslist" resultType="RestaurantsDto">
-		select * from restaurants
+<mapper namespace="user">
+	<select id="select" resultType="MemberDto">
+		select * from user where userid=#{id}
 	</select>
-	<select id="select" resultType="RestaurantsDto">
-		select * from restaurants where idrestaurants = #{no}
+	<select id="selectone" resultType="MemberDto">
+		select * from user where userid=#{userid}
 	</select>
-	<select id="selectUser" resultType="ReviewDto">
-		select * from review where userid=#{userId}
+	<select id="selectByEmail" resultType="MemberDto">
+		select * from user where email=#{email}
 	</select>
-	 <select id="selectreviewalllist" resultType="ReviewDto">
-		select * from review where no = #{no}
+	<select id="nickname" resultType="MemberDto">
+		select * from user where nickname=#{nickname}
 	</select>
-	<select id="selectreviewlist" resultType="ReviewDto">
-		select * from review
-	</select>
-	 <insert id="insert">
-       INSERT INTO ssafysk.review(no, , userid , content, rank, create_date, img) 
-        values (#{no}, #{userid}, #{content}, #{rank}, curdate(),#{img}) 
-    </insert>
-    <select id="selectAll" resultType="ReviewDto">
-		select * from review
-	</select>
-	<insert id="insertLike">
-		insert into heart(reviewid, userid) values(#{reviewid}, #{uid})
+	<insert id="insert">
+		insert into user(email,password,nickname,create_date) values(#{email}, #{password},#{nickname}, CURRENT_TIME())
 	</insert>
-	<delete id="deleteLike">
-		delete from heart where userid=#{userid} and reviewid=#{reviewid}
+	<delete id="delete">
+		delete from user where userid=#{userid}
 	</delete>
-	<select id="searchLike" resultType="LikeDto">
-		select * from heart where userid=#{userid} and reviewid=#{reviewid}
-	</select>
-	<update id="plusLikeCnt">
-		update review set like_cnt=like_cnt+1 where no=#{reviewid}
+	<update id="update">
+		update user set nickname=#{nickname}, password=#{password} where userid=#{userid}
 	</update>
-	<update id="minusLikeCnt">
-		update review set like_cnt=like_cnt-1 where no=#{reviewid}
+	<select id="selectAllUsers" resultType="MemberDto">
+		select * from user
+	</select>
+	
+	<!-- follow -->
+	<insert id="insertFollow">
+		insert into follow(followerId, followingId) values(#{followerId}, #{followingId})
+	</insert>
+	<delete id="deleteFollow">
+		delete from follow where followerId=#{followerId} and followingId=#{followingId}
+	</delete>
+	<select id="searchFollow" resultType="FollowDto">
+		select * from follow where followerId=#{followerId} and followingId=#{followingId}
+	</select>
+	<select id="selectAllFollow" resultType="FollowDto">
+		select * from follow
+	</select>
+	<update id="plusFollowUserFollowerCnt">
+		update user set follower_cnt=follower_cnt+1 where userid=#{followingId}
+	</update>
+	<update id="minusFollowUserFollowerCnt">
+		update user set follower_cnt=follower_cnt-1 where userid=#{followingId}
+	</update>
+	<update id="plusUserFollowingCnt">
+		update user set following_cnt=following_cnt+1 where userid=#{followerId}
+	</update>
+	<update id="minusUserFollowingCnt">
+		update user set following_cnt=following_cnt-1 where userid=#{followerId}
 	</update>
 </mapper>

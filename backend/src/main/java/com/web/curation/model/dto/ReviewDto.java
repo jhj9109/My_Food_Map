@@ -4,15 +4,32 @@ import java.sql.Date;
 
 public class ReviewDto {
 	private int no;
-	private String email;
+	private int userid;
+	private int resid;
 	private String content;
-	private float rank;
+	private int rank;
 	private Date create_date;
 	private String image;
-	private int userid;
-	private boolean isLike;
 	private int like_cnt;
+	private String nickname;
+	private String email;
+	private boolean isLike;
 	
+	
+	
+	
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	public int getResid() {
+		return resid;
+	}
+	public void setResid(int resid) {
+		this.resid = resid;
+	}
 	public int getLike_cnt() {
 		return like_cnt;
 	}
@@ -43,10 +60,10 @@ public class ReviewDto {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public float getRank() {
+	public int getRank() {
 		return rank;
 	}
-	public void setRank(float rank) {
+	public void setRank(int rank) {
 		this.rank = rank;
 	}
 	public Date getCreate_date() {
@@ -67,12 +84,14 @@ public class ReviewDto {
 	public void setUserid(int userid) {
 		this.userid = userid;
 	}
+
 	@Override
 	public String toString() {
-		return "ReviewDto [no=" + no + ", email=" + email + ", content=" + content + ", rank=" + rank + ", create_date="
-				+ create_date + ", image=" + image + ", userid=" + userid + "]";
+		return "ReviewDto [no=" + no + ", userid=" + userid + ", resid=" + resid + ", content=" + content + ", rank="
+				+ rank + ", create_date=" + create_date + ", image=" + image + ", like_cnt=" + like_cnt + ", nickname="
+				+ nickname + ", email=" + email + ", isLike=" + isLike + "]";
 	}
-	public ReviewDto(int no, String email, String content, float rank, Date create_date, String image, int userid) {
+	public ReviewDto(int no, String email, String content, int rank, Date create_date, String image, int userid) {
 		super();
 		this.no = no;
 		this.email = email;

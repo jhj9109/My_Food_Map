@@ -12,6 +12,7 @@
     "core-js": "^3.6.5",
     "email-validator": "^2.0.4",
     "es6-promise": "^4.2.8",
+    "firebase": "^7.17.2",
     "password-validator": "^5.0.3",
     "vue": "^2.6.11",
     "vue-router": "^3.3.4",

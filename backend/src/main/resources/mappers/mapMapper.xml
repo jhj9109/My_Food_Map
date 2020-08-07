@@ -17,9 +17,8 @@
 		ORDER BY code;
   	</select>
   	<select id = "selectstore" resultType="RestaurantsDto">
-  		select idrestaurants,res_type,menu,pnumber,jibun,name,code,time,doro,grade,countgrade FROM restaurants
-  		WHERE jibun like CONCAT('%',LEFT(#{dong},2),'%')
-		ORDER BY idrestaurants;
+  		select idrestaurants,res_type,menu,pnumber,jibun,name,code,time,doro,grade,countgrade from restaurants
+  		where jibun like concat('%',LEFT('${dong}',2),'%');
   	</select>
 </mapper>
 	

@@ -2,7 +2,7 @@ const axios = require('axios')
 // const token = `Bearer ${localStorage.getItem('JWT')}`
 // axios.defaults.headers.common['Authorization'] = token
 
-// const hosturl = 'http://localhost:9999'
+//const hosturl = 'http://localhost:8399'
 const hosturl = 'http://i3a409.p.ssafy.io:8399'
 const appname = '/user'
 

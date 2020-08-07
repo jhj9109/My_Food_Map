@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.web.curation.model.dto.LikeDto;
+import com.web.curation.model.dto.RestaurantsDto;
 import com.web.curation.model.dto.ReviewDto;
 
 @Repository
@@ -41,4 +42,10 @@ public class ReviewDaoImpl implements ReviewDao {
 	public LikeDto searchLike(LikeDto like) {
 		return session.selectOne("review.searchLike", like);
 	}
+	
+	@Override
+	public void register(ReviewDto dto) {
+		 session.insert("review.insertreview",dto);
+	}
+
 }

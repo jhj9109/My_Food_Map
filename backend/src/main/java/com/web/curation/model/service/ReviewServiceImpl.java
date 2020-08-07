@@ -44,5 +44,16 @@ public class ReviewServiceImpl implements ReviewService {
 			return true;
 		}
 	}
+
+	@Override
+	public boolean register(ReviewDto dto) throws Exception {
+		try {
+			reviewDao.register(dto);
+			return true;
+		}catch(Exception e) {
+			e.printStackTrace();
+			throw new Exception("리뷰 작성 오류");
+		}
+	}
 	
 }

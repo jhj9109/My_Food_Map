@@ -3,6 +3,7 @@ package com.web.curation.model.repository;
 import java.util.List;
 
 import com.web.curation.model.dto.LikeDto;
+import com.web.curation.model.dto.RestaurantsDto;
 import com.web.curation.model.dto.ReviewDto;
 
 public interface ReviewDao {
@@ -11,4 +12,5 @@ public interface ReviewDao {
 	public void insertLike(LikeDto like);
 	public void deleteLike(LikeDto like);
 	public LikeDto searchLike(LikeDto like);
+	public void register(ReviewDto dto);
 }

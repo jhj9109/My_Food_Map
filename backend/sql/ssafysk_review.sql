@@ -18,7 +18,7 @@
 --
 -- Table structure for table `review`
 --
-
+use ssafysk;
 DROP TABLE IF EXISTS `review`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -29,7 +29,7 @@ CREATE TABLE `review` (
   `content` varchar(255) DEFAULT NULL,
   `rank` int NOT NULL,
   `create_date` datetime DEFAULT CURRENT_TIMESTAMP,
-  `image` varchar(128) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
   `like_cnt` int DEFAULT 0,
   PRIMARY KEY (`no`),
   KEY `userid` (`userid`),

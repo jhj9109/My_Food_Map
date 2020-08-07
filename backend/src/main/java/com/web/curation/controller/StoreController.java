@@ -64,11 +64,11 @@ public class StoreController {
 	}
 	
   	@ApiOperation(value="해당 음식점 모든 리뷰 조회 서비스", response=List.class)
-	@RequestMapping(value = "/restaurants/{idrestarunts}/reviews", method = RequestMethod.GET)
-  	public ResponseEntity<Map<String,Object>> listSearch(@PathVariable int idrestaurnts)  throws Exception {
+	@RequestMapping(value = "/restaurants/{restaruantId}/reviews", method = RequestMethod.GET)
+  	public ResponseEntity<Map<String,Object>> listSearch(@PathVariable int restaruantId)  throws Exception {
   		
   		List<ReviewDto> list=null;
-  		list=storeservice.searchreview(idrestaurnts);
+  		list=storeservice.searchreview(restaruantId);
   		
   		if (list==null || list.size()==0) {
   			return Fail("no",HttpStatus.NO_CONTENT);
@@ -78,10 +78,10 @@ public class StoreController {
     
   	
 	 @ApiOperation(value = "restaurants 번호로 idrestaurants 의 정보를 찾는다.", response = List.class)
-		@RequestMapping(value = "/restaurants/{idrestaurants}", method = RequestMethod.GET)
-		public ResponseEntity<Map<String,Object>> findResByNo(@PathVariable int idrestaurants) throws Exception {
-		 	System.out.println(idrestaurants);
-		 	RestaurantsDto one = storeservice.search(idrestaurants);
+		@RequestMapping(value = "/restaurants/{restaruantId}", method = RequestMethod.GET)
+		public ResponseEntity<Map<String,Object>> findResByNo(@PathVariable int restaruantId) throws Exception {
+		 	System.out.println(restaruantId);
+		 	RestaurantsDto one = storeservice.search(restaruantId);
 	    	System.out.println(one);
 	    	
 			if (one==null || one.getIdrestaurants()==0) {

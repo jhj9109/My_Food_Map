@@ -2,12 +2,26 @@
 <div class="container">
     <!-- 기존 주소 설정 삭제 / 검색 창 추가 -->
       <v-text-field
+        v-model="message"
         solo-inverted
         flat
         style="margin-top: 5px;"
         hide-details
         label="맛집 혹은 유저 정보를 검색해보세요."
-      ></v-text-field>
+        type="text"
+
+        append-outer-icon="fas fa-search"
+        >
+      <template v-slot:append-outer>
+          <v-btn
+           @click="search"
+          >
+          <v-icon left>mdi-search</v-icon>
+             search
+          </v-btn>
+        </template>
+      </v-text-field>
+
       <v-spacer></v-spacer>
       <hr style="margin-top: 10px; margin-bottom: 10px;">
     <div>
@@ -27,11 +41,7 @@
 <div>
     <v-row align="center">
       <v-col class="text-center" cols="12" sm="4">
-        <div class="my-2">
-          <v-btn text large color="primary" @click="onclick">위치정보받기</v-btn>
-          <v-btn text large color="primary" @click="addScript">지도세팅하기</v-btn>
-          <v-btn text large color="primary" @click="initMap">지도세팅하기2</v-btn>
-        </div>
+          <v-btn text large color="primary" @click="onclick">내 위치</v-btn>
         <v-card-text> 경도:{{lat}}<br>위도:{{lon}} </v-card-text>
         <div id="map" style="width:500px;height:400px;"></div>
       </v-col>
@@ -97,6 +107,7 @@ export default {
         url: "",
         lat: 37.512,
         lon: 127.031,
+        message:"",
       }
     },
 
@@ -154,7 +165,33 @@ export default {
         .services
         .Geocoder();
 
-    geocoder.addressSearch(this.list[0].jibun, function (result, status) {
+
+
+
+    //마커추가하려면 객체를 아래와 같이 하나 만든다
+    for (var i = 0; i < this.list.length; i++) {
+        geocoder.addressSearch(this.list[i].jibun, function (result, status) {
+            if (status === kakao.maps.services.Status.OK) {
+                var coords = new kakao
+                    .maps
+                    .LatLng(result[0].y, result[0].x);
+
+                // 결과값으로 받은 위치를 마커로 표시합니다
+                var marker = new kakao
+                    .maps
+                    .Marker({map: map, position: coords});
+
+                // 인포윈도우로 장소에 대한 설명을 표시합니다
+                var iwContent = '<div style="padding:2px;">' +this.list[i].name+ '<br><a href="https://map.kakao.com/link/to/Hello World!,' +
+                    result[0].y + ',' + result[0].x + '" style="color:blue" target="_blank">길찾기</a></div>'
+                var infowindow = new kakao.maps.InfoWindow({ content : iwContent });
+                infowindow.open(map, marker);
+
+            }
+
+        })
+
+        geocoder.addressSearch(this.list[0].jibun, function (result, status) {
         if (status === kakao.maps.services.Status.OK) {
 
             var coords = new kakao
@@ -180,30 +217,6 @@ export default {
         }
 
     })
-
-
-    //마커추가하려면 객체를 아래와 같이 하나 만든다
-    for (var i = 1; i < this.list.length; i++) {
-        geocoder.addressSearch(this.list[i].jibun, function (result, status) {
-            if (status === kakao.maps.services.Status.OK) {
-                var coords = new kakao
-                    .maps
-                    .LatLng(result[0].y, result[0].x);
-
-                // 결과값으로 받은 위치를 마커로 표시합니다
-                var marker = new kakao
-                    .maps
-                    .Marker({map: map, position: coords});
-
-                // 인포윈도우로 장소에 대한 설명을 표시합니다
-                var iwContent = '<div style="padding:2px;">' +this.list[i].name+ '<br><a href="https://map.kakao.com/link/to/Hello World!,' +
-                    result[0].y + ',' + result[0].x + '" style="color:blue" target="_blank">길찾기</a></div>'
-                var infowindow = new kakao.maps.InfoWindow({ content : iwContent });
-                infowindow.open(map, marker);
-
-            }
-
-        })
         /*
            var marker = new kakao.maps.Marker({ position:  new kakao.maps.LatLng(this.list[i].lat, this.list[i].lng) });
            marker.setMap(map);
@@ -295,7 +308,22 @@ export default {
        }
      });
     },
-    
+    search(){
+        http.post('/map/list', {
+        dong : this.message,
+      })
+     .then(({ data }) => {
+      let msg = '동 불러오기에 실패하였습니다.';
+      if (data != null) {
+      this.list = data;
+      console.log(this.list);
+      window.kakao && window.kakao.maps ? this.clearMap() : this.addScript();
+      this.clearMap();
+    }else{
+       alert(msg);
+       }
+     });
+    },
     }
 }
 

@@ -133,18 +133,18 @@ public class UserController {
 	@PutMapping("/user/changepw")
 	public ResponseEntity<Map<String, Object>> changePW(@RequestBody MemberPwDto user) {
 		if (user.getNewpassword().equals(user.getPassword())) {
-			return Fail("변경할 비밀번호와 바꿀 비밀번호가 같습니다.", HttpStatus.OK);
+			return Fail("비밀번호가 같습니다.", HttpStatus.OK);
 		}
 		try {
 			if (userService.changePw(user)) {
 				return Success("비밀번호 변경에 성공하셨습니다.");
 			} else {
-				return Fail("이전 비밀번호를 다시 입력해주세요.", HttpStatus.OK);
+				return Fail("이다시 입력해주세요.", HttpStatus.OK);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return Fail("이전 비밀번호를 다시 입력해주세요.", HttpStatus.OK);
+		return Fail("다시 입력해주세요.", HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "특정 회원 정보 반환", response = MemberDto.class)

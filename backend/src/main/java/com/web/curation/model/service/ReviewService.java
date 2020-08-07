@@ -3,6 +3,7 @@ package com.web.curation.model.service;
 import java.util.List;
 
 import com.web.curation.model.dto.LikeDto;
+import com.web.curation.model.dto.RestaurantsDto;
 import com.web.curation.model.dto.ReviewDto;
 
 public interface ReviewService {
@@ -11,4 +12,5 @@ public interface ReviewService {
 	public void insertLike(LikeDto like);
 	public void deleteLike(LikeDto like);
 	public boolean searchLike(LikeDto like);
+	public boolean register(ReviewDto dto) throws Exception;
 }

@@ -23,7 +23,7 @@ public class StoreDaoImpl implements StoreDao{
 
 	@Override
 	public List<ReviewDto> searchreview(int no) {
-		return session.selectList("review.selectreviewlist",no);
+		return session.selectList("review.selectreviewalllist",no);
 	}
 
 	@Override

@@ -31,19 +31,32 @@
                         <v-text-field
                             label="이미지 첨부"
                             @click='pickFile'
-                            v-model='review.image.name'
+                            v-model='review.name'
                             prepend-inner-icon='mdi-camera'>
                         </v-text-field>
+
                         <input
                             type="file"
                             style="display: none"
                             ref="image"
                             accept="image/*"
-                            @change="onFilePicked"
+                            @change="previewImage"
                         >
+                       <div v-if="imageData!=null">
+                      <v-btn
+                        @click="onUpload"
+                      >
+                        업로드 하기
+                    </v-btn>                       
+                        <br>
+                        <img class="preview" :src="picture">
+                        <p>업로드 중입니다... {{uploadValue.toFixed()+"%"}}
+                            <progress id="progress" :value="uploadValue" max="100" ></progress></p>
+                            
+                     </div>
                     </v-form>
-
                 </v-card-text>
+
                     <v-card-actions class="ml-5 mr-5">
                     <v-select
                         width="50"
@@ -66,43 +79,71 @@
 
 <script>
 import ReviewApi from "@/api/ReviewApi.js";
-
+import firebase from 'firebase';
 export default {
     data() {
         return {
             review: {
-                place: "",
+                resid: 2,
                 content: "",
                 rank: 0,
-				image: {
-					name: '',
-					url: '',
-					file: '',
-				}
+                image: '',
+                name,
             },
             title: "Image Upload",
             dialog: false,
             rules: [
                 value => !value || value.size < 2000000 || 'Img size should be less than 2 MB!',
             ],
+            imageData: null,
+            picture: null,
+            uploadValue: 0
+
         }
     },
     props: ['userInfo'],
     methods: {
+        previewImage(event) {
+           this.uploadValue=0;
+           this.picture=null;
+           this.imageData = event.target.files[0];
+       },
+      onUpload(){
+        this.picture=null;
+        this.review.name = `${this.imageData.name}`;
+        const storageRef=firebase.storage().ref(`${this.imageData.name}`).put(this.imageData);
+        storageRef.on(`state_changed`,snapshot=>{
+        this.uploadValue = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
+
+      }, error=>{console.log(error.message)},
+      ()=>{this.uploadValue=100;
+        storageRef.snapshot.ref.getDownloadURL().then((url)=>{
+          this.picture =url;
+          this.review.image =url;
+          console.log('url 저장')
+          //this.postingForm
+        });
+        });
+      },         
         onCreate() {
             console.log("onCraete",this.review)
             const data = {
                 userId: this.userInfo.userId,
-                review: this.review
+                nickname: this.userInfo.nickname,
+                content: this.review.content,
+                rank : this.review.rank,
+                image : this.review.image,
+                resid : this.review.resid,
+
             }
             ReviewApi.requestCreate(
                 data,
                 res => {
                     console.log("resquestCreate 성공, res : ", res)
-                    if(res.data.status === 'ok') {
+                    if(res.data.state === 'ok') {
                         // 리뷰 작성 성공 => 작성한 리뷰 페이지로 라우팅
                         alert("리뷰가 작성 되었습니다.")
-                        this.$router.push( { name: 'Review', params: {reviewId: res.data.reviewId }} );
+                        this.$router.push( { name: 'RestaurantReview', params: {restaurantId: this.review.resid }} );
                     } else {
                         // 리뷰 작성 실패 => 에러 원인 알려주기?
                         console.log("리뷰작성 실패, res.data: ", res.data)
@@ -154,5 +195,7 @@ export default {
 </script>
 
 <style>
-
+img.preview{
+    width:200px;
+}
 </style>

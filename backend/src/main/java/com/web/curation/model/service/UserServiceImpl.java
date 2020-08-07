@@ -12,6 +12,7 @@ import com.web.curation.model.dto.MemberPwDto;
 import com.web.curation.model.repository.FollowDao;
 import com.web.curation.model.repository.RegisterDao;
 import com.web.curation.util.MailUtil;
+
 @Service
 public class UserServiceImpl implements UserService{
 	@Autowired

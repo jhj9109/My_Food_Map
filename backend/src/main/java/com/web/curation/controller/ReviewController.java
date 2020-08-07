@@ -97,4 +97,22 @@ public class ReviewController {
 			return Success("Like +1");
 		}
 	}
+	
+	@ApiOperation(value="리뷰 작성")
+	@RequestMapping(value="/review/create", method=RequestMethod.POST)
+	public ResponseEntity<Map<String, Object>> insertReview(@RequestBody ReviewDto review) throws Exception {
+		review.setUserid(8);
+		if(review.getImage().length()<5) {
+			review.setImage("null");
+		}
+		System.out.println(review);
+		boolean check2=reviewService.register(review);
+		if (check2) {
+			//음식점 평점 바꾸기
+			return Success("리뷰 작성 성공");
+		} else {
+			return Fail("리뷰 작성 실패",HttpStatus.OK);			
+			
+		}
+	}
 }
