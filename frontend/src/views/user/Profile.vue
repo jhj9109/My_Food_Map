@@ -24,7 +24,7 @@ export default {
     ReviewCard,
     UserProfileCard
   },
-  props: ['userInfo'],
+  props: ['userInfo', 'isScrollEnd'],
   data() {
     return {
       profileUser: {
@@ -35,6 +35,9 @@ export default {
         following: 0,
       },
       reviews: null,
+      allReviews: [],
+      loading: true,
+      offset: 0,
     }
   },
   methods: {
@@ -68,7 +71,7 @@ export default {
         }
       )
     },
-    fetchReview() {
+    setReviews() {
       const profileUserId = this.$route.params.userId
       console.log("요청 id", profileUserId)
       ReviewApi.requestUserReview(
@@ -76,8 +79,9 @@ export default {
         res => {
           console.log("리뷰 요청 응답", res)
           if (res.data.state === 'ok') {
-            this.reviews = res.data.message
+            this.allReviews = res.data.message
             console.log("리뷰 받아오기 성공")
+            this.fetchReviews()
           } else {
             console.log("리뷰 받아오기 실패")
           }
@@ -86,6 +90,16 @@ export default {
           console.error(err)
         }
       )
+    },
+    fetchReviews() {
+      const start = this.offset * 10
+      const end = start + 9
+      console.log("리뷰 데이터 갱신 요청", this.allReviews.slice(start, end))
+      const newArray = this.allReviews.slice(start, end)
+      // console.log(`fetchRestaurants 대상은 ${start}~${end}, 5개 슬라이싱`, newArray)
+      this.reviews = [ ...this.allReviews, ...newArray ]
+      this.offset += 1
+      this.loading = false
     },
     onFollow() {
       console.log('팔로우', this.userInfo.userId, this.profileUser.id)
@@ -116,9 +130,21 @@ export default {
       )
     },
   },
+  watch: {
+    isScrollEnd: function(val) {
+      // console.log("스크롤엔드 감지 :", val, this.loading)
+      if (val && !this.loading) {
+        this.loading = true
+        // console.log("데이터 로딩 중", this.loading)
+        this.fetchReviews()
+      } else {
+        // console.log("지나간다")
+      }
+    }
+  },
   created() {
     this.fetchProfile()
-    this.fetchReview()
+    this.setReviews()
   }
 }
 </script>
