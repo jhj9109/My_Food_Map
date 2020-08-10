@@ -44,11 +44,14 @@ export default {
     // 프로필 디자인을 위한 일시 정지
     fetchProfile() {
       console.log("유저페이지")
-      //const userId = this.$route.params.userId
-      const userId = "b2@naver.com"//임시
-      console.log(userId)
+      const data = {
+        userId : this.$store.state.user.userInfo.userId,
+        id : this.$route.params.userId,
+      }
+      // const userId = "b2@naver.com"//임시
+      console.log(data)
       UserApi.requestUserInfo(
-        userId,
+        data,
         res => {
           console.log("유저 정보 요청 응답 :",res)
           if (res.status === 200) {
