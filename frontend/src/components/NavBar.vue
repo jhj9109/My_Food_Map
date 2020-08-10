@@ -62,10 +62,10 @@
 				<v-tabs 
 				fixed-tabs
 				>
-					<v-tab to="/map/map">Map</v-tab>
-					<v-tab to="/restaurant">Home</v-tab>
+					<v-tab :to="{name : 'Map'}">Map</v-tab>
+					<v-tab :to="{name : 'Restaurants'}">Home</v-tab>
 					<!-- 임의로 프로필 설정 -->
-					<v-tab>Profile</v-tab>
+					<v-tab :to="{name : 'Profile'}">Profile</v-tab>
 				</v-tabs>
 			</template>
 		</v-app-bar>

@@ -8,15 +8,24 @@
       v-if="reviewInfo.image"
       height="250"
       :src="reviewInfo.image"
+      @click="onClick"
     />
     
     <v-card-text>
 
-      <div class="float-right">
+      <div
+        class="float-right"
+      >
         <v-row
           align="center"
-          class="ml-3"
+          class="ml-3"          
         >
+          <v-btn
+            icon
+            @click="onLike"
+          >
+            <v-icon>mdi-heart</v-icon>
+          </v-btn>
           <v-rating
             :value="reviewInfo.rank"
             color="amber"
@@ -27,7 +36,11 @@
           />
         </v-row>
       </div>
-      <div> {{ reviewInfo.content }}</div>
+      <div
+        @click="onClick"
+      >
+        {{ reviewInfo.content }}
+      </div>
     
     </v-card-text>
   </v-card>
@@ -51,31 +64,31 @@ import UserApi from '@/api/UserApi.js'
         // this.$router.push({ name: 'RestaurantDetail', params: { restaurantId: this.restaurantInfo.id}}); //리뷰 => 리뷰 디테일?
       },
       // 미리 작성해 놓은 Like
-      // onLike(){
-      //   const data = {
-      //     userId: this.$store.state.user.userId,
-      //     reviewId: this.reviewInfo.reviewId,
-      //   }
-      //   ReviewApi.requestLike(
-      //     data,
-      //     res => {
-      //       if (res === "좋아요") {
-      //         this.reviewInfo.likeCount += 1
-      //         console.log("좋아요+1")
-      //       } else {
-      //         if (res === "좋아요취소") {
-      //           this.reviewInfo.likeCount -= 1
-      //           console.log("좋아요-1")
-      //         } else {
-      //           console.log("좋아요 요청 실패, res : ", res)
-      //         }
-      //       }
-      //     },
-      //     err => {
-      //       console.error(err)
-      //     }
-      //   )
-      // },
+      onLike(){
+        const data = {
+          userId: this.$store.state.user.userInfo.userId,
+          reviewId: this.reviewInfo.no,
+        }
+        ReviewApi.requestLike(
+          data,
+          res => {
+            if (res === "좋아요") {
+              this.reviewInfo.likeCount += 1
+              console.log("좋아요+1")
+            } else {
+              if (res === "좋아요취소") {
+                this.reviewInfo.likeCount -= 1
+                console.log("좋아요-1")
+              } else {
+                console.log("좋아요 요청 실패, res : ", res)
+              }
+            }
+          },
+          err => {
+            console.error(err)
+          }
+        )
+      },
       // 미리 작성한 Follow
       // onFollow() {
       //   console.log('팔로우', this.userInfo.userId, this.profileUser.id)

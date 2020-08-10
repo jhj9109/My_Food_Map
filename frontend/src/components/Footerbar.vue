@@ -7,8 +7,8 @@
         width="100%"
         height="60%"
         class="backgroud_gradient text-center"
-      > <!-- 어카운트만 버튼으로 보이는 것 수정 -->
-            <v-btn :to="{ name: this.userInfo ? 'Mypage' : 'Login' }" icon>
+      >
+            <v-btn @click="onClick" icon>
               <v-icon>mdi-account</v-icon>
             </v-btn>
 
@@ -19,6 +19,9 @@
             <v-btn :to="{ name: 'ReviewCreate' }" class="mx-2" icon >
               <v-icon size="24px">mdi-lead-pencil</v-icon>
             </v-btn>
+            <v-btn :to="{ name: 'Logout' }" class="mx-2" icon >
+              Logout
+            </v-btn>
       </v-footer>
     </v-card>
 </template>
@@ -27,6 +30,15 @@
 
 export default {
   props: ['userInfo'],
+  methods: {
+    onClick() {
+      if (this.userInfo) {
+        this.$router.push({name : 'Profile', params : {userId : this.userInfo.userId}})
+      } else {
+        this.$router.push({name : 'Login'})
+      }
+    }
+  }
 }
 </script>
 <style >
