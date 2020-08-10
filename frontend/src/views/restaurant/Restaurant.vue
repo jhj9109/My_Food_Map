@@ -14,7 +14,6 @@
       v-for="restaurant in restaurants"
       :key="restaurant.idrestaurants"
       :restaurantInfo="restaurant"
-      :isScrollEnd=isScrollEnd
     />
   </div>
 
@@ -44,13 +43,6 @@ export default {
       console.log("setRestaurants 요청")
       RestaurantApi.requestList(
         res => {
-          // const start = this.offset*5
-          // const end = start + 5
-          // const newArray = res.data.message.slice(start, end)
-          // console.log(`setRestaurants 콜백 성공 ${start}~${end}, 5개 슬라이싱`, newArray)
-          // this.restaurants = [ ...this.restaurants, ...newArray ]
-          // this.offset += 1
-          // this.loading = false
           this.allRestaurants = res.data.message
           console.log("레스토랑 전체 데이터 받기 성공", this.allRestaurants)
           this.fetchRestaurants()
@@ -62,9 +54,9 @@ export default {
       )
     },
     fetchRestaurants() {
-      console.log("레스토랑 데이터 갱신 요청", this.allRestaurants.slice(start, end))
       const start = this.offset * 5
       const end = start + 4
+      console.log("레스토랑 데이터 갱신 요청", this.allRestaurants.slice(start, end))
       const newArray = this.allRestaurants.slice(start, end)
       // console.log(`fetchRestaurants 대상은 ${start}~${end}, 5개 슬라이싱`, newArray)
       this.restaurants = [ ...this.restaurants, ...newArray ]
