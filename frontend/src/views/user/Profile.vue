@@ -44,8 +44,10 @@ export default {
     // 프로필 디자인을 위한 일시 정지
     fetchProfile() {
       console.log("유저페이지")
+      console.log(this)
+      const userId = this.$store.state.user.userInfo ? this.$store.state.user.userInfo.userId : 0 
       const data = {
-        userId : this.$store.state.user.userInfo.userId,
+        userId : userId,
         id : this.$route.params.userId,
       }
       // const userId = "b2@naver.com"//임시
@@ -105,6 +107,9 @@ export default {
       this.loading = false
     },
     onFollow() {
+      if(!this.userInfo) {
+        this.$router.push({name: 'Login'})
+      }
       console.log('팔로우', this.userInfo.userId, this.profileUser.id)
       UserApi.requestFollow(
         {
