@@ -135,13 +135,12 @@ export default {
     onLogin(){
       const loginData = {
         email: this.email,
-        password: this.password
+        password: this.password,
+        nextRoute: this.$route.query.redirect // 원래 다른 페이지에 접근하려다가, 로그인 페이지로 리다이렉트 된 경우
       }
       this.$store.dispatch('user/login', loginData)
     }
   },
-
-
 };
 </script>
 

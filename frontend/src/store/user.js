@@ -59,7 +59,11 @@ export default {
         }
       )
     },
-    login({commit} , data) {
+    login({commit} , LoginData) {
+      const data = {
+        email: LoginData.email,
+        password: LoginData.password
+      }
       UserApi.requestLogin(
         data,
         res => {
@@ -83,8 +87,9 @@ export default {
             console.log("localStorage 및 Vue에 저장 완료", localStorage.token, localStorage.userInfo)
             alert('로그인에 성공하였습니다.')
 
-            // 로그인 후 Map으로 일괄 이동 (나중에 수정 요구됨)
-            router.push( {name : 'Map'})
+            // 로그인 후, 가려던 페이지로 이동 or 디폴트 : Map으로 이동
+            console.log(LoginData)
+            router.replace({name: LoginData.nextRoute || 'Map'})
           } else {
             console.log("실패, res =>", res)
             alert(res.data.message || '로그인에 실패하였습니다')
