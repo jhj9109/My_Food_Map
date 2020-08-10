@@ -8,18 +8,18 @@
         height="60%"
         class="backgroud_gradient text-center"
       >
-            <v-btn @click="onClick">
+            <v-btn @click="onClick" icon>
               <v-icon>mdi-account</v-icon>
             </v-btn>
 
-            <v-btn :to="{ name: 'Restaurant' }" class="mx-4" icon>
+            <v-btn :to="{ name: 'Restaurant' }" class="mx-2" icon>
               <v-icon size="24px">mdi-home</v-icon>
             </v-btn>
 
-            <v-btn :to="{ name: 'ReviewCreate' }" class="mx-4" icon >
+            <v-btn :to="{ name: 'ReviewCreate' }" class="mx-2" icon >
               <v-icon size="24px">mdi-lead-pencil</v-icon>
             </v-btn>
-            <v-btn :to="{ name: 'Logout' }" class="mx-4" icon >
+            <v-btn :to="{ name: 'Logout' }" class="mx-2" icon >
               Logout
             </v-btn>
       </v-footer>
