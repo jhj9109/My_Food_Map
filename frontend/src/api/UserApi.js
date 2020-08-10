@@ -33,9 +33,9 @@ const requestLogout = (data,callback,errorCallback) => {
     .catch(errorCallback)
 }
 
-const requestUserInfo = (userId, callback, errorCallback) => {
-    console.log("UserInfo 요청 : ", hosturl+appname+'/'+userId)
-    axios.get(hosturl+appname+'/'+userId)
+const requestUserInfo = (data, callback, errorCallback) => {
+    console.log(`UserInfo 요청 : ${hosturl}${appname}/${data.id}/${data.userId}`)
+    axios.get(`${hosturl}${appname}/${data.id}/${data.userId}`)
     .then(callback)
     .catch(errorCallback)
 }

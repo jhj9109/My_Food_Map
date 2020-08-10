@@ -1,5 +1,5 @@
 <template>
-  <v-form v-model="valid">
+  <v-form ref="joinForm" v-model="valid">
     <v-container>
       <v-row>
         <v-col
@@ -47,7 +47,7 @@
         >
           <v-text-field
             v-model="passwordConfirm"
-            :rules="passwordRules"
+            :rules="passwordConfirmRules"
             label="PasswordConfirm"
             type="password"
             required
@@ -61,7 +61,7 @@
     </v-btn>
       </v-row>
     <br>
-    <v-btn>초기화</v-btn>
+    <v-btn @click="onReset">초기화</v-btn>
 
     </v-container>
 
@@ -78,7 +78,6 @@ export default {
       nickName: "",
       password: "",
       passwordConfirm: "",
-      isTerm: false,
       isLoading: false,
       error: {
         email: false,
@@ -90,20 +89,20 @@ export default {
       isSubmit: false,
       passwordType: "password",
       passwordConfirmType: "password",
-      termPopup: false,
       nameRules: [
-      v => !!v || 'NickName is required',
-      v => (v && v.length <= 10) || 'Name must be less than 10 characters'
+        v => !!v || 'NickName is required',
+        v => (v && v.length <= 10) || 'Name must be less than 10 characters'
       ],
-       emailRules: [
-      v => !!v || 'E-mail is required',
-      v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
-     ],
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
+      ],
       passwordRules: [
-      v => !!v || 'Password is required',
-      v => (v && v.length >= 8) || 'Password must be more than 8 characters'
-     ],
-
+        v => !!v || 'Password is required',
+        // v => (v && v.length >= 8) || 'Password must be more than 8 characters'
+        v => /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(v) || '비밀번호는 글자, 숫자 포함 8자 이상입니다.',
+        // /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/ : 소문자1+대문자1+특문1+8자 이상
+      ],
 
     };
   },
@@ -119,8 +118,18 @@ export default {
       this.$store.dispatch('user/join', singUpData)
       // 라우터 push도 user/join 진행
     },
+    onReset() {
+        this.$refs.joinForm.reset()
+    },
+  },
+  computed: {
+    passwordConfirmRules() {
+      if (this.password === this.passwordConfirm) {
+        return [ true ]
+      } else {
+        return [ "비밀번호가 일치하지 않습니다." ]
+      }
+    },
   }
 };
 </script>
-
-

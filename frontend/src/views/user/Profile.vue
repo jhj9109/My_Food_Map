@@ -24,7 +24,7 @@ export default {
     ReviewCard,
     UserProfileCard
   },
-  props: ['userInfo'],
+  props: ['userInfo', 'isScrollEnd'],
   data() {
     return {
       profileUser: {
@@ -35,17 +35,23 @@ export default {
         following: 0,
       },
       reviews: null,
+      allReviews: [],
+      loading: true,
+      offset: 0,
     }
   },
   methods: {
     // 프로필 디자인을 위한 일시 정지
     fetchProfile() {
       console.log("유저페이지")
-      //const userId = this.$route.params.userId
-      const userId = "b2@naver.com"//임시
-      console.log(userId)
+      const data = {
+        userId : this.$store.state.user.userInfo.userId,
+        id : this.$route.params.userId,
+      }
+      // const userId = "b2@naver.com"//임시
+      console.log(data)
       UserApi.requestUserInfo(
-        userId,
+        data,
         res => {
           console.log("유저 정보 요청 응답 :",res)
           if (res.status === 200) {
@@ -68,16 +74,36 @@ export default {
         }
       )
     },
-    // ↓↓↓↓↓↓↓↓↓↓↓↓↓↓ 디자인에 사용할 더미 데이터
-    // fetchProfile() {
-    //         this.profileUser.id = 1
-    //         //email을 소개문으로 바꾸고, 글자 수 제한 23개를 두면 될 것 같습니다(한국어가 다르게 처리되면 또 아닐수도)
-    //         this.profileUser.email = "최대 글자 수 제한을 넣어둔 소개문 글자 23!"
-    //         this.profileUser.nickname = "my_nickname"
-    //         this.profileUser.follower = 1234
-    //         this.profileUser.following = 5678
-    //         this.fetchReview()
-    // },
+    setReviews() {
+      const profileUserId = this.$route.params.userId
+      console.log("요청 id", profileUserId)
+      ReviewApi.requestUserReview(
+        profileUserId,
+        res => {
+          console.log("리뷰 요청 응답", res)
+          if (res.data.state === 'ok') {
+            this.allReviews = res.data.message
+            console.log("리뷰 받아오기 성공")
+            this.fetchReviews()
+          } else {
+            console.log("리뷰 받아오기 실패")
+          }
+        },
+        err => {
+          console.error(err)
+        }
+      )
+    },
+    fetchReviews() {
+      const start = this.offset * 10
+      const end = start + 9
+      console.log("리뷰 데이터 갱신 요청", this.allReviews.slice(start, end))
+      const newArray = this.allReviews.slice(start, end)
+      // console.log(`fetchRestaurants 대상은 ${start}~${end}, 5개 슬라이싱`, newArray)
+      this.reviews = [ ...this.allReviews, ...newArray ]
+      this.offset += 1
+      this.loading = false
+    },
     onFollow() {
       console.log('팔로우', this.userInfo.userId, this.profileUser.id)
       UserApi.requestFollow(
@@ -106,59 +132,22 @@ export default {
         }
       )
     },
-    // onFollow() {
-    //   // 테스트용
-    //   console.log("팔로우 emit 받음")
-    //   this.profileUser.follower += 1
-    // },
-    fetchReview() {
-      const profileUserId = this.$route.params.userId
-      console.log("요청 id", profileUserId)
-      ReviewApi.requestUserReview(
-        profileUserId,
-        res => {
-          console.log("리뷰 요청 응답", res)
-          if (res.data.state === 'ok') {
-            this.reviews = res.data.message
-            console.log("리뷰 받아오기 성공")
-          } else {
-            console.log("리뷰 받아오기 실패")
-          }
-        },
-        err => {
-          console.error(err)
-        }
-      )
-    },
   },
-  //   fetchReview() {
-  //     // 테스트용
-  //     this.reviews = [
-  //       {
-  //         content: "임시로 띄우는 리뷰입니다1",
-  //         rank: 3.0,
-  //         image: '',
-  //       },
-  //       {
-  //         content: "임시로 띄우는 리뷰입니다2",
-  //         rank: 4.0,
-  //         image: '',
-  //       },
-  //       {
-  //         content: "임시로 띄우는 리뷰입니다3",
-  //         rank: 5.0,
-  //         image: 'https://images.unsplash.com/photo-1531480197551-16ddf280ba62?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1054&q=80',
-  //       },        {
-  //         content: "임시로 띄우는 리뷰입니다4",
-  //         rank: 2.0,
-  //         image: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
-  //       },
-  //     ]
-  //   },
-  // },
+  watch: {
+    isScrollEnd: function(val) {
+      // console.log("스크롤엔드 감지 :", val, this.loading)
+      if (val && !this.loading) {
+        this.loading = true
+        // console.log("데이터 로딩 중", this.loading)
+        this.fetchReviews()
+      } else {
+        // console.log("지나간다")
+      }
+    }
+  },
   created() {
     this.fetchProfile()
-    this.fetchReview()
+    this.setReviews()
   }
 }
 </script>

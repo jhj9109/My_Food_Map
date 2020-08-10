@@ -81,6 +81,7 @@
 import ReviewApi from "@/api/ReviewApi.js";
 import firebase from 'firebase';
 export default {
+    name: 'ReviewCreate',
     data() {
         return {
             review: {
@@ -126,7 +127,7 @@ export default {
         });
       },         
         onCreate() {
-            console.log("onCraete",this.review)
+            console.log("onCraete 메소드 실행",this.review)
             const data = {
                 userId: this.userInfo.userId,
                 nickname: this.userInfo.nickname,
@@ -136,6 +137,7 @@ export default {
                 resid : this.review.resid,
 
             }
+            console.log(typeof(data.userId))
             ReviewApi.requestCreate(
                 data,
                 res => {

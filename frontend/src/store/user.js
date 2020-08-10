@@ -25,6 +25,7 @@ export default {
     
   actions: {
     getUserInfo({ commit }, userId){
+      console.log(`사용자의 ${userId}로 UserInfo를 get 하기`)
       UserApi.requestUserInfo(
         userId,
         res => {
@@ -40,7 +41,6 @@ export default {
       )
     },
     join(context , data) {
-      console.log(context)
       UserApi.requestSignup(
         data,
         res => {
@@ -80,13 +80,13 @@ export default {
             commit('setToken', res.data.email) // 임시로 이메일 저장
             commit('setUserInfo', userData)
 
-            console.log(localStorage.token, localStorage.userInfo)
+            console.log("localStorage 및 Vue에 저장 완료", localStorage.token, localStorage.userInfo)
             alert('로그인에 성공하였습니다.')
 
             // 로그인 후 Map으로 일괄 이동 (나중에 수정 요구됨)
             router.push( {name : 'Map'})
           } else {
-            console.log("실패, res.data =>", res.data)
+            console.log("실패, res =>", res)
             alert(res.data.message || '로그인에 실패하였습니다')
           }
         },
@@ -98,7 +98,7 @@ export default {
     },
 
     logout({commit} , header) {
-      console.log("유저정보와 토큰 삭제합니다")
+      console.log("Logout => 유저정보와 토큰 삭제합니다")
       delete localStorage.token
       delete localStorage.userInfo
       commit('setUserInfo', null)

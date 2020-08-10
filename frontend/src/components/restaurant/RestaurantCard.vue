@@ -51,6 +51,7 @@
 </template>
 
 <script>
+import RestaurantApi from '@/api/RestaurantApi.js'
   export default {
     name: "RestaurantCard",
     // props: ['id', 'title', 'content', 'imgUrl', 'types', 'rank', 'likeCount', 'deal_date'],
@@ -70,7 +71,33 @@
         } else {
             this.$router.push({ name: 'RestaurantReview', params: { restaurantId: this.restaurantInfo.idrestaurants}}); //특정 음식점 => 해당 리뷰
         }
-			}
+      },
+      // 미리 작성해 놓은 Like
+      // onLike(){
+      //   const data = {
+      //     userId: this.$store.state.user.userId,
+      //     restaurantId: this.restaurantId,
+      //   }
+      //   RestaurantApi.requestLike(
+      //     data,
+      //     res => {
+      //       if (res === "좋아요") {
+      //         this.restaurantInfo.likeCount += 1
+      //         console.log("좋아요+1")
+      //       } else {
+      //         if (res === "좋아요취소") {
+      //           this.restaurantInfo.likeCount -= 1
+      //           console.log("좋아요-1")
+      //         } else {
+      //           console.log("좋아요 요청 실패, res : ", res)
+      //         }
+      //       }
+      //     },
+      //     err => {
+      //       console.error(err)
+      //     }
+      //   )
+      // }
     },
   }
 </script>
