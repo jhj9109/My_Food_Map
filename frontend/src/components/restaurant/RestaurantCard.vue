@@ -18,6 +18,7 @@
         align="center"
         class="mx-0"
       >
+
         <v-rating
           :value="restaurantInfo.grade"
           color="amber"
@@ -25,8 +26,7 @@
           half-increments
           readonly
           size="14"
-        ></v-rating>
-
+        />
         <div class="grey--text ml-4">{{ restaurantInfo.value }} ({{ restaurantInfo.countgrade }})</div>
       </v-row>
 
