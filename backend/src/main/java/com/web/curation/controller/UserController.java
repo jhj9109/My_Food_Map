@@ -147,23 +147,6 @@ public class UserController {
 		return Fail("다시 입력해주세요.", HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "특정 회원 정보 반환", response = MemberDto.class)
-	@RequestMapping(value = "/user/{id}/{userId}", method = RequestMethod.GET)
-	public ResponseEntity<MemberDto> findById(@PathVariable("id") int id, @PathVariable("userId") int userId) throws Exception {
-		MemberDto dto = userService.select(id);
-		FollowDto follow = new FollowDto();
-		follow.setFollowerId(userId);
-		follow.setFollowingId(id);
-		dto.setFollowed(userService.searchFollow(follow));
-		if (dto == null) {
-			return new ResponseEntity(HttpStatus.NO_CONTENT);
-		} else {
-			System.out.println(dto);
-			return new ResponseEntity<MemberDto>(dto, HttpStatus.OK);			
-		}
-	}
-	
-	@ApiOperation(value = "nickname으로 특정 회원 정보 반환", response = MemberDto.class)
 	@RequestMapping(value = "/user/nickname/{nickname}/{userId}", method = RequestMethod.GET)
 	public ResponseEntity<MemberDto> findByNickname(@PathVariable("nickname") String nickname, @PathVariable("userId") int userId) throws Exception {
 		MemberDto dto = userService.selectByNickname(nickname);
@@ -178,6 +161,7 @@ public class UserController {
 		}
 	}
 
+	
 	@ApiOperation("로그인한 회원 정보 반환")
 	@GetMapping("/user")
 	public ResponseEntity<Map<String,Object>> MyInfo(){

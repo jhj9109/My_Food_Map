@@ -42,23 +42,37 @@
             <v-btn text large color="error">Following: {{ profileUser.following }} </v-btn> 
             </v-subheader>
             -->
-            <v-btn  @click="onClick" dark small color=#F7B675>
-            팔로우
+            <v-btn
+                v-if="profileUser.id !== userInfo.userId"
+                @click="onClick"
+                dark
+                small
+                color=#F7B675
+            >
+                팔로우
             </v-btn>
-
         </v-layout>
     </v-card>
 </template>
 
 <script>
+// import { mapState } from 'vuex'
 export default {
-    props: [ 'profileUser'],
+    props: [ 'profileUser', 'userInfo'],
     methods: {
         onClick() {
-            this.$emit('onFollow')
-            console.log("팔로우 반응")
+            console.log("onClick 반응")
+            if (this.userInfo && (this.profileUser.id !== this.userInfo.userId)) {
+                console.log("onFollow emit")
+                this.$emit('onFollow')
+            }
         }
-    }
+    },
+    // computed: {
+    //     ...mapState({
+    //         userInfo: state => state.user.userInfo,    
+    //     })
+    // }
 }
 </script>
 

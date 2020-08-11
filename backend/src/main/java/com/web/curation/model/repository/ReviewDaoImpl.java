@@ -1,5 +1,6 @@
 package com.web.curation.model.repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -46,6 +47,25 @@ public class ReviewDaoImpl implements ReviewDao {
 	@Override
 	public void register(ReviewDto dto) {
 		 session.insert("review.insertreview",dto);
+	}
+
+	@Override
+	public void changerank(ReviewDto dto) {
+		RestaurantsDto res = session.selectOne("review.selectres",dto.getResid());
+		float tgrade = res.getgrade();
+		int tcountgrade = res.getCountgrade();
+		float temp = tgrade * tcountgrade;
+		System.out.println(tgrade+" "+tcountgrade+" "+temp);
+		
+		float grade = (temp + dto.getRank())/(tcountgrade+1);
+		grade=(float) (Math.round(grade*10)/10.0);
+		
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		map.put("resid",dto.getResid());
+		session.update("review.changecountrank",map);
+		map.put("grade",grade);
+		session.update("review.changerank",map);
+		
 	}
 
 }

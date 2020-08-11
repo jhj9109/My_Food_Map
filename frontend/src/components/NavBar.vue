@@ -65,7 +65,12 @@
 					<v-tab :to="{name : 'Map'}">Map</v-tab>
 					<v-tab :to="{name : 'Restaurant'}">Home</v-tab>
 					<!-- 임의로 프로필 설정 -->
-					<v-tab :to="{name : 'Profile', params : {userId : userInfo.userId} }">Profile</v-tab>
+					<v-tab v-if="userInfo"
+						:to="{name : 'Profile', params : {userId : userInfo.userId} }">Profile
+					</v-tab>
+					<v-tab v-else
+						:to="{name : 'Login'}">Profile
+					</v-tab>
 				</v-tabs>
 			</template>
 		</v-app-bar>

@@ -4,6 +4,8 @@
 <mapper namespace="review">
 	<select id="selectreslist" resultType="RestaurantsDto">
 		select * from restaurants
+		order by grade desc
+		LIMIT 100;
 	</select>
 	<select id="selectres" resultType="RestaurantsDto">
 		select * from restaurants where idrestaurants = #{no}
@@ -35,5 +37,11 @@
 	</update>
 	<update id="minusLikeCnt">
 		update review set like_cnt=like_cnt-1 where no=#{reviewid}
+	</update>
+	<update id="changecountrank">
+		update restaurants set countgrade=countgrade+1 where idrestaurants=#{resid}
+	</update>
+	<update id="changerank">
+		update restaurants set grade=#{grade} where idrestaurants=#{resid}
 	</update>
 </mapper>
