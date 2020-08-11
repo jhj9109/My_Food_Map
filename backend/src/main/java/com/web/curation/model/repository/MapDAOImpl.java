@@ -43,6 +43,14 @@ public class MapDAOImpl implements MapDAO {
 		return session.selectList("map.selectstore",dong);
 	}
 
+	@Override
+	public List<RestaurantsDto> selectMyStore(RestaurantsDto dto) throws Exception {
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		map.put("lon",dto.getLat());
+		map.put("lat",dto.getLon());
+		return session.selectList("map.selectmystore",map);
+	}
+
 
 
 }

@@ -4,14 +4,13 @@
     class="mx-auto my-0"
     max-width="374"
   >
-    <v-img
-        v-if="restaurantInfo.image"
-        @click="onClick"
-        height="250"
-        :src="restaurantInfo.image"
-    ></v-img>
+
 
     <v-card-title @click="onClick">{{ restaurantInfo.name }}</v-card-title>
+
+  <div v-if="restaurantInfo.image" style="text-align: center">
+    <img @click="onClick" height="250" :src= "require('@/assets/' + restaurantInfo.image)">
+  </div>
 
     <v-card-text>
       <v-row

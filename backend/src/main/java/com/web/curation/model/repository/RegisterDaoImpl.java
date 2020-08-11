@@ -21,20 +21,14 @@ public class RegisterDaoImpl implements RegisterDao {
 	SqlSession session;
 	
 	@Override
-	public MemberDto select(int id) throws SQLException {
-		MemberDto info = session.selectOne("user.select", id);
+	public MemberDto select(int userid) throws SQLException {
+		MemberDto info = session.selectOne("user.select", userid);
 		return info;
 	}
 
 	@Override
 	public void join(MemberDto info) {
 		session.insert("user.insert", info);
-	}
-
-	@Override
-	public MemberDto selectone(int userid) throws SQLException {
-		MemberDto info = session.selectOne("user.selectone", userid);
-		return info;
 	}
 
 	@Override

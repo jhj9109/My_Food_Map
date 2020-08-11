@@ -3,9 +3,6 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="user">
 	<select id="select" resultType="MemberDto">
-		select * from user where userid=#{id}
-	</select>
-	<select id="selectone" resultType="MemberDto">
 		select * from user where userid=#{userid}
 	</select>
 	<select id="selectByEmail" resultType="MemberDto">

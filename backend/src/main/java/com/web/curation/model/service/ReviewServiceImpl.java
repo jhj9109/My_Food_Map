@@ -55,5 +55,14 @@ public class ReviewServiceImpl implements ReviewService {
 			throw new Exception("리뷰 작성 오류");
 		}
 	}
-	
+
+	@Override
+	public void changerank(ReviewDto dto) throws Exception {
+		try {
+			reviewDao.changerank(dto);
+		}catch(Exception e) {
+			e.printStackTrace();
+			throw new Exception("평점 변경 오류");
+		}
+	}
 }

@@ -17,5 +17,6 @@ public interface MapDAO {
 
 	List<RestaurantsDto> selectStore(String dong) throws Exception;
 	
+	List<RestaurantsDto> selectMyStore(RestaurantsDto dto) throws Exception;
 	
 }

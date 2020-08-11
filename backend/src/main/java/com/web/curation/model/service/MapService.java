@@ -17,5 +17,6 @@ public interface MapService {
 	List<SidoCodeDTO> selectDong(String gugun) throws Exception;
 
 	List<RestaurantsDto> selectStore(String dong) throws Exception;
+	List<RestaurantsDto> selectMyStore(RestaurantsDto dto) throws Exception;
 }
 

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.web.curation.model.dto.RestaurantsDto;
 import com.web.curation.model.dto.SidoCodeDTO;
 import com.web.curation.model.service.MapService;
+import com.web.curation.model.service.StoreService;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -27,6 +28,9 @@ public class MapController {
 	
 	@Autowired
 	private MapService  mapService; 
+	
+	@Autowired
+	private StoreService storeservice;
 	
 	
     @ApiOperation(value = "모든 sido의 정보를 반환한다.", response = List.class)
@@ -73,6 +77,21 @@ public class MapController {
     	List<RestaurantsDto> sublist = mapService.selectStore(dto.getDong());
     	System.out.println(sublist.size());
     	List<RestaurantsDto> list = sublist.subList(0,20);
+    	System.out.println(list);
+    	list = storeservice.image(list);
+    	if (list.isEmpty()) {
+    		return new ResponseEntity(HttpStatus.NO_CONTENT);
+    	}
+    	return new ResponseEntity<List<RestaurantsDto>>(list, HttpStatus.OK);
+    }
+    
+    @ApiOperation(value = "근처 음식점의 정보를 반환한다.", response = List.class)
+    @RequestMapping(value = "/map/search", method = RequestMethod.POST)
+    public ResponseEntity<List<RestaurantsDto>> selectMyStore(@RequestBody RestaurantsDto dto) throws Exception {
+    	
+    	List<RestaurantsDto> list = mapService.selectMyStore(dto);
+    	System.out.println(list);
+    	list = storeservice.image(list);
     	System.out.println(list);
     	if (list.isEmpty()) {
     		return new ResponseEntity(HttpStatus.NO_CONTENT);
