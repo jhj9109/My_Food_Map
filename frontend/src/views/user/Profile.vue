@@ -3,6 +3,7 @@
     <UserProfileCard
       :profileUser="profileUser"
       @onFollow="onFollow"
+      :userInfo="userInfo"
     />
     <ReviewCard
       v-for="review in reviews"
