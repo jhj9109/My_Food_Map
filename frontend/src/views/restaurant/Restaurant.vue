@@ -31,10 +31,11 @@ export default {
   props: ['isScrollEnd'],
   data() {
     return {
-      restaurants: [],
-      allRestaurants: [],
+      restaurants: null,
+      allRestaurants: null,
       loading: true,
       offset: 0,
+      complete: true,
     }
   },
   methods: {
@@ -44,7 +45,9 @@ export default {
       RestaurantApi.requestList(
         res => {
           this.allRestaurants = res.data.message
+          this.restaurants = []
           console.log("레스토랑 전체 데이터 받기 성공", this.allRestaurants)
+          this.complete = false
           this.fetchRestaurants()
         },
         err => {
@@ -54,25 +57,21 @@ export default {
       )
     },
     fetchRestaurants() {
-      const start = this.offset * 5
-      const end = start + 4
-      console.log("레스토랑 데이터 갱신 요청", this.allRestaurants.slice(start, end))
-      const newArray = this.allRestaurants.slice(start, end)
-      // console.log(`fetchRestaurants 대상은 ${start}~${end}, 5개 슬라이싱`, newArray)
-      this.restaurants = [ ...this.restaurants, ...newArray ]
+      const start = this.offset * 5 // 0,1,2,3,4 => 5개 , s = 0 , e = 5
+      const end = this.allRestaurants.length <= start + 5 ? this.allRestaurants.length : start + 5
+      this.complete = this.allRestaurants.length <= start + 5 ? true : this.complete
+      console.log("리뷰 데이터 갱신 요청", this.allRestaurants.slice(start, end), this.complete)
+      this.restaurants = [ ...this.restaurants, ...this.allRestaurants.slice(start, end) ]
       this.offset += 1
       this.loading = false
     }
   },
   watch: {
     isScrollEnd: function(val) {
-      // console.log("스크롤엔드 감지 :", val, this.loading)
-      if (val && !this.loading) {
+      console.log("스크롤엔드 감지 :", val, !this.complete, this.loading)
+      if (val && !this.complete && !this.loading) {
         this.loading = true
-        // console.log("데이터 로딩 중", this.loading)
         this.fetchRestaurants()
-      } else {
-        // console.log("지나간다")
       }
     }
   },

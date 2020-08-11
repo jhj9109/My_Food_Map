@@ -9,6 +9,11 @@
       :key="review.id"
       :reviewInfo="review"
     />
+    <p
+      v-if="!allReviews"
+    >
+      작성한 리뷰가 없습니다.
+    </p>
   </div>
 </template>
 
@@ -35,9 +40,10 @@ export default {
         following: 0,
       },
       reviews: null,
-      allReviews: [],
+      allReviews: null,
       loading: true,
       offset: 0,
+      complete: true,
     }
   },
   methods: {
@@ -82,10 +88,12 @@ export default {
       ReviewApi.requestUserReview(
         profileUserId,
         res => {
-          console.log("리뷰 요청 응답", res)
+          console.log("리뷰 요청 응답 res => ", res)
           if (res.data.state === 'ok') {
             this.allReviews = res.data.message
+            this.reviews = []
             console.log("리뷰 받아오기 성공")
+            this.complete = false
             this.fetchReviews()
           } else {
             console.log("리뷰 받아오기 실패")
@@ -98,11 +106,10 @@ export default {
     },
     fetchReviews() {
       const start = this.offset * 10
-      const end = start + 9
-      console.log("리뷰 데이터 갱신 요청", this.allReviews.slice(start, end))
-      const newArray = this.allReviews.slice(start, end)
-      // console.log(`fetchRestaurants 대상은 ${start}~${end}, 5개 슬라이싱`, newArray)
-      this.reviews = [ ...this.allReviews, ...newArray ]
+      const end = this.allReviews.length <= start + 10 ? this.allReviews.length : start + 10
+      this.complete = this.allReviews.length <= start + 10 ? true : this.complete
+      console.log("리뷰 데이터 갱신 요청", this.allReviews.slice(start, end), this.complete)
+      this.reviews = [ ...this.reviews, ...this.allReviews.slice(start, end) ]
       this.offset += 1
       this.loading = false
     },
@@ -140,13 +147,10 @@ export default {
   },
   watch: {
     isScrollEnd: function(val) {
-      // console.log("스크롤엔드 감지 :", val, this.loading)
-      if (val && !this.loading) {
+      console.log("스크롤엔드 감지 :", val, !this.complete, this.loading)
+      if (val && !this.complete && !this.loading) {
         this.loading = true
-        // console.log("데이터 로딩 중", this.loading)
         this.fetchReviews()
-      } else {
-        // console.log("지나간다")
       }
     }
   },

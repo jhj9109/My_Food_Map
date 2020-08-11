@@ -3,45 +3,55 @@
     :loading="loading"
     class="mx-auto my-3"
     max-width="374"
-  >
+  > 
+  <!-- 이미지 사이즈에 따라 유동적 사이즈 설정, 정사각형으로 보이도록 픽스함 -->
     <v-img
-      v-if="reviewInfo.image"
-      height="250"
+      v-if="reviewInfo.image !== 'null'"
+      height="374"
       :src="reviewInfo.image"
       @click="onClick"
     />
     
     <v-card-text>
-
-      <div
-        class="float-right"
-      >
-        <v-row
-          align="center"
-          class="ml-3"          
-        >
+      <!-- 추후 식당 이름으로 바꿔야할 부분, 식당 이름이 넘어오지 않아 수정 못함 -->
+      <div class="title">
+      {{ reviewInfo.resid }} 번 식당, 이름이 보여질 자리
+      </div>
           <v-btn
             icon
             @click="onLike"
+            class="float-right mr-3"
           >
+            {{ reviewInfo.like_cnt }} like
             <v-icon>mdi-heart</v-icon>
           </v-btn>
+        <v-row
+          align="center" 
+        >
+        <!-- 디자인 수정 및 백그라운드 색상 설정 -->
           <v-rating
+            class="ml-0 mb-1 mt-1"
             :value="reviewInfo.rank"
             color="amber"
             dense
             half-increments
             readonly
-            size="14"
+            size="20"
+            background-color="amber"
           />
         </v-row>
       </div>
       <div
         @click="onClick"
+        class="mt-2"
       >
-        {{ reviewInfo.content }}
+      <!-- 리뷰 콘텐츠 수정 + 사용자명(nickname 넘어오지 않아 못넣음), 작성일-->
+        {{ reviewInfo.content }} <br>
       </div>
-    
+      <div class="text-right">
+        {{ reviewInfo.userid }}번 유저 님의 리뷰 <br>
+        {{ reviewInfo.create_date }}
+      </div>
     </v-card-text>
   </v-card>
 </template>
@@ -60,6 +70,7 @@ import UserApi from '@/api/UserApi.js'
 			onClick(){
         // 클릭시 모달 => 도움이 됐어요
         console.log("onClick 발동")
+        console.log(this.reviewInfo)
         // console.log(`id :${this.restaurantInfo.id} 음식점 페이지로 이동`)
         // this.$router.push({ name: 'RestaurantDetail', params: { restaurantId: this.restaurantInfo.id}}); //리뷰 => 리뷰 디테일?
       },
