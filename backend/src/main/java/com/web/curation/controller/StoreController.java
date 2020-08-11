@@ -73,6 +73,7 @@ public class StoreController {
   		if (list==null || list.size()==0) {
   			return Fail("no",HttpStatus.NO_CONTENT);
   		}
+  		
   		return Success(list);
 	}
     
@@ -96,8 +97,7 @@ public class StoreController {
    	public ResponseEntity<Map<String,Object>> listRes() throws Exception {
     	
    		List<RestaurantsDto> list = storeservice.searchAll();
-   		System.out.println(list);
-   		
+   		list = storeservice.image(list);
    		return Success(list);
    	}
 }

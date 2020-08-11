@@ -40,6 +40,12 @@ public class MapServiceImpl implements MapService {
 		return mapDao.selectStore(dong);
 	}
 
+	@Override
+	public List<RestaurantsDto> selectMyStore(RestaurantsDto dto) throws Exception {
+		
+		return mapDao.selectMyStore(dto);
+	}
+
 	
 
 }

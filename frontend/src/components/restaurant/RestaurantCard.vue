@@ -5,21 +5,19 @@
       class="mx-auto my-0"
       max-width="375"
     >
-      <v-img
-          v-if="restaurantInfo.image"
-          @click="onClick"
-          height="250"
-          :src="restaurantInfo.image"
-      ></v-img>
+
 
       <v-card-title class="pt-2 pb-0" @click="onClick">{{ restaurantInfo.name }}</v-card-title>
 
-      <v-card-text class="pb-2">
-        <v-row
-          align="center"
-          class="mx-0"
-        >
+  <div v-if="restaurantInfo.image" style="text-align: center">
+    <img @click="onClick" height="250" :src= "require('@/assets/' + restaurantInfo.image)">
+  </div>
 
+    <v-card-text>
+      <v-row
+        align="center"
+        class="mx-0"
+      >
           <v-rating
             :value="restaurantInfo.grade"
             color="amber"

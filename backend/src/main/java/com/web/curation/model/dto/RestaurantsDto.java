@@ -25,6 +25,29 @@ public class RestaurantsDto {
 	private float grade;
 	private int countgrade;
 	private int typeint;
+	private String image;
+	private float lat;
+	private float lon;
+
+
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
+	public float getLat() {
+		return lat;
+	}
+	public void setLat(float lat) {
+		this.lat = lat;
+	}
+	public float getLon() {
+		return lon;
+	}
+	public void setLon(float lon) {
+		this.lon = lon;
+	}
 	public int getIdrestaurants() {
 		return idrestaurants;
 	}
@@ -97,12 +120,14 @@ public class RestaurantsDto {
 	public void setTypeint(int typeint) {
 		this.typeint = typeint;
 	}
+
+	
 	@Override
 	public String toString() {
 		return "RestaurantsDto [idrestaurants=" + idrestaurants + ", res_type=" + res_type + ", menu=" + menu
 				+ ", store_number=" + store_number + ", jibun=" + jibun + ", name=" + name + ", code=" + code
 				+ ", time=" + time + ", doro=" + doro + ", grade=" + grade + ", countgrade=" + countgrade + ", typeint="
-				+ typeint + "]";
+				+ typeint + ", img=" + image + ", lat=" + lat + ", lon=" + lon + "]";
 	}
 	public RestaurantsDto(int idrestaurants, String res_type, String menu, String store_number, String jibun,
 			String name, int code, String time, String doro, float grade, int countgrade, int typeint) {

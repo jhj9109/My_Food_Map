@@ -42,7 +42,7 @@
       <br>
 <div>
     <v-row align="center">
-      <v-col class="text-center" cols="12" sm="4">
+      <v-col class="text-center" >
           <v-btn text large color="primary" @click="onclick">내 위치</v-btn>
         <v-card-text> 경도:{{lat}}<br>위도:{{lon}} </v-card-text>        
         <!-- 모바일 페이지 기준 맵 사이즈 조정, 라운드 처리 -->
@@ -56,284 +56,354 @@
 
   <div id="dmap">
     <h1>{{msg}}</h1>
-    <div id="map" ref="map" style="width:90%; margin-left : 5%; height:500px;"></div>
+    <div id="map" ref="map" style="width:90%; margin-left : 5%; height:150px;"></div>
   </div>
 
-  <div style="width:100%; height:150px; overflow:auto">
-<table class="table table-hover" width="100%" display="block" overflow= "auto">
-	<thead>
-		<tr>
-			<th>번 호</th>
-			<th>음식점 이름</th>
-			<th>지번</th>
-			<th>지역코드</th>
-			<th>메뉴</th>
-			<th>이용시간</th>
-		</tr>
+ 
 
-    <tr v-for="item in list" v-bind:key="item.no" >
-        <td>{{item.idrestaurants}} </td>
-        <td@click="view(item.no)" style="color:gray;">{{item.name}} </td>
-        <td>{{item.jibun}} </td>
-        <td>{{item.code}} </td>
-        <td>{{item.menu}} </td>
-        <td>{{item.time}} </td>
-        <td>{{item.grade}} </td>
-     </tr>
-	</thead>
-	<tbody>
-	</tbody>
-</table>
-</div>
-
+<!-- 음식점 뿌려 -->
+  <RestaurantCard
+      v-for="restaurant in restaurants"
+      :key="restaurant.idrestaurants"
+      :restaurantInfo="restaurant"
+    />
 
 </div>
 </template>
 
 
 <script>
+import RestaurantCard from '@/components/restaurant/RestaurantCard';
+import RestaurantApi from '@/api/RestaurantApi.js'
 import http from '../../util/http-common';
 import AppApi from '@/api/AppApi.js';
 
 export default {
+    components: {
+        RestaurantCard
+    },
+    props: ['isScrollEnd'],
     data() {
-      return {
-        msg:"",
-        temp : '',
-        list : {},
-        sido: {},
-        sidovalue : '',
-        gugun: {},
-        gugunvalue : '',
-        dong : {},
-        dongvalue:'',
-        comment: "",
-        url: "",
-        lat: 37.512,
-        lon: 127.031,
-        message:"",
-      }
-    },
-
-    mounted() { 
-        window.kakao && window.kakao.maps ? this.initMap() : this.addScript();
-        this.initsido();
-    }, 
-
-    methods : {
-      onclick() {
-      // this.getGeolocation()
-      AppApi.getGeolocation(
-        position => {
-            console.log("position.coords", position.coords)
-            this.lat = position.coords.latitude
-            this.lon = position.coords.longitude
-          },
-        err => {
-          console.log("err", err)
-          if (err.code === 1) {
-            console.log("사용자가 위치 정보 제공에 거부하였습니다.")
-          } else {            
-            console.log('기타 에러입니다')
-            }
+        return {
+            msg: "",
+            temp: '',
+            sido: {},
+            sidovalue: '',
+            gugun: {},
+            gugunvalue: '',
+            dong: {},
+            dongvalue: '',
+            comment: "",
+            url: "",
+            lat: 37.512,
+            lon: 127.031,
+            message: "",
+            restaurants: [],
+            allRestaurants: {},
+            loading: true,
+            offset: 0
         }
-      )
     },
-     initMap() { 
-        var container = document.getElementById('map'); 
-        var options = {
-              center: new kakao.maps.LatLng(this.lat, this.lon), level: 3 
-        }; 
-        var map = new kakao.maps.Map(container, options);
-         //마커추가하려면 객체를 아래와 같이 하나 만든다
-        var marker = new kakao.maps.Marker({ position: map.getCenter() });
-        marker.setMap(map); 
-    }, 
-    view(no){
-              this.$router.push("../store/store/" + no);
+
+    mounted() {
+        window.kakao && window.kakao.maps
+            ? this.initMap()
+            : this.addScript();
+        this.initsido();
     },
-    clearMap() {
 
-    var tempstr = this.list[0].name;
-    var container = document.getElementById('map'),
-        mapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 5 // 지도의 확대 레벨
-    };  
-    var map = new kakao
-        .maps
-        .Map(container, mapOption);
+    methods: {
 
-    var geocoder = new kakao
-        .maps
-        .services
-        .Geocoder();
+        fetchRestaurants() {
+            const start = this.offset * 5
+            const end = start + 4
+            console.log("레스토랑 데이터 갱신 요청", this.allRestaurants.slice(start, end))
+            const newArray = this
+                .allRestaurants
+                .slice(start, end)
+            // console.log(`fetchRestaurants 대상은 ${start}~${end}, 5개 슬라이싱`, newArray)
+            this.restaurants = [
+                ...this.restaurants,
+                ...newArray
+            ]
+            this.offset += 1
+            this.loading = false
+        },
+        onclick() {
+            // this.getGeolocation()
+            AppApi.getGeolocation(position => {
+                console.log("position.coords", position.coords)
+                this.lat = position.coords.latitude
+                this.lon = position.coords.longitude
+            }, err => {
+                console.log("err", err)
+                if (err.code === 1) {
+                    console.log("사용자가 위치 정보 제공에 거부하였습니다.")
+                } else {
+                    console.log('기타 에러입니다')
+                }
+            })
+            http
+                .post('/map/search', {
+                    lat: this.lat,
+                    lon: this.lon
+                })
+                .then(({data}) => {
+                    let msg = '위치 불러오기에 실패하였습니다.';
+                    if (data != null) {
+                        this.allRestaurants = data;
+                        console.log(this.allRestaurants);
+                        window.kakao && window.kakao.maps
+                            ? this.clearMap()
+                            : this.addScript();
+                        this.clearMap();
+                        this.fetchRestaurants();
+                    } else {
+                        alert(msg);
+                    }
+                });
+        },
 
-
-
-
-    //마커추가하려면 객체를 아래와 같이 하나 만든다
-    for (var i = 0; i < this.list.length; i++) {
-        geocoder.addressSearch(this.list[i].jibun, function (result, status) {
-            if (status === kakao.maps.services.Status.OK) {
-                var coords = new kakao
+        initMap() {
+            var container = document.getElementById('map');
+            var options = {
+                center: new kakao
                     .maps
-                    .LatLng(result[0].y, result[0].x);
-
-                // 결과값으로 받은 위치를 마커로 표시합니다
-                var marker = new kakao
-                    .maps
-                    .Marker({map: map, position: coords});
-
-                // 인포윈도우로 장소에 대한 설명을 표시합니다
-                var iwContent = '<div style="padding:2px;">' +this.list[i].name+ '<br><a href="https://map.kakao.com/link/to/Hello World!,' +
-                    result[0].y + ',' + result[0].x + '" style="color:blue" target="_blank">길찾기</a></div>'
-                var infowindow = new kakao.maps.InfoWindow({ content : iwContent });
-                infowindow.open(map, marker);
-
-            }
-
-        })
-
-        geocoder.addressSearch(this.list[0].jibun, function (result, status) {
-        if (status === kakao.maps.services.Status.OK) {
-
-            var coords = new kakao
+                    .LatLng(this.lat, this.lon),
+                level: 3
+            };
+            var map = new kakao
                 .maps
-                .LatLng(result[0].y, result[0].x);
-
-            // 결과값으로 받은 위치를 마커로 표시합니다
+                .Map(container, options);
+            //마커추가하려면 객체를 아래와 같이 하나 만든다
             var marker = new kakao
                 .maps
-                .Marker({map: map, position: coords});
+                .Marker({position: map.getCenter()});
+            marker.setMap(map);
+        },
+        view(no) {
+            this
+                .$router
+                .push("../store/store/" + no);
+        },
+        clearMap() {
 
-            // 인포윈도우로 장소에 대한 설명을 표시합니다
-            var infowindow = new kakao
+            var tempstr = this
+                .allRestaurants[0]
+                .name;
+            var container = document.getElementById('map'),
+                mapOption = {
+                    center: new kakao
+                        .maps
+                        .LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                    level: 5 // 지도의 확대 레벨
+                };
+            var map = new kakao
                 .maps
-                .InfoWindow({
-                    content: '<div style="padding:2px;">' + tempstr + '<br><a href="https://map.kakao.com/link/to/Hello World!,' +
-                    result[0].y + ',' + result[0].x + '" style="color:blue" target="_blank">길찾기</a></div>'
-                });
-            infowindow.open(map, marker);
+                .Map(container, mapOption);
 
-            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-            map.setCenter(coords);
-        }
+            var geocoder = new kakao
+                .maps
+                .services
+                .Geocoder();
 
-    })
-        /*
-           var marker = new kakao.maps.Marker({ position:  new kakao.maps.LatLng(this.list[i].lat, this.list[i].lng) });
+            //마커추가하려면 객체를 아래와 같이 하나 만든다
+            for (var i = 0; i < this.allRestaurants.length; i++) {
+                geocoder.addressSearch(
+                    this.allRestaurants[i].jibun,
+                    function (result, status) {
+                        if (status === kakao.maps.services.Status.OK) {
+                            var coords = new kakao
+                                .maps
+                                .LatLng(result[0].y, result[0].x);
+
+                            // 결과값으로 받은 위치를 마커로 표시합니다
+                            var marker = new kakao
+                                .maps
+                                .Marker({map: map, position: coords});
+
+                            // 인포윈도우로 장소에 대한 설명을 표시합니다
+                            var iwContent = '<div style="padding:2px;">' + this
+                                .allRestaurants[i]
+                                .name + '<br><a href="https://map.kakao.com/link/to/Hello World!,' + result[0]
+                                .y + ',' + result[0]
+                                .x + '" style="color:blue" target="_blank">길찾기</a></div>'
+                            var infowindow = new kakao
+                                .maps
+                                .InfoWindow({content: iwContent});
+                            infowindow.open(map, marker);
+
+                        }
+
+                    }
+                )
+
+                geocoder.addressSearch(
+                    this.allRestaurants[0].jibun,
+                    function (result, status) {
+                        if (status === kakao.maps.services.Status.OK) {
+
+                            var coords = new kakao
+                                .maps
+                                .LatLng(result[0].y, result[0].x);
+
+                            // 결과값으로 받은 위치를 마커로 표시합니다
+                            var marker = new kakao
+                                .maps
+                                .Marker({map: map, position: coords});
+
+                            // 인포윈도우로 장소에 대한 설명을 표시합니다
+                            var infowindow = new kakao
+                                .maps
+                                .InfoWindow({
+                                    content: '<div style="padding:2px;">' + tempstr + '<br><a href="https://map.kakao.com/li' +
+                                            'nk/to/Hello World!,' + result[0].y + ',' + result[0].x + '" style="color:blue"' +
+                                            ' target="_blank">길찾기</a></div>'
+                                });
+                            infowindow.open(map, marker);
+
+                            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                            map.setCenter(coords);
+                        }
+
+                    }
+                )
+                /*
+           var marker = new kakao.maps.Marker({ position:  new kakao.maps.LatLng(this.allRestaurants[i].lat, this.allRestaurants[i].lng) });
            marker.setMap(map);
-           var iwContent ='<div style="padding:5px;">' + this.list[i].aptName+  '<br><a href="https://map.kakao.com/link/to/Hello World!,'+this.list[i].lat+','+this.list[i].lng+'" style="color:blue" target="_blank">길찾기</a></div>'
-          
+           var iwContent ='<div style="padding:5px;">' + this.allRestaurants[i].aptName+  '<br><a href="https://map.kakao.com/link/to/Hello World!,'+this.allRestaurants[i].lat+','+this.allRestaurants[i].lng+'" style="color:blue" target="_blank">길찾기</a></div>'
+
            infowindow.open(map, marker);
            */
 
-    }
+            }
 
-},
-    addScript() { 
-    const script = document.createElement('script');
-     /* global kakao */ 
-    script.onload = () => kakao.maps.load(this.initMap); 
-    script.src = 'http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=09e1abd5c5f6238940e4138d128c1b3f&libraries=services';   
-     document.head.appendChild(script);
-    },
-    initsido() {
-      http.post('/map/sido', {
-      })
-     .then(({ data }) => {
-      let msg = '시도 불러오기에 실패하였습니다.';
-      if (data != null) {
-      this.sido = data;
-    }else{
-       alert(msg);
-       }
-     });
-    },
-    initgugun(sidovalue) {
-      for( var i =0; i<this.sido.length; i++ ){
-        if(sidovalue == this.sido[i].sido_name){
-          this.temp = this.sido[i].sido_code;
+        },
+        addScript() {
+            const script = document.createElement('script');
+            /* global kakao */
+            script.onload = () => kakao
+                .maps
+                .load(this.initMap);
+            script.src = 'http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=09e1abd5c5f6238940e' +
+                    '4138d128c1b3f&libraries=services';
+            document
+                .head
+                .appendChild(script);
+        },
+        initsido() {
+            http
+                .post('/map/sido', {})
+                .then(({data}) => {
+                    let msg = '시도 불러오기에 실패하였습니다.';
+                    if (data != null) {
+                        this.sido = data;
+                    } else {
+                        alert(msg);
+                    }
+                });
+        },
+        initgugun(sidovalue) {
+            for (var i = 0; i < this.sido.length; i++) {
+                if (sidovalue == this.sido[i].sido_name) {
+                    this.temp = this
+                        .sido[i]
+                        .sido_code;
+                }
+            }
+            http
+                .post('/map/gugun', {
+
+                    sido_name: sidovalue,
+                    sido_code: this.temp
+                })
+                .then(({data}) => {
+                    let msg = '구군 불러오기에 실패하였습니다.';
+                    if (data != null) {
+                        this.gugun = data;
+
+                    } else {
+                        alert(msg);
+                    }
+                });
+        },
+
+        initdong(gugunvalue) {
+            for (var i = 0; i < this.gugun.length; i++) {
+                if (gugunvalue == this.gugun[i].gugun_name) {
+                    this.temp = this
+                        .gugun[i]
+                        .gugun_code;
+                }
+            }
+            http
+                .post('/map/dong', {
+                    gugun_name: gugunvalue,
+                    gugun_code: this.temp
+                })
+                .then(({data}) => {
+                    let msg = '동 불러오기에 실패하였습니다.';
+                    if (data != null) {
+                        this.dong = data;
+
+                    } else {
+                        alert(msg);
+                    }
+                });
+        },
+
+        initlist(dongvalue) {
+
+            http
+                .post('/map/list', {dong: dongvalue})
+                .then(({data}) => {
+                    let msg = '동 불러오기에 실패하였습니다.';
+                    if (data != null) {
+                        this.allRestaurants = data;
+                        console.log(this.allRestaurants);
+                        window.kakao && window.kakao.maps
+                            ? this.clearMap()
+                            : this.addScript();
+                        this.clearMap();
+                        this.fetchRestaurants();
+                    } else {
+                        alert(msg);
+                    }
+                });
+        },
+        search() {
+            http
+                .post('/map/list', {dong: this.message})
+                .then(({data}) => {
+                    let msg = '동 불러오기에 실패하였습니다.';
+                    if (data != null) {
+                        this.allRestaurants = data;
+                        console.log(this.allRestaurants);
+                        window.kakao && window.kakao.maps
+                            ? this.clearMap()
+                            : this.addScript();
+                        this.clearMap();
+                        this.fetchRestaurants();
+                    } else {
+                        alert(msg);
+                    }
+                });
         }
-      }
-      http.post('/map/gugun', {
-
-        sido_name : sidovalue,
-        sido_code : this.temp,
-      })
-     .then(({ data }) => {
-      let msg = '구군 불러오기에 실패하였습니다.';
-      if (data != null) {
-      this.gugun = data;
-
-    }else{
-       alert(msg);
-       }
-     });
     },
-
-    initdong(gugunvalue) {
-       for( var i =0; i<this.gugun.length; i++ ){
-        if(gugunvalue == this.gugun[i].gugun_name){
-          this.temp = this.gugun[i].gugun_code;
+    watch: {
+        isScrollEnd: function (val) {
+            // console.log("스크롤엔드 감지 :", val, this.loading)
+            if (val && !this.loading) {
+                this.loading = true
+                // console.log("데이터 로딩 중", this.loading)
+                this.fetchRestaurants()
+            } else {
+                // console.log("지나간다")
+            }
         }
-      }
-      http.post('/map/dong', {
-        gugun_name : gugunvalue,
-        gugun_code : this.temp,
-      })
-     .then(({ data }) => {
-      let msg = '동 불러오기에 실패하였습니다.';
-      if (data != null) {
-      this.dong = data;
-    
-    }else{
-       alert(msg);
-       }
-     });
-    },
-
-
-    initlist(dongvalue) {
- 
-      http.post('/map/list', {
-        dong : dongvalue,
-      })
-     .then(({ data }) => {
-      let msg = '동 불러오기에 실패하였습니다.';
-      if (data != null) {
-      this.list = data;
-      console.log(this.list);
-      window.kakao && window.kakao.maps ? this.clearMap() : this.addScript();
-      this.clearMap();
-    }else{
-       alert(msg);
-       }
-     });
-    },
-    search(){
-        http.post('/map/list', {
-        dong : this.message,
-      })
-     .then(({ data }) => {
-      let msg = '동 불러오기에 실패하였습니다.';
-      if (data != null) {
-      this.list = data;
-      console.log(this.list);
-      window.kakao && window.kakao.maps ? this.clearMap() : this.addScript();
-      this.clearMap();
-    }else{
-       alert(msg);
-       }
-     });
-    },
     }
 }
 
 </script>
 
-<style scoped>
-
-
-</style>
+<style scoped="scoped"></style>
