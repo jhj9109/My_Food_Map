@@ -2,7 +2,7 @@
   <v-card
     :loading="loading"
     class="mx-auto my-0"
-    max-width="374"
+    max-width="375"
   >
     <v-img
         v-if="restaurantInfo.img"
@@ -11,9 +11,9 @@
         :src="restaurantInfo.img"
     ></v-img>
 
-    <v-card-title @click="onClick">{{ restaurantInfo.name }}</v-card-title>
+    <v-card-title class="pt-2 pb-0" @click="onClick">{{ restaurantInfo.name }}</v-card-title>
 
-    <v-card-text>
+    <v-card-text class="pb-2">
       <v-row
         align="center"
         class="mx-0"
@@ -27,10 +27,11 @@
           readonly
           size="14"
         />
-        <div class="grey--text ml-4">{{ restaurantInfo.value }} ({{ restaurantInfo.countgrade }})</div>
+        <div class="grey--text ml-1">{{ restaurantInfo.value }} ({{ restaurantInfo.countgrade }})</div>
       </v-row>
 
-      <div class="my-4 subtitle-1">
+      <!-- 업태명 정보 배치 수정-->
+      <div class="subtitle-1 text-right">
         <template v-for="type in restaurantInfo.res_type">
             {{ type }}
         </template>
@@ -38,13 +39,10 @@
 
       <!-- <div>{{ restaurantInfo.content }}</div> -->
     </v-card-text>
-
-    <v-divider class="mx-4"></v-divider>
-
-    <v-card-title>영업 시간</v-card-title>
-
-    <v-card-text>
-			{{ restaurantInfo.time }}
+    <!-- 영업시간, 메뉴 위치 수정 -->
+    <v-card-text class="text-right pt-0">
+			{{ restaurantInfo.time }} <br>
+			{{ restaurantInfo.menu }}
     </v-card-text>
 
   </v-card>
