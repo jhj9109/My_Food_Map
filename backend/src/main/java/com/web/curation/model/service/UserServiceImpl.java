@@ -167,4 +167,9 @@ public class UserServiceImpl implements UserService{
 		}
 	}
 
+	@Override
+	public MemberDto selectByNickname(String nickname) throws SQLException {
+		return userRepository.selectonenickname(nickname);
+	}
+
 }

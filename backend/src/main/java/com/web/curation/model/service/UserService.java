@@ -16,6 +16,7 @@ public interface UserService {
 	public boolean ChecknickName(String nickName);
 	public boolean signOut(int id, String pw);
 	public MemberDto select(int userid) throws SQLException;
+	public MemberDto selectByNickname(String nickname) throws SQLException;
 	public String email(int id) throws Exception;
 	
 	// follow
