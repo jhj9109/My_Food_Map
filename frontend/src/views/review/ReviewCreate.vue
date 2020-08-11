@@ -16,6 +16,7 @@
                             label="음식점"
                             :autofocus="true"
                             v-model="review.resid"
+                            type=number
                         />
                         <v-img
                             v-if="review.image.url"
@@ -145,12 +146,12 @@ export default {
         onCreate() {
             console.log("onCraete 메소드 실행",this.review)
             const data = {
-                userId: this.userInfo.userId,
+                userid:  Number(this.userInfo.userId),
                 nickname: this.userInfo.nickname,
                 content: this.review.content,
-                rank : this.review.rank,
+                rank : Number(this.review.rank),
                 image : this.review.image,
-                resid : this.review.resid,
+                resid : Number(this.review.resid),
 
             }
             console.log(typeof(data.userId))
