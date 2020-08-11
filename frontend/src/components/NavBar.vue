@@ -62,10 +62,15 @@
 				<v-tabs 
 				fixed-tabs
 				>
-					<v-tab to="/map/map">Map</v-tab>
-					<v-tab to="/restaurant">Home</v-tab>
+					<v-tab :to="{name : 'Map'}">Map</v-tab>
+					<v-tab :to="{name : 'Restaurant'}">Home</v-tab>
 					<!-- 임의로 프로필 설정 -->
-					<v-tab>Profile</v-tab>
+					<v-tab v-if="userInfo"
+						:to="{name : 'Profile', params : {userId : userInfo.userId} }">Profile
+					</v-tab>
+					<v-tab v-else
+						:to="{name : 'Login'}">Profile
+					</v-tab>
 				</v-tabs>
 			</template>
 		</v-app-bar>
@@ -85,6 +90,10 @@
 				
 				<v-list-item-content v-if="userInfo">
 					<v-list-item-title>{{ userInfo.nickname }}</v-list-item-title>
+				</v-list-item-content>
+				<!-- 비로그인 분기 -->
+				<v-list-item-content v-else>
+					<v-list-item-title class="text-caption"> 로그인이 필요합니다. </v-list-item-title>
 				</v-list-item-content>
 			</v-list-item>
 
@@ -106,6 +115,13 @@
 					</v-list-item-content>
 				</v-list-item>
 			</v-list>
+		<!-- 드로워 서비스 소개 추가 -->
+		<v-col
+			class="backgroud_gradient py-2 text-center white--text"
+			cols="12"
+		>
+			ⓒ {{ new Date().getFullYear() }} — MFD by MiBaSi
+		</v-col>
 		</v-navigation-drawer>
 	</v-card>
 </template>

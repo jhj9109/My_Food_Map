@@ -1,7 +1,7 @@
 
 import Login from './views/user/Login.vue'
 import Join from './views/user/Join.vue'
-import Mypage from './views/user/Mypage.vue'
+// import Mypage from './views/user/Mypage.vue'
 // import UserPage from './views/user/UserPage.vue'
 import Profile from './views/user/Profile.vue' // 경민버전
 import Findpw from './views/user/Findpw.vue'
@@ -9,9 +9,8 @@ import Logout from './views/user/Logout.vue'
 
 import Map from './views/map/map.vue'
 
-
 import Restaurant from './views/restaurant/Restaurant.vue'
-import RestaurantDetail from './views/restaurant/RestaurantDetail.vue'
+// import RestaurantDetail from './views/restaurant/RestaurantDetail.vue'
 import RestaurantReview from './views/restaurant/RestaurantReview.vue'
 
 import ReviewList from './views/review/ReviewList.vue'
@@ -49,6 +48,17 @@ const  ifNotAuthenticated = (to, from, next) => {
  } 
 
  */
+const requireAuth = (to, form, next) => {
+	console.log("requireAuth 체크", Boolean(localStorage.getItem('userInfo')))
+	if (Boolean(localStorage.getItem('userInfo'))) {
+		return next()
+	} else {
+		next({
+		path : '/user/login',
+		query: { redirect: to.name }
+	})
+	}
+}
 
 export default [
 
@@ -71,20 +81,22 @@ export default [
 		name: 'Logout',
 		component : Logout,
 	},
-	{
-		path : '/user/mypage',
-		name : 'Mypage',
-		component : Mypage
-	},
+	// {
+	// 	path : '/user/mypage',
+	// 	name : 'Mypage',
+	// 	component : Mypage,
+	// 	beforeEnter : requireAuth,
+	// },
 	{
 		path : '/user/findpw',
 		name : 'Findpw',
-		component : Findpw
+		component : Findpw,
+		beforeEnter : requireAuth,
 	},
 	{
 		path : '/user/:userId',
 		name : 'Profile',
-		component : Profile
+		component : Profile,
 	},
 	{
 		path : '/map/map',
@@ -96,11 +108,11 @@ export default [
 		name : 'Restaurant',
 		component : Restaurant
 	},
-	{
-		path : '/restaurant/:restaurantId',
-		name : 'RestaurantDetail',
-		component : RestaurantDetail
-	},
+	// {
+	// 	path : '/restaurant/:restaurantId',
+	// 	name : 'RestaurantDetail',
+	// 	component : RestaurantDetail
+	// },
 	{
 		path : '/restaurant/:restaurantId/review',
 		name : 'RestaurantReview',
@@ -110,7 +122,8 @@ export default [
 	{
 		path : '/review/create',
 		name : 'ReviewCreate',
-		component : ReviewCreate
+		component : ReviewCreate,
+		beforeEnter : requireAuth,
 	},
     {
         path : '/review',
