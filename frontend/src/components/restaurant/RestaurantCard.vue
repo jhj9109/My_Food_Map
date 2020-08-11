@@ -67,11 +67,13 @@ import RestaurantApi from '@/api/RestaurantApi.js'
         console.log(`id :${this.restaurantInfo.idrestaurants} 음식점 페이지로 이동`)
         console.log(this.$router)
         console.log(this.$route)
-        if (this.$route.fullPath === "/restaurant") {
-            this.$router.push({ name: 'RestaurantDetail', params: { restaurantId: this.restaurantInfo.idrestaurants}}); //리스트 => 특정 음식점
-        } else {
-            this.$router.push({ name: 'RestaurantReview', params: { restaurantId: this.restaurantInfo.idrestaurants}}); //특정 음식점 => 해당 리뷰
-        }
+        this.$router.push({ name: 'RestaurantReview', params: { restaurantId: this.restaurantInfo.idrestaurants}});
+        // RestaurantDetail 건너띔
+        // if (this.$route.fullPath === "/restaurant") {
+        //     this.$router.push({ name: 'RestaurantDetail', params: { restaurantId: this.restaurantInfo.idrestaurants}}); //리스트 => 특정 음식점
+        // } else {
+        //     this.$router.push({ name: 'RestaurantReview', params: { restaurantId: this.restaurantInfo.idrestaurants}}); //특정 음식점 => 해당 리뷰
+        // }
       },
       // 미리 작성해 놓은 Like
       // onLike(){
