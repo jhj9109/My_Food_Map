@@ -163,6 +163,18 @@ public class UserController {
 		}
 	}
 	
+	@ApiOperation(value = "nickname으로 특정 회원 정보 반환", response = MemberDto.class)
+	@RequestMapping(value = "/user/{id}/{nickname}", method = RequestMethod.GET)
+	public ResponseEntity<MemberDto> findByNickname(@PathVariable("nickname") int nickname, @PathVariable("userId") int userId) throws Exception {
+		MemberDto dto = userService.select(nickname);
+		FollowDto follow = new FollowDto();
+		follow.setFollowerId(userId);
+		follow.setFollowingId(dto.getUserid());
+		dto.setFollowed(userService.searchFollow(follow));
+		System.out.println(dto);
+		return new ResponseEntity<MemberDto>(dto, HttpStatus.OK);
+	}
+
 	@ApiOperation("로그인한 회원 정보 반환")
 	@GetMapping("/user")
 	public ResponseEntity<Map<String,Object>> MyInfo(){
