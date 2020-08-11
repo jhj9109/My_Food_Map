@@ -5,7 +5,7 @@
     max-width="374"
   >
     <v-img
-      v-if="reviewInfo.image"
+      v-if="reviewInfo.image !== 'null'"
       height="250"
       :src="reviewInfo.image"
       @click="onClick"
@@ -60,6 +60,7 @@ import UserApi from '@/api/UserApi.js'
 			onClick(){
         // 클릭시 모달 => 도움이 됐어요
         console.log("onClick 발동")
+        console.log(this.reviewInfo)
         // console.log(`id :${this.restaurantInfo.id} 음식점 페이지로 이동`)
         // this.$router.push({ name: 'RestaurantDetail', params: { restaurantId: this.restaurantInfo.id}}); //리뷰 => 리뷰 디테일?
       },
