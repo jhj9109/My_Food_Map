@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.web.curation.model.dto.LikeDto;
+import com.web.curation.model.dto.MemberDto;
 import com.web.curation.model.dto.ReviewDto;
 import com.web.curation.model.service.ReviewService;
 
@@ -87,10 +88,10 @@ public class ReviewController {
 	@ApiOperation(value="좋아요")
 	@RequestMapping(value="/review/like", method=RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> insertUser(@RequestBody LikeDto like) throws Exception {
-		LikeDto dto = new LikeDto();
 		System.out.println(like);
 		boolean check = reviewService.searchLike(like);
 		if (check) {
+			reviewService.deleteLike(like);
 			return Success("Like -1");
 		} else {
 			reviewService.insertLike(like);

@@ -4,13 +4,7 @@ public class LikeDto {
 	private int no;
 	private int reviewid;
 	private int userid;
-//	private int uid;
-//	public int getUid() {
-//		return uid;
-//	}
-//	public void setUid(int uid) {
-//		this.uid = uid;
-//	}
+	
 	public int getNo() {
 		return no;
 	}

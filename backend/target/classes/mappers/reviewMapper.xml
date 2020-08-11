@@ -22,7 +22,7 @@
         values (#{userid},#{resid}, #{content}, #{rank}, curdate(),#{image},0) 
     </insert>
 	<insert id="insertLike">
-		insert into heart(reviewid, userid) values(#{reviewid}, #{uid})
+		insert into heart(reviewid, userid) values(#{reviewid}, #{userid})
 	</insert>
 	<delete id="deleteLike">
 		delete from heart where userid=#{userid} and reviewid=#{reviewid}
