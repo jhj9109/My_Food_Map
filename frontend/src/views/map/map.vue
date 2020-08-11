@@ -2,16 +2,18 @@
 <div class="container">
     <!-- 기존 주소 설정 삭제 / 검색 창 추가 -->
       <v-text-field
-        v-model="message"
+        v-model="message"        
+        @enter="search"
         solo-inverted
         flat
         style="margin-top: 5px;"
         hide-details
         label="맛집 혹은 유저 정보를 검색해보세요."
         type="text"
-
-        append-outer-icon="fas fa-search"
-        >
+        >      
+      </v-text-field>
+      <!-- 서치 버튼 삭제 & 클릭에서 엔터로 이벤트 변환-->
+      <!--
       <template v-slot:append-outer>
           <v-btn
            @click="search"
@@ -20,7 +22,7 @@
              search
           </v-btn>
         </template>
-      </v-text-field>
+        -->
 
       <v-spacer></v-spacer>
       <hr style="margin-top: 10px; margin-bottom: 10px;">
@@ -42,8 +44,10 @@
     <v-row align="center">
       <v-col class="text-center" cols="12" sm="4">
           <v-btn text large color="primary" @click="onclick">내 위치</v-btn>
-        <v-card-text> 경도:{{lat}}<br>위도:{{lon}} </v-card-text>
-        <div id="map" style="width:500px;height:400px;"></div>
+        <v-card-text> 경도:{{lat}}<br>위도:{{lon}} </v-card-text>        
+        <!-- 모바일 페이지 기준 맵 사이즈 조정, 라운드 처리 -->
+        <div id="map" class="rounded-lg" style="width:100%;height:360px;"></div>
+
       </v-col>
     </v-row>
   </div>
