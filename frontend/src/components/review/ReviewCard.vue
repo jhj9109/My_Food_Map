@@ -4,7 +4,7 @@
     class="mx-auto my-3"
     max-width="374"
   > 
-  <!-- 이미지 사이즈에 따라 유동적 사이즈 설정, 정사각형으로 보이도록 픽스함 -->
+  <!-- 이미지 사이즈에 따라 유동적 사이즈 설정, 정사각형으로 보이도록 -->
     <v-img
       v-if="reviewInfo.image !== 'null'"
       height="374"
@@ -37,7 +37,7 @@
             half-increments
             readonly
             size="20"
-            background-color="amber"
+            empty-icon
           />
         </v-row>
       </div>
