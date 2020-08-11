@@ -5,10 +5,10 @@
     max-width="375"
   >
     <v-img
-        v-if="restaurantInfo.image"
+        v-if="restaurantInfo.img"
         @click="onClick"
         height="250"
-        :src="restaurantInfo.image"
+        :src="restaurantInfo.img"
     ></v-img>
 
     <v-card-title class="pt-2 pb-0" @click="onClick">{{ restaurantInfo.name }}</v-card-title>

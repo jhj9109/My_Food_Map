@@ -6,8 +6,8 @@
   > 
   <!-- 이미지 사이즈에 따라 유동적 사이즈 설정, 정사각형으로 보이도록 픽스함 -->
     <v-img
-      v-if="reviewInfo.image"
-      max-height="374"
+      v-if="reviewInfo.image !== 'null'"
+      height="374"
       :src="reviewInfo.image"
       @click="onClick"
     />
@@ -70,6 +70,7 @@ import UserApi from '@/api/UserApi.js'
 			onClick(){
         // 클릭시 모달 => 도움이 됐어요
         console.log("onClick 발동")
+        console.log(this.reviewInfo)
         // console.log(`id :${this.restaurantInfo.id} 음식점 페이지로 이동`)
         // this.$router.push({ name: 'RestaurantDetail', params: { restaurantId: this.restaurantInfo.id}}); //리뷰 => 리뷰 디테일?
       },
