@@ -1,51 +1,54 @@
 <template>
-  <v-card
-    :loading="loading"
-    class="mx-auto my-0"
-    max-width="375"
-  >
-    <v-img
-        v-if="restaurantInfo.image"
-        @click="onClick"
-        height="250"
-        :src="restaurantInfo.image"
-    ></v-img>
+  <div>
+    <v-card
+      :loading="loading"
+      class="mx-auto my-0"
+      max-width="375"
+    >
+      <v-img
+          v-if="restaurantInfo.image"
+          @click="onClick"
+          height="250"
+          :src="restaurantInfo.image"
+      ></v-img>
 
-    <v-card-title class="pt-2 pb-0" @click="onClick">{{ restaurantInfo.name }}</v-card-title>
+      <v-card-title class="pt-2 pb-0" @click="onClick">{{ restaurantInfo.name }}</v-card-title>
 
-    <v-card-text class="pb-2">
-      <v-row
-        align="center"
-        class="mx-0"
-      >
+      <v-card-text class="pb-2">
+        <v-row
+          align="center"
+          class="mx-0"
+        >
 
-        <v-rating
-          :value="restaurantInfo.grade"
-          color="amber"
-          dense
-          half-increments
-          readonly
-          size="14"
-        />
-        <div class="grey--text ml-1">{{ restaurantInfo.value }} ({{ restaurantInfo.countgrade }})</div>
-      </v-row>
+          <v-rating
+            :value="restaurantInfo.grade"
+            color="amber"
+            dense
+            half-increments
+            readonly
+            size="14"
+          />
+          <div class="grey--text ml-1">{{ restaurantInfo.value }} ({{ restaurantInfo.countgrade }})</div>
+        </v-row>
 
-      <!-- 업태명 정보 배치 수정-->
-      <div class="subtitle-1 text-right">
-        <template v-for="type in restaurantInfo.res_type">
-            {{ type }}
-        </template>
-      </div>
+        <!-- 업태명 정보 배치 수정-->
+        <div class="subtitle-1 text-right">
+          <template v-for="type in restaurantInfo.res_type">
+              {{ type }}
+          </template>
+        </div>
 
-      <!-- <div>{{ restaurantInfo.content }}</div> -->
-    </v-card-text>
-    <!-- 영업시간, 메뉴 위치 수정 -->
-    <v-card-text class="text-right pt-0">
-			{{ restaurantInfo.time }} <br>
-			{{ restaurantInfo.menu }}
-    </v-card-text>
-
-  </v-card>
+        <!-- <div>{{ restaurantInfo.content }}</div> -->
+      </v-card-text>
+      <!-- 영업시간, 메뉴 위치 수정 -->
+      <v-card-text class="text-right pt-0">
+        {{ restaurantInfo.time }} <br>
+        {{ restaurantInfo.menu }}
+      </v-card-text>
+    </v-card>
+    <div class="text-right">
+    </div>
+  </div>
 </template>
 
 <script>
