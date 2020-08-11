@@ -1,16 +1,16 @@
 <template>
-    <v-card>
+    <v-card width="100%" class="pr-0 pl-0"> <!-- 작성창 고정 -->
         <v-row>
             <v-col
               cols="12"
               sm="8"
               md="4"
             >
-                <v-card-title>
+                <v-card-title class="pb-0">
                     <h1 class="display-1">리뷰 작성</h1>    
                 </v-card-title>
 				
-                <v-card-text>
+                <v-card-text class="pb-0">
                     <v-form>
                         <v-text-field
                             label="음식점"
@@ -24,11 +24,12 @@
                             width="375px"
                         ></v-img>
                         <v-textarea 
-                            label="Content"
+                            label="리뷰를 작성해주세요"
                             :outlined="true"
                             v-model="review.content"
                         />
                         <v-text-field
+                            class="pt-0"
                             label="이미지 첨부"
                             @click='pickFile'
                             v-model='review.name'
@@ -59,6 +60,7 @@
 
                     <v-card-actions class="ml-5 mr-5">
                     <v-select
+                        class = "pt-0"
                         width="50"
                         :loader-height="1"
                         :items="[1,2,3,4,5]"
