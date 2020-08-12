@@ -67,11 +67,11 @@ export default {
     tempSetListData() { 
       // 임시데이터 생성용
       const listData = [
-        { title: 'Home', icon: 'mdi-home' },
-        { title: 'Map', icon: 'mdi-map' },
-        { title: 'Profile', icon: 'mdi-comment-account-outline' },
-        { title: 'login/signup', icon: 'mdi-account' },
-        { title: 'logout', icon: 'mdi-account' }
+        { title: 'Home', icon: 'mdi-home', destination: 'Restaurant' },
+        { title: 'Map', icon: 'mdi-map', destination: 'Map' },
+        { title: 'Profile', icon: 'mdi-comment-account-outline', destination: 'Profile' },
+        { title: 'login/signup', icon: 'mdi-account', destination: 'Login' },
+        { title: 'logout', icon: 'mdi-account', destination: 'Logout' }
       ]
       this.$store.commit('nav/setItems', listData)
     },

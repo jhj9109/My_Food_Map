@@ -8,7 +8,10 @@
 
 
     <div v-if="restaurantInfo.image" style="text-align: center">
-      <img @click="onClick" height="375" :src= "require('@/assets/' + restaurantInfo.image)">
+      <img @click="onClick" 
+      height="374" 
+      width="374"
+      :src= "require('@/assets/' + restaurantInfo.image)">
     </div>
 
     <v-card-title class="pt-2 pb-0" @click="onClick">{{ restaurantInfo.name }}</v-card-title>
