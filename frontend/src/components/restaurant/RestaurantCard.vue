@@ -2,16 +2,16 @@
   <div>
     <v-card
       :loading="loading"
-      class="mx-auto my-0"
+      class="mx-auto my-0 rounded-lg"
       max-width="375"
     >
 
 
-      <v-card-title class="pt-2 pb-0" @click="onClick">{{ restaurantInfo.name }}</v-card-title>
+    <div v-if="restaurantInfo.image" style="text-align: center">
+      <img @click="onClick" height="375" :src= "require('@/assets/' + restaurantInfo.image)">
+    </div>
 
-  <div v-if="restaurantInfo.image" style="text-align: center">
-    <img @click="onClick" height="250" :src= "require('@/assets/' + restaurantInfo.image)">
-  </div>
+    <v-card-title class="pt-2 pb-0" @click="onClick">{{ restaurantInfo.name }}</v-card-title>
 
     <v-card-text>
       <v-row
@@ -24,9 +24,27 @@
             dense
             half-increments
             readonly
-            size="14"
+            size="20"
+            empty-icon
           />
           <div class="grey--text ml-1">{{ restaurantInfo.value }} ({{ restaurantInfo.countgrade }})</div>
+          <!-- 핀 클릭 -> 북마크 기능 -->
+          <v-icon size="24"> mdi-pin </v-icon>
+          <div
+          v-if="percent > '80'"
+          class="title green--text">
+            {{ percent }}%일치
+          </div>
+          <div
+          v-else-if="percent > '60'"
+          class="title amber--text">
+            {{ percent }}%일치
+          </div>
+          <div
+          v-else
+          class="title red--text">
+            {{ percent }}%일치
+          </div>
         </v-row>
 
         <!-- 업태명 정보 배치 수정-->
@@ -57,6 +75,7 @@ import RestaurantApi from '@/api/RestaurantApi.js'
     props: ['restaurantInfo'],
     data: () => ({
       loading: false,
+      percent: Math.floor(Math.random() * 100 + 1),
     }),
 
     methods: {
@@ -102,6 +121,8 @@ import RestaurantApi from '@/api/RestaurantApi.js'
     },
   }
 </script>
-<style>
-
+<style >
+.underbar_gradient {
+    background: linear-gradient(270deg, #fa709a, #f6d365 100%);
+}
 </style>

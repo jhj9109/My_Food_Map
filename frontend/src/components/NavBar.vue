@@ -66,10 +66,10 @@
 					<v-tab :to="{name : 'Restaurant'}">Home</v-tab>
 					<!-- 임의로 프로필 설정 -->
 					<v-tab v-if="userInfo"
-						:to="{name : 'Profile', params : {userId : userInfo.userId} }">Profile
+						:to="{name : 'Profile', params : {userId : userInfo.userId} }">Feed
 					</v-tab>
 					<v-tab v-else
-						:to="{name : 'Login'}">Profile
+						:to="{name : 'Login'}">Feed
 					</v-tab>
 				</v-tabs>
 			</template>

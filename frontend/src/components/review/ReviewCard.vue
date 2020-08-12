@@ -13,9 +13,12 @@
     />
     
     <v-card-text>
-      <!-- 추후 식당 이름으로 바꿔야할 부분, 식당 이름이 넘어오지 않아 수정 못함 -->
-      <div class="title">
-      {{ reviewInfo.resid }} 번 식당, 이름이 보여질 자리
+      <!-- 추후 식당 이름으로 바꿔야할 부분, 식당 이름이 넘어오지 않아 수정 못함 -->      <!-- 개인 페이지에서는 식당, 식당 페이지에서는 리뷰를 보여줘야할듯 -->
+      <div v-if="this.name='RestaurantReview'" class="title">
+        {{ reviewInfo.userid }}번 유저 님의 리뷰 <br>
+      </div>
+      <div v-else class="title">
+        {{ reviewInfo.resid }} 번 식당, 이름이 보여질 자리 <br>
       </div>
           <v-btn
             icon
@@ -47,9 +50,12 @@
       >
       <!-- 리뷰 콘텐츠 수정 + 사용자명(nickname 넘어오지 않아 못넣음), 작성일-->
         {{ reviewInfo.content }} <br>
+      </div>      
+      <!-- 유저님 클릭하면 그 페이지로 넘어가게 -->
+      <div v-if="this.name!='RestaurantReview'" class="text-right">
+        {{ reviewInfo.userid }}번 유저 님의 리뷰 <br>
       </div>
       <div class="text-right">
-        {{ reviewInfo.userid }}번 유저 님의 리뷰 <br>
         {{ reviewInfo.create_date }}
       </div>
     </v-card-text>

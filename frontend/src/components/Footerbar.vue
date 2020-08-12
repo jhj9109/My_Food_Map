@@ -4,6 +4,7 @@
         fixed
         flat
         tile
+        dark
         width="100%"
         height="60%"
         class="backgroud_gradient text-center"
