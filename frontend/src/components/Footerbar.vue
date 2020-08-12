@@ -10,7 +10,7 @@
         class="backgroud_gradient"
       >
 
-            <v-btn :to="{ name: 'Restaurant' }" class="ml-15" icon>
+            <v-btn :to="{ name: 'Restaurant' }" class="ml-16" icon>
               <v-icon size="24px">mdi-search-web</v-icon>
             </v-btn>
 
@@ -29,10 +29,11 @@
             <v-btn class="ml-2" icon>
               <v-icon>mdi-arrow-up</v-icon>
             </v-btn>
-            <!-- 글쓰기 버튼은 음식점 디테일 페이지로 옮긴 뒤 삭제할 예정-->
+            <!-- 글쓰기 버튼 restaurant card로 옮김.
             <v-btn :to="{ name: 'ReviewCreate' }" class="ml-2" icon >
               <v-icon size="24px">mdi-lead-pencil</v-icon>
             </v-btn>
+            -->
       </v-footer>
     </v-card>
 </template>

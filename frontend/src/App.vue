@@ -10,7 +10,7 @@
         id="scrolling-techniques-3"
         class="overflow-y-auto"
         v-scroll.self="onScroll"
-        style="max-height: 650px"
+        style="max-height: 700px"
       >
         <router-view
           :userInfo="userInfo"
@@ -71,6 +71,7 @@ export default {
       const listData = [
         { title: 'Search', icon: 'mdi-search-web', destination: 'Restaurant' },
         { title: 'Map', icon: 'mdi-map', destination: 'Map' },
+        { title: 'Feed', icon: 'mdi-format-align-justify', destination: 'Feed' },
         { title: 'Profile', icon: 'mdi-account', destination: 'Profile' },
         { title: 'login/signup', icon: 'mdi-login', destination: 'Login' },
         { title: 'logout', icon: 'mdi-logout', destination: 'Logout' }
@@ -79,8 +80,8 @@ export default {
     },
     onScroll(e) {
       const s = e.target
-      const maxLevel = s.scrollHeight - 650 // 최대 깊이
-      const margin = 10 // 여유 마진
+      const maxLevel = s.scrollHeight - 700 // 최대 깊이
+      const margin = 20 // 여유 마진
       // console.log (`maxlevel:${maxLevel}, 위치:${s.scrollTop}`)
       if (maxLevel - margin - s.scrollTop < 0) {
         // console.log("끝에 도달했어")

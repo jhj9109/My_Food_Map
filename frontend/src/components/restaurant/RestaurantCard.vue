@@ -66,6 +66,12 @@
         {{ restaurantInfo.time }} <br>
         {{ restaurantInfo.menu }}
       </v-card-text>
+    <!-- 리뷰용 버튼 추가, 식당 아이디 보내도록 만들어야 -->
+    <div class="text-xs-center">
+    <v-btn :to="{ name: 'ReviewCreate' }" class="mb-2 ml-2" fab dark small color="amber">
+      <v-icon dark>mdi-pencil</v-icon>
+    </v-btn>
+    </div>
     </v-card>
     <div class="text-right">
     </div>
