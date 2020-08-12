@@ -15,7 +15,7 @@
     </div>
 
     <v-card-title class="pt-2 pb-0" @click="onClick">{{ restaurantInfo.name }}</v-card-title>
-
+    
     <v-card-text class="pb-1">
       <v-row
         align="center"
@@ -62,19 +62,17 @@
         <!-- <div>{{ restaurantInfo.content }}</div> -->
       </v-card-text>
       <!-- 영업시간, 메뉴 위치 수정 -->
-      <v-card-text class="text-right pt-0 pl-4 pr-4">
+      <v-card-text class="text-right pb-2 pt-0 pl-4 pr-4">
         {{ restaurantInfo.time }} <br>
         {{ restaurantInfo.menu }}
       </v-card-text>
     <!-- 리뷰용 버튼 추가, 식당 아이디 보내도록 만들어야 -->
-    <div class="text-xs-center">
-    <v-btn :to="{ name: 'ReviewCreate' }" class="mb-2 ml-2" fab dark small color="amber">
-      <v-icon dark>mdi-pencil</v-icon>
-    </v-btn>
-    </div>
+    <v-row justify='end'>
+      <v-btn :to="{ name: 'ReviewCreate' }" class="mb-2 mr-6" rounded dark small color="amber">
+        <v-icon dark>mdi-pencil</v-icon>
+      </v-btn>
+    </v-row>
     </v-card>
-    <div class="text-right">
-    </div>
   </div>
 </template>
 
