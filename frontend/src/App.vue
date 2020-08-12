@@ -68,8 +68,10 @@ export default {
       // 임시데이터 생성용
       const listData = [
         { title: 'Home', icon: 'mdi-home' },
-        { title: 'Profile', icon: 'mdi-comment-account-outline' },
         { title: 'Map', icon: 'mdi-map' },
+        { title: 'Profile', icon: 'mdi-comment-account-outline' },
+        { title: 'login/signup', icon: 'mdi-account' },
+        { title: 'logout', icon: 'mdi-account' }
       ]
       this.$store.commit('nav/setItems', listData)
     },

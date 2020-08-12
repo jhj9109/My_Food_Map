@@ -13,7 +13,13 @@
     <p
       v-if="!allReviews"
     >
-      작성한 리뷰가 없습니다.
+    <div class="text-caption text-center">
+      아직 작성한 리뷰가 없습니다. <br>
+      당신의 이야기를 나눠주세요 <br>
+    <v-btn :to="{ name: 'ReviewCreate' }" class="align-center" color="amber" icon>
+      <v-icon size="24px">mdi-lead-pencil</v-icon>
+    </v-btn>
+    </div>
     </p>
   </div>
 </template>
