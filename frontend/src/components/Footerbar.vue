@@ -7,21 +7,31 @@
         dark
         width="100%"
         height="60%"
-        class="backgroud_gradient text-center"
+        class="backgroud_gradient flex-end"
       >
-            <v-btn @click="onClick" icon>
-              <v-icon>mdi-account</v-icon>
-            </v-btn>
 
-            <v-btn :to="{ name: 'Restaurant' }" class="mx-2" icon>
+            <v-btn :to="{ name: 'Restaurant' }" class="mx-0" icon>
               <v-icon size="24px">mdi-home</v-icon>
             </v-btn>
 
-            <v-btn :to="{ name: 'ReviewCreate' }" class="mx-2" icon >
-              <v-icon size="24px">mdi-lead-pencil</v-icon>
+            <v-btn :to="{ name: 'Map' }" class="mx-0" icon >
+              <v-icon size="24px">mdi-map</v-icon>
             </v-btn>
-            <v-btn :to="{ name: 'Logout' }" class="mx-2" icon >
-              Logout
+            <!-- 피드로 가는 버튼 추가 -->
+            <v-btn class="mx-1" icon>
+              <v-icon>mdi-format-align-justify</v-icon>
+            </v-btn>
+            
+            <v-btn @click="onClick" class="mx-0" icon>
+              <v-icon>mdi-account</v-icon>
+            </v-btn>
+            <!-- 맨위로 가기 -->
+            <v-btn class="mx-0" icon>
+              <v-icon>mdi-arrow-up</v-icon>
+            </v-btn>
+
+            <v-btn :to="{ name: 'ReviewCreate' }" class="mx-0" icon >
+              <v-icon size="24px">mdi-lead-pencil</v-icon>
             </v-btn>
       </v-footer>
     </v-card>

@@ -4,8 +4,8 @@
   <div class="user" id="login">
      <v-app id="inspire">
       <v-main>
+        <!-- 로그인창 한페이지 보이기 위한 수정-->
         <v-container
-          class="fill-height"
           fluid
         >
           <v-row
@@ -18,7 +18,7 @@
               md="4"
             >
 
-              <v-card class="elevation-6">
+              <v-card class="elevation-6 mt-10">
                 <!-- 로그인창 색상 변경 -->
                 <v-toolbar
                   color="backgroud_gradient"

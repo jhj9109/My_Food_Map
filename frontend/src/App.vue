@@ -4,6 +4,8 @@
       :userInfo="userInfo"
       :items="items"
     />
+    <!-- nav bar 수정하며 화면 보이는 부분 늘림-->
+    <!-- 끝이라고 인식을 못해서 불러오질 않음-->
       <v-sheet
         id="scrolling-techniques-3"
         class="overflow-y-auto"
@@ -69,9 +71,9 @@ export default {
       const listData = [
         { title: 'Home', icon: 'mdi-home', destination: 'Restaurant' },
         { title: 'Map', icon: 'mdi-map', destination: 'Map' },
-        { title: 'Profile', icon: 'mdi-comment-account-outline', destination: 'Profile' },
-        { title: 'login/signup', icon: 'mdi-account', destination: 'Login' },
-        { title: 'logout', icon: 'mdi-account', destination: 'Logout' }
+        { title: 'Profile', icon: 'mdi-account', destination: 'Profile' },
+        { title: 'login/signup', icon: 'mdi-login', destination: 'Login' },
+        { title: 'logout', icon: 'mdi-logout', destination: 'Logout' }
       ]
       this.$store.commit('nav/setItems', listData)
     },
