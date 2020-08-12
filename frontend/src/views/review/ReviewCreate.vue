@@ -50,8 +50,7 @@
                         >
                             업로드 하기
                         </v-btn>                        -->
-                        <br>
-                        <img class="preview" :src="picture">
+                        <img width=344 height=344 :src="picture">
                         <p v-if="uploadValue !== 0 && uploadValue !== 100 ">업로드 중입니다... {{uploadValue.toFixed()+"%"}}
                             <progress id="progress" :value="uploadValue" max="100" />
                         </p>
@@ -60,7 +59,7 @@
                     </v-form>
                 </v-card-text>
 
-                    <v-card-actions class="ml-5 mr-5">
+                    <v-card-actions class="ml-5 mr-5 mt-3">
                     <v-select
                         class = "pt-0"
                         width="50"

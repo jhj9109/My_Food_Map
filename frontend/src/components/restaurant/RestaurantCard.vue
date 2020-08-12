@@ -2,18 +2,21 @@
   <div>
     <v-card
       :loading="loading"
-      class="mx-auto my-0 rounded-lg"
+      class="mx-auto my-0"
       max-width="375"
     >
 
 
     <div v-if="restaurantInfo.image" style="text-align: center">
-      <img @click="onClick" height="375" :src= "require('@/assets/' + restaurantInfo.image)">
+      <img @click="onClick" 
+      height="374" 
+      width="374"
+      :src= "require('@/assets/' + restaurantInfo.image)">
     </div>
 
     <v-card-title class="pt-2 pb-0" @click="onClick">{{ restaurantInfo.name }}</v-card-title>
-
-    <v-card-text>
+    
+    <v-card-text class="pb-1">
       <v-row
         align="center"
         class="mx-0"
@@ -46,24 +49,30 @@
             {{ percent }}%일치
           </div>
         </v-row>
-
+        <!-- 레스토랑 정보 : {{ restaurantInfo }} -->
         <!-- 업태명 정보 배치 수정-->
-        <div class="subtitle-1 text-right">
+        <!-- 주소 추가 및 디자인 수정 -->
+        <div class="subtitle-2 text-right mb-1">
           <template v-for="type in restaurantInfo.res_type">
               {{ type }}
-          </template>
+          </template> <br>
+        {{ restaurantInfo.doro.slice(0, 18) }} 
         </div>
-
+        <hr>
         <!-- <div>{{ restaurantInfo.content }}</div> -->
       </v-card-text>
       <!-- 영업시간, 메뉴 위치 수정 -->
-      <v-card-text class="text-right pt-0">
+      <v-card-text class="text-right pb-2 pt-0 pl-4 pr-4">
         {{ restaurantInfo.time }} <br>
         {{ restaurantInfo.menu }}
       </v-card-text>
+    <!-- 리뷰용 버튼 추가, 식당 아이디 보내도록 만들어야 -->
+    <v-row justify='end'>
+      <v-btn :to="{ name: 'ReviewCreate' }" class="mb-2 mr-6" rounded dark small color="amber">
+        <v-icon dark>mdi-pencil</v-icon>
+      </v-btn>
+    </v-row>
     </v-card>
-    <div class="text-right">
-    </div>
   </div>
 </template>
 

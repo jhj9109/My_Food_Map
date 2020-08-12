@@ -1,5 +1,5 @@
 <template>
-	<v-card height="107px">
+	<v-card height="56px">
 		<v-app-bar
 			color="backgroud_gradient"
 			dark
@@ -45,26 +45,25 @@
 			<!-- drawer dots로 옮김 -->
 			<v-btn 
 				@click.native.stop="drawerToggle = true"
-				icon style="margin-top:10px">
+				icon style="margin-top:1px">
 				<v-icon>mdi-dots-horizontal</v-icon>
 			</v-btn>
 			<!-- drawer dots로 옮김 -->
 			<v-badge
 				dot
-				style="margin-top:15px"
+				style="margin-top:1px"
 			>
 			<!--:value="userInfo.알람==true"
 			넣어서 새로운 알람 있을때 불들어오게-->
 				<v-icon>mdi-bell</v-icon>
 			</v-badge>
-				
+			<!--
 			<template v-slot:extension>
 				<v-tabs 
 				fixed-tabs
 				>
 					<v-tab :to="{name : 'Map'}">Map</v-tab>
 					<v-tab :to="{name : 'Restaurant'}">Home</v-tab>
-					<!-- 임의로 프로필 설정 -->
 					<v-tab v-if="userInfo"
 						:to="{name : 'Profile', params : {userId : userInfo.userId} }">Feed
 					</v-tab>
@@ -73,6 +72,7 @@
 					</v-tab>
 				</v-tabs>
 			</template>
+			-->
 		</v-app-bar>
 
 		<v-navigation-drawer
@@ -105,6 +105,7 @@
 					v-for="item in items"
 					:key="item.title"
 					link
+					:to="{name : item.destination}"
 				>
 					<v-list-item-icon>
 						<v-icon>{{ item.icon }}</v-icon>

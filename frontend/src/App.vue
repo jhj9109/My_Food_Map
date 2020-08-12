@@ -4,11 +4,13 @@
       :userInfo="userInfo"
       :items="items"
     />
+    <!-- nav bar 수정하며 화면 보이는 부분 늘림-->
+    <!-- 끝이라고 인식을 못해서 불러오질 않음-->
       <v-sheet
         id="scrolling-techniques-3"
         class="overflow-y-auto"
         v-scroll.self="onScroll"
-        style="max-height: 650px"
+        style="max-height: 700px"
       >
         <router-view
           :userInfo="userInfo"
@@ -67,16 +69,19 @@ export default {
     tempSetListData() { 
       // 임시데이터 생성용
       const listData = [
-        { title: 'Home', icon: 'mdi-home' },
-        { title: 'Profile', icon: 'mdi-comment-account-outline' },
-        { title: 'Map', icon: 'mdi-map' },
+        { title: 'Search', icon: 'mdi-search-web', destination: 'Restaurant' },
+        { title: 'Map', icon: 'mdi-map', destination: 'Map' },
+        { title: 'Feed', icon: 'mdi-format-align-justify', destination: 'Feed' },
+        { title: 'Profile', icon: 'mdi-account', destination: 'Profile' },
+        { title: 'login/signup', icon: 'mdi-login', destination: 'Login' },
+        { title: 'logout', icon: 'mdi-logout', destination: 'Logout' }
       ]
       this.$store.commit('nav/setItems', listData)
     },
     onScroll(e) {
       const s = e.target
-      const maxLevel = s.scrollHeight - 650 // 최대 깊이
-      const margin = 10 // 여유 마진
+      const maxLevel = s.scrollHeight - 700 // 최대 깊이
+      const margin = 20 // 여유 마진
       // console.log (`maxlevel:${maxLevel}, 위치:${s.scrollTop}`)
       if (maxLevel - margin - s.scrollTop < 0) {
         // console.log("끝에 도달했어")

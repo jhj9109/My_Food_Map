@@ -4,8 +4,8 @@
   <div class="user" id="login">
      <v-app id="inspire">
       <v-main>
+        <!-- 로그인창 한페이지 보이기 위한 수정-->
         <v-container
-          class="fill-height"
           fluid
         >
           <v-row
@@ -18,7 +18,7 @@
               md="4"
             >
 
-              <v-card class="elevation-12">
+              <v-card class="elevation-6 mt-10">
                 <!-- 로그인창 색상 변경 -->
                 <v-toolbar
                   color="backgroud_gradient"
@@ -87,14 +87,26 @@
           회원가입
           </v-btn>
           </div>
-          <div class="d-flex align-end flex-column mb-16 pb-8" to="/user/findpw">
+          <div class="d-flex align-end flex-column mb-4" to="/user/findpw">
             ID/비밀번호를 잊으셨나요?
             <v-btn
             to="/user/findpw"
             small
-            class="mt-1 mb-16"
+            class="mt-1"
             >
             ID/비밀번호 찾기
+            </v-btn>
+          </div>
+          <hr>
+          <div class="d-flex align-end flex-column" to="/user/findpw">
+            <v-btn
+            to="/user/findpw"
+            small
+            dark
+            color="amber"
+            class="mt-3"
+            >
+            카카오톡 로그인
             </v-btn>
           </div>
             </v-col>
