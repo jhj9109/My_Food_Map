@@ -309,4 +309,268 @@ public class StoreServiceImpl implements StoreService{
 		return list;
 	}
 
+	@Override
+	public RestaurantsDto image(RestaurantsDto dto) {
+		boolean check = false;
+			String temp = dto.getRes_type();
+			switch (temp) {
+			case "감성주점":
+				if (dto.getIdrestaurants() % 2 == 0)
+					check = true;
+				else
+					check = false;
+
+				if (check)
+					dto.setImage("resimg/bar1.jpg");
+				else
+					dto.setImage("resimg/bar2.jpg");
+				break;
+			case "경양식":
+				if (dto.getIdrestaurants() % 2 == 0)
+					check = true;
+				else
+					check = false;
+
+				if (check)
+					dto.setImage("resimg/dishes1.jpg");
+				else
+					dto.setImage("resimg/dishes2.jpg");
+				break;
+			case "과자점":
+				if (dto.getIdrestaurants() % 2 == 0)
+					check = true;
+				else
+					check = false;
+
+				if (check)
+					dto.setImage("resimg/bakery.jpg");
+				else
+					dto.setImage("resimg/bakery2.jpg");
+				break;
+			case "기타":
+				if (dto.getIdrestaurants() % 2 == 0)
+					check = true;
+				else
+					check = false;
+
+				if (check)
+					dto.setImage("resimg/etc.png");
+				else
+					dto.setImage("resimg/etc2.jpg");
+				break;
+			case "기타 휴게음식점":
+				if (dto.getIdrestaurants() % 2 == 0)
+					check = true;
+				else
+					check = false;
+
+				if (check)
+					dto.setImage("resimg/restingetc.jpg");
+				else
+					dto.setImage("resimg/restingetc2.jpg");
+				break;
+			case "김밥(도시락)":
+				if (dto.getIdrestaurants() % 2 == 0)
+					check = true;
+				else
+					check = false;
+
+				if (check)
+					dto.setImage("resimg/gimbap.jpg");
+				else
+					dto.setImage("resimg/gimbap2.png");
+				break;
+			case "카페":
+				if (dto.getIdrestaurants() % 2 == 0)
+					check = true;
+				else
+					check = false;
+
+				if (check)
+					dto.setImage("resimg/cafe.jpg");
+				else
+					dto.setImage("resimg/cafe2.jpg");
+				break;
+			case "다방":
+				if (dto.getIdrestaurants() % 2 == 0)
+					check = true;
+				else
+					check = false;
+
+				if (check)
+					dto.setImage("resimg/dabang.jpg");
+				else
+					dto.setImage("resimg/dabang2.jpg");
+				break;
+			case "라이브카페":
+				if (dto.getIdrestaurants() % 2 == 0)
+					check = true;
+				else
+					check = false;
+
+				if (check)
+					dto.setImage("esimg/livecafe.jpg");
+				else
+					dto.setImage("resimg/livecafe2.jpg");
+				break;
+			case "백화점":
+				if (dto.getIdrestaurants() % 2 == 0)
+					check = true;
+				else
+					check = false;
+
+				if (check)
+					dto.setImage("resimg/department.jpg");
+				else
+					dto.setImage("resimg/department2.jpg");
+				break;
+			case "분식":
+				if (dto.getIdrestaurants() % 2 == 0)
+					check = true;
+				else
+					check = false;
+
+				if (check)
+					dto.setImage("resimg/bunsick.jpg");
+				else
+					dto.setImage("resimg/bunsick2.jpg");
+				break;
+			case "뷔페식":
+				if (dto.getIdrestaurants() % 2 == 0)
+					check = true;
+				else
+					check = false;
+
+				if (check)
+					dto.setImage("resimg/buffet.jpg");
+				else
+					dto.setImage("resimg/buffet2.png");
+				break;
+			case "식육(숯불구이)":
+				if (dto.getIdrestaurants() % 2 == 0)
+					check = true;
+				else
+					check = false;
+
+				if (check)
+					dto.setImage("resimg/meat.jpg");
+				else
+					dto.setImage("resimg/meat2.jpeg");
+				break;
+			case "외국음식전문점(인도태국등)":
+				if (dto.getIdrestaurants() % 2 == 0)
+					check = true;
+				else
+					check = false;
+
+				if (check)
+					dto.setImage("resimg/india.jpg");
+				else
+					dto.setImage("resimg/india2.jpg");
+				break;
+			case "일반조리판매":
+				if (dto.getIdrestaurants() % 2 == 0)
+					check = true;
+				else
+					check = false;
+
+				if (check)
+					dto.setImage("resimg/common.jpg");
+				else
+					dto.setImage("resimg/common2.jpg");
+				break;
+			case "일식":
+				if (dto.getIdrestaurants() % 2 == 0)
+					check = true;
+				else
+					check = false;
+
+				if (check)
+					dto.setImage("resimg/japanese.jpg");
+				else
+					dto.setImage("resimg/japanese2.png");
+				break;
+			case "전통찻집":
+				if (dto.getIdrestaurants() % 2 == 0)
+					check = true;
+				else
+					check = false;
+
+				if (check)
+					dto.setImage("resimg/teashop.jpg");
+				else
+					dto.setImage("resimg/teashop2.jpg");
+				break;
+			case "정종대포집소주방":
+				if (dto.getIdrestaurants() % 2 == 0)
+					check = true;
+				else
+					check = false;
+
+				if (check)
+					dto.setImage("resimg/soju.jpeg");
+				else
+					dto.setImage("resimg/soju2.jpeg");
+				break;
+			case "중국식":
+				if (dto.getIdrestaurants() % 2 == 0)
+					check = true;
+				else
+					check = false;
+
+				if (check)
+					dto.setImage("resimg/china.jpg");
+				else
+					dto.setImage("resimg/china2.jpg");
+				break;
+			case "커피숍":
+				if (dto.getIdrestaurants() % 2 == 0)
+					check = true;
+				else
+					check = false;
+
+				if (check)
+					dto.setImage("resimg/coffee.jpg");
+				else
+					dto.setImage("resimg/coffee2.jpg");
+				break;
+			case "통닭(치킨)":
+				if (dto.getIdrestaurants() % 2 == 0)
+					check = true;
+				else
+					check = false;
+
+				if (check)
+					dto.setImage("resimg/chicken.jpg");
+				else
+					dto.setImage("resimg/chicken2.png");
+				break;
+			case "패스트푸드":
+				if (dto.getIdrestaurants() % 2 == 0)
+					check = true;
+				else
+					check = false;
+
+				if (check)
+					dto.setImage("resimg/fastfood.jpg");
+				else
+					dto.setImage("resimg/fastfood2.jpg");
+				break;
+			case "한식":
+				if (dto.getIdrestaurants() % 2 == 0)
+					check = true;
+				else
+					check = false;
+
+				if (check)
+					dto.setImage("resimg/korean.jpg");
+				else
+					dto.setImage("resimg/korean2.png");
+				break;
+			default:
+				dto.setImage("resimg/korean.jpg");
+			}
+		return dto;
+	}
+
 }

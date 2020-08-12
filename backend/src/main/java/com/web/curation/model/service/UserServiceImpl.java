@@ -156,6 +156,11 @@ public class UserServiceImpl implements UserService{
 	public void deleteFollow(FollowDto follow) {
 		followDao.deleteFollow(follow);
 	}
+	@Override
+	public MemberDto selectByNickname(String nickname) throws SQLException {
+		return userRepository.selectonenickname(nickname);
+	}
+
 
 	@Override
 	public boolean searchFollow(FollowDto follow) throws Exception {

@@ -26,7 +26,10 @@
             class="float-right mr-3"
           >
             {{ reviewInfo.like_cnt }} like
-            <v-icon>mdi-heart</v-icon>
+              <v-icon v-if="reviewInfo.like" color="red">mdi-heart</v-icon>
+            <div v-else>
+             <v-icon >mdi-heart</v-icon>
+            </div>
           </v-btn>
         <v-row
           align="center" 
@@ -43,7 +46,6 @@
             empty-icon
           />
         </v-row>
-      </div>
       <div
         @click="onClick"
         class="mt-2"
@@ -83,19 +85,21 @@ import UserApi from '@/api/UserApi.js'
       // 미리 작성해 놓은 Like
       onLike(){
         const data = {
-          userId: this.$store.state.user.userInfo.userId,
-          reviewId: this.reviewInfo.no,
+          userid: this.$store.state.user.userInfo.userId,
+          reviewid: this.reviewInfo.no,
         }
         ReviewApi.requestLike(
           data,
           res => {
-            if (res === "좋아요") {
-              this.reviewInfo.likeCount += 1
-              console.log("좋아요+1")
+            if (res.data.message === "Like -1") {
+              this.reviewInfo.like_cnt -= 1
+              this.reviewInfo.like = false;
+              console.log("좋아요-1")
             } else {
-              if (res === "좋아요취소") {
-                this.reviewInfo.likeCount -= 1
-                console.log("좋아요-1")
+              if (res.data.message === "Like +1") {
+                this.reviewInfo.like_cnt += 1
+                this.reviewInfo.like = true;
+                console.log("좋아요+1")
               } else {
                 console.log("좋아요 요청 실패, res : ", res)
               }

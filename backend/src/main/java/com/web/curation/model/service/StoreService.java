@@ -12,5 +12,6 @@ public interface StoreService {
 	public List<ReviewDto> searchreview(int no);
 	public int register(RestaurantsDto dto);
 	public List<RestaurantsDto> image(List<RestaurantsDto> list);
+	public RestaurantsDto image(RestaurantsDto dto);
 
 }

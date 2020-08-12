@@ -19,7 +19,7 @@ public class ReviewDaoImpl implements ReviewDao {
 	
 	@Override
 	public List<ReviewDto> review_list() {
-		return session.selectList("review.selectAll");
+		return session.selectList("review.selectreviewlist");
 	}
 	
 	@Override

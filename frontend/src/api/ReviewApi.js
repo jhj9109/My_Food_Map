@@ -37,8 +37,8 @@ const requestCreate = (data, callback, errorCallback) => {
     .catch(errorCallback)
 }
 const requestUserReview = (profileUserId, callback, errorCallback) => {
-    console.log("UserReview 요청 : ", hosturl+appname+'/list/'+profileUserId)
-    axios.get(hosturl+appname+'/list/'+profileUserId)
+    console.log("UserReview 요청 : ", hosturl+appname+profileUserId+profileUserId)
+    axios.get(hosturl+appname+'/'+profileUserId+'/'+profileUserId)
     .then(callback)
     .catch(errorCallback)
 }

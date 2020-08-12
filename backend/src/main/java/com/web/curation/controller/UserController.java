@@ -147,6 +147,35 @@ public class UserController {
 		return Fail("다시 입력해주세요.", HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/user/nickname/{nickname}/{userId}", method = RequestMethod.GET)
+	public ResponseEntity<MemberDto> findByNickname(@PathVariable("nickname") String nickname, @PathVariable("userId") int userId) throws Exception {
+		MemberDto dto = userService.selectByNickname(nickname);
+		if (dto == null) {
+			return new ResponseEntity(HttpStatus.NO_CONTENT);
+		} else {
+			FollowDto follow = new FollowDto();
+			follow.setFollowerId(userId);
+			follow.setFollowingId(dto.getUserid());
+			dto.setFollowed(userService.searchFollow(follow));
+			return new ResponseEntity<MemberDto>(dto, HttpStatus.OK);
+		}
+	}
+
+	
+	@ApiOperation("로그인한 회원 정보 반환")
+	@GetMapping("/user")
+	public ResponseEntity<Map<String,Object>> MyInfo(){
+		MemberDto user=null;
+		try {
+			user = userService.select(loginid);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(user==null) return Fail("오류발생", HttpStatus.OK);
+		user.setPassword(null);
+		return Success(user);
+	}
+	
 	@ApiOperation(value = "특정 회원 정보 반환", response = MemberDto.class)
 	@RequestMapping(value = "/user/{id}/{userId}", method = RequestMethod.GET)
 	public ResponseEntity<MemberDto> findById(@PathVariable("id") int id, @PathVariable("userId") int userId) throws Exception {
@@ -162,20 +191,7 @@ public class UserController {
 			return new ResponseEntity<MemberDto>(dto, HttpStatus.OK);			
 		}
 	}
-	
-	@ApiOperation("로그인한 회원 정보 반환")
-	@GetMapping("/user")
-	public ResponseEntity<Map<String,Object>> MyInfo(){
-		MemberDto user=null;
-		try {
-			user = userService.select(loginid);
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		if(user==null) return Fail("오류발생", HttpStatus.OK);
-		user.setPassword(null);
-		return Success(user);
-	}
+
 
 	// follow
 	// userId : 로그인 상태인 사용자

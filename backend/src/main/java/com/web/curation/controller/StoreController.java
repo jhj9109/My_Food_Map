@@ -24,10 +24,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.web.curation.exception.MyException;
+import com.web.curation.model.dto.LikeDto;
 import com.web.curation.model.dto.MemberDto;
 import com.web.curation.model.dto.MemberPwDto;
 import com.web.curation.model.dto.RestaurantsDto;
 import com.web.curation.model.dto.ReviewDto;
+import com.web.curation.model.service.ReviewService;
 import com.web.curation.model.service.StoreService;
 import com.web.curation.model.service.UserService;
 
@@ -47,6 +49,9 @@ public class StoreController {
 	@Autowired
 	private StoreService storeservice;
 	
+	@Autowired
+	private ReviewService reviewService;
+	
 	private String loginid;
 
 	@ExceptionHandler
@@ -64,11 +69,18 @@ public class StoreController {
 	}
 	
   	@ApiOperation(value="해당 음식점 모든 리뷰 조회 서비스", response=List.class)
-	@RequestMapping(value = "/restaurants/{restaruantId}/reviews", method = RequestMethod.GET)
-  	public ResponseEntity<Map<String,Object>> listSearch(@PathVariable int restaruantId)  throws Exception {
+	@RequestMapping(value = "/restaurants/{restaruantId}/reviews/{userid}", method = RequestMethod.GET)
+  	public ResponseEntity<Map<String,Object>> listSearch(@PathVariable int restaruantId, @PathVariable int userid)  throws Exception {
   		
   		List<ReviewDto> list=null;
   		list=storeservice.searchreview(restaruantId);
+  		for (int i=0; i<list.size();i++) {
+			LikeDto dto = new LikeDto();
+			ReviewDto review = list.get(i);
+			dto.setReviewid(review.getNo());
+			dto.setUserid(userid); 
+			review.setLike(reviewService.searchLike(dto));
+		}
   		
   		if (list==null || list.size()==0) {
   			return Fail("no",HttpStatus.NO_CONTENT);
@@ -83,7 +95,8 @@ public class StoreController {
 		public ResponseEntity<Map<String,Object>> findResByNo(@PathVariable int restaruantId) throws Exception {
 		 	System.out.println(restaruantId);
 		 	RestaurantsDto one = storeservice.search(restaruantId);
-	    	System.out.println(one);
+		 	one = storeservice.image(one);
+
 	    	
 			if (one==null || one.getIdrestaurants()==0) {
 				return Fail("no",HttpStatus.NO_CONTENT);
