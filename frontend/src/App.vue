@@ -69,7 +69,7 @@ export default {
     tempSetListData() { 
       // 임시데이터 생성용
       const listData = [
-        { title: 'Home', icon: 'mdi-home', destination: 'Restaurant' },
+        { title: 'Search', icon: 'mdi-search-web', destination: 'Restaurant' },
         { title: 'Map', icon: 'mdi-map', destination: 'Map' },
         { title: 'Profile', icon: 'mdi-account', destination: 'Profile' },
         { title: 'login/signup', icon: 'mdi-login', destination: 'Login' },

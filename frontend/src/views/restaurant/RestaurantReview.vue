@@ -1,6 +1,7 @@
 <template>
   <div>
-    <RestaurantCard
+    <RestaurantCard 
+      class=""
       :restaurantInfo="restaurant"
     />
     <br>
@@ -8,6 +9,12 @@
     상단에 음식점 정보를 넣어주고, 하단에는 리뷰
     앞 페이지와 중복되며 앞의 음식점 페이지 삭제
     -->
+    <v-btn class="mt-0" block color="amber" dark>
+      <div class="button">
+        리뷰 남기기
+      </div>
+    </v-btn>
+    
     <ReviewCard
       v-for="review in reviews"
       :key="review.id"

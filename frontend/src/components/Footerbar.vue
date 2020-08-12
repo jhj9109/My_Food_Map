@@ -6,31 +6,31 @@
         tile
         dark
         width="100%"
-        height="60%"
-        class="backgroud_gradient flex-end"
+        height="56%"
+        class="backgroud_gradient"
       >
 
-            <v-btn :to="{ name: 'Restaurant' }" class="mx-0" icon>
-              <v-icon size="24px">mdi-home</v-icon>
+            <v-btn :to="{ name: 'Restaurant' }" class="ml-15" icon>
+              <v-icon size="24px">mdi-search-web</v-icon>
             </v-btn>
 
-            <v-btn :to="{ name: 'Map' }" class="mx-0" icon >
+            <v-btn :to="{ name: 'Map' }" class="ml-2" icon >
               <v-icon size="24px">mdi-map</v-icon>
             </v-btn>
             <!-- 피드로 가는 버튼 추가 -->
-            <v-btn class="mx-1" icon>
+            <v-btn class="ml-2" icon>
               <v-icon>mdi-format-align-justify</v-icon>
             </v-btn>
             
-            <v-btn @click="onClick" class="mx-0" icon>
+            <v-btn @click="onClick" class="ml-2" icon>
               <v-icon>mdi-account</v-icon>
             </v-btn>
             <!-- 맨위로 가기 -->
-            <v-btn class="mx-0" icon>
+            <v-btn class="ml-2" icon>
               <v-icon>mdi-arrow-up</v-icon>
             </v-btn>
-
-            <v-btn :to="{ name: 'ReviewCreate' }" class="mx-0" icon >
+            <!-- 글쓰기 버튼은 음식점 디테일 페이지로 옮긴 뒤 삭제할 예정-->
+            <v-btn :to="{ name: 'ReviewCreate' }" class="ml-2" icon >
               <v-icon size="24px">mdi-lead-pencil</v-icon>
             </v-btn>
       </v-footer>
