@@ -1,5 +1,6 @@
 package com.web.curation.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.web.curation.model.dto.FollowDto;
 import com.web.curation.model.dto.LikeDto;
 import com.web.curation.model.dto.MemberDto;
 import com.web.curation.model.dto.ReviewDto;
 import com.web.curation.model.service.ReviewService;
+import com.web.curation.model.service.UserService;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -30,6 +33,10 @@ public class ReviewController {
 
 	@Autowired
 	private ReviewService reviewService;
+	
+	@Autowired
+	private UserService userService;
+
 	
 	@ExceptionHandler
 	private ResponseEntity<Map<String, Object>> Success(Object data) {
@@ -66,6 +73,36 @@ public class ReviewController {
 		return Fail("리뷰 조회 실패", HttpStatus.OK);
 	}
 
+	@ApiOperation("팔로잉 리뷰 조회")
+	@RequestMapping(value="/review/following/{userId}", method=RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> FollowingReviewList(@PathVariable int userId) throws Exception {
+		try {
+			List<ReviewDto> review_list = reviewService.review_list();
+			List<ReviewDto> following_review_list = new ArrayList<ReviewDto>();
+			for (int i=0; i<review_list.size();i++) {
+				LikeDto dto = new LikeDto();
+				ReviewDto review = review_list.get(i);
+				System.out.println(review);
+				int writerId = review.getUserid();
+				FollowDto follow = new FollowDto();
+				follow.setFollowingId(writerId);
+				follow.setFollowerId(userId);
+//				review_list.get(i).setFollowingUser(userService.searchFollow(follow));
+				dto.setReviewid(review.getNo());
+				dto.setUserid(userId);
+				review_list.get(i).setLike(reviewService.searchLike(dto));
+				if (userService.searchFollow(follow)) {
+					following_review_list.add(review);
+				}
+			}
+			return Success(following_review_list);
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		return Fail("리뷰 조회 실패", HttpStatus.OK);
+	}
+
+	
 	@ApiOperation(value="사용자별 리뷰 조회")
 	@RequestMapping(value="/review/{writerId}/{userId}", method=RequestMethod.GET)
 	public ResponseEntity<Map<String, Object>> UserReview(@PathVariable("writerId") int writerId, @PathVariable("userId") int userId) throws Exception {

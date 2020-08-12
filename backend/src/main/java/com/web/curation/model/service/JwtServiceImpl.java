@@ -24,16 +24,13 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Service("jwtService")
 public class JwtServiceImpl implements JwtService{
 
-	private static final String SALT =  "ssafy3ban5jo";
-	
-
-	static private String salt="Mysalt";
+	static private String salt="Ssafy409";
 	
 	static private Long expireMin=5L;
 	
 	@Override
 	public <T> String create(MemberDto user){
-		System.out.printf("Time: {}", expireMin);
+		System.out.print("Time: {}"+expireMin );
 		
 		String jwt = Jwts.builder()
 						 .setHeaderParam("typ", "JWT")
@@ -82,7 +79,7 @@ public class JwtServiceImpl implements JwtService{
 		Jws<Claims> claims = null;
 		try {
 			claims = Jwts.parser()
-						 .setSigningKey(SALT.getBytes("UTF-8"))
+						 .setSigningKey(salt.getBytes("UTF-8"))
 						 .parseClaimsJws(jwt);
 			
 			System.out.println(this.checkValid(jwt));

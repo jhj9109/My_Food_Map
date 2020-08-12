@@ -38,9 +38,11 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public boolean searchLike(LikeDto like) {
 		LikeDto dto = reviewDao.searchLike(like);
-		if (dto==null) {
+		if (dto==null) { 
+			System.out.println("조아요 누르기 시도해보자!");
 			return false;
 		} else {
+			System.out.println("조아요 빼기 시도해보자!");
 			return true;
 		}
 	}

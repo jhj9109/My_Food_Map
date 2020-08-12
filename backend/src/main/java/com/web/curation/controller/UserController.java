@@ -175,6 +175,23 @@ public class UserController {
 		user.setPassword(null);
 		return Success(user);
 	}
+	
+	@ApiOperation(value = "특정 회원 정보 반환", response = MemberDto.class)
+	@RequestMapping(value = "/user/{id}/{userId}", method = RequestMethod.GET)
+	public ResponseEntity<MemberDto> findById(@PathVariable("id") int id, @PathVariable("userId") int userId) throws Exception {
+		MemberDto dto = userService.select(id);
+		FollowDto follow = new FollowDto();
+		follow.setFollowerId(userId);
+		follow.setFollowingId(id);
+		dto.setFollowed(userService.searchFollow(follow));
+		if (dto == null) {
+			return new ResponseEntity(HttpStatus.NO_CONTENT);
+		} else {
+			System.out.println(dto);
+			return new ResponseEntity<MemberDto>(dto, HttpStatus.OK);			
+		}
+	}
+
 
 	// follow
 	// userId : 로그인 상태인 사용자

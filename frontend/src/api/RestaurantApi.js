@@ -35,9 +35,9 @@ const requestCreate = (data, callback, errorCallback) => {
     .then(callback)
     .catch(errorCallback)
 }
-const requestReviews = (restaurantId, callback, errorCallback) => {
-    console.log("Reviews 요청 : ", hosturl+appname+'/'+restaurantId+'/reviews')
-    axios.get(hosturl+appname+'/'+restaurantId+'/reviews')
+const requestReviews = (data, callback, errorCallback) => {
+    console.log("Reviews 요청 : ", hosturl+appname+'/'+data.restaurantId+'/reviews/'+data.userid)
+    axios.get(hosturl+appname+'/'+data.restaurantId+'/reviews/'+data.userid)
     .then(callback)
     .catch(errorCallback)
 }

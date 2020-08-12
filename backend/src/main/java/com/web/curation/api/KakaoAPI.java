@@ -17,8 +17,7 @@ import com.google.gson.JsonParser;
  
 @Service
 public class KakaoAPI {
-//    static final String redirectUrl="http://70.12.246.84:8080/login/kakao";
-//    static final String redirectUrl="http://i02a305.p.ssafy.io/login/kakao";
+//  static final String redirectUrl="http://i3a409.p.ssafy.io/user/kakao";
     static final String redirectUrl="http://localhost:8080/KakaoLogin";
 
     public String getAccessToken (String authorize_code) {
@@ -81,7 +80,6 @@ public class KakaoAPI {
     
     public HashMap<String, Object> getUserInfo (String access_Token) {
         
-        //    요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
         HashMap<String, Object> userInfo = new HashMap<>();
         String reqURL = "https://kapi.kakao.com/v2/user/me";
         try {

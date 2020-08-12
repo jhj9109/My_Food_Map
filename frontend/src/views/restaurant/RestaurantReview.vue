@@ -48,9 +48,12 @@ export default {
   },
   methods:{
     setReviews() {
-      const restaruantId = this.$route.params.restaurantId
+       const data = {
+          userid: this.$store.state.user.userInfo.userId,
+          restaurantId : this.$route.params.restaurantId,
+        }
       RestaurantApi.requestReviews(
-        restaruantId,
+        data,
         res => {
           this.allReviews = res.data.message // 전체 데이터
           this.reviews = []
