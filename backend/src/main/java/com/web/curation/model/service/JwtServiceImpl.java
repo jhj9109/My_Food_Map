@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.web.curation.model.dto.MemberDto;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -31,7 +32,7 @@ public class JwtServiceImpl implements JwtService{
 	static private Long expireMin=5L;
 	
 	@Override
-	public <T> String create(int userid, String nickName, String auth){
+	public <T> String create(MemberDto user){
 		System.out.printf("Time: {}", expireMin);
 		
 		String jwt = Jwts.builder()
@@ -40,9 +41,8 @@ public class JwtServiceImpl implements JwtService{
 						 .setHeaderParam("regDate", System.currentTimeMillis())
 						 .setSubject("로그인토큰")
 						 .setExpiration(new Date(System.currentTimeMillis()+1000*60*expireMin))
-						 .claim("userid", userid)
-						 .claim("nickname", nickName)
-						 .claim("auth", auth)
+						 .claim("userid", user.getUserid())
+						 .claim("nickname", user.getNickname())
 						 .signWith(SignatureAlgorithm.HS256, salt.getBytes())
 						 .compact();
 			System.out.println("jwt 토큰 발행: "+jwt);

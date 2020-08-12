@@ -83,17 +83,9 @@ import UserApi from '@/api/UserApi.js'
         ReviewApi.requestLike(
           data,
           res => {
-            if (res === "좋아요") {
-              this.reviewInfo.likeCount += 1
+
               console.log("좋아요+1")
-            } else {
-              if (res === "좋아요취소") {
-                this.reviewInfo.likeCount -= 1
-                console.log("좋아요-1")
-              } else {
-                console.log("좋아요 요청 실패, res : ", res)
-              }
-            }
+
           },
           err => {
             console.error(err)

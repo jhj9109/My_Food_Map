@@ -3,10 +3,12 @@ package com.web.curation.model.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.web.curation.model.dto.MemberDto;
+
 
 public interface JwtService {
 
-	public <T> String create(int userid, String nickName, String auth);
+	public <T> String create(MemberDto user);
 
 	public boolean checkValid(String token) throws RuntimeException;
 
