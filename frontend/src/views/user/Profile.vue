@@ -54,21 +54,18 @@ export default {
     }
   },
   methods: {
-    // 프로필 디자인을 위한 일시 정지
     fetchProfile() {
-      console.log("유저페이지")
-      console.log(this)
-      const userId = this.$store.state.user.userInfo ? this.$store.state.user.userInfo.userId : 0 
+      console.log("fetchProfile 동작, route와 store 값", this.$route, this.$store)
+      const userId = this.$store.state.user.userInfo ? this.$store.state.user.userInfo.userId : 0
       const data = {
         userId : userId,
-        id : this.$route.params.userId,
+        nickname : this.$route.params.nickname,
       }
-      // const userId = "b2@naver.com"//임시
-      console.log(data)
-      UserApi.requestUserInfo(
+      UserApi.requestUserInfoByNickname(
         data,
         res => {
-          console.log("유저 정보 요청 응답 :",res)
+          console.log("유저 정보 요청 응답 res는")
+          console.log(res)
           if (res.status === 200) {
             // UserPage 접근 성공
             this.profileUser.id = res.data.userid
@@ -76,6 +73,8 @@ export default {
             this.profileUser.nickname = res.data.nickname
             this.profileUser.follower = res.data.follower_cnt
             this.profileUser.following = res.data.following_cnt
+
+            this.setReviews()
             // 리뷰 fetch까지 진행
           } else {
             // UserPage 접근 실패 === 올바른 주소 접근이 아님
@@ -84,13 +83,14 @@ export default {
           }
         },
         err => {
+          console.log("유저 정보 요청 응답 err는")
           console.error(err)
           this.$router.replace({ name: 'ErrorPage'}) // 히스토리 남기지 않음
         }
       )
     },
     setReviews() {
-      const profileUserId = this.$route.params.userId
+      const profileUserId = this.profileUser.id
       console.log("요청 id", profileUserId)
       ReviewApi.requestUserReview(
         profileUserId,
@@ -164,13 +164,11 @@ export default {
       console.log("params만 다른 라우팅 발생", to, from)
       if ( to.params.userId !== from.params.userId) {
         this.fetchProfile()
-        this.setReviews()
       }
     }
   },
   created() {
     this.fetchProfile()
-    this.setReviews()
   }
 }
 </script>

@@ -33,9 +33,18 @@ const requestLogout = (data,callback,errorCallback) => {
     .catch(errorCallback)
 }
 
+// userId 11 로 요청하는버전
 const requestUserInfo = (data, callback, errorCallback) => {
     console.log(`UserInfo 요청 : ${hosturl}${appname}/${data.id}/${data.userId}`)
     axios.get(`${hosturl}${appname}/${data.id}/${data.userId}`)
+    .then(callback)
+    .catch(errorCallback)
+}
+
+// nickname c1 으로 요청하는 버전
+const requestUserInfoByNickname = (data, callback, errorCallback) => {
+    console.log(`UserInfo 요청 : ${appname}/nickname/${data.nickname}/${data.userId}`)
+    axios.get(`${hosturl}${appname}/nickname/${data.nickname}/${data.userId}`)
     .then(callback)
     .catch(errorCallback)
 }
@@ -48,12 +57,14 @@ const requestFollow = (data, callback, errorCallback) => {
     .catch(errorCallback)
 }
 
+
 const UserApi = {
     requestSignup:(data,callback,errorCallback)=>requestSignup(data,callback,errorCallback),
     requestLogin:(data,callback,errorCallback)=>requestLogin(data,callback,errorCallback),
     requestLogout:(data,callback,errorCallback)=>requestLogout(data,callback,errorCallback),
-    requestUserInfo:(userId,callback,errorCallback)=>requestUserInfo(userId,callback,errorCallback), 
-    requestFollow:(data, callback, errorCallback)=>requestFollow(data, callback, errorCallback),
+    requestUserInfo:(data,callback,errorCallback)=>requestUserInfo(data,callback,errorCallback), 
+    requestFollow:(data,callback,errorCallback)=>requestFollow(data,callback,errorCallback),
+    requestUserInfoByNickname:(data,callback,errorCallback)=>requestUserInfoByNickname(data,callback,errorCallback), 
 }
 
 export default UserApi
