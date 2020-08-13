@@ -159,6 +159,13 @@ export default {
         this.loading = true
         this.fetchReviews()
       }
+    },
+    $route: function(to, from) {
+      console.log("params만 다른 라우팅 발생", to, from)
+      if ( to.params.userId !== from.params.userId) {
+        this.fetchProfile()
+        this.setReviews()
+      }
     }
   },
   created() {
