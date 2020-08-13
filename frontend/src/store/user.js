@@ -89,6 +89,9 @@ export default {
 
             // 로그인 후, 가려던 페이지로 이동 or 디폴트 : Map으로 이동
             console.log(LoginData)
+            if (LoginData.nextRoute === 'Profile') {
+              router.replace({name: LoginData.nextRoute, params: { nickname: userData.nickname }})
+            }
             router.replace({name: LoginData.nextRoute || 'Map'})
           } else {
             console.log("실패, res =>", res)

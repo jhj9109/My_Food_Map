@@ -186,7 +186,7 @@ export default {
       if (this.userInfo) {
         this.$router.push({name : 'Profile', params : {userId : this.userInfo.userId}})
       } else {
-        this.$router.push({name : 'Login'})
+        this.$router.push({name : 'Login', query: { redirect: 'Profile' }})
       }
     }
   },

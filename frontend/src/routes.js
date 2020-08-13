@@ -94,7 +94,7 @@ export default [
 		beforeEnter : requireAuth,
 	},
 	{
-		path : '/user/:userId',
+		path : '/user/:nickname', // userId 요청하던 버전에서 nickname으로 요청하던 버전으로 수정
 		name : 'Profile',
 		component : Profile,
 	},
