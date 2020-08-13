@@ -73,9 +73,7 @@ export default {
         { title: 'Search', icon: 'mdi-search-web', destination: 'Restaurant' },
         { title: 'Map', icon: 'mdi-map', destination: 'Map' },
         { title: 'Feed', icon: 'mdi-format-align-justify', destination: 'Feed' },
-        { title: 'Profile', icon: 'mdi-account', destination: 'Profile' },
-        { title: 'login/signup', icon: 'mdi-login', destination: 'Login' },
-        { title: 'logout', icon: 'mdi-logout', destination: 'Logout' }
+        // 로그인 로그아웃 if 분기를 위해 나눔
       ]
       this.$store.commit('nav/setItems', listData)
     },
