@@ -14,7 +14,7 @@
     
     <v-card-text>
       <!-- 추후 식당 이름으로 바꿔야할 부분, 식당 이름이 넘어오지 않아 수정 못함 -->      <!-- 개인 페이지에서는 식당, 식당 페이지에서는 리뷰를 보여줘야할듯 -->
-      <div v-if="this.name='RestaurantReview'" class="title">
+      <div @click="toProfile" v-if="this.name='RestaurantReview'" class="title">
         {{ reviewInfo.userid }}번 유저 님의 리뷰 <br>
       </div>
       <div v-else class="title">
@@ -81,6 +81,10 @@ import UserApi from '@/api/UserApi.js'
         console.log(this.reviewInfo)
         // console.log(`id :${this.restaurantInfo.id} 음식점 페이지로 이동`)
         // this.$router.push({ name: 'RestaurantDetail', params: { restaurantId: this.restaurantInfo.id}}); //리뷰 => 리뷰 디테일?
+      },
+      toProfile() {
+        console.log("toProfile 발동")
+        this.$router.push({name : 'Profile', params : { userId : this.reviewInfo.userid }});
       },
       // 미리 작성해 놓은 Like
       onLike(){

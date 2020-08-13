@@ -66,20 +66,11 @@
         {{ restaurantInfo.time }} <br>
         {{ restaurantInfo.menu }}
       </v-card-text>
-    <!-- 리뷰용 버튼 추가, 식당 아이디 보내도록 만들어야 -->
-    <!-- 체크체크체크체크 -->
-    <!-- 체크체크체크체크 -->
-    <!-- 체크체크체크체크 -->
-    <!-- 체크체크체크체크 -->
-    <!-- 체크체크체크체크 -->
-    <!-- 체크체크체크체크 -->
-    <!-- 체크체크체크체크 -->
     <!-- ReviewCreate -->
     <v-row justify='end'>
       <v-btn @click="toReview" class="mb-2 mr-6" rounded dark small color="amber">
         <v-icon dark>mdi-pencil</v-icon>
       </v-btn>
-      {{restaurantInfo}}
     </v-row>
     </v-card>
   </div>
