@@ -14,7 +14,7 @@
     
     <v-card-text class="pl-3">
       <!-- 추후 식당 이름으로 바꿔야할 부분, 식당 이름이 넘어오지 않아 수정 못함 -->      <!-- 개인 페이지에서는 식당, 식당 페이지에서는 리뷰를 보여줘야할듯 -->
-      <div @click="toRestaurant" v-if="!showNickname" class="title">
+      <div @click="toRestaurant" v-if="!showNickname" class="ml-1 title">
         {{ reviewInfo.resname }}<br>
       </div>
       <v-row justify="start">
