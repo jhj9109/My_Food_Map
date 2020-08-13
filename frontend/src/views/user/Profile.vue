@@ -132,6 +132,8 @@ export default {
           no: 0
         },
         res => {
+          console.log("res 정보")
+          console.log(res)  
           if (res.data.message === "Following -1") {
             this.profileUser.follower -= 1
             console.log("팔로워 숫자 -1")
