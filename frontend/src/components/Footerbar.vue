@@ -26,7 +26,7 @@
               <v-icon>mdi-account</v-icon>
             </v-btn>
             <!-- 맨위로 가기 -->
-            <v-btn class="ml-2" icon>
+            <v-btn @click="$emit('scrollToTop')" class="ml-2" icon>
               <v-icon>mdi-arrow-up</v-icon>
             </v-btn>
             <!-- 글쓰기 버튼 restaurant card로 옮김.

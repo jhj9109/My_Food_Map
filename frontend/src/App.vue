@@ -14,12 +14,13 @@
       >
         <router-view
           :userInfo="userInfo"
-          :isScrollEnd="isScrollEnd"
+          :isScrollEnd="isScrollEnd"  
         />
       </v-sheet>
     <Footerbar
       :token="token"
       :userInfo="userInfo"
+      @scrollToTop="onScrollToTop"
     />
   </v-app>
 </template>
@@ -82,15 +83,18 @@ export default {
       const s = e.target
       const maxLevel = s.scrollHeight - 700 // 최대 깊이
       const margin = 20 // 여유 마진
-      // console.log (`maxlevel:${maxLevel}, 위치:${s.scrollTop}`)
+      // console.log(`현재위치:${s.scrollTop}, 스크롤 높이:${s.scrollHeight}, maxlevel:${maxLevel}`)
       if (maxLevel - margin - s.scrollTop < 0) {
-        // console.log("끝에 도달했어")
         this.isScrollEnd = true
-        // console.log("스크롤엔드 값은 현재 : ", this.isScrollEnd)
       } else {
+        // console.log("스크롤엔드 값은 현재 : ", this.isScrollEnd)
         this.isScrollEnd = false
       }
     },
+    onScrollToTop() {
+      const target = document.querySelector('#scrolling-techniques-3')
+      target.scrollTop = 0
+    }
   },
   created() {
     console.log("생성시 토큰 체크")
