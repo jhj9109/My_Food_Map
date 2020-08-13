@@ -26,17 +26,17 @@
           <v-btn @click="onClick" class="ml-2" icon>
             <v-icon>mdi-account</v-icon>
           </v-btn>
-          <!-- 맨위로 가기 (일단 보류)
-          <v-btn class="ml-2" icon>
-            <v-icon>mdi-arrow-up</v-icon>
-          </v-btn>
-          -->
+            <!-- 맨위로 가기(재구현) -->
+            <v-btn @click="$emit('scrollToTop')" class="ml-2" icon>
+              <v-icon>mdi-arrow-up</v-icon>
+            </v-btn>
           <!-- 글쓰기 버튼 restaurant card로 옮김.
           <v-btn :to="{ name: 'ReviewCreate' }" class="ml-2" icon >
             <v-icon size="24px">mdi-lead-pencil</v-icon>
           </v-btn>
           -->
        </v-row>
+       
       </v-footer>
     </v-card>
 </template>

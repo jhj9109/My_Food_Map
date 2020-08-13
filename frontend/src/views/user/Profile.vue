@@ -10,17 +10,17 @@
       :key="review.id"
       :reviewInfo="review"
     />
-    <p
+      
+    <div
+      class="text-caption text-center"
       v-if="!allReviews"
     >
-    <div class="text-caption text-center">
       아직 작성한 리뷰가 없습니다. <br>
       당신의 이야기를 나눠주세요 <br>
-    <v-btn :to="{ name: 'ReviewCreate' }" class="align-center" color="amber" icon>
-      <v-icon size="26px">mdi-lead-pencil</v-icon>
-    </v-btn>
+      <v-btn :to="{ name: 'ReviewCreate' }" class="align-center" color="amber" icon>
+        <v-icon size="26px">mdi-lead-pencil</v-icon>
+      </v-btn>
     </div>
-    </p>
   </div>
 </template>
 
@@ -158,6 +158,13 @@ export default {
       if (val && !this.complete && !this.loading) {
         this.loading = true
         this.fetchReviews()
+      }
+    },
+    $route: function(to, from) {
+      console.log("params만 다른 라우팅 발생", to, from)
+      if ( to.params.userId !== from.params.userId) {
+        this.fetchProfile()
+        this.setReviews()
       }
     }
   },

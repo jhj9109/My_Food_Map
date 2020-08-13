@@ -1,6 +1,6 @@
 <template>
     <v-card
-        max-width="600"
+        max-width="374"
         min-height="120"
         class="mx-auto mb_custom"
         outlined="outlined"
