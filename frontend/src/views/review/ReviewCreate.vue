@@ -9,7 +9,6 @@
                 <v-card-title class="pb-0">
                     <h1 class="display-1">리뷰 작성</h1>    
                 </v-card-title>
-				
                 <v-card-text class="pb-0">
                     <v-form>
                         <v-text-field
@@ -85,10 +84,11 @@ import ReviewApi from "@/api/ReviewApi.js";
 import firebase from 'firebase';
 export default {
     name: 'ReviewCreate',
+    props: ['restaurantInfo'],
     data() {
         return {
             review: {
-                resid: null,
+                resid : this.$route.params.restaurantId,
                 content: "",
                 rank: 0,
                 image: '',
@@ -150,8 +150,7 @@ export default {
                 content: this.review.content,
                 rank : Number(this.review.rank),
                 image : this.review.image,
-                resid : Number(this.review.resid),
-
+                resid : this.$route.params.restaurantId,
             }
             console.log(typeof(data.userId))
             ReviewApi.requestCreate(
