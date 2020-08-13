@@ -12,14 +12,16 @@
       @click="onClick"
     />
     
-    <v-card-text>
+    <v-card-text class="pl-3">
       <!-- 추후 식당 이름으로 바꿔야할 부분, 식당 이름이 넘어오지 않아 수정 못함 -->      <!-- 개인 페이지에서는 식당, 식당 페이지에서는 리뷰를 보여줘야할듯 -->
-      <div v-if="this.name='RestaurantReview'" class="title">
-        {{ reviewInfo.userid }}번 유저 님의 리뷰 <br>
+      <div @click="toRestaurant" v-if="!showNickname" class="ml-1 title">
+        {{ reviewInfo.resname }}<br>
       </div>
-      <div v-else class="title">
-        {{ reviewInfo.resid }} 번 식당, 이름이 보여질 자리 <br>
-      </div>
+      <v-row justify="start">
+        <div @click="toProfile" class="sub-title ml-4 mr-2 mt-0">
+          {{ reviewInfo.nickname }} <br>
+        </div>
+      </v-row>
           <v-btn
             icon
             @click="onLike"
@@ -48,14 +50,10 @@
         </v-row>
       <div
         @click="onClick"
-        class="mt-2"
+        class="ml-1 mt-1"
       >
       <!-- 리뷰 콘텐츠 수정 + 사용자명(nickname 넘어오지 않아 못넣음), 작성일-->
         {{ reviewInfo.content }} <br>
-      </div>      
-      <!-- 유저님 클릭하면 그 페이지로 넘어가게 -->
-      <div v-if="this.name!='RestaurantReview'" class="text-right">
-        {{ reviewInfo.userid }}번 유저 님의 리뷰 <br>
       </div>
       <div class="text-right">
         {{ reviewInfo.create_date }}
@@ -72,6 +70,7 @@ import UserApi from '@/api/UserApi.js'
     props: ['reviewInfo'],
     data: () => ({
       loading: false,
+      showNickname: false,
     }),
 
     methods: {
@@ -81,6 +80,13 @@ import UserApi from '@/api/UserApi.js'
         console.log(this.reviewInfo)
         // console.log(`id :${this.restaurantInfo.id} 음식점 페이지로 이동`)
         // this.$router.push({ name: 'RestaurantDetail', params: { restaurantId: this.restaurantInfo.id}}); //리뷰 => 리뷰 디테일?
+      },
+      toProfile() {
+        console.log("toProfile 발동")
+        this.$router.push({name : 'Profile', params : { userId : this.reviewInfo.userid }});
+      },
+      toRestaurant() {        
+        this.$router.push({ name: 'RestaurantReview', params: { restaurantId: this.reviewInfo.resid}});
       },
       // 미리 작성해 놓은 Like
       onLike(){
@@ -140,6 +146,9 @@ import UserApi from '@/api/UserApi.js'
       //   )
       // },
     },
+    mounted() {
+      this.showNickname = this.$route.name === 'Profile' ? false : true
+    }
   }
 </script>
 <style>
