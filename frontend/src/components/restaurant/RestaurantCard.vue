@@ -111,7 +111,7 @@ import RestaurantApi from '@/api/RestaurantApi.js'
         // }
       },
       toReview() {
-          this.$router.push({name : 'ReviewCreate', params : { restaurantId : this.restaurantInfo.idrestaurants}});
+          this.$router.push({name : 'ReviewCreate', params : { restaurantId : this.restaurantInfo.idrestaurants, restaurantName : this.restaurantInfo.name}});
         } 
       },
       // 미리 작성해 놓은 Like

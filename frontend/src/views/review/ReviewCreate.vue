@@ -6,17 +6,11 @@
               sm="8"
               md="4"
             >
-                <v-card-title class="pb-0">
-                    <h1 class="display-1">리뷰 작성</h1>    
+                <v-card-title class="pb-4">
+                    <h2>{{resname}}</h2>
                 </v-card-title>
-                <v-card-text class="pb-0">
+                <v-card-text class="pt-4 pb-0">
                     <v-form>
-                        <v-text-field
-                            label="음식점"
-                            :autofocus="true"
-                            v-model="review.resid"
-                            type=number
-                        />
                         <v-img
                             v-if="review.image.url"
                             :src="review.image.url"
@@ -87,6 +81,7 @@ export default {
     props: ['restaurantInfo'],
     data() {
         return {
+            resname: this.$route.params.restaurantName,
             review: {
                 resid : this.$route.params.restaurantId,
                 content: "",
