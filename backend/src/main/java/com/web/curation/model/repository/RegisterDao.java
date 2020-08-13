@@ -13,5 +13,5 @@ public interface RegisterDao {
 	public void join(MemberDto member) throws SQLException;
 	public void delete(MemberDto member) throws SQLException;
 	public void update(MemberDto member) throws SQLException;
-
+	public String nickname(int userid);
 }

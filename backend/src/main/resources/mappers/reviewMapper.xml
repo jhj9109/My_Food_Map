@@ -44,4 +44,7 @@
 	<update id="changerank">
 		update restaurants set grade=#{grade} where idrestaurants=#{resid}
 	</update>
+	<select id="resname" resultType="String">
+		select name from restaurants where idrestaurants=#{resid}
+	</select>
 </mapper>

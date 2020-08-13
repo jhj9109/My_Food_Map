@@ -53,5 +53,10 @@ public class RegisterDaoImpl implements RegisterDao {
 		MemberDto user = session.selectOne("user.nickname",nickname);
 		return user;
 	}
+
+	@Override
+	public String nickname(int userid) {
+		return session.selectOne("user.reviewnickname",userid);
+	}
 	
 }

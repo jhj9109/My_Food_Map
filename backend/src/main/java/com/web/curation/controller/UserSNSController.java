@@ -3,6 +3,7 @@ package com.web.curation.controller;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,7 +31,6 @@ import io.swagger.annotations.ApiOperation;
 
 @CrossOrigin(origins="{*}", maxAge=6000)
 @RestController
-@Api(value="SSAFY SNS", description="SSAFY SNS")
 @EnableAutoConfiguration
 public class UserSNSController {
 
@@ -60,6 +61,24 @@ public class UserSNSController {
 		resultMap.put("message",  data);
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
+	
+	
+ 	@ApiOperation(value="해당 음식점 모든 리뷰 조회 서비스", response=List.class)
+	@RequestMapping(value = "/user/kakao", method = RequestMethod.GET)
+  	public ResponseEntity<Map<String,Object>> klogin(@RequestParam("code") String code, HttpSession session)  throws Exception {
+ 		String access_Token = kakao.getAccessToken(code);
+	    HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
+	    System.out.println("login Controller : " + userInfo);
+	    
+	    //    클라이언트의 이메일이 존재할 때 세션에 해당 이메일과 토큰 등록
+	    if (userInfo.get("email") != null) {
+	        session.setAttribute("userId", userInfo.get("email"));
+	        session.setAttribute("access_Token", access_Token);
+	    }
+	    return handleSuccess("소셜 로그인 토큰 발급 완료.", access_Token);
+  		
+	}
+
 
 
 //	@ApiOperation("SNS로그인 시 회원가입할때, 기존이랑 같으나 userforSNS 객체엔 seq가 추가되어있다.")

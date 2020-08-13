@@ -68,4 +68,10 @@ public class ReviewDaoImpl implements ReviewDao {
 		
 	}
 
+	@Override
+	public String resname(int resid) {
+		return session.selectOne("review.resname",resid);
+
+	}
+
 }

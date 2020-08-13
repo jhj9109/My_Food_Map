@@ -14,4 +14,5 @@ public interface ReviewDao {
 	public LikeDto searchLike(LikeDto like);
 	public void register(ReviewDto dto);
 	public void changerank(ReviewDto dto);
+	public String resname(int resid);
 }

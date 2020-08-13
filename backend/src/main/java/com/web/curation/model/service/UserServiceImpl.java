@@ -172,4 +172,9 @@ public class UserServiceImpl implements UserService{
 		}
 	}
 
+	@Override
+	public String nickname(int userid) {
+		return userRepository.nickname(userid);
+	}
+
 }

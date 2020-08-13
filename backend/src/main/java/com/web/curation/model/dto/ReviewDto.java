@@ -12,12 +12,19 @@ public class ReviewDto {
 	private String image;
 	private int like_cnt;
 	private String nickname;
+	private String resname;
 	private String email;
 	private boolean isLike;
 	
 	
 	
 	
+	public String getResname() {
+		return resname;
+	}
+	public void setResname(String resname) {
+		this.resname = resname;
+	}
 	public String getNickname() {
 		return nickname;
 	}
