@@ -115,6 +115,55 @@
 						<v-list-item-title>{{ item.title }}</v-list-item-title>
 					</v-list-item-content>
 				</v-list-item>
+				<!--
+        		{ title: 'Profile', icon: 'mdi-account', destination: 'Profile' },
+				{ title: 'login/signup', icon: 'mdi-login', destination: 'Login' },
+				{ title: 'logout', icon: 'mdi-logout', destination: 'Logout' }
+				-->
+				<v-list-item 
+				v-if="userInfo"
+				key=Profile
+				link
+				@click="toProfile">
+					<!-- user info 있을 경우 -->
+						<v-list-item-icon>
+							<v-icon>mdi-account</v-icon>
+						</v-list-item-icon>
+
+						<v-list-item-content>
+							<v-list-item-title>Profile</v-list-item-title>
+						</v-list-item-content>
+					</v-list-item-content>
+				</v-list-item>
+				<v-list-item 
+				v-if="userInfo"
+				key=Logout
+				link
+				:to="{ name: 'Logout' }">
+					<!-- user info 있을 경우 -->
+						<v-list-item-icon>
+							<v-icon>mdi-logout</v-icon>
+						</v-list-item-icon>
+
+						<v-list-item-content>
+							<v-list-item-title>Logout</v-list-item-title>
+						</v-list-item-content>
+					</v-list-item-content>
+				</v-list-item>
+					<!-- 비로그인 사용자 분기 -->
+				<v-list-item 
+				v-else
+				key=Login
+				link
+				:to="{ name: 'Login' }">
+					<v-list-item-icon>
+						<v-icon>mdi-login</v-icon>
+					</v-list-item-icon>
+
+					<v-list-item-content>
+						<v-list-item-title>Login/Signup</v-list-item-title>
+					</v-list-item-content>
+				</v-list-item>
 			</v-list>
 		<!-- 드로워 서비스 소개 추가 -->
 		<v-col
@@ -132,6 +181,15 @@
 export default {
   name: 'NavBar',
   props: ['userInfo', 'items'],
+  methods: {
+    toProfile() {
+      if (this.userInfo) {
+        this.$router.push({name : 'Profile', params : {userId : this.userInfo.userId}})
+      } else {
+        this.$router.push({name : 'Login'})
+      }
+    }
+  },
   data() {
       return {
           drawerToggle: false
