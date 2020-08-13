@@ -83,7 +83,7 @@ import UserApi from '@/api/UserApi.js'
       },
       toProfile() {
         console.log("toProfile 발동")
-        this.$router.push({name : 'Profile', params : { userId : this.reviewInfo.userid }});
+        this.$router.push({name : 'Profile', params : {nickname : this.reviewInfo.nickname}})
       },
       toRestaurant() {        
         this.$router.push({ name: 'RestaurantReview', params: { restaurantId: this.reviewInfo.resid}});
