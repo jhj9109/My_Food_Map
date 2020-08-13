@@ -65,23 +65,15 @@
 
                   </v-form>
                 </v-card-text>
-                
-              <v-card-actions>
-              <div class="d-flex align-end flex-column" to="/user/findpw">
-                <a href="https://kauth.kakao.com/oauth/authorize?client_id=26c62e1d4e23a67774060006069c8b84&redirect_uri=http://i3a409.p.ssafy.io:8399/user/kakao&response_type=code">
-                <img src="@/assets/kakaologin.png">
-                </a>
-             </div>
+                <v-card-actions>
                 <v-spacer/>
                 <!-- 버튼 색상 변경 -->
-                
                   <v-btn dark color="#F7B675"
                   tile
                     @click="onLogin">
                   로그인
                   </v-btn>
                 </v-card-actions>
-                
               </v-card>
               <br><br>
           <!-- 버튼 크기 및 하단 배열 변경 -->
@@ -107,7 +99,13 @@
           </div>
           <hr>
 
-
+          <div class="d-flex align-end flex-column" to="/user/findpw">
+            <img
+             @click="onClick" 
+              height="374" 
+              width="374"
+               :src= "require('@/assets/kakaologin.png')">
+          </div>
             </v-col>
           </v-row>
 

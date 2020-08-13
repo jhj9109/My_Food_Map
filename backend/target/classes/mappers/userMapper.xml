@@ -49,4 +49,8 @@
 	<update id="minusUserFollowingCnt">
 		update user set following_cnt=following_cnt-1 where userid=#{followerId}
 	</update>
+	
+	<select id="reviewnickname" resultType="String">
+		select nickname from user where userid=#{userid}
+	</select>
 </mapper>
