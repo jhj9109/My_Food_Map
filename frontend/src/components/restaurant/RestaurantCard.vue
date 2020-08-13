@@ -67,10 +67,19 @@
         {{ restaurantInfo.menu }}
       </v-card-text>
     <!-- 리뷰용 버튼 추가, 식당 아이디 보내도록 만들어야 -->
+    <!-- 체크체크체크체크 -->
+    <!-- 체크체크체크체크 -->
+    <!-- 체크체크체크체크 -->
+    <!-- 체크체크체크체크 -->
+    <!-- 체크체크체크체크 -->
+    <!-- 체크체크체크체크 -->
+    <!-- 체크체크체크체크 -->
+    <!-- ReviewCreate -->
     <v-row justify='end'>
-      <v-btn :to="{ name: 'ReviewCreate' }" class="mb-2 mr-6" rounded dark small color="amber">
+      <v-btn @click="toReview" class="mb-2 mr-6" rounded dark small color="amber">
         <v-icon dark>mdi-pencil</v-icon>
       </v-btn>
+      {{restaurantInfo}}
     </v-row>
     </v-card>
   </div>
@@ -101,6 +110,10 @@ import RestaurantApi from '@/api/RestaurantApi.js'
         //     this.$router.push({ name: 'RestaurantReview', params: { restaurantId: this.restaurantInfo.idrestaurants}}); //특정 음식점 => 해당 리뷰
         // }
       },
+      toReview() {
+          this.$router.push({name : 'ReviewCreate', params : { restaurantId : this.restaurantInfo.idrestaurants, restaurantName : this.restaurantInfo.name}});
+        } 
+      },
       // 미리 작성해 놓은 Like
       // onLike(){
       //   const data = {
@@ -127,7 +140,6 @@ import RestaurantApi from '@/api/RestaurantApi.js'
       //     }
       //   )
       // }
-    },
   }
 </script>
 <style >
