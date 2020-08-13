@@ -9,31 +9,34 @@
         height="56%"
         class="backgroud_gradient"
       >
+        
+        <v-row justify='center'>
+          <v-btn :to="{ name: 'Restaurant' }" icon>
+            <v-icon size="24px">mdi-search-web</v-icon>
+          </v-btn>
 
-            <v-btn :to="{ name: 'Restaurant' }" class="ml-16" icon>
-              <v-icon size="24px">mdi-search-web</v-icon>
-            </v-btn>
-
-            <v-btn :to="{ name: 'Map' }" class="ml-2" icon >
-              <v-icon size="24px">mdi-map</v-icon>
-            </v-btn>
-            <!-- 피드로 가는 버튼 추가 -->
-            <v-btn class="ml-2" icon>
-              <v-icon>mdi-format-align-justify</v-icon>
-            </v-btn>
-            
-            <v-btn @click="onClick" class="ml-2" icon>
-              <v-icon>mdi-account</v-icon>
-            </v-btn>
-            <!-- 맨위로 가기 -->
+          <v-btn :to="{ name: 'Map' }" class="ml-2" icon >
+            <v-icon size="24px">mdi-map</v-icon>
+          </v-btn>
+          <!-- 피드로 가는 버튼 추가 -->
+          <v-btn class="ml-2" icon>
+            <v-icon>mdi-format-align-justify</v-icon>
+          </v-btn>
+          
+          <v-btn @click="onClick" class="ml-2" icon>
+            <v-icon>mdi-account</v-icon>
+          </v-btn>
+            <!-- 맨위로 가기(재구현) -->
             <v-btn @click="$emit('scrollToTop')" class="ml-2" icon>
               <v-icon>mdi-arrow-up</v-icon>
             </v-btn>
-            <!-- 글쓰기 버튼 restaurant card로 옮김.
-            <v-btn :to="{ name: 'ReviewCreate' }" class="ml-2" icon >
-              <v-icon size="24px">mdi-lead-pencil</v-icon>
-            </v-btn>
-            -->
+          <!-- 글쓰기 버튼 restaurant card로 옮김.
+          <v-btn :to="{ name: 'ReviewCreate' }" class="ml-2" icon >
+            <v-icon size="24px">mdi-lead-pencil</v-icon>
+          </v-btn>
+          -->
+       </v-row>
+       
       </v-footer>
     </v-card>
 </template>
