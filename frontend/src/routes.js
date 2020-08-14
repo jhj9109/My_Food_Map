@@ -53,10 +53,12 @@ const requireAuth = (to, form, next) => {
 	if (Boolean(localStorage.getItem('userInfo'))) {
 		return next()
 	} else {
+		console.log("파라미터 체크0", to, to.params)
 		next({
-		path : '/user/login',
-		query: { redirect: to.name }
-	})
+			path : '/user/login',
+			query: { redirect: to.name, params: to.params },
+		})
+
 	}
 }
 
