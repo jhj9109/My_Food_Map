@@ -88,11 +88,12 @@ export default {
             alert('로그인에 성공하였습니다.')
 
             // 로그인 후, 가려던 페이지로 이동 or 디폴트 : Map으로 이동
-            console.log(LoginData)
+            console.log("LoginData :", LoginData)
             if (LoginData.nextRoute === 'Profile') {
               router.replace({name: LoginData.nextRoute, params: { nickname: userData.nickname }})
+            } else {
+              router.replace({name: LoginData.nextRoute, params: LoginData.nextParams})
             }
-            router.replace({name: LoginData.nextRoute || 'Map'})
           } else {
             console.log("실패, res =>", res)
             alert(res.data.message || '로그인에 실패하였습니다')
