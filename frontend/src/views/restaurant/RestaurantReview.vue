@@ -53,7 +53,7 @@ export default {
   methods:{
     setReviews() {
        const data = {
-          userid: this.$store.state.user.userInfo.userId,
+          userid: this.$store.state.user.userInfo ? this.$store.state.user.userInfo.userId : 0,
           restaurantId : this.$route.params.restaurantId,
         }
       RestaurantApi.requestReviews(
