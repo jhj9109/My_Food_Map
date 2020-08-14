@@ -145,10 +145,12 @@ export default {
 
   methods:{
     onLogin(){
+      console.log("파라미터 체크1", this.$route)
       const loginData = {
         email: this.email,
         password: this.password,
-        nextRoute: this.$route.query ? this.$route.query.redirect : null // 원래 다른 페이지에 접근하려다가, 로그인 페이지로 리다이렉트 된 경우
+        nextRoute: this.$route.query ? this.$route.query.redirect : null, // 원래 다른 페이지에 접근하려다가, 로그인 페이지로 리다이렉트 된 경우
+        nextParams: this.$route.query ? this.$route.query.params : null
       }
       this.$store.dispatch('user/login', loginData)
     }
