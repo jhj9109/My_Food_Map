@@ -139,7 +139,7 @@
 				v-if="userInfo"
 				key=Logout
 				link
-				:to="{ name: 'Logout' }">
+				@click="toLogout">
 					<!-- user info 있을 경우 -->
 						<v-list-item-icon>
 							<v-icon>mdi-logout</v-icon>
@@ -155,7 +155,7 @@
 				v-else
 				key=Login
 				link
-				:to="{ name: 'Login' }">
+				@click="toLogin">
 					<v-list-item-icon>
 						<v-icon>mdi-login</v-icon>
 					</v-list-item-icon>
@@ -184,11 +184,17 @@ export default {
   methods: {
     toProfile() {
       if (this.userInfo) {
-        this.$router.push({name : 'Profile', params : {userId : this.userInfo.userId}})
+        this.$router.push({name : 'MyProfile', params : {nickname : this.userInfo.nickname}})
       } else {
-        this.$router.push({name : 'Login', query: { redirect: 'Profile' }})
+        this.$router.push({name : 'Login', query: { redirect: 'MyProfile' }})
       }
-    }
+	},
+	toLogin() {
+		this.$router.push({name: 'Login', query: { redirect: this.$route.name, params: this.$route.params }})
+	},
+	toLogout() {
+		this.$router.push({name: 'Logout', query: { redirect: this.$route.name, params: this.$route.params }})
+	}
   },
   data() {
       return {
