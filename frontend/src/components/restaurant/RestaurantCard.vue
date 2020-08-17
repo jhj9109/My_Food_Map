@@ -56,7 +56,9 @@
           <template v-for="type in restaurantInfo.res_type">
               {{ type }}
           </template> <br>
-        {{ restaurantInfo.doro.slice(0, 18) }} 
+          {{ doroString }} 
+          <!-- {{ restaurantInfo.doro.slice(0, 18) }}  -->
+          <!-- {{ restaurantInfo.doro ? restaurantInfo.doro.slice(0, 18) : null }}  -->
         </div>
         <hr>
         <!-- <div>{{ restaurantInfo.content }}</div> -->
@@ -86,7 +88,11 @@ import RestaurantApi from '@/api/RestaurantApi.js'
       loading: false,
       percent: Math.floor(Math.random() * 100 + 1),
     }),
-
+    computed: {
+      doroString() {
+        return this.restaurantInfo.doro ? this.restaurantInfo.doro.slice(0, 18) : null
+      }
+    },
     methods: {
 			onClick(){
         console.log(`Info :${this.restaurantInfo}`)
