@@ -1,17 +1,25 @@
 <template>
   <div>
     <RestaurantCard 
-      class=""
+      class="mb-1"
       :restaurantInfo="restaurant"
     />
-    <br>
     <!--
     상단에 음식점 정보를 넣어주고, 하단에는 리뷰
     앞 페이지와 중복되며 앞의 음식점 페이지 삭제
     -->
-    
+    <v-btn 
+    block
+    dark
+    depressed
+    tile
+    class="justify-end white--text font-weight-bold"
+    color="grey lighten-1">
+    방문자 리뷰
+    </v-btn>
     <ReviewCard
       v-for="review in reviews"
+      class="mt-1"
       :key="review.id"
       :reviewInfo="review"
     />
