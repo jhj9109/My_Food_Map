@@ -57,61 +57,36 @@
                       type="password"
                     ></v-text-field>
 
-                    <v-checkbox
+                    <!-- <v-checkbox
                      light label='로그인 상태 유지'
                      hide-details
                      >
-                    </v-checkbox>
+                    </v-checkbox> -->
 
                   </v-form>
                 </v-card-text>
                 <v-card-actions>
-                <v-spacer/>
-                <!-- 버튼 색상 변경 -->
-                  <v-btn dark color="#F7B675"
-                  tile
-                    @click="onLogin">
-                  로그인
-                  </v-btn>
+                  <v-btn to="/user/join" tile small class="mt-1"> 회원가입 </v-btn>
+                  <v-btn to="/user/findpw" tile small class="mt-1"> ID/비밀번호 찾기 </v-btn>
+                  <v-spacer/>
+                  <!-- 버튼 색상 변경 -->
+                  <v-btn dark color="#F7B675" tile @click="onLogin"> 로그인 </v-btn>
                 </v-card-actions>
               </v-card>
-              <br><br>
           <!-- 버튼 크기 및 하단 배열 변경 -->
-          <div class="mb-4 d-flex align-end flex-column">
-            계정이 없으신가요?
-          <v-btn
-           to="/user/join"
-           small
-           class="mt-1"
-           >
-          회원가입
-          </v-btn>
-          </div>
-          <div class="d-flex align-end flex-column mb-4" to="/user/findpw">
-            ID/비밀번호를 잊으셨나요?
+        
+          <div class="mt-4 d-flex align-end flex-column" >
             <v-btn
-            to="/user/findpw"
-            small
-            class="mt-1"
-            >
-            ID/비밀번호 찾기
-            </v-btn>
-          </div>
-          <hr>
-          <div class="d-flex align-end flex-column" to="/user/findpw">
-            <v-btn
-            to="/user/findpw"
-            small
-            dark
-            color="amber"
-            class="mt-3"
+              to="/user/findpw"
+              small
+              dark
+              color="amber"
             >
             카카오톡 로그인
             </v-btn>
           </div>
             </v-col>
           </v-row>
-
 
         </v-container>
       </v-main>
