@@ -14,9 +14,17 @@
       :src= "require('@/assets/' + restaurantInfo.image)">
     </div>
 
-    <v-card-title class="pt-2 pb-0" @click="onClick">{{ restaurantInfo.name }}</v-card-title>
+    <!-- <v-card-title class="pt-2 pb-0" @click="onClick"> {{ restaurantInfo.name }} </v-card-title> -->
+    <v-btn 
+      x-large 
+      text
+      height="22"
+      class="pt-1 pb-0 pl-0 pr-0 ml-4 justify-start" 
+      @click="onClick">
+      {{ restaurantInfo.name }} >
+    </v-btn>
     
-    <v-card-text class="pb-1">
+    <v-card-text class="pb-1 pt-0">
       <v-row
         align="center"
         class="mx-0"
