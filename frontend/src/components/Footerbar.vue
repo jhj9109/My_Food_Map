@@ -48,9 +48,9 @@ export default {
   methods: {
     onClick() {
       if (this.userInfo) {
-        this.$router.push({name : 'Profile', params : {nickname : this.userInfo.nickname}}) // nickname 버전으로 수정
+        this.$router.push({name : 'MyProfile', params : {nickname : this.userInfo.nickname}}) // nickname 버전으로 수정
       } else {
-        this.$router.push({name : 'Login', query : { redirect : 'Profile'}})
+        this.$router.push({name : 'Login', query : { redirect : 'MyProfile'}})
       }
     }
   }
