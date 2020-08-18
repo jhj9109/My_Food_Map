@@ -104,11 +104,15 @@ export default {
         res => {
           console.log("리뷰 요청 응답 res => ", res)
           if (res.data.state === 'ok') {
-            this.allReviews = res.data.message
-            this.reviews = []
-            console.log("리뷰 받아오기 성공")
-            this.complete = false
-            this.fetchReviews()
+            console.log("리뷰 받아오기 성공",  res.data.message) 
+            if(res.data.message.length !== 0) {
+              this.allReviews = res.data.message
+              this.reviews = []
+              this.complete = false
+              this.fetchReviews()
+            } else {
+              console.log("빈 배열") 
+            }
           } else {
             console.log("리뷰 받아오기 실패")
           }
