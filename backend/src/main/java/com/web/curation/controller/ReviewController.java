@@ -21,6 +21,7 @@ import com.web.curation.model.dto.FollowDto;
 import com.web.curation.model.dto.LikeDto;
 import com.web.curation.model.dto.MemberDto;
 import com.web.curation.model.dto.ReviewDto;
+import com.web.curation.model.service.CommentService;
 import com.web.curation.model.service.ReviewService;
 import com.web.curation.model.service.UserService;
 
@@ -37,6 +38,8 @@ public class ReviewController {
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private CommentService commentService;
 	
 	@ExceptionHandler
 	private ResponseEntity<Map<String, Object>> Success(Object data) {
