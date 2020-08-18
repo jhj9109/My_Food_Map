@@ -89,16 +89,17 @@ export default {
 
             // 로그인 후, 가려던 페이지로 이동 or 디폴트 : Map으로 이동
             console.log("LoginData :", LoginData)
+            
             router.replace({
-              name: LoginData.nextRoute,
+              name: LoginData.nextRoute || 'Map',
               params: LoginData.nextRoute === 'MyProfile' ? { nickname: userData.nickname } : LoginData.nextParams
             })
 
-            if (LoginData.nextRoute === 'MyProfile') {
-              router.replace({name: LoginData.nextRoute, params: { nickname: userData.nickname }})
-            } else {
-              router.replace({name: LoginData.nextRoute || 'Map', params: LoginData.nextParams})
-            }
+            // if (LoginData.nextRoute === 'MyProfile') {
+            //   router.replace({name: LoginData.nextRoute, params: { nickname: userData.nickname }})
+            // } else {
+            //   router.replace({name: LoginData.nextRoute || 'Map', params: LoginData.nextParams})
+            // }
           } else {
             console.log("실패, res =>", res)
             alert(res.data.message || '로그인에 실패하였습니다')
