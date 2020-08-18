@@ -774,8 +774,7 @@ window.onscroll = function() {
 ### 0. To do
 
 1. 새 comment 확인 기능 : is_checked를 true로 변경
-
-2. review detail page를 위해 review 정보 반환
+2. Review detail page를 위해 review 정보 반환
 3. like, follow 개수 세는 방식 변경 : comment 개수 세는 방식처럼
 
 
@@ -807,6 +806,8 @@ window.onscroll = function() {
 
 
 ### 3. Like, Follow - Count
+
+- 나중에 구현
 
 
 
