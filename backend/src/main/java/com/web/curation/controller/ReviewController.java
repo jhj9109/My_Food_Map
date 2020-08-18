@@ -61,6 +61,13 @@ public class ReviewController {
 				LikeDto dto = new LikeDto();
 				ReviewDto review = review_list.get(i);
 				System.out.println(review);
+				int temp = review.getResid();
+				int temp2 = review.getUserid();
+				
+				String resname = reviewService.resname(temp);
+				review_list.get(i).setResname(resname);
+				String nickname = userService.nickname(temp2);
+				review_list.get(i).setNickname(nickname);
 				dto.setReviewid(review.getNo());
 				dto.setUserid(userId);
 				review_list.get(i).setLike(reviewService.searchLike(dto));
@@ -83,6 +90,13 @@ public class ReviewController {
 				LikeDto dto = new LikeDto();
 				ReviewDto review = review_list.get(i);
 				System.out.println(review);
+				int temp = review.getResid();
+				int temp2 = review.getUserid();
+				
+				String resname = reviewService.resname(temp);
+				review_list.get(i).setResname(resname);
+				String nickname = userService.nickname(temp2);
+				review_list.get(i).setNickname(nickname);
 				int writerId = review.getUserid();
 				FollowDto follow = new FollowDto();
 				follow.setFollowingId(writerId);
@@ -109,8 +123,16 @@ public class ReviewController {
 		try {
 			List<ReviewDto> user_review = reviewService.user_review(writerId);
 			for (int i=0; i<user_review.size();i++) {
+				
 				LikeDto dto = new LikeDto();
 				ReviewDto review = user_review.get(i);
+				int temp = review.getResid();
+				int temp2 = review.getUserid();
+				
+				String resname = reviewService.resname(temp);
+				user_review.get(i).setResname(resname);
+				String nickname = userService.nickname(temp2);
+				user_review.get(i).setNickname(nickname);
 				dto.setReviewid(review.getNo());
 				dto.setUserid(userId);
 				review.setLike(reviewService.searchLike(dto));

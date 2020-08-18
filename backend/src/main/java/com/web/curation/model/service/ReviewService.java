@@ -14,4 +14,5 @@ public interface ReviewService {
 	public boolean searchLike(LikeDto like);
 	public boolean register(ReviewDto dto) throws Exception;
 	public void changerank(ReviewDto dto) throws Exception;
+	public String resname(int resid);
 }

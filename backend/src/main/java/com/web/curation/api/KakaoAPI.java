@@ -17,8 +17,8 @@ import com.google.gson.JsonParser;
  
 @Service
 public class KakaoAPI {
-//  static final String redirectUrl="http://i3a409.p.ssafy.io/user/kakao";
-    static final String redirectUrl="http://localhost:8080/KakaoLogin";
+	static final String redirectUrl="http://i3a409.p.ssafy.io/user/kakao";
+    //static final String redirectUrl="https://localhost:8399/user/kakao";
 
     public String getAccessToken (String authorize_code) {
         String access_Token = "";
@@ -37,7 +37,7 @@ public class KakaoAPI {
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
-            sb.append("&client_id=61371210ed3f2e84bea6f3de4869f97f");
+            sb.append("&client_id=26c62e1d4e23a67774060006069c8b84");
             sb.append("&redirect_uri=");
             sb.append(redirectUrl);
             sb.append("&code=" + authorize_code);
@@ -80,6 +80,7 @@ public class KakaoAPI {
     
     public HashMap<String, Object> getUserInfo (String access_Token) {
         
+        //    요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
         HashMap<String, Object> userInfo = new HashMap<>();
         String reqURL = "https://kapi.kakao.com/v2/user/me";
         try {
@@ -101,7 +102,7 @@ public class KakaoAPI {
             while ((line = br.readLine()) != null) {
                 result += line;
             }
-            System.out.println("result: " + result);
+            System.out.println("response body : " + result);
             
             JsonParser parser = new JsonParser();
             JsonElement element = parser.parse(result);
@@ -113,7 +114,7 @@ public class KakaoAPI {
             String email = kakao_account.getAsJsonObject().get("email").getAsString();
             
             userInfo.put("nickname", nickname);
-            userInfo.put("snsid", email);
+            userInfo.put("email", email);
             
         } catch (IOException e) {
             // TODO Auto-generated catch block
@@ -122,6 +123,7 @@ public class KakaoAPI {
         
         return userInfo;
     }
+
     
     
     public void kakaoLogout(String access_Token) {

@@ -67,4 +67,9 @@ public class ReviewServiceImpl implements ReviewService {
 			throw new Exception("평점 변경 오류");
 		}
 	}
+
+	@Override
+	public String resname(int resid) {
+		return reviewDao.resname(resid);
+	}
 }

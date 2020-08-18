@@ -44,7 +44,6 @@
     <v-row align="center">
       <v-col class="text-center" >
           <v-btn text large color="primary" @click="onclick">내 위치</v-btn>
-        <v-card-text> 경도:{{lat}}<br>위도:{{lon}} </v-card-text>        
         <!-- 모바일 페이지 기준 맵 사이즈 조정, 라운드 처리 -->
         <div id="map" class="rounded-lg" style="width:100%;height:360px;"></div>
 
@@ -167,18 +166,12 @@ export default {
         initMap() {
             var container = document.getElementById('map');
             var options = {
-                center: new kakao
-                    .maps
-                    .LatLng(this.lat, this.lon),
+                center: new kakao.maps.LatLng(this.lat, this.lon),
                 level: 3
             };
-            var map = new kakao
-                .maps
-                .Map(container, options);
+            var map = new kakao.maps.Map(container, options);
             //마커추가하려면 객체를 아래와 같이 하나 만든다
-            var marker = new kakao
-                .maps
-                .Marker({position: map.getCenter()});
+            var marker = new kakao.maps.Marker({position: map.getCenter()});
             marker.setMap(map);
         },
         view(no) {
@@ -187,87 +180,69 @@ export default {
                 .push("../store/store/" + no);
         },
         clearMap() {
-
-            var tempstr = this
-                .allRestaurants[0]
-                .name;
+            var tempstr = this.allRestaurants[0].name;
             var container = document.getElementById('map'),
                 mapOption = {
-                    center: new kakao
-                        .maps
-                        .LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
                     level: 5 // 지도의 확대 레벨
                 };
-            var map = new kakao
-                .maps
-                .Map(container, mapOption);
+            var map = new kakao.maps.Map(container, mapOption);
 
-            var geocoder = new kakao
-                .maps
-                .services
-                .Geocoder();
+            var geocoder = new kakao.maps.services.Geocoder();
 
+            var addressArray = [];
+            var coordssx = {};
+            var coordssy = {};
+            
             //마커추가하려면 객체를 아래와 같이 하나 만든다
             for (var i = 0; i < this.allRestaurants.length; i++) {
                 geocoder.addressSearch(
-                    this.allRestaurants[i].jibun,
-                    function (result, status) {
+                    this.allRestaurants[i].jibun,function (result, status) {
                         if (status === kakao.maps.services.Status.OK) {
-                            var coords = new kakao
-                                .maps
-                                .LatLng(result[0].y, result[0].x);
-
+                            
+                            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+                            console.log(result[0].x);
+                            coordssx[i] = result[0].x;
+                            console.log(coordssx[i]);
+                            coordssy[i] = result[0].y;
+                            console.log(coordssy[i]);
+                            
                             // 결과값으로 받은 위치를 마커로 표시합니다
-                            var marker = new kakao
-                                .maps
-                                .Marker({map: map, position: coords});
-
-                            // 인포윈도우로 장소에 대한 설명을 표시합니다
-                            var iwContent = '<div style="padding:2px;">' + this
-                                .allRestaurants[i]
-                                .name + '<br><a href="https://map.kakao.com/link/to/Hello World!,' + result[0]
-                                .y + ',' + result[0]
-                                .x + '" style="color:blue" target="_blank">길찾기</a></div>'
-                            var infowindow = new kakao
-                                .maps
-                                .InfoWindow({content: iwContent});
-                            infowindow.open(map, marker);
-
-                        }
-
+                           
+                       }
                     }
                 )
-
-                geocoder.addressSearch(
-                    this.allRestaurants[0].jibun,
-                    function (result, status) {
-                        if (status === kakao.maps.services.Status.OK) {
-
-                            var coords = new kakao
-                                .maps
-                                .LatLng(result[0].y, result[0].x);
-
-                            // 결과값으로 받은 위치를 마커로 표시합니다
-                            var marker = new kakao
-                                .maps
-                                .Marker({map: map, position: coords});
+            }
+             for (var i = 0; i < this.allRestaurants.length; i++) {
+                addressArray[i] = this.allRestaurants[i].name;
+             }
+            for(var i=0; i<coordssx.length; i++ ){
+                var coords = new kakao.mpas.LatLng(coordssy[i],coordssx[i]);
+                             var marker = new kakao.maps.Marker({map: map, position: coords});
 
                             // 인포윈도우로 장소에 대한 설명을 표시합니다
-                            var infowindow = new kakao
-                                .maps
-                                .InfoWindow({
-                                    content: '<div style="padding:2px;">' + tempstr + '<br><a href="https://map.kakao.com/li' +
-                                            'nk/to/Hello World!,' + result[0].y + ',' + result[0].x + '" style="color:blue"' +
-                                            ' target="_blank">길찾기</a></div>'
-                                });
-                            infowindow.open(map, marker);
+                            var iwContent = '<div style="padding:2px;">' + addressArray[i] + '<br><a href="https://map.kakao.com/link/to/Hello World!,' + coordssy[i] + ',' + coordssx[i] + '" style="color:blue" target="_blank">길찾기</a></div>'
+                            var infowindow = new kakao.maps.InfoWindow({content: iwContent});
+                          
+                          console.log(coords);
+                            kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+                            kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+            }
+            var coords = new kakao.mpas.LatLng(coordssy[i],coordssx[i]);
+            map.setCenter(coords);
 
-                            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-                            map.setCenter(coords);
-                        }
+            function makeOverListener(map, marker, infowindow) {
+                     return function() {
+                        infowindow.open(map, marker);
+                  };
+             }
 
-                    }
-                )
+            // 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+                function makeOutListener(infowindow) {
+                    return function() {
+                       infowindow.close();
+                };
+            }
                 /*
            var marker = new kakao.maps.Marker({ position:  new kakao.maps.LatLng(this.allRestaurants[i].lat, this.allRestaurants[i].lng) });
            marker.setMap(map);
@@ -275,8 +250,6 @@ export default {
 
            infowindow.open(map, marker);
            */
-
-            }
 
         },
         addScript() {

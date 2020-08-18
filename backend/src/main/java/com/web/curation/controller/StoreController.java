@@ -77,6 +77,13 @@ public class StoreController {
   		for (int i=0; i<list.size();i++) {
 			LikeDto dto = new LikeDto();
 			ReviewDto review = list.get(i);
+			int temp = review.getResid();
+			int temp2 = review.getUserid();
+			
+			String resname = reviewService.resname(temp);
+			list.get(i).setResname(resname);
+			String nickname = userService.nickname(temp2);
+			list.get(i).setNickname(nickname);
 			dto.setReviewid(review.getNo());
 			dto.setUserid(userid); 
 			review.setLike(reviewService.searchLike(dto));
