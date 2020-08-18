@@ -16,6 +16,7 @@
     -->
     <div v-if="restaurantInfo.image" style="text-align: center">
       <img @click="onClick" 
+      v-if="!showPicture"
       height="374" 
       width="374"
       :src= "require('@/assets/' + restaurantInfo.image)">
@@ -26,7 +27,7 @@
       x-large 
       text
       height="22"
-      class="pt-1 pb-0 pl-0 pr-0 ml-4 justify-start" 
+      class="pt-1 pb-0 pl-0 pr-0 ml-4 mt-2 justify-start" 
       @click="onClick">
       {{ restaurantInfo.name }} >
     </v-btn>
@@ -102,6 +103,7 @@ import RestaurantApi from '@/api/RestaurantApi.js'
     data: () => ({
       loading: false,
       percent: Math.floor(Math.random() * 100 + 1),
+      showPicture: true,
     }),
     computed: {
       doroString() {
@@ -120,6 +122,9 @@ import RestaurantApi from '@/api/RestaurantApi.js'
           this.$router.push({name : 'ReviewCreate', params : { restaurantId : this.restaurantInfo.idrestaurants, restaurantName : this.restaurantInfo.name}});
         } 
       },
+      mounted() {
+        this.showPicture = this.$route.name === 'RestaurantReview' ? true : false
+      }
       // 미리 작성해 놓은 Like
       // onLike(){
       //   const data = {
