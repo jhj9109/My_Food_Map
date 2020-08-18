@@ -89,11 +89,17 @@ export default {
 
             // 로그인 후, 가려던 페이지로 이동 or 디폴트 : Map으로 이동
             console.log("LoginData :", LoginData)
-            if (LoginData.nextRoute === 'Profile') {
-              router.replace({name: LoginData.nextRoute, params: { nickname: userData.nickname }})
-            } else {
-              router.replace({name: LoginData.nextRoute, params: LoginData.nextParams})
-            }
+            
+            router.replace({
+              name: LoginData.nextRoute || 'Map',
+              params: LoginData.nextRoute === 'MyProfile' ? { nickname: userData.nickname } : LoginData.nextParams
+            })
+
+            // if (LoginData.nextRoute === 'MyProfile') {
+            //   router.replace({name: LoginData.nextRoute, params: { nickname: userData.nickname }})
+            // } else {
+            //   router.replace({name: LoginData.nextRoute || 'Map', params: LoginData.nextParams})
+            // }
           } else {
             console.log("실패, res =>", res)
             alert(res.data.message || '로그인에 실패하였습니다')
@@ -106,7 +112,7 @@ export default {
       )
     },
 
-    logout({commit} , header) {
+    logout({commit} , logoutData) {
       console.log("Logout => 유저정보와 토큰 삭제합니다")
       delete localStorage.token
       delete localStorage.userInfo
@@ -114,7 +120,7 @@ export default {
       commit('setToken', "")
       
       UserApi.requestLogout(
-        header,
+        { token: logoutData.token },
         res => {
           if(res.data.status === 'ok') {
             console.log("서버의 토큰도 삭제 되었습니다.")
@@ -128,7 +134,7 @@ export default {
       )
       // Logout은 로컬의 데이터는 모두 지웠으므로, 통신 에러가 나더라도 Login페이지로 이동
       // 히스토리 남기지 않기 위해 replace 사용
-      router.replace({name : 'Login'})
+      router.replace({name : 'Login', query: {redirect: logoutData.nextRoute, params: logoutData.nextParams}})
     },      
   },
 }

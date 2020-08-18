@@ -71,7 +71,9 @@
           <template v-for="type in restaurantInfo.res_type">
               {{ type }}
           </template> <br>
-        {{ restaurantInfo.doro.slice(0, 18) }} 
+          {{ doroString }} 
+          <!-- {{ restaurantInfo.doro.slice(0, 18) }}  -->
+          <!-- {{ restaurantInfo.doro ? restaurantInfo.doro.slice(0, 18) : null }}  -->
         </div>
         <hr>
         <!-- <div>{{ restaurantInfo.content }}</div> -->
@@ -101,20 +103,18 @@ import RestaurantApi from '@/api/RestaurantApi.js'
       loading: false,
       percent: Math.floor(Math.random() * 100 + 1),
     }),
-
+    computed: {
+      doroString() {
+        return this.restaurantInfo.doro ? this.restaurantInfo.doro.slice(0, 18) : null
+      }
+    },
     methods: {
 			onClick(){
-        console.log(`Info :${this.restaurantInfo}`)
-        console.log(`id :${this.restaurantInfo.idrestaurants} 음식점 페이지로 이동`)
-        console.log(this.$router)
-        console.log(this.$route)
-        this.$router.push({ name: 'RestaurantReview', params: { restaurantId: this.restaurantInfo.idrestaurants}});
-        // RestaurantDetail 건너띔
-        // if (this.$route.fullPath === "/restaurant") {
-        //     this.$router.push({ name: 'RestaurantDetail', params: { restaurantId: this.restaurantInfo.idrestaurants}}); //리스트 => 특정 음식점
-        // } else {
-        //     this.$router.push({ name: 'RestaurantReview', params: { restaurantId: this.restaurantInfo.idrestaurants}}); //특정 음식점 => 해당 리뷰
-        // }
+        // restaurant.vue에서만 이동
+        if (this.$route.name === 'Restaurant') {
+          console.log(`restaurantInfo :${this.restaurantInfo}`)
+          this.$router.push({ name: 'RestaurantReview', params: { restaurantId: this.restaurantInfo.idrestaurants}});
+        }
       },
       toReview() {
           this.$router.push({name : 'ReviewCreate', params : { restaurantId : this.restaurantInfo.idrestaurants, restaurantName : this.restaurantInfo.name}});
