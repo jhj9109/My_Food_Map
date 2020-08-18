@@ -38,9 +38,6 @@ public class ReviewController {
 	@Autowired
 	private UserService userService;
 
-	@Autowired
-	private CommentService commentService;
-	
 	@ExceptionHandler
 	private ResponseEntity<Map<String, Object>> Success(Object data) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
