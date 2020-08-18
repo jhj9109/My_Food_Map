@@ -1,17 +1,25 @@
 <template>
   <div>
     <RestaurantCard 
-      class=""
+      class="mb-1"
       :restaurantInfo="restaurant"
     />
-    <br>
     <!--
     상단에 음식점 정보를 넣어주고, 하단에는 리뷰
     앞 페이지와 중복되며 앞의 음식점 페이지 삭제
     -->
-    
+    <v-btn 
+    block
+    dark
+    depressed
+    tile
+    class="justify-end white--text font-weight-bold"
+    color="grey lighten-1">
+    방문자 리뷰
+    </v-btn>
     <ReviewCard
       v-for="review in reviews"
+      class="mt-1"
       :key="review.id"
       :reviewInfo="review"
     />
@@ -51,6 +59,24 @@ export default {
     }
   },
   methods:{
+    //레스토랑 정보 설정
+    setRestaurant() {
+      const restaruantId = this.$route.params.restaurantId
+      console.log("realSetData 요청 Id 값 : ", restaruantId, typeof(restaruantId))
+      RestaurantApi.requestInfo(
+        restaruantId,
+        res => {
+          console.log("realSetData 콜백 성공, res:", res.data.message)
+          this.restaurant = res.data.message
+          // 리뷰도 받아오기
+          this.setReviews()
+        },
+        err => {
+          console.error(err)
+          console.log("에러반응")
+        }
+      )
+    },
     setReviews() {
        const data = {
           userid: this.$store.state.user.userInfo ? this.$store.state.user.userInfo.userId : 0,
@@ -64,22 +90,6 @@ export default {
           console.log("리뷰 리스트 데이터 바인딩 성공", this.allReviews)
           this.complete = false
           this.fetchReviews()
-        },
-        err => {
-          console.error(err)
-          console.log("에러반응")
-        }
-      )
-    },
-    //레스토랑 정보 설정
-    setRestaurant() {
-      const restaruantId = this.$route.params.restaurantId
-      console.log("realSetData 요청 Id 값 : ", restaruantId, typeof(restaruantId))
-      RestaurantApi.requestInfo(
-        restaruantId,
-        res => {
-          console.log("realSetData 콜백 성공, res:", res.data.message)
-          this.restaurant = res.data.message
         },
         err => {
           console.error(err)
@@ -107,9 +117,8 @@ export default {
     }
   },
   mounted() {
-    this.setReviews(),
-    //레스토랑 정보 받아오기
-    this.setRestaurant()
+    //레스토랑 정보 받아오기 => 성공 => 리뷰도 받아오기 (내부에서 실행)
+    this.setRestaurant() 
   },
 }
 </script>

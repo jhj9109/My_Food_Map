@@ -15,19 +15,19 @@
             <v-icon size="24px">mdi-search-web</v-icon>
           </v-btn>
 
-          <v-btn :to="{ name: 'Map' }" class="ml-2" icon >
+          <v-btn :to="{ name: 'Map' }" class="ml-3" icon >
             <v-icon size="24px">mdi-map</v-icon>
           </v-btn>
           <!-- 피드로 가는 버튼 추가 -->
-          <v-btn class="ml-2" icon>
+          <v-btn class="ml-3" icon>
             <v-icon>mdi-format-align-justify</v-icon>
           </v-btn>
           
-          <v-btn @click="onClick" class="ml-2" icon>
+          <v-btn @click="onClick" class="ml-3" icon>
             <v-icon>mdi-account</v-icon>
           </v-btn>
             <!-- 맨위로 가기(재구현) -->
-            <v-btn @click="$emit('scrollToTop')" class="ml-2" icon>
+            <v-btn @click="$emit('scrollToTop')" class="ml-3" icon>
               <v-icon>mdi-arrow-up</v-icon>
             </v-btn>
           <!-- 글쓰기 버튼 restaurant card로 옮김.
@@ -48,9 +48,9 @@ export default {
   methods: {
     onClick() {
       if (this.userInfo) {
-        this.$router.push({name : 'Profile', params : {nickname : this.userInfo.nickname}}) // nickname 버전으로 수정
+        this.$router.push({name : 'MyProfile', params : {nickname : this.userInfo.nickname}}) // nickname 버전으로 수정
       } else {
-        this.$router.push({name : 'Login', query : { redirect : 'Profile'}})
+        this.$router.push({name : 'Login', query : { redirect : 'MyProfile'}})
       }
     }
   }

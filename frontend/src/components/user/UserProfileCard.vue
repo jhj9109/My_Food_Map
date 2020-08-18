@@ -43,7 +43,7 @@
             </v-subheader>
             -->
             <v-btn
-                v-if="profileUser.id !== userInfo.userId"
+                v-if="!userInfo || profileUser.id !== userInfo.userId"
                 @click="onClick"
                 dark
                 small
@@ -62,7 +62,9 @@ export default {
     methods: {
         onClick() {
             console.log("onClick 반응")
-            if (this.userInfo && (this.profileUser.id !== this.userInfo.userId)) {
+            if (!this.userInfo) {
+                this.$router.push({name:'Login', query:{ redirect: 'Profile', params: {nickname: this.profileUser.nickname}}})
+            } else if (this.profileUser.id !== this.userInfo.userId) {
                 console.log("onFollow emit")
                 this.$emit('onFollow')
             }

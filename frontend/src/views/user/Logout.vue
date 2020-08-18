@@ -20,8 +20,12 @@ export default {
   // },
   beforeMount() {
     console.log("로그아웃.vue 진입, 삭제할 token값은 : ", localStorage.token)
-    const token = localStorage.token
-    this.$store.dispatch('user/logout', {token : token})
+    const logoutData = {
+      token: localStorage.token,
+      nextRoute: this.$route.query ? this.$route.query.redirect : null,
+      nextParams: this.$route.query ? this.$route.query.params : null
+    }
+    this.$store.dispatch('user/logout', logoutData)
   }
 
 };
