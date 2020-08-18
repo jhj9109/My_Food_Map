@@ -69,7 +69,7 @@
                 <v-spacer/>
                 <!-- 버튼 색상 변경 -->
                   <v-btn dark color="#F7B675"
-                  tile
+                  tile rounded
                     @click="onLogin">
                   로그인
                   </v-btn>
@@ -78,7 +78,6 @@
               <br><br>
           <!-- 버튼 크기 및 하단 배열 변경 -->
           <div class="mb-4 d-flex align-end flex-column">
-            계정이 없으신가요?
           <v-btn
            to="/user/join"
            small
@@ -88,7 +87,6 @@
           </v-btn>
           </div>
           <div class="d-flex align-end flex-column mb-4" to="/user/findpw">
-            ID/비밀번호를 잊으셨나요?
             <v-btn
             to="/user/findpw"
             small

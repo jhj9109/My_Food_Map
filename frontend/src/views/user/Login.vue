@@ -21,7 +21,7 @@
               <v-card class="elevation-6 mt-10">
                 <!-- 로그인창 색상 변경 -->
                 <v-toolbar
-                  color="backgroud_gradient"
+                  color="primary lighten-1"
                   dark
                   flat
                 >
