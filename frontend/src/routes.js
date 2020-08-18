@@ -101,6 +101,12 @@ export default [
 		component : Profile,
 	},
 	{
+		path : '/user/:nickname', // userId 요청하던 버전에서 nickname으로 요청하던 버전으로 수정
+		name : 'MyProfile',
+		component : Profile,
+		beforeEnter : requireAuth,
+	},
+	{
 		path : '/map/map',
 		name : 'Map',
 		component : Map

@@ -147,7 +147,7 @@ import UserApi from '@/api/UserApi.js'
       // },
     },
     mounted() {
-      this.showNickname = this.$route.name === 'Profile' ? false : true
+      this.showNickname = (this.$route.name === 'Profile' ||  this.$route.name === 'MyProfile') ? false : true
     }
   }
 </script>
