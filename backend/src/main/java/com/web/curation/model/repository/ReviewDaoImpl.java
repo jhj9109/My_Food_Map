@@ -57,7 +57,7 @@ public class ReviewDaoImpl implements ReviewDao {
 		float temp = tgrade * tcountgrade;
 		System.out.println(tgrade+" "+tcountgrade+" "+temp);
 		
-		float grade = (temp + dto.getRank())/(tcountgrade+1);
+		float grade = (temp + dto.getReviewrank())/(tcountgrade+1);
 		grade=(float) (Math.round(grade*10)/10.0);
 		
 		HashMap<String,Object> map = new HashMap<String,Object>();

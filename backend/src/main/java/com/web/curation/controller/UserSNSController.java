@@ -1,15 +1,16 @@
 package com.web.curation.controller;
 
 import java.io.IOException;
+import java.net.URI;
 import java.security.GeneralSecurityException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,10 +22,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.web.curation.api.KakaoAPI;
+import com.web.curation.model.dto.MemberDto;
+import com.web.curation.model.service.UserService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -34,125 +40,101 @@ import io.swagger.annotations.ApiOperation;
 @EnableAutoConfiguration
 public class UserSNSController {
 
-	//@Autowired
-	//private UserSNSService userSNSService;
+	@Autowired
+	private UserService userService;
 	
 	@Autowired
 	private KakaoAPI kakao;
 	
-
-
+	private String temptoken;
+	
 	@ExceptionHandler
 	public ResponseEntity<Map<String, Object>> handler(Exception e){
-		return handleFail(e.getMessage(), HttpStatus.OK);
+		return Fail(e.getMessage(), HttpStatus.OK);
 	}
 	
-	private ResponseEntity<Map<String, Object>> handleSuccess(Object data,String token){
+	private ResponseEntity<Map<String, Object>> Success(Object data){
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("state", "ok");
 		resultMap.put("message", data);
-		resultMap.put("JWT",token);
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 	}
 	
-	private ResponseEntity<Map<String, Object>> handleFail(Object data, HttpStatus status) {
+	private ResponseEntity<Map<String, Object>> Fail(Object data, HttpStatus status) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("state",  "fail");
 		resultMap.put("message",  data);
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 	
-	
- 	@ApiOperation(value="해당 음식점 모든 리뷰 조회 서비스", response=List.class)
-	@RequestMapping(value = "/user/kakao", method = RequestMethod.GET)
-  	public ResponseEntity<Map<String,Object>> klogin(@RequestParam("code") String code, HttpSession session)  throws Exception {
- 		String access_Token = kakao.getAccessToken(code);
-	    HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
-	    System.out.println("login Controller : " + userInfo);
-	    
-	    //    클라이언트의 이메일이 존재할 때 세션에 해당 이메일과 토큰 등록
-	    if (userInfo.get("email") != null) {
-	        session.setAttribute("userId", userInfo.get("email"));
-	        session.setAttribute("access_Token", access_Token);
-	    }
-	    return handleSuccess("소셜 로그인 토큰 발급 완료.", access_Token);
-  		
+	@RequestMapping(value="/login")
+	public  ResponseEntity   login(@RequestParam("code") String code, HttpSession session) {
+		String access_Token = kakao.getAccessToken(code);
+        System.out.println("controller access_token : " + access_Token);
+        
+        HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
+        temptoken = access_Token;
+        System.out.println("login Controller : " + userInfo);
+        System.out.println(userInfo);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(URI.create("http://i3a409.p.ssafy.io/user/login/"));
+        
+        
+        //    클라이언트의 이메일이 존재할 때 세션에 해당 이메일과 토큰 등록
+        if (userInfo.get("email") != null) {
+            session.setAttribute("access_Token", access_Token);
+        }
+        try {
+			if(userService.checkuser((String)userInfo.get("email"))) {
+				System.out.println(" 해당 유저가 존재 합니다 ( 로그인 진행 ");
+				MemberDto result = userService.login((String)userInfo.get("email"),"kakao123");
+				
+				session.setAttribute("email", userInfo.get("email"));
+				session.setAttribute("userid",result.getUserid());
+				session.setAttribute("nickname",result.getNickname());
+				headers.setLocation(URI.create("http://i3a409.p.ssafy.io/user/login/"+userInfo.get("email")+"/"+result.getUserid()+"/"+result.getNickname()));
+				return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
+			}else {
+				System.out.println(" 해당 유저가 존재 하지 않습니다 ( 회원가입 진행 ) ");
+				MemberDto dto = new MemberDto();
+				 System.out.println(userInfo.get("email"));
+				 
+				dto.setEmail((String)userInfo.get("email"));
+				dto.setNickname((String)userInfo.get("nickname"));
+				dto.setPassword("kakao123");
+				
+				userService.join(dto);
+				
+				System.out.println(" 회원가입 후 로그인 진행 중 .... ");
+				MemberDto result = userService.login((String)userInfo.get("email"),"kakao123");
+				session.setAttribute("email", userInfo.get("email"));
+				session.setAttribute("userid",result.getUserid());
+				session.setAttribute("nickname",result.getNickname());
+				headers.setLocation(URI.create("http://i3a409.p.ssafy.io/user/login/"+userInfo.get("email")+"/"+result.getUserid()+"/"+result.getNickname()));
+				return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY); 
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+        System.out.println("오류 발생");
+        MemberDto dto = null;
+        return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
 	}
-
-
-
-//	@ApiOperation("SNS로그인 시 회원가입할때, 기존이랑 같으나 userforSNS 객체엔 seq가 추가되어있다.")
-//	@PostMapping("/user/signUpWithSeq")
-//	public ResponseEntity<Map<String, Object>> signUpWithSeq(@RequestBody UserForSNS userForSNS){
-//		
-//		try {
-//			// 회원가입 부분에서!
-//			if(ssafyCertificationService.isPassed(userForSNS.getId())){
-//				// user의 ssafy 인증 컬럼값을 true로 바꿔줌
-//				
-//				userForSNS.setApproval(1);
-//			}
-//			
-//			userSNSService.signUpWithSeq(userForSNS);
-//			
-//			return handleSuccess("가입 성공");
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return handleFail("가입 실패", HttpStatus.OK);
-//		}
-//		
-//	}
-//	
-//	@ApiOperation("sns로그인 후 db에 있는 기존의 id와 연동/ 연동후 테스트도 가능할듯~")
-//	@PostMapping("/user/IntegrateWithId")
-//	public ResponseEntity<Map<String, Object>> IntegrateWithId(@RequestBody UserForSNS userForSNS){
-//		
-//		try {
-//			userSNSService.IntegrateWithId(userForSNS);
-//			return handleSuccess("연동 성공");
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return handleFail("연동 실패", HttpStatus.OK);
-//		}
-//		
-//	}
-//
-//	
-////  @RequestMapping(value="/KakaoLogin")
-//    @ApiOperation("KakaoLogin 버튼")
-//   	@GetMapping("/userSNS/kakaoLogin/{code}")
-//    public ResponseEntity<Map<String, Object>> klogin(@PathVariable String code, HttpSession session) {
-//    	System.out.println("====================login=====================");
-//        String access_Token = kakao.getAccessToken(code);
-//        HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
-//        System.out.println("login Controller : " + userInfo);
-//        System.out.println("====================login=====================");
-//        //    클라이언트의 이메일이 존재할 때 세션에 해당 이메일과 토큰 등록
-//        if (userInfo.get("snsid") != null) {
-//            session.setAttribute("userId", userInfo.get("snsid"));
-//            session.setAttribute("access_Token", access_Token);
-//        }
-//        
-//        String snsid = userInfo.get("snsid").toString();
-//        System.out.println(userInfo.get("snsid").toString());
-//        System.out.println(userInfo.get("nickname").toString());
-//        
-//        try {
-//			Object valueForReturn = userSNSService.SNSLogin(snsid, "kakao");
-//			
-//			if(valueForReturn instanceof String) {
-//				return handleSuccess("소셜 로그인 토큰 발급 완료.", valueForReturn.toString());
-//			}else if(valueForReturn instanceof Integer) {
-//				return handleFail("서비스를 이용하시려면 연동이 필요합니다.",Integer.parseInt(valueForReturn.toString()), HttpStatus.OK);
-//			}else {
-//				return handleFail("리턴값이 String이나 Integer가 아닙니다.", HttpStatus.OK);
-//			}
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return handleFail("소셜 로그인 중 오류 발생", HttpStatus.OK);
-//		}
-//        
-//    }
-//
+	
+	@ApiOperation(value = "로그아웃")
+	@RequestMapping(value = "/user/logout", method = RequestMethod.POST)
+	public  ResponseEntity<Map<String, Object>> logout( HttpSession session) throws Exception {
+		 kakao.kakaoLogout(temptoken);
+		 session.removeAttribute("access_Token");
+		 session.removeAttribute("userId");
+		 
+		 // 토큰 삭제 
+		 
+		 return Success("로그아웃에 성공하셨습니다");
+		    
+		
+	}
 }
+
+
+

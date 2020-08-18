@@ -177,4 +177,13 @@ public class UserServiceImpl implements UserService{
 		return userRepository.nickname(userid);
 	}
 
+	@Override
+	public boolean checkuser(String email) throws Exception {
+		MemberDto info = userRepository.selectByEmail(email);
+		if(info == null) {
+			return false;
+		}else {
+			return true;
+		}
+	}
 }

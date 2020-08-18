@@ -39,5 +39,10 @@ public class StoreDaoImpl implements StoreDao{
 	public List<RestaurantsDto> searchAll() {
 		return session.selectList("review.selectreslist");
 	}
+
+	@Override
+	public ReviewDto rankone(int no) {
+		return session.selectOne("review.selectrankone");
+	}
 	
 }

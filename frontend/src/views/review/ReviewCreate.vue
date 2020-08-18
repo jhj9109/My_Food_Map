@@ -143,7 +143,7 @@ export default {
                 userid:  Number(this.userInfo.userId),
                 nickname: this.userInfo.nickname,
                 content: this.review.content,
-                rank : Number(this.review.rank),
+                reviewrank : Number(this.review.rank),
                 image : this.review.image,
                 resid : this.$route.params.restaurantId,
             }

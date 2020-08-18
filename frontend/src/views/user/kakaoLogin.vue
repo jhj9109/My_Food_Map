@@ -119,6 +119,8 @@
 <script>
 
 export default {
+  props: ["email","userid","nickname"],
+
     data: () => {
     return {
       email: "",
@@ -126,7 +128,7 @@ export default {
         v => !!v || '이메일을 입력해주세요.',
         v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || '이메일 형식을 지켜주세요'
       ],
-      password: "",
+      password: "kakao123",
       passwordRules:[
         v => !!v || '비밀번호를 입력해주세요',
       ],
@@ -143,11 +145,25 @@ export default {
       const loginData = {
         email: this.email,
         password: this.password,
-        nextRoute: this.$route.query.redirect // 원래 다른 페이지에 접근하려다가, 로그인 페이지로 리다이렉트 된 경우
+        nextRoute: this.$route.query ? this.$route.query.redirect : null, // 원래 다른 페이지에 접근하려다가, 로그인 페이지로 리다이렉트 된 경우
+        nextParams: this.$route.query ? this.$route.query.params : null
+      }
+      this.$store.dispatch('user/login', loginData)
+    },
+    login(){
+      const loginData = {
+        email: this.email,
+        password: this.password,// 원래 다른 페이지에 접근하려다가, 로그인 페이지로 리다이렉트 된 경우
+        nextRoute: null, // 원래 다른 페이지에 접근하려다가, 로그인 페이지로 리다이렉트 된 경우
+        nextParams: null
       }
       this.$store.dispatch('user/login', loginData)
     }
   },
+  mounted(){
+    this.login();
+  }
+
 };
 </script>
 
