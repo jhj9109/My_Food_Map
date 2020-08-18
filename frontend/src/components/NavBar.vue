@@ -4,75 +4,28 @@
 			color="backgroud_gradient"
 			dark
 			fixed
-			scroll-target="#scrolling-techniques-3"
-		>
+			scroll-target="#scrolling-techniques-3">
 			<v-btn to="/restaurant" class="ml-10 title" icon>
-			<v-toolbar-title class="ml-4"> My Food Diary </v-toolbar-title>
+				<v-toolbar-title class="ml-4"> My Food Diary </v-toolbar-title>
 			</v-btn>
-
-
+			
 			<v-spacer></v-spacer>
-			<!-- 로그인 디자인을 위해 일단 제거 밑에 있어서 없어도 될 것 같기도
-			<div v-if="userInfo">
-			<v-list-item>
-					<v-icon size="50" color="grey" style="margin:8px 16px 8px 0px;padding:0px;">mdi-account-circle</v-icon>
-					<v-list-item-content>
-							<v-list-item-title class="body-1">{{userInfo.nickname}}님</v-list-item-title>
-					</v-list-item-content>
-					<v-list-item-action style="width:30%; margin-right:10px">
-							<v-btn
-									depressed="depressed"
-									to = "/user/logout"
-									class="ma-2 widfull"
-									outlined="outlined"
-									color="white">
-									로그아웃
-							</v-btn>
-					</v-list-item-action>
-			</v-list-item>
-			</div>
-			<div v-else>
-			<v-btn
-					depressed="depressed"
-					to = "/user/login"
-					class="widfull"
-					outlined="outlined"
-					color="white">
-					로그인
-			</v-btn>
-			</div>
-			-->
-			<!-- drawer dots로 옮김 -->
+			
 			<v-btn 
 				@click.native.stop="drawerToggle = true"
 				icon style="margin-top:1px">
 				<v-icon>mdi-dots-horizontal</v-icon>
 			</v-btn>
+			
 			<!-- drawer dots로 옮김 -->
 			<v-badge
-				dot
+				@click.native.stop="drawerToggle2 = true "
+				:content="messages.length"
+				:values="messages.length"
 				style="margin-top:1px"
-			>
-			<!--:value="userInfo.알람==true"
-			넣어서 새로운 알람 있을때 불들어오게-->
+				overlap>
 				<v-icon>mdi-bell</v-icon>
 			</v-badge>
-			<!--
-			<template v-slot:extension>
-				<v-tabs 
-				fixed-tabs
-				>
-					<v-tab :to="{name : 'Map'}">Map</v-tab>
-					<v-tab :to="{name : 'Restaurant'}">Home</v-tab>
-					<v-tab v-if="userInfo"
-						:to="{name : 'Profile', params : {userId : userInfo.userId} }">Feed
-					</v-tab>
-					<v-tab v-else
-						:to="{name : 'Login'}">Feed
-					</v-tab>
-				</v-tabs>
-			</template>
-			-->
 		</v-app-bar>
 
 		<v-navigation-drawer
@@ -80,99 +33,89 @@
 			fixed
 			temporary
 			right
-			width="250"
-		>
-			<v-list-item>
-				<v-list-item-avatar>
-					<!-- 아이콘 수정 -->
-					<v-icon size="40">mdi-account-circle</v-icon>
-				</v-list-item-avatar>
-				
-				<v-list-item-content v-if="userInfo">
-					<v-list-item-title>{{ userInfo.nickname }}</v-list-item-title>
-				</v-list-item-content>
-				<!-- 비로그인 분기 -->
-				<v-list-item-content v-else>
-					<v-list-item-title class="text-caption"> 로그인이 필요합니다. </v-list-item-title>
-				</v-list-item-content>
-			</v-list-item>
-
-			<v-divider></v-divider>
+			width="250">
 
 			<v-list dense>
+				<v-list-item
+					@click="toProfile">
+					<v-list-item-avatar>
+						<v-icon size="40">mdi-account-circle</v-icon>
+					</v-list-item-avatar>
+					<v-list-item-content >
+						<v-list-item-title
+							v-text="userInfo ? userInfo.nickname : '로그인이필요합니다'"
+							:class="{ 'text-caption': !userInfo}"/>
+					</v-list-item-content>
+				</v-list-item>
+				
+				<v-divider/>			
 				
 				<v-list-item
 					v-for="item in items"
 					:key="item.title"
 					link
-					:to="{name : item.destination}"
-				>
+					:to="{
+						name: item.destination,
+						query: item.params
+					}">
 					<v-list-item-icon>
 						<v-icon>{{ item.icon }}</v-icon>
 					</v-list-item-icon>
-
 					<v-list-item-content>
-						<v-list-item-title>{{ item.title }}</v-list-item-title>
-					</v-list-item-content>
-				</v-list-item>
-				<!--
-        		{ title: 'Profile', icon: 'mdi-account', destination: 'Profile' },
-				{ title: 'login/signup', icon: 'mdi-login', destination: 'Login' },
-				{ title: 'logout', icon: 'mdi-logout', destination: 'Logout' }
-				-->
-				<v-list-item 
-				v-if="userInfo"
-				key=Profile
-				link
-				@click="toProfile">
-					<!-- user info 있을 경우 -->
-						<v-list-item-icon>
-							<v-icon>mdi-account</v-icon>
-						</v-list-item-icon>
-
-						<v-list-item-content>
-							<v-list-item-title>Profile</v-list-item-title>
-						</v-list-item-content>
-					</v-list-item-content>
-				</v-list-item>
-				<v-list-item 
-				v-if="userInfo"
-				key=Logout
-				link
-				:to="{ name: 'Logout' }">
-					<!-- user info 있을 경우 -->
-						<v-list-item-icon>
-							<v-icon>mdi-logout</v-icon>
-						</v-list-item-icon>
-
-						<v-list-item-content>
-							<v-list-item-title>Logout</v-list-item-title>
-						</v-list-item-content>
-					</v-list-item-content>
-				</v-list-item>
-					<!-- 비로그인 사용자 분기 -->
-				<v-list-item 
-				v-else
-				key=Login
-				link
-				:to="{ name: 'Login' }">
-					<v-list-item-icon>
-						<v-icon>mdi-login</v-icon>
-					</v-list-item-icon>
-
-					<v-list-item-content>
-						<v-list-item-title>Login/Signup</v-list-item-title>
+						<v-list-item-title
+							v-text="item.title"/>
 					</v-list-item-content>
 				</v-list-item>
 			</v-list>
 		<!-- 드로워 서비스 소개 추가 -->
 		<v-col
 			class="backgroud_gradient py-2 text-center white--text"
-			cols="12"
-		>
+			cols="12">
 			ⓒ {{ new Date().getFullYear() }} — MFD by MiBaSi
 		</v-col>
 		</v-navigation-drawer>
+
+		<v-navigation-drawer
+			v-model="drawerToggle2"
+			fixed
+			temporary
+			right
+			width="250">
+			<v-list>
+				<v-subheader>
+					메세지
+				</v-subheader>
+				<v-list-item-group
+					v-if="Boolean(messages)"
+					v-model="message">
+					<v-list-item
+						v-for="(message, i) in messages"
+						:key="i">
+						<v-list-item-content>
+							<v-list-item-title
+								v-text="message.content"/>
+						</v-list-item-content>
+
+					</v-list-item>
+				</v-list-item-group>
+				<v-list-item-group
+					v-else>
+					<v-list-item>
+						<v-list-item-content>
+							<v-list-item-title>
+								메세지가 없습니다!
+							</v-list-item-title>
+						</v-list-item-content>
+
+					</v-list-item>
+				</v-list-item-group>
+			</v-list>
+
+			<v-divider></v-divider>
+
+
+		</v-navigation-drawer>
+
 	</v-card>
 </template>
 
@@ -180,20 +123,36 @@
 
 export default {
   name: 'NavBar',
-  props: ['userInfo', 'items'],
+  props: ['userInfo', 'messages'],
+  data() {
+      return {
+		drawerToggle: false,
+		drawerToggle2: false,
+      }
+  },
+  computed: {
+	items() {
+		return [
+			{ title: 'Search', icon: 'mdi-search-web', destination: 'Restaurant' },
+			{ title: 'Map', icon: 'mdi-map', destination: 'Map' },
+			{ title: 'Feed', icon: 'mdi-format-align-justify', destination: 'IndexFeed' },
+			// 로그인 여부에 따라, Login or Logout 리스트 출력
+			{ title: this.userInfo ? 'Logout' : 'Login/Signup',
+				icon: this.userInfo ? 'mdi-logout' : 'mdi-login',
+				destination: this.userInfo ? 'Logout' : 'Login',
+				query: { redirect: this.$route.name, params: this.$route.params}
+			},
+		]
+  	}
+  },
   methods: {
     toProfile() {
       if (this.userInfo) {
-        this.$router.push({name : 'Profile', params : {userId : this.userInfo.userId}})
+        this.$router.push({name : 'MyProfile', params : {nickname : this.userInfo.nickname}})
       } else {
-        this.$router.push({name : 'Login', query: { redirect: 'Profile' }})
+        this.$router.push({name : 'Login', query: { redirect: 'MyProfile' }})
       }
-    }
-  },
-  data() {
-      return {
-          drawerToggle: false
-      }
+	},
   },
 }
 </script>

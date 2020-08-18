@@ -18,8 +18,8 @@
         {{ reviewInfo.resname }}<br>
       </div>
       <v-row justify="start">
-        <div @click="toProfile" class="sub-title ml-4 mr-2 mt-0">
-          {{ reviewInfo.nickname }} <br>
+        <div @click="toProfile" v-if="showNickname" class="sub-title ml-4 mr-2 mt-0">
+          {{ reviewInfo.nickname }} ><br>
         </div>
       </v-row>
           <v-btn
@@ -147,7 +147,7 @@ import UserApi from '@/api/UserApi.js'
       // },
     },
     mounted() {
-      this.showNickname = this.$route.name === 'Profile' ? false : true
+      this.showNickname = (this.$route.name === 'Profile' ||  this.$route.name === 'MyProfile') ? false : true
     }
   }
 </script>

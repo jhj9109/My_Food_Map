@@ -8,6 +8,7 @@
 /*14px*/
 /*12px*/
 /*12px*/
+         
 @import url("https://cdn.jsdelivr.net/gh/moonspam/NanumBarunGothic@1.0/nanumbarungothicsubset.css");
 @-webkit-keyframes shine-lines {
   0% {
@@ -43,7 +44,7 @@
     background-position: 208px;
   }
 }
-
+          
 * {
   font-family: 'NanumBarunGothic', sans-serif;
   word-break: keep-all;

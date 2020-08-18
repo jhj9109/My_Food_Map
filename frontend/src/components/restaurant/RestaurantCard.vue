@@ -6,17 +6,33 @@
       max-width="375"
     >
 
-
+    <!--
     <div v-if="restaurantInfo.image" style="text-align: center">
       <img @click="onClick" 
       height="374" 
       width="374"
       :src= "require('@/assets/' + restaurantInfo.image)">
     </div>
+    -->
+    <div v-if="restaurantInfo.image" style="text-align: center">
+      <img @click="onClick" 
+      v-if="!showPicture"
+      height="374" 
+      width="374"
+      :src= "require('@/assets/' + restaurantInfo.image)">
+    </div>
 
-    <v-card-title class="pt-2 pb-0" @click="onClick">{{ restaurantInfo.name }}</v-card-title>
+    <!-- <v-card-title class="pt-2 pb-0" @click="onClick"> {{ restaurantInfo.name }} </v-card-title> -->
+    <v-btn 
+      x-large 
+      text
+      height="22"
+      class="pt-1 pb-0 pl-0 pr-0 ml-4 mt-2 justify-start" 
+      @click="onClick">
+      {{ restaurantInfo.name }} >
+    </v-btn>
     
-    <v-card-text class="pb-1">
+    <v-card-text class="pb-1 pt-0">
       <v-row
         align="center"
         class="mx-0"
@@ -56,7 +72,9 @@
           <template v-for="type in restaurantInfo.res_type">
               {{ type }}
           </template> <br>
-        {{ restaurantInfo.doro.slice(0, 18) }} 
+          {{ doroString }} 
+          <!-- {{ restaurantInfo.doro.slice(0, 18) }}  -->
+          <!-- {{ restaurantInfo.doro ? restaurantInfo.doro.slice(0, 18) : null }}  -->
         </div>
         <hr>
         <!-- <div>{{ restaurantInfo.content }}</div> -->
@@ -85,26 +103,28 @@ import RestaurantApi from '@/api/RestaurantApi.js'
     data: () => ({
       loading: false,
       percent: Math.floor(Math.random() * 100 + 1),
+      showPicture: true,
     }),
-
+    computed: {
+      doroString() {
+        return this.restaurantInfo.doro ? this.restaurantInfo.doro.slice(0, 18) : null
+      }
+    },
     methods: {
 			onClick(){
-        console.log(`Info :${this.restaurantInfo}`)
-        console.log(`id :${this.restaurantInfo.idrestaurants} 음식점 페이지로 이동`)
-        console.log(this.$router)
-        console.log(this.$route)
-        this.$router.push({ name: 'RestaurantReview', params: { restaurantId: this.restaurantInfo.idrestaurants}});
-        // RestaurantDetail 건너띔
-        // if (this.$route.fullPath === "/restaurant") {
-        //     this.$router.push({ name: 'RestaurantDetail', params: { restaurantId: this.restaurantInfo.idrestaurants}}); //리스트 => 특정 음식점
-        // } else {
-        //     this.$router.push({ name: 'RestaurantReview', params: { restaurantId: this.restaurantInfo.idrestaurants}}); //특정 음식점 => 해당 리뷰
-        // }
+        // restaurant.vue에서만 이동
+        if (this.$route.name === 'Restaurant') {
+          console.log(`restaurantInfo :${this.restaurantInfo}`)
+          this.$router.push({ name: 'RestaurantReview', params: { restaurantId: this.restaurantInfo.idrestaurants}});
+        }
       },
       toReview() {
           this.$router.push({name : 'ReviewCreate', params : { restaurantId : this.restaurantInfo.idrestaurants, restaurantName : this.restaurantInfo.name}});
         } 
       },
+      mounted() {
+        this.showPicture = this.$route.name === 'RestaurantReview' ? true : false
+      }
       // 미리 작성해 놓은 Like
       // onLike(){
       //   const data = {

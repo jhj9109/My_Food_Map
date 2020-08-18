@@ -3,20 +3,19 @@
     <NavBar 
       :userInfo="userInfo"
       :items="items"
+      :messages="messages"
     />
     <!-- nav bar 수정하며 화면 보이는 부분 늘림-->
     <!-- 끝이라고 인식을 못해서 불러오질 않음-->
-      <v-sheet
-        id="scrolling-techniques-3"
-        class="overflow-y-auto"
-        v-scroll.self="onScroll"
-        style="max-height: 700px"
-      >
-        <router-view
-          :userInfo="userInfo"
-          :isScrollEnd="isScrollEnd"  
-        />
-      </v-sheet>
+    <v-sheet
+      id="scrolling-techniques-3"
+      class="overflow-y-auto"
+      v-scroll.self="onScroll"
+      style="max-height: 700px">
+      <router-view
+        :userInfo="userInfo"
+        :isScrollEnd="isScrollEnd"/>
+    </v-sheet>
     <Footerbar
       :token="token"
       :userInfo="userInfo"
@@ -36,6 +35,7 @@ export default {
   data() {
     return {
     isScrollEnd: false,
+    messages: [],
     }
   },
   components: {
@@ -67,12 +67,28 @@ export default {
         this.setUserInfo(storageObj)
       }
     },
+    checkMessages() {
+      console.log("checkMessages")
+      // API 요청 후 메세지 있다면
+      this.messages = [
+        {
+          content: '1번',
+          reviewId: 1,
+        },
+        {
+          content: '2번',
+          reviewId: 2,
+        },
+      ]
+    },
     tempSetListData() { 
       // 임시데이터 생성용
       const listData = [
-        { title: 'Search', icon: 'mdi-search-web', destination: 'Restaurant' },
+        { title: 'Search', icon: 'mdi-search-web', destination: 'Restaurant'},
         { title: 'Map', icon: 'mdi-map', destination: 'Map' },
-        { title: 'Feed', icon: 'mdi-format-align-justify', destination: 'Feed' },
+        { title: 'Feed', icon: 'mdi-format-align-justify', destination: 'Feed'},
+        { title: 'Profile', icon: 'mdi-account', destination: 'MyProfile' },
+        { title: 'Profile', icon: 'mdi-logout', destination: 'MyProfile' },
         // 로그인 로그아웃 if 분기를 위해 나눔
       ]
       this.$store.commit('nav/setItems', listData)
@@ -98,6 +114,7 @@ export default {
     console.log("생성시 토큰 체크")
     this.checkToken()
     this.checkUserInfo()
+    this.checkMessages()
   },
   mounted() {
     // 임시데이터 생성용
