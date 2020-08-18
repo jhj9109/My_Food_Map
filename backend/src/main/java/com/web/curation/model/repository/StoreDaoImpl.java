@@ -45,4 +45,10 @@ public class StoreDaoImpl implements StoreDao{
 		return session.selectOne("review.selectrankone");
 	}
 	
+	@Override
+	public List<RestaurantsDto> searchStore(String input) {
+		return session.selectList("map.searchStore", input);
+	}
+
+	
 }

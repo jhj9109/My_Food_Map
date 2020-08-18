@@ -59,4 +59,11 @@ public class RegisterDaoImpl implements RegisterDao {
 		return session.selectOne("user.reviewnickname",userid);
 	}
 	
+	@Override
+	public List<MemberDto> searchUser(String input) throws SQLException {
+		return session.selectList("user.searchUser", input);
+	}
+	
+
+	
 }

@@ -13,4 +13,5 @@ public interface StoreDao {
 	public List<ReviewDto> searchreview(int no);
 	public int register(RestaurantsDto dto);
 	public ReviewDto rankone(int no);
+	public List<RestaurantsDto> searchStore(String input);
 }

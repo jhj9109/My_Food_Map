@@ -72,4 +72,15 @@ public class ReviewServiceImpl implements ReviewService {
 	public String resname(int resid) {
 		return reviewDao.resname(resid);
 	}
+	
+	@Override
+	public List<ReviewDto> searchReview(String input) throws Exception {
+		return reviewDao.searchReview(input);
+	}
+
+	@Override
+	public ReviewDto getReview(int reviewId) throws Exception {
+		return reviewDao.getReview(reviewId);
+	}
+
 }

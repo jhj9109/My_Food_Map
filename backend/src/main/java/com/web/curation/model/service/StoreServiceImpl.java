@@ -585,5 +585,10 @@ public class StoreServiceImpl implements StoreService{
 	public ReviewDto rankone(int no) {
 		return storeDao.rankone(no);
 	}
+	
+	@Override
+	public List<RestaurantsDto> searchStore(String input) {
+		return storeDao.searchStore(input);
+	}
 
 }

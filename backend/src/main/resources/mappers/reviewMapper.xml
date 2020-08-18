@@ -51,4 +51,12 @@
 	<select id="selectrankone" resultType="ReviewDto">
 		SELECT * FROM ssafysk.review where resid = #{no} order by reviewrank;
 	</select>
+	
+		<select id="searchReview" resultType="ReviewDto">
+		select * from review where content LIKE CONCAT('%',#{input},'%')
+	</select>
+	<select id="selectByReviewId" resultType="ReviewDto">
+		select * from review where no=#{reviewId}
+	</select>
+	
 </mapper>

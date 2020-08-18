@@ -10,7 +10,14 @@
 		values (#{no}, #{userid}, #{reviewid}, #{content}, curdate());
 	</insert>
 	<delete id="delete">
-		delete from comment
-		where no=#{no}
+		delete from comment where no=#{no}
 	</delete>
+	<select id="count" resultType="int">
+		select count(*) from comment where reviewid=#{reviewId}
+	</select>
+	
+	<!-- Notice -->
+	<update id="check">
+		update comment SET is_checked=1 where userid=#{userid} and reviewid=#{reviewid};
+	</update>
 </mapper>

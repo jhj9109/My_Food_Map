@@ -23,6 +23,10 @@
 	<select id="selectAllUsers" resultType="MemberDto">
 		select * from user
 	</select>
+		<select id="searchUser" resultType="MemberDto">
+		select * from user where nickname LIKE CONCAT('%',#{input},'%')
+	</select>
+	
 	
 	<!-- follow -->
 	<insert id="insertFollow">

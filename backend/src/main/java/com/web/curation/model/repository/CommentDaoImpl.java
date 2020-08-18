@@ -28,4 +28,14 @@ public class CommentDaoImpl implements CommentDao {
 	public void delete(CommentDto comment) {
 		session.delete("comment.delete", comment);
 	}
+
+	@Override
+	public int count(int reviewId) {
+		return session.selectOne("comment.count", reviewId);
+	}
+
+	@Override
+	public void check(CommentDto comment) {
+		session.update("comment.check", comment);
+	}
 }

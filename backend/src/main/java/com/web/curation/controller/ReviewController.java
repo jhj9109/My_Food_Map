@@ -176,4 +176,34 @@ public class ReviewController {
 			
 		}
 	}
+	
+	@ApiOperation("리뷰 검색")
+	@RequestMapping(value="/review/search", method=RequestMethod.POST)
+	public ResponseEntity<Map<String, Object>> SearchUser(String input) throws Exception {
+		try {
+			List<ReviewDto> review_list = reviewService.searchReview(input);
+			return Success(review_list);
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		return Fail("리뷰 검색 실패", HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "리뷰 조회")
+	@RequestMapping(value = "/review/{reviewId}", method = RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> ReviewDetail(@PathVariable int reviewId) throws Exception {
+		try {
+			ReviewDto review = reviewService.getReview(reviewId);
+			MemberDto writer = userService.select(review.getUserid());
+			review.setNickname(writer.getNickname());
+			System.out.println(review);
+			return Success(review);
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		return Fail("리뷰 조회 실패", HttpStatus.OK);
+	}
+
+	
+	
 }

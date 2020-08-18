@@ -2,6 +2,7 @@ package com.web.curation.model.service;
 
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
+import java.util.List;
 
 import com.web.curation.model.dto.FollowDto;
 import com.web.curation.model.dto.MemberDto;
@@ -18,6 +19,7 @@ public interface UserService {
 	public MemberDto select(int userid) throws SQLException;
 	public MemberDto selectByNickname(String nickname) throws SQLException;
 	public String email(int id) throws Exception;
+	public List<MemberDto> searchUser(String input) throws SQLException;
 	
 	// follow
 	public void insertFollow(FollowDto follow);

@@ -9,6 +9,7 @@ public class CommentDto {
 	private String content;
 	private Date create_date;
 	private String nickname;
+	private boolean is_checked;
 	
 	public int getNo() {
 		return no;
@@ -46,11 +47,18 @@ public class CommentDto {
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
+	public boolean isChecked() {
+		return is_checked;
+	}
+	public void setChecked(boolean isChecked) {
+		this.is_checked = isChecked;
+	}
 	
 	public CommentDto() {
 		super();
 	}
-	public CommentDto(int no, int userid, int reviewid, String content, Date create_date, String nickname) {
+	public CommentDto(int no, int userid, int reviewid, String content, Date create_date, String nickname,
+			boolean isChecked) {
 		super();
 		this.no = no;
 		this.userid = userid;
@@ -58,11 +66,12 @@ public class CommentDto {
 		this.content = content;
 		this.create_date = create_date;
 		this.nickname = nickname;
+		this.is_checked = isChecked;
 	}
 	
 	@Override
 	public String toString() {
 		return "CommentDto [no=" + no + ", userid=" + userid + ", reviewid=" + reviewid + ", content=" + content
-				+ ", create_date=" + create_date + ", nickname=" + nickname + "]";
+				+ ", create_date=" + create_date + ", nickname=" + nickname + ", isChecked=" + is_checked + "]";
 	}
 }

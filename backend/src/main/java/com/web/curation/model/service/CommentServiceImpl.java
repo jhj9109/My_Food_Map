@@ -24,9 +24,9 @@ public class CommentServiceImpl implements CommentService {
 		try {
 			commentDao.create(comment);
 			return true;
-		}catch(Exception e) {
+		} catch(Exception e) {
 			e.printStackTrace();
-			throw new Exception("리뷰 작성 오류");
+			throw new Exception("댓글 작성 오류");
 		}
 	}
 
@@ -35,9 +35,32 @@ public class CommentServiceImpl implements CommentService {
 		try {
 			commentDao.delete(comment);
 			return true;
-		}catch(Exception e) {
+		} catch(Exception e) {
 			e.printStackTrace();
-			throw new Exception("리뷰 삭제 오류");
+			throw new Exception("댓글 삭제 오류");
 		}
 	}
+
+	
+	@Override
+	public int count_comment(int reviewId) throws Exception {
+		try {
+			return commentDao.count(reviewId);
+		} catch(Exception e) {
+			e.printStackTrace();
+			throw new Exception("댓글 카운트 오류");
+		}
+	}
+
+	@Override
+	public boolean check_comment(CommentDto comment) throws Exception {
+		try {
+			commentDao.check(comment);
+			return true;
+		} catch(Exception e) {
+			e.printStackTrace();
+			throw new Exception("댓글 확인 오류");
+		}
+	}
+
 }

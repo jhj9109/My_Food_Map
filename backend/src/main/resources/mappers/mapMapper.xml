@@ -29,5 +29,11 @@
   	 	where lat <![CDATA[ < ]]> #{lat}+0.01 and lat <![CDATA[ > ]]> #{lat}-0.01 and lon <![CDATA[ < ]]> #{lon}+0.002 and lon <![CDATA[ > ]]> #{lon}-0.002
   	 	order by grade desc LIMIT 20;
   	</select>
+  	
+  		<select id="searchStore" resultType="RestaurantsDto">
+		select * from restaurants
+		where res_type LIKE CONCAT('%',#{input},'%') or name LIKE CONCAT('%',#{input},'%') or menu LIKE CONCAT('%',#{input},'%')
+	</select>
+  	
 </mapper>
 	

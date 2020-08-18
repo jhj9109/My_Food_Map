@@ -73,5 +73,16 @@ public class ReviewDaoImpl implements ReviewDao {
 		return session.selectOne("review.resname",resid);
 
 	}
+	
+	@Override
+	public ReviewDto getReview(int reviewId) {
+		return session.selectOne("review.selectByReviewId", reviewId);
+	}
+
+	@Override
+	public List<ReviewDto> searchReview(String input) {
+		return session.selectList("review.searchReview", input);
+	}
+
 
 }

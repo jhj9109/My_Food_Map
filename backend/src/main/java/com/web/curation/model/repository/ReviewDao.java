@@ -15,4 +15,7 @@ public interface ReviewDao {
 	public void register(ReviewDto dto);
 	public void changerank(ReviewDto dto);
 	public String resname(int resid);
+	public List<ReviewDto> searchReview(String input);
+	public ReviewDto getReview(int reviewId);
+
 }

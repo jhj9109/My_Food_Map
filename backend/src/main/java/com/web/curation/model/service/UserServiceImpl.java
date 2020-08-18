@@ -2,6 +2,7 @@ package com.web.curation.model.service;
 
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -186,4 +187,10 @@ public class UserServiceImpl implements UserService{
 			return true;
 		}
 	}
+	
+	@Override
+	public List<MemberDto> searchUser(String input) throws SQLException {
+		return userRepository.searchUser(input);
+	}
+
 }
