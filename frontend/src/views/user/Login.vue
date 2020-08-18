@@ -66,6 +66,11 @@
                   </v-form>
                 </v-card-text>
                 <v-card-actions>
+               <div class="d-flex align-end flex-column" to="/user/findpw">
+                <a href="https://kauth.kakao.com/oauth/authorize?client_id=26c62e1d4e23a67774060006069c8b84&redirect_uri=http://i3a409.p.ssafy.io:8399/login&response_type=code">
+                <img src="@/assets/kakaologin.png">
+                </a>
+             </div>
                 <v-spacer/>
                 <!-- 버튼 색상 변경 -->
                   <v-btn dark color="#F7B675"
@@ -98,17 +103,6 @@
             </v-btn>
           </div>
           <hr>
-          <div class="d-flex align-end flex-column" to="/user/findpw">
-            <v-btn
-            to="/user/findpw"
-            small
-            dark
-            color="amber"
-            class="mt-3"
-            >
-            카카오톡 로그인
-            </v-btn>
-          </div>
             </v-col>
           </v-row>
 

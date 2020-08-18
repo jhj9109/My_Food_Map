@@ -17,10 +17,7 @@ import com.google.gson.JsonParser;
  
 @Service
 public class KakaoAPI {
-	static final String redirectUrl="http://i3a409.p.ssafy.io/user/kakao";
-    //static final String redirectUrl="https://localhost:8399/user/kakao";
-
-    public String getAccessToken (String authorize_code) {
+	public String getAccessToken (String authorize_code) {
         String access_Token = "";
         String refresh_Token = "";
         String reqURL = "https://kauth.kakao.com/oauth/token";
@@ -38,8 +35,7 @@ public class KakaoAPI {
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=26c62e1d4e23a67774060006069c8b84");
-            sb.append("&redirect_uri=");
-            sb.append(redirectUrl);
+            sb.append("&redirect_uri=http://i3a409.p.ssafy.io:8399/login");
             sb.append("&code=" + authorize_code);
             bw.write(sb.toString());
             bw.flush();
@@ -89,7 +85,10 @@ public class KakaoAPI {
             conn.setRequestMethod("POST");
             
             //    요청에 필요한 Header에 포함될 내용
-            conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+            conn.addRequestProperty("Authorization", "Bearer " + access_Token);
+            
+            System.out.println("2020.08.14"+conn.getResponseMessage());
+            System.out.println(conn.getContent());
             
             int responseCode = conn.getResponseCode();
             System.out.println("responseCode : " + responseCode);

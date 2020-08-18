@@ -161,7 +161,7 @@ public class ReviewController {
 	@ApiOperation(value="리뷰 작성")
 	@RequestMapping(value="/review/create", method=RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> insertReview(@RequestBody ReviewDto review) throws Exception {
-		System.out.println(review.getRank());
+		System.out.println(review.getReviewrank());
 		
 		if(review.getImage().length()<5) {
 			review.setImage("null");

@@ -27,7 +27,7 @@ CREATE TABLE `review` (
   `userid` int DEFAULT NULL,
   `resid` int NOT NULL,
   `content` varchar(255) DEFAULT NULL,
-  `rank` int NOT NULL,
+  `reviewrank` int NOT NULL,
   `create_date` datetime DEFAULT CURRENT_TIMESTAMP,
   `image` varchar(255) DEFAULT NULL,
   `like_cnt` int DEFAULT 0,
@@ -44,8 +44,6 @@ CREATE TABLE `review` (
 --
 
 LOCK TABLES `review` WRITE;
-/*!40000 ALTER TABLE `review` DISABLE KEYS */;
-INSERT INTO `review` VALUES (1,1,2,'맛있는데 비싸서 1점 깎았습니다.',4,'2020-07-30 00:00:00',NULL,0),(2,2,2,'웨이팅 1시간 해서 짜증났는데 음식 먹는 순간 다 풀림',5,'2020-07-30 00:00:00',NULL,0),(3,3,4,'jmt,, 사장님이 쫌 불친절하시지만 너무 맛있어서 다시 갈 거예요,,,',4,'2020-07-15 00:00:00',NULL,0),(4,5,5,'음식에서 머리카락 나오고 진짜 최악;;; 절대 가지 마세요ㅜㅜㅜ',1,'2020-07-21 00:00:00',NULL,0),(5,7,3,'그냥저냥 평범ㅇㅇ 재방문 하진 않을 듯 ?',3,'2020-07-08 00:00:00',NULL,0);
 /*!40000 ALTER TABLE `review` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

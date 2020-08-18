@@ -102,9 +102,14 @@ public class StoreController {
 		public ResponseEntity<Map<String,Object>> findResByNo(@PathVariable int restaruantId) throws Exception {
 		 	System.out.println(restaruantId);
 		 	RestaurantsDto one = storeservice.search(restaruantId);
-		 	one = storeservice.image(one);
-
-	    	
+		 	// 리뷰중에 좋아요 제일 많은거 출력
+		 	ReviewDto review = storeservice.rankone(restaruantId);
+		 	
+		 	if(review == null || review.getImage().equals("")||review.getImage()==null) {
+		 		one = storeservice.image(one);	 		
+		 	}else {
+		 		one.setImage(review.getImage());
+		 	}
 			if (one==null || one.getIdrestaurants()==0) {
 				return Fail("no",HttpStatus.NO_CONTENT);
 			}

@@ -20,8 +20,8 @@
 		select * from review
 	</select>
 	 <insert id="insertreview">
-       INSERT INTO `ssafysk`.`review`( `userid` ,`resid`, `content`, `rank`, `create_date`, `image`, `like_cnt`) 
-        values (#{userid},#{resid}, #{content}, #{rank}, curdate(),#{image},0) 
+       INSERT INTO `ssafysk`.`review`( `userid` ,`resid`, `content`, `reviewrank`, `create_date`, `image`, `like_cnt`) 
+        values (#{userid},#{resid}, #{content}, #{reviewrank}, curdate(),#{image},0) 
     </insert>
 	<insert id="insertLike">
 		insert into heart(reviewid, userid) values(#{reviewid}, #{userid})
@@ -46,5 +46,9 @@
 	</update>
 	<select id="resname" resultType="String">
 		select name from restaurants where idrestaurants=#{resid}
+	</select>
+	
+	<select id="selectrankone" resultType="ReviewDto">
+		SELECT * FROM ssafysk.review where resid = #{no} order by reviewrank;
 	</select>
 </mapper>

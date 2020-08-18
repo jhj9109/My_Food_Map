@@ -89,6 +89,10 @@ export default {
 
             // 로그인 후, 가려던 페이지로 이동 or 디폴트 : Map으로 이동
             console.log("LoginData :", LoginData)
+            if(LoginData.nextRoute === null && LoginData.nextParams === null){
+              console.log("까까오 로그인")
+              router.push( {name : 'Map'})
+            }
             if (LoginData.nextRoute === 'Profile') {
               router.replace({name: LoginData.nextRoute, params: { nickname: userData.nickname }})
             } else {

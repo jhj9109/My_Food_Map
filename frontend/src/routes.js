@@ -23,7 +23,7 @@ import IndexFeed from './views/feed/IndexFeed.vue'
 import Components from './views/Components.vue'
 
 import TestVue from './views/testvue/TestVue.vue'
-
+import KakaoLogin from './views/user/kakaoLogin.vue'
 
 /*
 const checkToken = function(token){
@@ -151,6 +151,12 @@ export default [
 		path : '/test',
 		name : 'TestVue',
 		component : TestVue
+	},
+	{
+		path : '/user/login/:email/:userid/:nickname',
+		name : 'KakaoLogin',
+		component : KakaoLogin,
+		props: true
 	},
 	{
 		path : '*',

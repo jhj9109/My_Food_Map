@@ -7,7 +7,7 @@ public class ReviewDto {
 	private int userid;
 	private int resid;
 	private String content;
-	private int rank;
+	private int reviewrank;
 	private Date create_date;
 	private String image;
 	private int like_cnt;
@@ -67,11 +67,11 @@ public class ReviewDto {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public int getRank() {
-		return rank;
+	public int getReviewrank() {
+		return reviewrank;
 	}
-	public void setRank(int rank) {
-		this.rank = rank;
+	public void setReviewrank(int reviewrank) {
+		this.reviewrank = reviewrank;
 	}
 	public Date getCreate_date() {
 		return create_date;
@@ -95,7 +95,7 @@ public class ReviewDto {
 	@Override
 	public String toString() {
 		return "ReviewDto [no=" + no + ", userid=" + userid + ", resid=" + resid + ", content=" + content + ", rank="
-				+ rank + ", create_date=" + create_date + ", image=" + image + ", like_cnt=" + like_cnt + ", nickname="
+				+ reviewrank + ", create_date=" + create_date + ", image=" + image + ", like_cnt=" + like_cnt + ", nickname="
 				+ nickname + ", email=" + email + ", isLike=" + isLike + "]";
 	}
 	public ReviewDto(int no, String email, String content, int rank, Date create_date, String image, int userid) {
@@ -103,7 +103,7 @@ public class ReviewDto {
 		this.no = no;
 		this.email = email;
 		this.content = content;
-		this.rank = rank;
+		this.reviewrank = rank;
 		this.create_date = create_date;
 		this.image = image;
 		this.userid = userid;

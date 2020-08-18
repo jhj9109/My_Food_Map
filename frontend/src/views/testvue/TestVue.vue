@@ -68,7 +68,7 @@
                 
               <v-card-actions>
               <div class="d-flex align-end flex-column" to="/user/findpw">
-                <a href="https://kauth.kakao.com/oauth/authorize?client_id=26c62e1d4e23a67774060006069c8b84&redirect_uri=http://i3a409.p.ssafy.io:8399/user/kakao&response_type=code">
+                <a href="https://kauth.kakao.com/oauth/authorize?client_id=26c62e1d4e23a67774060006069c8b84&redirect_uri=http://i3a409.p.ssafy.io:8399/login&response_type=code">
                 <img src="@/assets/kakaologin.png">
                 </a>
              </div>
@@ -110,8 +110,6 @@
 
             </v-col>
           </v-row>
-
-
         </v-container>
       </v-main>
     </v-app>
@@ -149,7 +147,7 @@ export default {
         password: this.password,
         nextRoute: this.$route.query.redirect // 원래 다른 페이지에 접근하려다가, 로그인 페이지로 리다이렉트 된 경우
       }
-      this.$store.dispatch('user/login', loginData)
+      this.$store.dispatch('oauth', loginData)
     }
   },
 };

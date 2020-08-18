@@ -99,7 +99,4 @@ public class MemberDto implements Serializable {
 		this.following_cnt = following_cnt;
 	}
 
-	
-
-
 }

@@ -25,4 +25,6 @@ public interface UserService {
 	public boolean searchFollow(FollowDto follow) throws Exception;
 	
 	public String nickname(int userid);
+	
+	public boolean checkuser(String email) throws Exception;
 }
