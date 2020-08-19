@@ -5,13 +5,10 @@
       class="mx-auto my-0"
       max-width="375"
     >
-
-
-
     <v-btn  
       text
       small
-      @click="onClick">
+      @click="onClick(no)">
       {{ restaurantInfo.name }} >
     </v-btn>
     
@@ -42,7 +39,12 @@
       width="104"
       :src= "require('@/assets/' + restaurantInfo.image)">
 <br>
-          {{ doroString }} 
+      <v-btn @click="toRes" class="mb-1 mr-4" rounded dark small max-height="16px" color="black">
+          상세보기
+      </v-btn>
+      <v-btn class="mb-1 mr-4" rounded dark small max-height="16px" color="blue">
+        <a v-bind:href="this.destiny" target="/blank">길찾기</a>
+      </v-btn>
           <!-- {{ restaurantInfo.doro.slice(0, 18) }}  -->
           <!-- {{ restaurantInfo.doro ? restaurantInfo.doro.slice(0, 18) : null }}  -->
         </div>
@@ -66,13 +68,14 @@
 <script>
 import RestaurantApi from '@/api/RestaurantApi.js'
   export default {
-    name: "RestaurantCard",
+    name: "RestaurantMiniCard",
     // props: ['id', 'title', 'content', 'imgUrl', 'types', 'rank', 'likeCount', 'deal_date'],
-    props: ['restaurantInfo'],
+    props: ['restaurantInfo','index'],
     data: () => ({
       loading: false,
       percent: Math.floor(Math.random() * 100 + 1),
       showPicture: true,
+      destiny: '',
     }),
     computed: {
       doroString() {
@@ -80,12 +83,18 @@ import RestaurantApi from '@/api/RestaurantApi.js'
       }
     },
     methods: {
-			onClick(){
-        // restaurant.vue에서만 이동
+
+			onClick(no){
+        const target = document.querySelector('#scrolling-techniques-3');
+        target.scrollTop = this.index*590+500;
+        //console.log(target.scrollTop)
         if (this.$route.name === 'Restaurant') {
-          console.log(`restaurantInfo :${this.restaurantInfo}`)
+          //console.log(`restaurantInfo :${this.restaurantInfo}`)
           this.$router.push({ name: 'RestaurantReview', params: { restaurantId: this.restaurantInfo.idrestaurants}});
         }
+      },
+      toRes(){
+         this.$router.push({ name: 'RestaurantReview', params: { restaurantId: this.restaurantInfo.idrestaurants}});
       },
       toReview() {
           this.$router.push({name : 'ReviewCreate', params : { restaurantId : this.restaurantInfo.idrestaurants, restaurantName : this.restaurantInfo.name}});
@@ -93,6 +102,7 @@ import RestaurantApi from '@/api/RestaurantApi.js'
       },
       mounted() {
         this.showPicture = this.$route.name === 'RestaurantReview' ? true : false
+        this.destiny = 'https://map.kakao.com/?sName=%27+%EB%A9%80%ED%8B%B0%EC%BA%A0%ED%8D%BC%EC%8A%A4%EC%97%AD%EC%82%BC+%27&eName='+this.restaurantInfo.name;
       }
       // 미리 작성해 놓은 Like
       // onLike(){

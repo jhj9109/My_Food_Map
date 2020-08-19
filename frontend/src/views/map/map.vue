@@ -16,14 +16,15 @@
       <v-spacer></v-spacer>
       <hr style="margin-top: 10px; margin-bottom: 10px;">
 
-      <br>
 <div>
     <v-row align="center">
       <v-col class="text-center" >
-          <v-btn text large color="primary" @click="onclick">내 위치 기반 맛집</v-btn>
+      
         <!-- 모바일 페이지 기준 맵 사이즈 조정, 라운드 처리 -->
         <div id="map" class="rounded-lg" style="width:100%;height:360px;"></div>
-
+        
+        <br>
+        <hr>
       </v-col>
     </v-row>
   </div>
@@ -34,20 +35,15 @@
     <div id="map" ref="map" style="width:100%; height:100%;position:relative;overflow:hidden"></div>
   
      <div id="menu_wrap" class="bg_white">
-        <div class="option">
-            <div>
-                <form onsubmit="searchPlaces(); return false;">
-                    키워드 : <input type="text" value="역삼" id="keyword" size="6"> 
-                    <button type="submit">검색</button> 
-                </form>
-            </div>
-        </div>
+        <v-btn text large color="primary" @click="Myplace">내 위치
+        </v-btn> 
         <hr>
         <ul id="placesList"></ul>
           <RestaurantMiniCard
-      v-for="restaurant in restaurants"
+      v-for="(restaurant ,index) in restaurants"
       :key="restaurant.idrestaurants"
       :restaurantInfo="restaurant"
+      :index="index"
     />
     </div>
   </div>
@@ -94,7 +90,8 @@ export default {
             listDatao:[],
             listimage:[],
             loading: true,
-            offset: 0
+            offset: 0,
+            index : 0
         }
     },
 
@@ -122,7 +119,7 @@ export default {
             this.loading = false
         },
         
-        onclick() {
+        Myplace() {
             // this.getGeolocation()
             AppApi.getGeolocation(position => {
                 console.log("position.coords", position.coords)
@@ -144,6 +141,8 @@ export default {
                 .then(({data}) => {
                     let msg = '위치 불러오기에 실패하였습니다.';
                     if (data != null) {
+                        this.restaurants=[]
+                        this.allRestaurants=[]
                         this.allRestaurants = data;
                          for(var i=0; i<this.allRestaurants.length; i++ ){
                             this.listData[i] = this.allRestaurants[i].jibun;
@@ -160,6 +159,8 @@ export default {
                         alert(msg);
                     }
                 });
+                const target = document.querySelector('#scrolling-techniques-3');
+                target.scrollTop = 0;
         },
 
         initMap() {
@@ -240,7 +241,7 @@ export default {
                                 '    <div class="info">' + 
                                 '        <div class="title">' + 
                                     listDataaa[index] + 
-                                '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
+                                '            <div class="close" @click="closeOverlay()" title="닫기"></div>' + 
                                 '        </div>' + 
                                 '        <div class="body">' + 
                                 '            <div class="img">' +
@@ -336,6 +337,7 @@ export default {
                             ? this.clearMap()
                             : this.addScript();
                         this.clearMap();
+
                         this.fetchRestaurants();
                     } else {
                         alert(msg);
@@ -348,6 +350,8 @@ export default {
                 .then(({data}) => {
                     let msg = '동 불러오기에 실패하였습니다.';
                     if (data != null) {
+                        this.restaurants=[],
+                        this.allRestaurants=[],
                         this.allRestaurants = data;
                         console.log(this.message)
                     
@@ -359,6 +363,7 @@ export default {
                         window.kakao && window.kakao.maps
                             ? this.clearMap()
                             : this.addScript();
+
                         this.clearMap();
                         this.fetchRestaurants();
                     } else {
@@ -385,7 +390,7 @@ export default {
 
 <style>
 
-#menu_wrap {position:absolute;top:220px;left:0;bottom:220px;width:150px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
+#menu_wrap {position:absolute;top:130px;left:0;bottom:280px;width:140px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
 .bg_white {background:#fff;}
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
 #menu_wrap .option{text-align: center;}

@@ -12,7 +12,14 @@ public class MemberDto implements Serializable {
 	private boolean isFollowed;
 	private int follower_cnt;
 	private int following_cnt;
+	private String image;
 
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
 	public String getEmail() {
 		return email;
 	}
