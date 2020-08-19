@@ -1,12 +1,10 @@
 <template>
   <div>
-    <h1>Review Detail</h1>
     <ReviewCard
       class="mt-1"
       :reviewInfo="this.review"
     />
-    <p>{{ this.comment_list }}</p>
-
+    <!-- 댓글 작성 -->
     <v-card width="100%" class="pr-0 pl-0">
       <v-row>
         <v-col
@@ -14,9 +12,6 @@
           sm="8"
           md="4"
         >
-          <v-card-title class="pb-4">
-            <h2>댓글</h2>
-          </v-card-title>
           <v-card-text class="pt-4 pb-0">
             <v-form>
               <v-textarea 
@@ -32,6 +27,28 @@
           </v-card-actions>
         </v-col>
       </v-row>
+    </v-card>
+    <!-- 댓글 목록 -->
+    <v-card
+      max-width="450"
+      class="mx-auto"
+    >
+      <v-list three-line>
+        <v-subheader>댓글</v-subheader>
+        <template v-for="item in comment_list">
+          <v-list-item :key="item">
+            <!-- 프로필 사진 -->
+            <!-- <v-list-item-avatar>
+              <v-img :src="item.avatar"></v-img>
+            </v-list-item-avatar> -->
+            <v-list-item-content>
+              <v-list-item-title v-html="item.nickname"></v-list-item-title>
+              <v-list-item-subtitle v-html="item.content"></v-list-item-subtitle>
+              <v-list-item-subtitle v-html="item.create_date"></v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+        </template>
+      </v-list>
     </v-card>
   </div>
 </template>

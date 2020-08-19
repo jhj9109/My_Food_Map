@@ -65,7 +65,7 @@ public class CommentController {
 	}
 	
 	@ApiOperation("댓글 작성")
-	@RequestMapping(value="/comment/create", method=RequestMethod.POST)
+	@RequestMapping(value="/comment/create_comment", method=RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> createComment(@RequestBody CommentDto comment) throws Exception {
 		boolean check = commentService.create_comment(comment);
 		if (check) {
@@ -76,7 +76,7 @@ public class CommentController {
 	}
 	
 	@ApiOperation("댓글 삭제")
-	@RequestMapping(value="/comment/delete/{userId}", method=RequestMethod.POST)
+	@RequestMapping(value="/comment/delete_comment/{userId}", method=RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> deleteComment(@RequestBody CommentDto comment, @PathVariable("userId") int userId) throws Exception {
 		if (userId == comment.getUserid()) {
 			boolean check = commentService.delete_comment(comment);
