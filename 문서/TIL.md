@@ -823,7 +823,7 @@ window.onscroll = function() {
 
 1. ReviewDetail.vue를 만들고, routes.js에 url과 함께 저장
 2. ReviewCard.vue를 참고하여 review 상세 정보를 담을 컴포넌트를 만듦
-3. comment 목록을 담을 컴포넌트를 만듦
+3. comment 목록을 보여줌
 
 
 
