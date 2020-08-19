@@ -86,7 +86,7 @@ import RestaurantApi from '@/api/RestaurantApi.js'
 
 			onClick(no){
         const target = document.querySelector('#scrolling-techniques-3');
-        target.scrollTop = this.index*590+500;
+        target.scrollTop = this.index*530+400;
         //console.log(target.scrollTop)
         if (this.$route.name === 'Restaurant') {
           //console.log(`restaurantInfo :${this.restaurantInfo}`)
