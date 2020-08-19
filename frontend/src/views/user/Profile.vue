@@ -12,7 +12,7 @@
     />
       
     <div
-      class="text-caption text-center"
+      class="text-caption text-center mt-8"
       v-if="!allReviews"
     >
       아직 작성한 리뷰가 없습니다. <br>

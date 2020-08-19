@@ -29,7 +29,7 @@
       height="22"
       class="pt-1 pb-0 pl-0 pr-0 ml-4 mt-2 justify-start" 
       @click="onClick">
-      {{ restaurantInfo.name }} >
+      {{ restaurantInfo.name }}
     </v-btn>
     
     <v-card-text class="pb-1 pt-0">

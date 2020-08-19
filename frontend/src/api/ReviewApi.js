@@ -43,12 +43,20 @@ const requestUserReview = (profileUserId, callback, errorCallback) => {
     .catch(errorCallback)
 }
 
+const requestFeedReview = (userId, callback, errorCallback) => {
+    console.log(`FeedReview 요청 : ${hosturl}${appname}/following/${userId}`)
+    axios.get(`${hosturl}${appname}/following/${userId}`)
+    .then(callback)
+    .catch(errorCallback)
+}
+
 const ReviewApi = {
     requestLike:(data,callback,errorCallback)=>requestLike(data,callback,errorCallback),
     requestReviewList:(callback,errorCallback)=>requestReviewList(callback,errorCallback),
     requestReviewInfo:(reviewId,callback,errorCallback)=>requestReviewInfo(reviewId,callback,errorCallback),
     requestCreate:(data,callback,errorCallback)=>requestCreate(data,callback,errorCallback),
     requestUserReview:(profileUserId,callback,errorCallback)=>requestUserReview(profileUserId,callback,errorCallback),
+    requestFeedReview:(userId,callback,errorCallback)=>requestFeedReview(userId,callback,errorCallback),
 }
 
 export default ReviewApi
