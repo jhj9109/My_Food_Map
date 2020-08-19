@@ -25,7 +25,9 @@ public interface UserService {
 	public void insertFollow(FollowDto follow);
 	public void deleteFollow(FollowDto follow);
 	public boolean searchFollow(FollowDto follow) throws Exception;
-	
+	public List<Integer> getFollowingList(int userId);
+	public List<Integer> getFollowerList(int userId);
+		
 	public String nickname(int userid);
 	
 	public boolean checkuser(String email) throws Exception;

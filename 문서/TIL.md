@@ -827,6 +827,16 @@ window.onscroll = function() {
 
 
 
+### Follow list
+
+> 내가 팔로우한 회원 목록, 나를 팔로우한 회원 목록
+
+1. follow 테이블에서 로그인한 회원 userId에 해당하는 following, follower 목록(userid)을 가져옴
+2. 각 userid로 user 테이블에서 회원 목록을 가져옴
+   - password는 빈 값으로 바꿔서 넘겨줌
+
+
+
 # :honey_pot: Tip
 
 - `Ctrl + Shift + O` : 자동으로 import
@@ -836,3 +846,4 @@ window.onscroll = function() {
 - 포트 죽이기 : 포트 이미 켜져있어서 서버가 안 켜짐
   1. cmd 창 열어서 `netstat -a -o`로 죽일 포트 번호의 `PID` 확인
   2.  `taskkill /f /pid (해당 PID)`로 포트 죽이기
+- `Shift + Enter` : 다음 줄로 넘어감

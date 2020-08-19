@@ -174,6 +174,16 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
+	public List<Integer> getFollowingList(int userId) {
+		return followDao.getFollowingList(userId);
+	}
+
+	@Override
+	public List<Integer> getFollowerList(int userId) {
+		return followDao.getFollowerList(userId);
+	}
+
+	@Override
 	public String nickname(int userid) {
 		return userRepository.nickname(userid);
 	}
