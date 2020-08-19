@@ -114,11 +114,8 @@
 </template>
 
 <script>
-<<<<<<< HEAD
 import firebase from 'firebase';
-=======
 import UserApi from '@/api/UserApi.js'
->>>>>>> 8ebe443954b7baeea78258cc56bd68d1a0620680
 
 export default {
   data: () => {
