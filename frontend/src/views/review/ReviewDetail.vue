@@ -119,7 +119,9 @@ export default {
           console.log("resquestCreate 성공, res : ", res)
           if (res.data.state === 'ok') {
             alert("댓글이 작성 되었습니다.")
-            // this.$router.push( { name: 'RestaurantReview', params: {restaurantId: this.review.resid }} );
+            this.fetchCommentList()
+            this.comment.content = ''
+            this.$emit('scrollToBottom')
           } else {
             console.log("댓글 작성 실패, res.data: ", res.data)
             alert(res.data.message || "댓글 작성에 실패했습니다.")
