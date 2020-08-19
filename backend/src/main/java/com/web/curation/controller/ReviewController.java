@@ -101,7 +101,6 @@ public class ReviewController {
 				FollowDto follow = new FollowDto();
 				follow.setFollowingId(writerId);
 				follow.setFollowerId(userId);
-//				review_list.get(i).setFollowingUser(userService.searchFollow(follow));
 				dto.setReviewid(review.getNo());
 				dto.setUserid(userId);
 				review_list.get(i).setLike(reviewService.searchLike(dto));
@@ -203,7 +202,4 @@ public class ReviewController {
 		}
 		return Fail("리뷰 조회 실패", HttpStatus.OK);
 	}
-
-	
-	
 }
