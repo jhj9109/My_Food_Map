@@ -69,6 +69,13 @@ const requestNotice = (data, callback, errorCallback) => {
     .catch(errorCallback)
 }
 
+const requestNoticeCheck = (data, callback, errorCallback) => {
+    console.log(`Notice 요청 :  ${hosturl}/notice/comment/${data.userId}/${data.reviewId}`)
+    axios.get(`${hosturl}/notice/comment/${data.userId}/${data.reviewId}`)
+    .then(callback)
+    .catch(errorCallback)
+}
+
 const UserApi = {
     requestSignup:(data,callback,errorCallback)=>requestSignup(data,callback,errorCallback),
     requestLogin:(data,callback,errorCallback)=>requestLogin(data,callback,errorCallback),
@@ -78,6 +85,7 @@ const UserApi = {
     requestUserInfoByNickname:(data,callback,errorCallback)=>requestUserInfoByNickname(data,callback,errorCallback),
     requestCheckNickname:(data,callback,errorCallback)=>requestCheckNickname(data,callback,errorCallback),
     requestNotice:(data,callback,errorCallback)=>requestNotice(data,callback,errorCallback),
+    requestNoticeCheck:(data,callback,errorCallback)=>requestNoticeCheck(data,callback,errorCallback),
 }
 
 export default UserApi

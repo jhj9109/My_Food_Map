@@ -11,7 +11,7 @@
       id="scrolling-techniques-3"
       class="overflow-y-auto"
       v-scroll.self="onScroll"
-      style="max-height: 700px">
+      height=700>
       <router-view
         :userInfo="userInfo"
         :isScrollEnd="isScrollEnd"
