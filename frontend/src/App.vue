@@ -11,10 +11,11 @@
       id="scrolling-techniques-3"
       class="overflow-y-auto"
       v-scroll.self="onScroll"
-      style="max-height: 700px">
+      height=700>
       <router-view
         :userInfo="userInfo"
-        :isScrollEnd="isScrollEnd"/>
+        :isScrollEnd="isScrollEnd"
+        @scrollToBottom="onScrollToBottom"/>
     </v-sheet>
     <Footerbar
       :token="token"
@@ -29,6 +30,8 @@ import Footerbar from './components/Footerbar';
 import NavBar from './components/NavBar';
 
 import { mapState, mapMutations } from 'vuex';
+
+import UserApi from '@/api/UserApi.js'
 
 export default {
   name: 'App',
@@ -69,17 +72,25 @@ export default {
     },
     checkMessages() {
       console.log("checkMessages")
-      // API 요청 후 메세지 있다면
-      this.messages = [
-        {
-          content: '1번',
-          reviewId: 1,
-        },
-        {
-          content: '2번',
-          reviewId: 2,
-        },
-      ]
+      if (this.userInfo) {
+        UserApi.requestNotice(
+          this.userInfo.userId,
+          res => {
+            console.log("체크메시지 응답성공", res)
+            if (res.data.state === 'ok') {
+              // API 요청 후 메세지 있다면
+              this.messages = res.data.message
+            } else {
+              console.log(res)
+            }
+          },
+          err => {
+            console.error(err)
+          }
+        )
+        
+
+      }
     },
     tempSetListData() { 
       // 임시데이터 생성용
@@ -108,6 +119,10 @@ export default {
     onScrollToTop() {
       const target = document.querySelector('#scrolling-techniques-3')
       target.scrollTop = 0
+    },
+    onScrollToBottom() {
+      const target = document.querySelector('#scrolling-techniques-3')
+      target.scrollTop = 10000000
     }
   },
   created() {

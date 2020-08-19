@@ -21,7 +21,7 @@
 			<v-badge
 				@click.native.stop="drawerToggle2 = true "
 				:content="messages.length"
-				:values="messages.length"
+				:value="messages.length"
 				style="margin-top:1px"
 				overlap>
 				<v-icon>mdi-bell</v-icon>
@@ -91,7 +91,7 @@
 					<v-list-item
 						v-for="(message, i) in messages"
 						:key="i">
-						<v-list-item-content>
+						<v-list-item-content @click="onClick(message.reviewid)">
 							<v-list-item-title
 								v-text="message.content"/>
 						</v-list-item-content>
@@ -120,7 +120,7 @@
 </template>
 
 <script>
-
+import UserApi from '@/api/UserApi.js'
 export default {
   name: 'NavBar',
   props: ['userInfo', 'messages'],
@@ -153,6 +153,21 @@ export default {
         this.$router.push({name : 'Login', query: { redirect: 'MyProfile' }})
       }
 	},
-  },
+	onClick(val) {
+		UserApi.requestNoticeCheck(
+			{
+				userId: this.userInfo.userId,
+				reviewId: val
+			},
+			res => {
+				console.log(res)
+				this.$router.push({name: 'ReviewDetail', params: {reviewId: val}})
+			},
+			err => {
+				console.log(err)
+			}
+		)
+		}
+	},
 }
 </script>

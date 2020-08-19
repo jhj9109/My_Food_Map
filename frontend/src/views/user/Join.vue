@@ -25,7 +25,24 @@
             :counter="10"
             label="NickName"
             required
-          ></v-text-field>
+            focusOut
+            ref="inputNickname"
+            
+          >
+          </v-text-field>
+            <v-btn
+              small
+              absolute
+              dark
+              tile  
+              right
+              color="primary"
+              :disabled="valid"
+              @click="checkNickname">
+              중복체크
+            </v-btn>
+          <v-spacer/>
+
         </v-col>
 
         <v-col
@@ -97,12 +114,18 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import firebase from 'firebase';
+=======
+import UserApi from '@/api/UserApi.js'
+>>>>>>> 8ebe443954b7baeea78258cc56bd68d1a0620680
 
 export default {
   data: () => {
     return {
       valid: true,
+      nicknameDisable: false,
+      msg: "",
       email: "",
       nickName: "",
       password: "",
@@ -120,15 +143,16 @@ export default {
       passwordType: "password",
       passwordConfirmType: "password",
       nameRules: [
-        v => !!v || 'NickName is required',
-        v => (v && v.length <= 10) || 'Name must be less than 10 characters'
+        v => !!v || '닉네임을 입력해주세요.',
+        v => (v && v.length <= 10) || '닉네임은 10글자 이하입니다.',
+        v => !(v && v.length <= 10) || '중복검사가 필요합니다!'
       ],
       emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
+        v => !!v || '이메일을 입력해주세요.',
+        v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || '유효하지 않은 이메일입니다.'
       ],
       passwordRules: [
-        v => !!v || 'Password is required',
+        v => !!v || '패스워드를 입력해주세요.',
         // v => (v && v.length >= 8) || 'Password must be more than 8 characters'
         v => /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(v) || '비밀번호는 글자, 숫자 포함 8자 이상입니다.',
         // /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/ : 소문자1+대문자1+특문1+8자 이상
@@ -191,6 +215,28 @@ export default {
     onReset() {
         this.$refs.joinForm.reset()
     },
+    checkNickname() {
+      UserApi.requestCheckNickname(
+        this.nickName,
+        res => {
+          console.log(`응답 ${res}, ${res.data}, ${res.data.state}`)
+          if(res.data.state === 'ok') {
+            // 중복 검사 통과
+            alert("사용가능한 아이디 입니다")
+            this.nameRules = [
+              v => !!v || '닉네임을 입력해주세요.',
+              v => (v && v.length <= 10) || '닉네임은 10글자 이하입니다.'
+            ]
+          } else {
+            alert("중복된 아이디 입니다")  
+          }
+        },
+        err => {
+          console.log(err)
+          alert("중복검사 에러입니다")  
+        }
+      )
+    }
   },
   computed: {
     passwordConfirmRules() {
@@ -200,6 +246,15 @@ export default {
         return [ "비밀번호가 일치하지 않습니다." ]
       }
     },
+  },
+  watch: {
+    nickName() {
+      this.nameRules = [
+        v => !!v || '닉네임을 입력해주세요.',
+        v => (v && v.length <= 10) || '닉네임은 10글자 이하입니다.',
+        v => !(v && v.length <= 10) || '중복검사가 필요합니다!'
+      ]
+    }
   }
-};
+}
 </script>

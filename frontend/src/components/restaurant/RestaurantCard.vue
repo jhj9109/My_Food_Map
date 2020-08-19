@@ -2,94 +2,66 @@
   <div>
     <v-card
       :loading="loading"
-      class="mx-auto my-0"
-      max-width="375"
-    >
+      class="mx-auto my-2"
+      max-width="374"
+      elevation=24>
 
-    <!--
-    <div v-if="restaurantInfo.image" style="text-align: center">
-      <img @click="onClick" 
-      height="374" 
-      width="374"
-      :src= "require('@/assets/' + restaurantInfo.image)">
-    </div>
-    -->
-    <div v-if="restaurantInfo.image" style="text-align: center">
-      <img @click="onClick" 
-      v-if="!showPicture"
-      height="374" 
-      width="374"
-      :src= "require('@/assets/' + restaurantInfo.image)">
-    </div>
+      <v-img
+        class="white--text align-end"
+        @click="onClick" 
+        v-if="restaurantInfo.image && !showPicture"
+        max-height="374"
+        :src= "require('@/assets/' + restaurantInfo.image)">
+      </v-img>
 
-    <!-- <v-card-title class="pt-2 pb-0" @click="onClick"> {{ restaurantInfo.name }} </v-card-title> -->
-    <v-btn 
-      x-large 
-      text
-      height="22"
-      class="pt-1 pb-0 pl-0 pr-0 ml-4 mt-2 justify-start" 
-      @click="onClick">
-      {{ restaurantInfo.name }} >
-    </v-btn>
-    
-    <v-card-text class="pb-1 pt-0">
-      <v-row
-        align="center"
-        class="mx-0"
-      >
-          <v-rating
-            :value="restaurantInfo.grade"
-            color="amber"
-            dense
-            half-increments
-            readonly
-            size="20"
-            empty-icon
-          />
-          <div class="grey--text ml-1">{{ restaurantInfo.value }} ({{ restaurantInfo.countgrade }})</div>
-          <!-- 핀 클릭 -> 북마크 기능 -->
-          <v-icon size="24"> mdi-pin </v-icon>
-          <div
-          v-if="percent > '80'"
-          class="title green--text">
-            {{ percent }}%일치
+      <div class="d-flex justify-space-between">
+        <v-card-title class="cardTitle ml-3" @click="onClick">
+          {{ restaurantInfo.name }}
+        </v-card-title>
+        <div class="title mt-4 mr-1">
+          <div class="d-flex">
+            <v-rating
+              :value="restaurantInfo.grade"
+              color="amber"
+              dense
+              half-increments
+              readonly
+              size="20"
+              empty-icon="mdi-star-outline"/>
+              <p class="grey--text">({{ restaurantInfo.countgrade }})</p>
           </div>
-          <div
-          v-else-if="percent > '60'"
-          class="title amber--text">
-            {{ percent }}%일치
-          </div>
-          <div
-          v-else
-          class="title red--text">
-            {{ percent }}%일치
-          </div>
-        </v-row>
-        <!-- 레스토랑 정보 : {{ restaurantInfo }} -->
-        <!-- 업태명 정보 배치 수정-->
-        <!-- 주소 추가 및 디자인 수정 -->
-        <div class="subtitle-2 text-right mb-1">
-          <template v-for="type in restaurantInfo.res_type">
-              {{ type }}
-          </template> <br>
-          {{ doroString }} 
-          <!-- {{ restaurantInfo.doro.slice(0, 18) }}  -->
-          <!-- {{ restaurantInfo.doro ? restaurantInfo.doro.slice(0, 18) : null }}  -->
         </div>
-        <hr>
-        <!-- <div>{{ restaurantInfo.content }}</div> -->
+      </div>
+    
+      <v-card-text class="d-flex justify-space-between pb-1 pt-0">
+          <div
+            class="align-self-top mr-2 mb-0">
+            <p class="my-0" :class="textColor">{{ percent }}%일치</p>
+            <p class="my-0">AI 선호도입니다.</p>
+          </div>
+          <div class="subtitle-2 text-right mb-1">
+            <div>
+              <template v-for="type in restaurantInfo.res_type">
+                  {{ type }}
+              </template>
+            </div>
+            <div>
+              {{ doroString }}
+            </div> 
+          </div>
       </v-card-text>
-      <!-- 영업시간, 메뉴 위치 수정 -->
-      <v-card-text class="text-right pb-2 pt-0 pl-4 pr-4">
-        {{ restaurantInfo.time }} <br>
-        {{ restaurantInfo.menu }}
-      </v-card-text>
-    <!-- ReviewCreate -->
-    <v-row justify='end'>
-      <v-btn @click="toReview" class="mb-2 mr-6" rounded dark small color="amber">
-        <v-icon dark>mdi-pencil</v-icon>
-      </v-btn>
-    </v-row>
+      <hr class="mx-2">
+
+        <!-- 영업시간, 메뉴 위치 수정 -->
+      <div class="d-flex justify-space-between">
+        <v-card-text class="text-left pb-2 pt-0 pl-4 pr-4">
+          {{ restaurantInfo.time }} <br>
+          {{ restaurantInfo.menu }}
+        </v-card-text>
+        <v-btn @click="toReview" class="align-self-center mr-3" rounded dark small color="amber">
+          <v-icon dark>mdi-pencil</v-icon>
+        </v-btn>
+      </div>
     </v-card>
   </div>
 </template>
@@ -108,6 +80,9 @@ import RestaurantApi from '@/api/RestaurantApi.js'
     computed: {
       doroString() {
         return this.restaurantInfo.doro ? this.restaurantInfo.doro.slice(0, 18) : null
+      },
+      textColor() {
+        return this.percent > 80 ? 'green--text' : this.percent ? 'amber--text' : 'red--text'
       }
     },
     methods: {
@@ -157,4 +132,12 @@ import RestaurantApi from '@/api/RestaurantApi.js'
 .underbar_gradient {
     background: linear-gradient(270deg, #fa709a, #f6d365 100%);
 }
+.cardTitle {
+    font-family: 'NEXON Lv2 Gothic Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv2 Gothic Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    padding: 0;
+}
+
 </style>

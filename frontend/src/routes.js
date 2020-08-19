@@ -15,6 +15,7 @@ import RestaurantReview from './views/restaurant/RestaurantReview.vue'
 
 import ReviewList from './views/review/ReviewList.vue'
 import ReviewCreate from './views/review/ReviewCreate.vue'
+import ReviewDetail from './views/review/ReviewDetail.vue'
 
 import ErrorPage from './views/exception/Error.vue'
 import NotFound from './views/exception/NotFound.vue'
@@ -132,6 +133,12 @@ export default [
 		name : 'ReviewCreate',
 		component : ReviewCreate,
 		beforeEnter : requireAuth,
+	},
+	{
+		path : '/review/:reviewId',
+		name : 'ReviewDetail',
+		component : ReviewDetail,
+		// beforeEnter : requireAuth,
 	},
     {
         path : '/review',
