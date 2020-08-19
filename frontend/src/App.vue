@@ -89,11 +89,7 @@ export default {
           }
         )
         
-        this.messages = [
-          { content: '1번', reviewId: 1, },
-          { content: '2번', reviewId: 2, },
-          { content: '3번', reviewId: 3, },
-        ]
+
       }
     },
     tempSetListData() { 
