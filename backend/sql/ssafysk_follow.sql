@@ -40,8 +40,7 @@ CREATE TABLE `follow` (
 
 LOCK TABLES `follow` WRITE;
 /*!40000 ALTER TABLE `follow` DISABLE KEYS */;
-INSERT INTO `follow` VALUES (1,3,1),(2,4,1),(3,5,1),(5,3,2),(6,9,3),(7,1,4),(8,4,7),(9,5,8),(10,3,10);
-/*!40000 ALTER TABLE `follow` ENABLE KEYS */;
+
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

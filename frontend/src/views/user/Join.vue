@@ -182,7 +182,8 @@ export default {
       const singUpData = {
         nickname : this.nickName,
         email : this.email,
-        password : this.password
+        password : this.password,
+        image : this.image,
       }
       this.$store.dispatch('user/join', singUpData)
       // 라우터 push도 user/join 진행

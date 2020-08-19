@@ -97,12 +97,12 @@ public class UserSNSController {
 			}else {
 				System.out.println(" 해당 유저가 존재 하지 않습니다 ( 회원가입 진행 ) ");
 				MemberDto dto = new MemberDto();
-				 System.out.println(userInfo.get("email"));
+				System.out.println(userInfo.get("email"));
 				 
 				dto.setEmail((String)userInfo.get("email"));
 				dto.setNickname((String)userInfo.get("nickname"));
 				dto.setPassword("kakao123");
-				
+				dto.setImage((String)userInfo.get("image"));
 				userService.join(dto);
 				
 				System.out.println(" 회원가입 후 로그인 진행 중 .... ");

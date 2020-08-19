@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public void join(MemberDto member) throws Exception {
-		if(member.getImage().equals("")||member.getImage()==null) {
+		if(member.getImage()==null||member.getImage().equals("")) {
 			member.setImage("https://firebasestorage.googleapis.com/v0/b/my-food-652b5.appspot.com/o/kakao_profile.jpg?alt=media&token=f3636cc6-b8ed-415b-97ab-91c49a7bdde0");
 		}
 			userRepository.join(member);
