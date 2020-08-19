@@ -14,7 +14,8 @@
       height=700>
       <router-view
         :userInfo="userInfo"
-        :isScrollEnd="isScrollEnd"/>
+        :isScrollEnd="isScrollEnd"
+        @scrollToBottom="onScrollToBottom"/>
     </v-sheet>
     <Footerbar
       :token="token"
@@ -88,6 +89,7 @@ export default {
           }
         )
         
+
       }
     },
     tempSetListData() { 
@@ -117,6 +119,10 @@ export default {
     onScrollToTop() {
       const target = document.querySelector('#scrolling-techniques-3')
       target.scrollTop = 0
+    },
+    onScrollToBottom() {
+      const target = document.querySelector('#scrolling-techniques-3')
+      target.scrollTop = 10000000
     }
   },
   created() {
