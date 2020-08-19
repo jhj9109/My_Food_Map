@@ -49,8 +49,6 @@ public class StoreServiceImpl implements StoreService{
 		int leng = list.size();
 		boolean check = false;
 		for (int i = 0; i < leng; i++) {
-			ReviewDto review = storeservice.rankone(list.get(i).getIdrestaurants());
-		 	if(review == null || review.getImage().equals("")||review.getImage()==null) {
 		 		String temp = list.get(i).getRes_type();
 				switch (temp) {
 				case "감성주점":
@@ -309,10 +307,6 @@ public class StoreServiceImpl implements StoreService{
 				default:
 					list.get(i).setImage("resimg/korean.jpg");
 				}
-		 	}else {
-		 		list.get(i).setImage(review.getImage());		
-		 	}
-	
 		}
 		return list;
 	}
