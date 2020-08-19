@@ -19,7 +19,7 @@
       </div>
       <v-row justify="start">
         <div @click="toProfile" v-if="showNickname" class="sub-title ml-4 mr-2 mt-0">
-          {{ reviewInfo.nickname }} ><br>
+          {{ reviewInfo.nickname }}<br>
         </div>
       </v-row>
           <v-btn
