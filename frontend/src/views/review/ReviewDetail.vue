@@ -11,6 +11,7 @@
 <script>
 import ReviewCard from '@/components/review/ReviewCard'
 import ReviewApi from '@/api/ReviewApi.js'
+import CommentApi from '@/api/CommentApi.js'
 
 export default {
   name: "ReviewDetail",
@@ -20,6 +21,7 @@ export default {
   data() {
     return {
       review: '',
+      comment_list: [],
     }
   },
   methods: {
@@ -38,9 +40,24 @@ export default {
         }
       )
     },
+    fetchCommentList() {
+      const reviewId = this.$route.params.reviewId
+      CommentApi.requestList(
+        reviewId,
+        res => {
+          console.log("realSetData 콜백 성공, res:", res.data.message)
+          this.comment_list = res.data.message
+        },
+        err => {
+          console.error(err)
+          console.log("에러반응")
+        }
+      )
+    },
   },
   mounted() {
     this.fetchReview()
+    this.fetchCommentList()
   },
 }
 </script>
