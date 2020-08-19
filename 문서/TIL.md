@@ -584,8 +584,6 @@ window.onscroll = function() {
 
 > url : /review/{review_id}
 
-![image-20200808020758804](C:\Users\kyungmin\AppData\Roaming\Typora\typora-user-images\image-20200808020758804.png)
-
 - 댓글 생성 기능
 - 댓글 리스트
 - 댓글 내용 : content, user-nickname, create_date, like_cnt
@@ -774,8 +772,7 @@ window.onscroll = function() {
 ### 0. To do
 
 1. 새 comment 확인 기능 : is_checked를 true로 변경
-
-2. review detail page를 위해 review 정보 반환
+2. Review detail page를 위해 review 정보 반환
 3. like, follow 개수 세는 방식 변경 : comment 개수 세는 방식처럼
 
 
@@ -807,6 +804,26 @@ window.onscroll = function() {
 
 
 ### 3. Like, Follow - Count
+
+- 나중에 구현
+
+
+
+## 2020-08-19 :sunny:
+
+### To do
+
+- Vue로 Review 상세 페이지 만들기
+
+
+
+### Review detail page
+
+![Review_detail_page](C:\Users\kyungmin\git\s03p13a409\문서\Review_detail_page.png)
+
+1. ReviewDetail.vue를 만들고, routes.js에 url과 함께 저장
+2. ReviewCard.vue를 참고하여 review 상세 정보를 담을 컴포넌트를 만듦
+3. comment 목록을 보여줌
 
 
 

@@ -6,30 +6,13 @@
       max-width="375"
     >
 
-    <!--
-    <div v-if="restaurantInfo.image" style="text-align: center">
-      <img @click="onClick" 
-      height="374" 
-      width="374"
-      :src= "require('@/assets/' + restaurantInfo.image)">
-    </div>
-    -->
-    <div v-if="restaurantInfo.image" style="text-align: center">
-      <img @click="onClick" 
-      v-if="!showPicture"
-      height="374" 
-      width="374"
-      :src= "require('@/assets/' + restaurantInfo.image)">
-    </div>
 
-    <!-- <v-card-title class="pt-2 pb-0" @click="onClick"> {{ restaurantInfo.name }} </v-card-title> -->
-    <v-btn 
-      x-large 
+
+    <v-btn  
       text
-      height="22"
-      class="pt-1 pb-0 pl-0 pr-0 ml-4 mt-2 justify-start" 
+      small
       @click="onClick">
-      {{ restaurantInfo.name }}
+      {{ restaurantInfo.name }} >
     </v-btn>
     
     <v-card-text class="pb-1 pt-0">
@@ -46,32 +29,19 @@
             size="20"
             empty-icon
           />
-          <div class="grey--text ml-1">{{ restaurantInfo.value }} ({{ restaurantInfo.countgrade }})</div>
-          <!-- 핀 클릭 -> 북마크 기능 -->
-          <v-icon size="24"> mdi-pin </v-icon>
-          <div
-          v-if="percent > '80'"
-          class="title green--text">
-            {{ percent }}%일치
-          </div>
-          <div
-          v-else-if="percent > '60'"
-          class="title amber--text">
-            {{ percent }}%일치
-          </div>
-          <div
-          v-else
-          class="title red--text">
-            {{ percent }}%일치
-          </div>
+
         </v-row>
+        
         <!-- 레스토랑 정보 : {{ restaurantInfo }} -->
         <!-- 업태명 정보 배치 수정-->
         <!-- 주소 추가 및 디자인 수정 -->
         <div class="subtitle-2 text-right mb-1">
-          <template v-for="type in restaurantInfo.res_type">
-              {{ type }}
-          </template> <br>
+                <img @click="onClick" 
+      position="relative"
+      height="74" 
+      width="104"
+      :src= "require('@/assets/' + restaurantInfo.image)">
+<br>
           {{ doroString }} 
           <!-- {{ restaurantInfo.doro.slice(0, 18) }}  -->
           <!-- {{ restaurantInfo.doro ? restaurantInfo.doro.slice(0, 18) : null }}  -->
@@ -82,12 +52,11 @@
       <!-- 영업시간, 메뉴 위치 수정 -->
       <v-card-text class="text-right pb-2 pt-0 pl-4 pr-4">
         {{ restaurantInfo.time }} <br>
-        {{ restaurantInfo.menu }}
       </v-card-text>
     <!-- ReviewCreate -->
     <v-row justify='end'>
-      <v-btn @click="toReview" class="mb-2 mr-6" rounded dark small color="amber">
-        <v-icon dark>mdi-pencil</v-icon>
+      <v-btn @click="toReview" class="mb-1 mr-4" rounded dark small max-height="16px" color="amber">
+        <v-icon dark size="15">mdi-pencil</v-icon>
       </v-btn>
     </v-row>
     </v-card>

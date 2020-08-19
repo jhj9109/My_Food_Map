@@ -97,9 +97,9 @@ public class UserController {
 	public ResponseEntity<Map<String, Object>> checkNickname(@PathVariable String nickName) {
 		System.out.println("in Controller: " + nickName);
 		if (userService.ChecknickName(nickName)) {
-			return Success("사용가능한 닉네임입니다.");
+			return Success("ok");
 		} else {
-			return Fail("이미 사용중인 닉네임 입니다.", HttpStatus.OK);
+			return Fail("no", HttpStatus.OK);
 		}
 	}
 

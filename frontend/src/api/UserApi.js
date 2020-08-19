@@ -56,7 +56,18 @@ const requestFollow = (data, callback, errorCallback) => {
     .then(callback)
     .catch(errorCallback)
 }
-
+const requestCheckNickname = (data, callback, errorCallback) => {
+    console.log(`CheckNickname 요청 : ${hosturl}${appname}/checkNickname/${data}`)
+    axios.get(`${hosturl}${appname}/checkNickname/${data}`)
+    .then(callback)
+    .catch(errorCallback)
+}
+const requestNotice = (data, callback, errorCallback) => {
+    console.log(`Notice 요청 :  ${hosturl}/notice/comment/${data}`)
+    axios.get(`${hosturl}/notice/comment/${data}`)
+    .then(callback)
+    .catch(errorCallback)
+}
 
 const UserApi = {
     requestSignup:(data,callback,errorCallback)=>requestSignup(data,callback,errorCallback),
@@ -64,7 +75,9 @@ const UserApi = {
     requestLogout:(data,callback,errorCallback)=>requestLogout(data,callback,errorCallback),
     requestUserInfo:(data,callback,errorCallback)=>requestUserInfo(data,callback,errorCallback), 
     requestFollow:(data,callback,errorCallback)=>requestFollow(data,callback,errorCallback),
-    requestUserInfoByNickname:(data,callback,errorCallback)=>requestUserInfoByNickname(data,callback,errorCallback), 
+    requestUserInfoByNickname:(data,callback,errorCallback)=>requestUserInfoByNickname(data,callback,errorCallback),
+    requestCheckNickname:(data,callback,errorCallback)=>requestCheckNickname(data,callback,errorCallback),
+    requestNotice:(data,callback,errorCallback)=>requestNotice(data,callback,errorCallback),
 }
 
 export default UserApi
