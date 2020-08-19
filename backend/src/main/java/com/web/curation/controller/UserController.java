@@ -229,4 +229,21 @@ public class UserController {
 		return Fail("", HttpStatus.OK);
 	}
 	
+	@ApiOperation("팔로워 회원 목록")
+	@RequestMapping(value = "/user/follower/{userId}", method = RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> followerList(@PathVariable int userId) throws Exception {
+		try {			
+			List<Integer> follower_list = userService.getFollowerList(userId);
+			List<MemberDto> followers = new ArrayList<MemberDto>();
+			for (int i=0; i<follower_list.size(); i++) {
+				MemberDto follower = userService.select(follower_list.get(i));
+				follower.setPassword("");
+				followers.add(follower);
+			}
+			return Success(followers);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return Fail("", HttpStatus.OK);
+	}
 }
