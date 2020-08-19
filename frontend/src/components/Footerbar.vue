@@ -29,13 +29,7 @@
         <v-btn @click="$emit('scrollToTop')" class="ml-3" icon>
           <v-icon>mdi-arrow-up</v-icon>
         </v-btn>
-      <!-- 글쓰기 버튼 restaurant card로 옮김.
-      <v-btn :to="{ name: 'ReviewCreate' }" class="ml-2" icon >
-        <v-icon size="24px">mdi-lead-pencil</v-icon>
-      </v-btn>
-      -->
     </v-row>
-    
   </v-footer>
 </template>
 
