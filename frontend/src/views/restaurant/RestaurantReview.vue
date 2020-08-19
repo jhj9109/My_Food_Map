@@ -1,7 +1,7 @@
 <template>
   <div>
     <RestaurantCard 
-      class="mb-1"
+      class="mt-1 mb-1"
       :restaurantInfo="restaurant"
     />
     <!--
