@@ -21,7 +21,7 @@
 			<v-badge
 				@click.native.stop="drawerToggle2 = true "
 				:content="messages.length"
-				:values="messages.length"
+				:value="messages.length"
 				style="margin-top:1px"
 				overlap>
 				<v-icon>mdi-bell</v-icon>
