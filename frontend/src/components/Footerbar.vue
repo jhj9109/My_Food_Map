@@ -18,11 +18,11 @@
         <v-icon size="24px">mdi-map</v-icon>
       </v-btn>
       <!-- 피드로 가는 버튼 추가 -->
-      <v-btn class="ml-3" icon>
+      <v-btn @click="onClick('IndexFeed')" class="ml-3" icon>
         <v-icon>mdi-format-align-justify</v-icon>
       </v-btn>
       
-      <v-btn @click="onClick" class="ml-3" icon>
+      <v-btn @click="onClick('MyProfile')" class="ml-3" icon>
         <v-icon>mdi-account</v-icon>
       </v-btn>
         <!-- 맨위로 가기(재구현) -->
@@ -44,11 +44,12 @@
 export default {
   props: ['userInfo'],
   methods: {
-    onClick() {
+    onClick(toName) {
+      console.log("toName", toName)
       if (this.userInfo) {
-        this.$router.push({name : 'MyProfile', params : {nickname : this.userInfo.nickname}}) // nickname 버전으로 수정
+        this.$router.push({name : toName, params : {nickname : this.userInfo.nickname}}) // nickname 버전으로 수정
       } else {
-        this.$router.push({name : 'Login', query : { redirect : 'MyProfile'}})
+        this.$router.push({name : 'Login', query : { redirect : toName}})
       }
     }
   }
