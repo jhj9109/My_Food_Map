@@ -11,10 +11,11 @@
       id="scrolling-techniques-3"
       class="overflow-y-auto"
       v-scroll.self="onScroll"
-      style="max-height: 700px">
+      height=700>
       <router-view
         :userInfo="userInfo"
-        :isScrollEnd="isScrollEnd"/>
+        :isScrollEnd="isScrollEnd"
+        @scrollToBottom="onScrollToBottom"/>
     </v-sheet>
     <Footerbar
       :token="token"
@@ -88,11 +89,7 @@ export default {
           }
         )
         
-        this.messages = [
-          { content: '1번', reviewId: 1, },
-          { content: '2번', reviewId: 2, },
-          { content: '3번', reviewId: 3, },
-        ]
+
       }
     },
     tempSetListData() { 
@@ -122,6 +119,10 @@ export default {
     onScrollToTop() {
       const target = document.querySelector('#scrolling-techniques-3')
       target.scrollTop = 0
+    },
+    onScrollToBottom() {
+      const target = document.querySelector('#scrolling-techniques-3')
+      target.scrollTop = 10000000
     }
   },
   created() {

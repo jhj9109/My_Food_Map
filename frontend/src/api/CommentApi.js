@@ -20,8 +20,8 @@ const requestList = (reviewId, callback, errorCallback) => {
 // }
 const requestCreate = (data, callback, errorCallback) => {
     refreshAuthToken()
-    console.log("Create 요청 : ", hosturl+appname+'/create', data)
-    axios.post(hosturl+appname+'/create', data)
+    console.log("Create 요청 : ", hosturl+appname+'/create_comment', data)
+    axios.post(hosturl+appname+'/create_comment', data)
     .then(callback)
     .catch(errorCallback)
 }
