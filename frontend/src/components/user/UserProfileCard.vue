@@ -143,29 +143,29 @@ export default {
                 this.$emit('onFollow')
             }
         },
-        onFollow(follower) {
+        onFollow(target) {
           if(!this.userInfo) {
-            this.$router.push({name:'Login', query:{ redirect: 'Profile', params: {nickname: follower.nickname}}})
+            this.$router.push({name:'Login', query:{ redirect: 'Profile', params: {nickname: target.nickname}}})
           }
-          console.log(follower)
-          console.log('팔로우', this.userInfo.userId, follower.id)
+          console.log(target)
+          console.log('팔로우', this.userInfo.userId, target.id)
           UserApi.requestFollow(
             {
               followerId: this.userInfo.userId,
-              followingId: follower.userid,
+              followingId: target.userid,
               no: 0
             },
             res => {
               console.log("res 정보")
               console.log(res)  
               if (res.data.message === "Following -1") {
-                follower.follower -= 1
-                follower.followed = false
+                target.follower -= 1
+                target.followed = false
                 console.log("팔로워 숫자 -1")
               } else {
                 if (res.data.message === "Following +1") {
-                  follower.follower += 1
-                  follower.followed = true
+                  target.follower += 1
+                  target.followed = true
                   console.log("팔로워 숫자 +1")
                 } else {
                   // 성공외 다른 응답이 왔을때 동작
@@ -213,6 +213,13 @@ export default {
             )
         }
     },
+    watch: {
+        dialog(val) {
+            if (!val) {
+                this.$emit('onDialog')
+            }
+        }
+    }
 }
 </script>
 
