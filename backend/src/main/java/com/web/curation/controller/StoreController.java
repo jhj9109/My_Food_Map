@@ -96,28 +96,24 @@ public class StoreController {
   		return Success(list);
 	}
     
-  	
-	 @ApiOperation(value = "restaurants 번호로 idrestaurants 의 정보를 찾는다.", response = List.class)
-		@RequestMapping(value = "/restaurants/{restaruantId}", method = RequestMethod.GET)
-		public ResponseEntity<Map<String,Object>> findResByNo(@PathVariable int restaruantId) throws Exception {
-		 	//System.out.println(restaruantId);
-		 	RestaurantsDto one = storeservice.search(restaruantId);
-		 	// 리뷰중에 좋아요 제일 많은거 출력
-		 	ReviewDto review = storeservice.rankone(restaruantId);
-		 	
-		 	if(review == null || review.getImage().equals("")||review.getImage()==null) {
-		 		one = storeservice.image(one);	 		
-		 	}else {
-		 		one.setImage(review.getImage());
-		 	}
-			if (one==null || one.getIdrestaurants()==0) {
-				return Fail("no",HttpStatus.NO_CONTENT);
-			}
-			return Success(one);
+	@ApiOperation(value = "restaurants 번호로 idrestaurants 의 정보를 찾는다.", response = List.class)
+	@RequestMapping(value = "/restaurants/{restaruantId}", method = RequestMethod.GET)
+	public ResponseEntity<Map<String,Object>> findResByNo(@PathVariable int restaruantId) throws Exception {
+	 	System.out.println(restaruantId);
+	 	RestaurantsDto one = storeservice.search(restaruantId);
+	 	// 리뷰중에 좋아요 제일 많은거 출력
+	 	ReviewDto review = storeservice.rankone(restaruantId);
+	 	
+	 	if(review == null || review.getImage().equals("")||review.getImage()==null) {
+	 		one = storeservice.image(one);	 		
+	 	}else {
+	 		one.setImage(review.getImage());
+	 	}
+		if (one==null || one.getIdrestaurants()==0) {
+			return Fail("no",HttpStatus.NO_CONTENT);
 		}
 		return Success(one);
 	}
-    
     
     @ApiOperation(value = "음식점 list를 받아온다 ", response = List.class)
    	@RequestMapping(value = "/restaurants", method = RequestMethod.POST)
