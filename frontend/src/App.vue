@@ -84,7 +84,7 @@ export default {
     onScroll(e) {
       const s = e.target
       const maxLevel = s.scrollHeight - 700 // 최대 깊이
-      const margin = 20 // 여유 마진
+      const margin = 100 // 여유 마진
       // console.log(`현재위치:${s.scrollTop}, 스크롤 높이:${s.scrollHeight}, maxlevel:${maxLevel}`)
       if (maxLevel - margin - s.scrollTop < 0) {
         this.isScrollEnd = true
