@@ -79,7 +79,7 @@ public class NoticeController {
 	public ResponseEntity<Map<String, Object>> CheckNewComment(@PathVariable("userId") int userId, @PathVariable("reviewId") int reviewId) throws Exception {
 		try {
 			List<CommentDto> comment_list = commentService.comment_list(reviewId);
-			System.out.println(comment_list);
+			//System.out.println(comment_list);
 			for (int i=0; i<comment_list.size(); i++) {
 				if (comment_list.get(i).isChecked() == false) {
 					commentService.check_comment(comment_list.get(i));

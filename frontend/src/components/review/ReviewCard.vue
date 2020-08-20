@@ -18,7 +18,7 @@
     <v-card-text class="pl-3">
       <!-- 추후 식당 이름으로 바꿔야할 부분, 식당 이름이 넘어오지 않아 수정 못함 -->      <!-- 개인 페이지에서는 식당, 식당 페이지에서는 리뷰를 보여줘야할듯 -->
       <v-btn @click="onLike" icon class="float-right mr-3">
-        {{ reviewInfo.like_cnt }} like <v-icon :color="reviewInfo.like ? 'red' : ''">mdi-heart</v-icon>
+        {{ reviewInfo.like_cnt }}<v-icon :color="reviewInfo.like ? 'red' : ''">mdi-heart</v-icon>
       </v-btn>
       <div @click="toRestaurant" v-if="!showNickname" class="ml-1 title">
         {{ reviewInfo.resname }}<br>

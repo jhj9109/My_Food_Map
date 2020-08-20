@@ -75,13 +75,18 @@
              
                 <v-spacer/>
                 <!-- 버튼 색상 변경 -->
-                  <v-btn to="/user/join" tile small class="mt-1"> 회원가입 </v-btn>
-          
                   <v-spacer/>
                   <!-- 버튼 색상 변경 -->
                   <v-btn dark color="#F7B675" tile @click="onLogin"> 로그인 </v-btn>
                 </v-card-actions>
+                <v-card-actions>
+                    <v-spacer/>
+                   <v-btn to="/user/join" tile  class="mt-1"> 회원가입 </v-btn>
+    
+                </v-card-actions>
+                
               </v-card>
+              
           <!-- 버튼 크기 및 하단 배열 변경 -->
     
             </v-col>

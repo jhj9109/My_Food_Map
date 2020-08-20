@@ -43,13 +43,11 @@ public class MailUtil {
 		Random rnd = new Random();
 		
 		for(int i=0; i<10; i++) {
-			int randomIdx = rnd.nextInt(3);//0~2중 뽑는다 . 이메일 인증 코드 같은경우 대소문자와 숫자로만 이루어지게 했다.
+			int randomIdx = rnd.nextInt(3);
 			
-			if(randomIdx==0) {//0은 a-z
+			if(randomIdx==0) {
 				sbuff.append((char)((int) rnd.nextInt(26) +97));
-			}else if(randomIdx==1) {//1은 A-Z
-				sbuff.append((char) ((int) rnd.nextInt(26) +65));
-			}else if(randomIdx==2) {//2는 0-9
+			}else if(randomIdx==2) {
 				sbuff.append(rnd.nextInt(26));
 			}
 		}
