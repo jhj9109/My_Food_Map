@@ -119,61 +119,8 @@ import UserApi from '@/api/UserApi.js'
 export default {
     data() {
         return {
-            // follower_list: [],
-            follower_list: [
-                {
-                "userid": 3,
-                "email": "qwerty@qwerty.com",
-                "password": "",
-                "nickname": "쿼티",
-                "create_date": "2014-07-24T00:00:00",
-                "follower_cnt": 1,
-                "following_cnt": 3,
-                "followed": false
-                },
-                {
-                "userid": 4,
-                "email": "foodfighter@naver.com",
-                "password": "",
-                "nickname": "foodfighter",
-                "create_date": "2020-06-23T00:00:00",
-                "follower_cnt": 1,
-                "following_cnt": 2,
-                "followed": false
-                },
-                {
-                "userid": 5,
-                "email": "east@ssafy.com",
-                "password": "",
-                "nickname": "king",
-                "create_date": "2019-03-12T00:00:00",
-                "follower_cnt": 0,
-                "following_cnt": 2,
-                "followed": false
-                }
-            ],
-            following_list: [
-                {
-                "userid": 4,
-                "email": "foodfighter@naver.com",
-                "password": "",
-                "nickname": "foodfighter",
-                "create_date": "2020-06-23T00:00:00",
-                "follower_cnt": 1,
-                "following_cnt": 2,
-                "followed": false
-                },
-                {
-                "userid": 2,
-                "email": "asdf@naver.com",
-                "password": "",
-                "nickname": "wowow",
-                "create_date": "2010-07-20T00:00:00",
-                "follower_cnt": 3,
-                "following_cnt": 0,
-                "followed": false
-                }
-            ],
+            follower_list: [],
+            following_list: [],
             dialog: false,
         }
     },
