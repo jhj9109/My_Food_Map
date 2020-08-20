@@ -112,6 +112,8 @@ public class StoreController {
 		if (one==null || one.getIdrestaurants()==0) {
 			return Fail("no",HttpStatus.NO_CONTENT);
 		}
+		return Success(one);
+	}
 
     
     @ApiOperation(value = "음식점 list를 받아온다 ", response = List.class)
