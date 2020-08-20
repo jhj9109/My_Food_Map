@@ -121,9 +121,10 @@
 
 <script>
 import UserApi from '@/api/UserApi.js'
+import { mapState } from 'vuex'
 export default {
   name: 'NavBar',
-  props: ['userInfo', 'messages'],
+  props: ['userInfo'],
   data() {
       return {
 		drawerToggle: false,
@@ -143,7 +144,10 @@ export default {
 				query: { redirect: this.$route.name, params: this.$route.params}
 			},
 		]
-  	}
+	  },
+	  ...mapState({
+		  messages: state => state.user.messages,    
+	  })
   },
   methods: {
     toProfile() {

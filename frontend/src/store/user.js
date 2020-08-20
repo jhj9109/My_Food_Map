@@ -9,7 +9,8 @@ export default {
 
   state: {
     userInfo : null,
-    token : false 
+    token : false,
+    messages: null,
   },
     
   mutations: {
@@ -20,6 +21,9 @@ export default {
     setToken (state, token) {
       state.token = token
       console.log('스토어의 setToken 성공', state.token)
+    },
+    setMessages (state, messages) {
+      state.messages = messages
     }
   },
     
@@ -137,7 +141,25 @@ export default {
       // Logout은 로컬의 데이터는 모두 지웠으므로, 통신 에러가 나더라도 Login페이지로 이동
       // 히스토리 남기지 않기 위해 replace 사용
       router.replace({name : 'Login', query: {redirect: logoutData.nextRoute, params: logoutData.nextParams}})
-    },      
+    },
+    getMessages({state, commit}){
+      console.log(`getMessages 시작`)
+      if (state.userInfo) {
+        UserApi.requestNotice(
+          state.userInfo.userId,
+          res => {
+            console.log(`getMessages 응답 res: ${res.data.state}, ${res.data.message.length}`)
+            if (res.data.state === 'ok') {
+              // API 요청 후 메세지 있다면
+              commit('setMessages', res.data.message)
+            }
+          },
+          err => {
+            console.error(err)
+          }
+        )
+      }
+    }
   },
 }
   

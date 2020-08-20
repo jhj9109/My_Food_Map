@@ -38,7 +38,6 @@ export default {
   data() {
     return {
     isScrollEnd: false,
-    messages: [],
     }
   },
   components: {
@@ -68,28 +67,6 @@ export default {
       if(!this.userInfo && !!localStorage.userInfo) {
         const storageObj = JSON.parse(localStorage.getItem('userInfo'))
         this.setUserInfo(storageObj)
-      }
-    },
-    checkMessages() {
-      console.log("checkMessages")
-      if (this.userInfo) {
-        UserApi.requestNotice(
-          this.userInfo.userId,
-          res => {
-            console.log("체크메시지 응답성공", res)
-            if (res.data.state === 'ok') {
-              // API 요청 후 메세지 있다면
-              this.messages = res.data.message
-            } else {
-              console.log(res)
-            }
-          },
-          err => {
-            console.error(err)
-          }
-        )
-        
-
       }
     },
     tempSetListData() { 
@@ -129,7 +106,6 @@ export default {
     console.log("생성시 토큰 체크")
     this.checkToken()
     this.checkUserInfo()
-    this.checkMessages()
   },
   mounted() {
     // 임시데이터 생성용
