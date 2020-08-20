@@ -1,7 +1,9 @@
 package com.web.curation.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -207,5 +209,41 @@ public class UserController {
 			userService.insertFollow(dto);
 			return Success("Following +1");
 		}
+	}
+	
+	@ApiOperation("팔로잉 회원 목록")
+	@RequestMapping(value = "/user/following/{userId}", method = RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> followingList(@PathVariable int userId) throws Exception {
+		try {			
+			List<Integer> following_list = userService.getFollowingList(userId);
+			List<MemberDto> followings = new ArrayList<MemberDto>();
+			for (int i=0; i<following_list.size(); i++) {
+				MemberDto following = userService.select(following_list.get(i));
+				following.setPassword("");
+				followings.add(following);
+			}
+			return Success(followings);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return Fail("", HttpStatus.OK);
+	}
+	
+	@ApiOperation("팔로워 회원 목록")
+	@RequestMapping(value = "/user/follower/{userId}", method = RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> followerList(@PathVariable int userId) throws Exception {
+		try {			
+			List<Integer> follower_list = userService.getFollowerList(userId);
+			List<MemberDto> followers = new ArrayList<MemberDto>();
+			for (int i=0; i<follower_list.size(); i++) {
+				MemberDto follower = userService.select(follower_list.get(i));
+				follower.setPassword("");
+				followers.add(follower);
+			}
+			return Success(followers);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return Fail("", HttpStatus.OK);
 	}
 }

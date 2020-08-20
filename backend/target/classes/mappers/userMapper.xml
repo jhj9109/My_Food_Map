@@ -53,6 +53,12 @@
 	<update id="minusUserFollowingCnt">
 		update user set following_cnt=following_cnt-1 where userid=#{followerId}
 	</update>
+	<select id="selectFollowing" resultType="int">
+		select followingId from follow where followerId=#{userId}
+	</select>
+	<select id="selectFollower" resultType="int">
+		select followerId from follow where followingId=#{userId}
+	</select>
 	
 	<select id="reviewnickname" resultType="String">
 		select nickname from user where userid=#{userid}

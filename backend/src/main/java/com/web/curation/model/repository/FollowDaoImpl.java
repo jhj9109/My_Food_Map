@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.web.curation.model.dto.FollowDto;
+import com.web.curation.model.dto.MemberDto;
 
 @Repository
 public class FollowDaoImpl implements FollowDao {
@@ -34,4 +35,15 @@ public class FollowDaoImpl implements FollowDao {
 		FollowDto dto = session.selectOne("user.searchFollow", follow);
 		return dto;
 	}
+
+	@Override
+	public List<Integer> getFollowingList(int userId) {
+		return session.selectList("user.selectFollowing", userId);
+	}
+
+	@Override
+	public List<Integer> getFollowerList(int userId) {
+		return session.selectList("user.selectFollower", userId);
+	}
+
 }
