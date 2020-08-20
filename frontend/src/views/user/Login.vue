@@ -76,8 +76,6 @@
                 <v-spacer/>
                 <!-- 버튼 색상 변경 -->
                   <v-btn to="/user/join" tile small class="mt-1"> 회원가입 </v-btn>
-                  <v-btn to="/user/findpw" tile small class="mt-1"> ID/비밀번호 찾기 </v-btn>
-
           
                   <v-spacer/>
                   <!-- 버튼 색상 변경 -->

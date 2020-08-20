@@ -17,7 +17,7 @@
     >
       아직 작성한 리뷰가 없습니다. <br>
       당신의 이야기를 나눠주세요 <br>
-      <v-btn :to="{ name: 'ReviewCreate' }" class="align-center" color="amber" icon>
+      <v-btn :to="{ name: 'Restaurant' }" class="align-center" color="amber" icon>
         <v-icon size="26px">mdi-lead-pencil</v-icon>
       </v-btn>
     </div>
@@ -137,7 +137,7 @@ export default {
     },
     onFollow() {
       if(!this.userInfo) {
-        this.$router.push({name: 'Login'})
+        this.$router.push({name:'Login', query:{ redirect: 'Profile', params: {nickname: this.profileUser.nickname}}})
       }
       // console.log('팔로우', this.userInfo.userId, this.profileUser.id)
       UserApi.requestFollow(
