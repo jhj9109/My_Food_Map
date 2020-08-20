@@ -114,6 +114,7 @@ public class StoreController {
 		}
 		return Success(one);
 	}
+
     
     @ApiOperation(value = "음식점 list를 받아온다 ", response = List.class)
    	@RequestMapping(value = "/restaurants", method = RequestMethod.POST)

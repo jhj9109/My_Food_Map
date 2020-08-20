@@ -3,6 +3,7 @@
     <UserProfileCard
       :profileUser="profileUser"
       @onFollow="onFollow"
+      @onDialog="fetchProfile"
       :userInfo="userInfo"
     />
     <ReviewCard
