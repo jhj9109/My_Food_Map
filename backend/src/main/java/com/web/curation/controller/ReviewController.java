@@ -63,7 +63,7 @@ public class ReviewController {
 			for (int i=0; i<review_list.size();i++) {
 				LikeDto dto = new LikeDto();
 				ReviewDto review = review_list.get(i);
-				System.out.println(review);
+				//System.out.println(review);
 				int temp = review.getResid();
 				int temp2 = review.getUserid();
 				
@@ -76,7 +76,7 @@ public class ReviewController {
 				review_list.get(i).setLike(reviewService.searchLike(dto));
 				review_list.get(i).setComment_cnt(commentService.count_comment(review.getNo()));
 			}
-			System.out.println();
+			//System.out.println();
 			return Success(review_list);
 		} catch (Exception e){
 			e.printStackTrace();
@@ -93,7 +93,7 @@ public class ReviewController {
 			for (int i=0; i<review_list.size();i++) {
 				LikeDto dto = new LikeDto();
 				ReviewDto review = review_list.get(i);
-				System.out.println(review);
+				//System.out.println(review);
 				int temp = review.getResid();
 				int temp2 = review.getUserid();
 				
@@ -150,7 +150,7 @@ public class ReviewController {
 	@ApiOperation(value="좋아요")
 	@RequestMapping(value="/review/like", method=RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> insertUser(@RequestBody LikeDto like) throws Exception {
-		System.out.println(like);
+		//System.out.println(like);
 		boolean check = reviewService.searchLike(like);
 		if (check) {
 			reviewService.deleteLike(like);
@@ -164,12 +164,12 @@ public class ReviewController {
 	@ApiOperation(value="리뷰 작성")
 	@RequestMapping(value="/review/create", method=RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> insertReview(@RequestBody ReviewDto review) throws Exception {
-		System.out.println(review.getReviewrank());
+		//System.out.println(review.getReviewrank());
 		
 		if(review.getImage().length()<5) {
 			review.setImage("null");
 		}
-		System.out.println(review);
+		//System.out.println(review);
 		boolean check2=reviewService.register(review);
 		if (check2) {
 			reviewService.changerank(review);
@@ -199,7 +199,7 @@ public class ReviewController {
 			ReviewDto review = reviewService.getReview(reviewId);
 			MemberDto writer = userService.select(review.getUserid());
 			review.setNickname(writer.getNickname());
-			System.out.println(review);
+			//System.out.println(review);
 			return Success(review);
 		} catch (Exception e){
 			e.printStackTrace();

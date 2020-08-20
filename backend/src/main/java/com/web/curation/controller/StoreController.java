@@ -96,7 +96,6 @@ public class StoreController {
   		return Success(list);
 	}
     
-  	
 	@ApiOperation(value = "restaurants 번호로 idrestaurants 의 정보를 찾는다.", response = List.class)
 	@RequestMapping(value = "/restaurants/{restaruantId}", method = RequestMethod.GET)
 	public ResponseEntity<Map<String,Object>> findResByNo(@PathVariable int restaruantId) throws Exception {
@@ -116,7 +115,6 @@ public class StoreController {
 		return Success(one);
 	}
     
-    
     @ApiOperation(value = "음식점 list를 받아온다 ", response = List.class)
    	@RequestMapping(value = "/restaurants", method = RequestMethod.POST)
    	public ResponseEntity<Map<String,Object>> listRes() throws Exception {
@@ -125,4 +123,22 @@ public class StoreController {
    		list = storeservice.image(list);
    		return Success(list);
    	}
+
+    @ApiOperation("식당 검색")
+	@RequestMapping(value="/restaurants/search", method=RequestMethod.POST)
+	public ResponseEntity<Map<String, Object>> SearchStore(@RequestBody RestaurantsDto dto) throws Exception {
+		try {
+			System.out.println(dto.getDoro());
+			List<RestaurantsDto> store_list = storeservice.searchStore(dto.getDoro());
+			store_list = storeservice.meter(store_list);
+			store_list = storeservice.image(store_list);
+			System.out.println(store_list);
+			
+			return Success(store_list);
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		return Fail("식당 검색 실패", HttpStatus.OK);
+	}
+
 }

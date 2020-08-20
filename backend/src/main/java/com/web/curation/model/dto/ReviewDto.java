@@ -16,6 +16,7 @@ public class ReviewDto {
 	private String email;
 	private boolean isLike;
 	private int comment_cnt;
+	private String user_image;
 	
 	public int getComment_cnt() {
 		return comment_cnt;

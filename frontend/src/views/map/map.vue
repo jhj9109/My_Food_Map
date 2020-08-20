@@ -8,7 +8,7 @@
         flat
         style="margin-top: 5px;"
         hide-details
-        label="맛집 혹은 유저 정보를 검색해보세요."
+        label="키워드로 검색해보세요."
         type="text"
         >      
       </v-text-field>
@@ -390,7 +390,7 @@ export default {
 
 <style>
 
-#menu_wrap {position:absolute;top:130px;left:0;bottom:280px;width:140px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
+#menu_wrap {position:absolute;top:130px;left:0;bottom:550px;width:140px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
 .bg_white {background:#fff;}
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
 #menu_wrap .option{text-align: center;}
