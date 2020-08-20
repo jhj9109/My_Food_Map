@@ -8,7 +8,7 @@
 
 ![ㅎㅇ](https://img.shields.io/badge/SSAFY-My--Food--Map-red)
 
-![platform](https://img.shields.io/badge/platform-web-green?style=plastic)![](https://img.shields.io/badge/Server-AWS-yellow?style=plastic)![](https://img.shields.io/badge/version-1.0.0-green?style=plastic) ![](https://img.shields.io/badge/Language-Java,JavaScrpict, Html, css-critical?style=plastic) ![](https://img.shields.io/badge/database-Mysql-green?style=plastic)![](https://img.shields.io/badge/Framework-Spring boot-brightgreen?style=plastic)![style](https://img.shields.io/badge/library-Vue--Vuetify-blue?style=plastic)
+![platform](https://img.shields.io/badge/platform-web-green?style=plastic)![](https://img.shields.io/badge/Server-AWS-yellow?style=plastic)![](https://img.shields.io/badge/version-1.0.0-green?style=plastic) ![](https://img.shields.io/badge/Language-Java,JavaScrpict,Html,css-critical?style=plastic) ![](https://img.shields.io/badge/database-Mysql-green?style=plastic)![](https://img.shields.io/badge/Framework-Springboot-brightgreen?style=plastic)![style](https://img.shields.io/badge/library-Vue--Vuetify-blue?style=plastic)
 
 ##               
 
@@ -24,37 +24,37 @@
 
  1 .  **내 위치 기반 맛집 소개 및 지역별 맛집 검색**
 
-![image-20200821014514809](/uploads/ea4dfd3ecce40ab9116c2a8fcf606f2e/image-20200821014514809.png)                           ![image-20200821014609874](/uploads/1060c951cd79e10cf3f6f0ada321beb6/image-20200821014609874.png)
+   ![1](/uploads/3baf7823e34ee2f3e0ced40b0ee433bf/1.PNG)
 
 
 
 2. **높은 평점 순서의 맛집소개 , 가까운 거리 순서로 맛집 소개**
 
-<img src="C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20200821015010282.png" alt="image-20200821015010282" style="zoom:50%;" />                        <img src="C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20200821015059329.png" alt="image-20200821015059329" style="zoom:50%;" />                 
+![2](/uploads/184a332b7a641dcc668542d8f528e1f0/2.PNG)                                         
 
 
 
 3. **로그인 및 음식점 리뷰작성**
 
-<img src="C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20200821015514284.png" alt="image-20200821015514284" style="zoom:33%;" />             <img src="C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20200821015541198.png" alt="image-20200821015541198" style="zoom:33%;" />           <img src="C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20200821015731003.png" alt="image-20200821015731003" style="zoom:33%;" /> 
+![3](/uploads/b69a1fe8031f32e6882dac27dc99231f/3.PNG)                         
 
 
 
 4.  **사용자 별 리뷰 검색 및 팔로잉 팔로워 기능**
 
-<img src="C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20200821020354083.png" alt="image-20200821020354083" style="zoom:50%;" />                      <img src="C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20200821020415714.png" alt="image-20200821020415714" style="zoom:50%;" />
+![4](/uploads/0ee09c6446f3a393de7c4719649d18f3/4.PNG)                      
 
 
 
 5.  **맛집 리뷰 피드 기능 및 좋아요 기능**
 
-<img src="C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20200821020544083.png" alt="image-20200821020544083" style="zoom:50%;" />                     <img src="C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20200821020941445.png" alt="image-20200821020941445" style="zoom:50%;" />
+![5](/uploads/b944825b70c1fbe18120e0c16ef65919/5.PNG)                     
 
 
 
 6.  **리뷰 댓글 작성 및 알림 기능**
 
-<img src="C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20200821020736002.png" alt="image-20200821020736002" style="zoom:50%;" />                           <img src="C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20200821020759873.png" alt="image-20200821020759873" style="zoom:50%;" />
+![6](/uploads/f7ec48bb8a42eb1455dcbfff397aca12/6.PNG)                           
 
 
 
@@ -64,7 +64,7 @@
 
 
 
-![image-20200821021409357](C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20200821021409357.png)
+![image-20200821021409357](/uploads/72984182ebe22931e2a6017c33a1714a/image-20200821021409357.png)
 
 
 
@@ -72,9 +72,7 @@
 
 ### 🏳️ 사용 기술 스택 🏳️
 
-------
-
-![image-20200821021518479](C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20200821021518479.png)
+![image-20200821021518479](/uploads/b56476344f0ad28533a5ac4696874872/image-20200821021518479.png)
 
 
 
@@ -82,17 +80,13 @@
 
 ## **💡**  구현 계획  **💡** 
 
-![image-20200821021709598](C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20200821021709598.png)
+![image-20200821021709598](/uploads/6559ea45e25ea06739c681133cedea11/image-20200821021709598.png)
 
 
 
 
 
-### **💡** 
-
-[문 서 ]: https://lab.ssafy.com/s03-webmobile2-sub3/s03p13a409/tree/master/%EB%AC%B8%EC%84%9C
-
-###  **💡**
+### **💡**  [문서](https://lab.ssafy.com/s03-webmobile2-sub3/s03p13a409/tree/master/%EB%AC%B8%EC%84%9C )  **💡**
 
 ------
 
