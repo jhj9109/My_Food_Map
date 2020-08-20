@@ -46,7 +46,7 @@
                             >
                                 <!-- 프로필 사진 -->
                                 <v-list-item-avatar>
-                                    <v-img :src="follower.avatar"></v-img>
+                                    <v-img :src="follower.image"></v-img>
                                 </v-list-item-avatar>
                                 <v-list-item-content>
                                     <v-list-item-title v-text="follower.nickname"></v-list-item-title>
@@ -62,7 +62,7 @@
                             >
                                 <!-- 프로필 사진 -->
                                 <v-list-item-avatar>
-                                    <v-img :src="following.avatar"></v-img>
+                                    <v-img :src="following.image"></v-img>
                                 </v-list-item-avatar>
                                 <v-list-item-content>
                                     <v-list-item-title v-text="following.nickname"></v-list-item-title>
