@@ -39,7 +39,7 @@ export default {
   props: ['userInfo'],
   methods: {
     onClick(toName) {
-      console.log("toName", toName)
+      // console.log("toName", toName)
       if (this.userInfo) {
         this.$router.push({name : toName, params : {nickname : this.userInfo.nickname}}) // nickname 버전으로 수정
       } else {

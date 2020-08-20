@@ -7,7 +7,7 @@ export default {
   mutations: {
     setItems (state, data) {
       state.items = data
-      console.log("setItems 작동")
+      // console.log("setItems 작동")
     }
   },
 }

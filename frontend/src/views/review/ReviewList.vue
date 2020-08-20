@@ -83,16 +83,16 @@ export default {
 			ReviewApi.requestLike(
 				data,
 				res => {
-					console.log("likeReview 응답리턴 res: ", res)
+					// console.log("likeReview 응답리턴 res: ", res)
 					if(res.status === 'ok') {
-						console.log("like 성공")
+						// console.log("like 성공")
 						//로컬에 반영 or store 반영
 					} else {
-						console.log("like 실패")
+						// console.log("like 실패")
 					}
 				},
 				err => {
-					console.error(err)
+					// console.error(err)
 					// 따로 에러에 대한 라우팅 진행하지 않는것이 UX적으로 올바라보임
 				}
 			)

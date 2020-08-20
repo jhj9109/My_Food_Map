@@ -31,38 +31,38 @@ export default {
       // this.getGeolocation()
       AppApi.getGeolocation(
         position => {
-            console.log("position.coords", position.coords)
+            // console.log("position.coords", position.coords)
             this.lat = position.coords.latitude
             this.lon = position.coords.longitude
           },
         err => {
-          console.log("err", err)
+          // console.log("err", err)
           if (err.code === 1) {
-            console.log("사용자가 위치 정보 제공에 거부하였습니다.")
+            // console.log("사용자가 위치 정보 제공에 거부하였습니다.")
           } else {            
-            console.log('기타 에러입니다')
+            // console.log('기타 에러입니다')
             }
         }
       )
     },
     getGeolocation(){
-      console.log("navigator.geolocation: ",navigator.geolocation)
+      // console.log("navigator.geolocation: ",navigator.geolocation)
       if (!navigator.geolocation) {
-        console.log("Geolocation 사용 불가 합니다.")
+        // console.log("Geolocation 사용 불가 합니다.")
       } else {
-        console.log("Geolocation 사용 가능 합니다.")
+        // console.log("Geolocation 사용 가능 합니다.")
         navigator.geolocation.getCurrentPosition(
           position => {
-            console.log("position", position)
-            console.log("position.coords.latitude", position.coords.latitude)
-            console.log("position.coords.longitude", position.coords.longitude)
+            // console.log("position", position)
+            // console.log("position.coords.latitude", position.coords.latitude)
+            // console.log("position.coords.longitude", position.coords.longitude)
           },
           err => {
-            console.log("err", err)
+            // console.log("err", err)
         	  if (err.code === 1) {
-              console.log("사용자가 위치 정보 제공에 거부하였습니다.")
+              // console.log("사용자가 위치 정보 제공에 거부하였습니다.")
             } else {            
-              console.log('기타 에러입니다')
+              // console.log('기타 에러입니다')
               }
           }
         )
