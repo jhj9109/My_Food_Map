@@ -38,11 +38,13 @@ methods:{
       ReviewApi.requestFeedReview(
         this.userInfo.userId,
         res => {
-          this.allReviews = res.data.message // 전체 데이터
-          this.reviews = []
-          console.log("FeedReview 리스트 데이터 바인딩 성공", this.allReviews)
-          this.complete = false
-          this.fetchReviews()
+          if (res.data.message.length) {
+            this.allReviews = res.data.message // 전체 데이터
+            this.reviews = []
+            console.log("FeedReview 리스트 데이터 바인딩 성공", this.allReviews)
+            this.complete = false
+            this.fetchReviews()
+          }
         },
         err => {
           console.error(err)
