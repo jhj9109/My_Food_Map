@@ -4,7 +4,7 @@
 
 #  README
 
-![image-20200821013904319](C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20200821013904319.png)
+![image-20200821013904319](/uploads/20b921a5b788d8716fe584bcbe1ee5fd/image-20200821013904319.png)
 
 ![ㅎㅇ](https://img.shields.io/badge/SSAFY-My--Food--Map-red)
 
@@ -18,13 +18,13 @@
 
 ###  🔥 서비스 및 기능 소개 🔥
 
-![image-20200821014248707](C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20200821014248707.png)
+![image-20200821014248707](/uploads/74e9e71292ba9df784246bea20874d2c/image-20200821014248707.png)
 
 
 
  1 .  **내 위치 기반 맛집 소개 및 지역별 맛집 검색**
 
-<img src="C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20200821014514809.png" alt="image-20200821014514809" style="zoom: 50%;" />                           <img src="C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20200821014609874.png" alt="image-20200821014609874" style="zoom:50%;" />
+![image-20200821014514809](/uploads/ea4dfd3ecce40ab9116c2a8fcf606f2e/image-20200821014514809.png)                           ![image-20200821014609874](/uploads/1060c951cd79e10cf3f6f0ada321beb6/image-20200821014609874.png)
 
 
 
