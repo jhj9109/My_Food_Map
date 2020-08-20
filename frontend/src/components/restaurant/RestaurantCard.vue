@@ -41,6 +41,9 @@
           </div>
           <div class="subtitle-2 text-right mb-1">
             <div>
+              <p v-if="restaurantInfo.meter">
+                  거리 : {{restaurantInfo.meter}} M
+              </p>
               <template v-for="type in restaurantInfo.res_type">
                   {{ type }}
               </template>
@@ -71,7 +74,7 @@ import RestaurantApi from '@/api/RestaurantApi.js'
   export default {
     name: "RestaurantCard",
     // props: ['id', 'title', 'content', 'imgUrl', 'types', 'rank', 'likeCount', 'deal_date'],
-    props: ['restaurantInfo'],
+    props: ['restaurantInfo','userInfo'],
     data: () => ({
       loading: false,
       percent: Math.floor(Math.random() * 100 + 1),
@@ -88,8 +91,8 @@ import RestaurantApi from '@/api/RestaurantApi.js'
     methods: {
 			onClick(){
         // restaurant.vue에서만 이동
-        if (this.$route.name === 'Restaurant') {
-          // console.log(`restaurantInfo :${this.restaurantInfo}`)
+        if (this.$route.name === 'Restaurant' || this.$route.name === 'Map') {
+          console.log(`restaurantInfo :${this.restaurantInfo}`)
           this.$router.push({ name: 'RestaurantReview', params: { restaurantId: this.restaurantInfo.idrestaurants}});
         }
       },

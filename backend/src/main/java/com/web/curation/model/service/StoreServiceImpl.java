@@ -1,5 +1,7 @@
 package com.web.curation.model.service;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -581,5 +583,61 @@ public class StoreServiceImpl implements StoreService{
 	public List<RestaurantsDto> searchStore(String input) {
 		return storeDao.searchStore(input);
 	}
+
+
+	@Override
+	public List<RestaurantsDto> meter(List<RestaurantsDto> list) {
+		
+		for(int i=0; i<list.size(); i++) {
+			double distanceMeter =
+		            distance(37.512, 127.031, list.get(i).getLon(), list.get(i).getLat(), "meter");
+			list.get(i).setMeter(Math.floor(distanceMeter));
+			//System.err.println(distanceMeter);
+		}
+		Collections.sort(list, new Comparator<RestaurantsDto>() {
+			@Override
+			public int compare(RestaurantsDto o1, RestaurantsDto o2) {
+				 long thisBits = Double.doubleToLongBits(o1.getMeter());
+				 long anotherBits = Double.doubleToLongBits(o2.getMeter());// TODO Auto-generated method stub
+				
+				 return (thisBits == anotherBits ?  0 : // Values are equal
+			            (thisBits < anotherBits ? -1 : // (-0.0, 0.0) or (!NaN, NaN)
+			             1));  
+			}
+		
+		});
+		return list;
+	}
+	
+	private static double distance(double lat1, double lon1, double lat2, double lon2, String unit) {
+        
+        double theta = lon1 - lon2;
+        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515;
+         
+        if (unit == "kilometer") {
+            dist = dist * 1.609344;
+        } else if(unit == "meter"){
+            dist = dist * 1609.344;
+        }
+ 
+        return (dist);
+    }
+     
+ 
+    private static double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+     
+    private static double rad2deg(double rad) {
+        return (rad * 180 / Math.PI);
+    }
+
+
+
+
 
 }

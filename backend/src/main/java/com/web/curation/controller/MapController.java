@@ -36,7 +36,7 @@ public class MapController {
     @ApiOperation(value = "모든 sido의 정보를 반환한다.", response = List.class)
 	@RequestMapping(value = "/map/sido", method = RequestMethod.POST)
 	public ResponseEntity<List<SidoCodeDTO>> selectsido() throws Exception {
-    	System.out.println("반환해보자");
+    	//System.out.println("반환해보자");
     	List<SidoCodeDTO> list = mapService.selectSido();
 
 		if (list.isEmpty()) {
@@ -48,8 +48,8 @@ public class MapController {
     @ApiOperation(value = "모든 gugun의 정보를 반환한다.", response = List.class)
     @RequestMapping(value = "/map/gugun", method = RequestMethod.POST)
     public ResponseEntity<List<SidoCodeDTO>> selectgugun(@RequestBody SidoCodeDTO dto) throws Exception {
-    	System.out.println(dto.getSido_name());
-    	System.out.println(dto.getSido_code());
+    	//System.out.println(dto.getSido_name());
+    	//System.out.println(dto.getSido_code());
     	List<SidoCodeDTO> list = mapService.selectGugun(dto.getSido_code());
     	if (list.isEmpty()) {
     		return new ResponseEntity(HttpStatus.NO_CONTENT);
@@ -60,10 +60,10 @@ public class MapController {
     @ApiOperation(value = "모든 dong의 정보를 반환한다.", response = List.class)
     @RequestMapping(value = "/map/dong", method = RequestMethod.POST)
     public ResponseEntity<List<SidoCodeDTO>> selectdong(@RequestBody SidoCodeDTO dto) throws Exception {
-    	System.out.println(dto.getGugun_code());
-    	System.out.println("무선일이야");
+    	//System.out.println(dto.getGugun_code());
+    	//System.out.println("무선일이야");
     	List<SidoCodeDTO> list = mapService.selectDong(dto.getGugun_code());
-    	System.out.println();
+    	//System.out.println();
     	if (list.isEmpty()) {
     		return new ResponseEntity(HttpStatus.NO_CONTENT);
     	}
@@ -73,11 +73,11 @@ public class MapController {
     @ApiOperation(value = "모든 음식점의 정보를 반환한다.", response = List.class)
     @RequestMapping(value = "/map/list", method = RequestMethod.POST)
     public ResponseEntity<List<RestaurantsDto>> selectStore(@RequestBody SidoCodeDTO dto) throws Exception {
-    	System.out.println(dto.getDong());
+    	//System.out.println(dto.getDong());
     	List<RestaurantsDto> sublist = mapService.selectStore(dto.getDong());
-    	System.out.println(sublist.size());
+    	//System.out.println(sublist.size());
     	List<RestaurantsDto> list = sublist.subList(0,20);
-    	System.out.println(list);
+    	//System.out.println(list);
     	list = storeservice.image(list);
     	if (list.isEmpty()) {
     		return new ResponseEntity(HttpStatus.NO_CONTENT);
@@ -90,9 +90,9 @@ public class MapController {
     public ResponseEntity<List<RestaurantsDto>> selectMyStore(@RequestBody RestaurantsDto dto) throws Exception {
     	
     	List<RestaurantsDto> list = mapService.selectMyStore(dto);
-    	System.out.println(list);
+    	//System.out.println(list);
     	list = storeservice.image(list);
-    	System.out.println(list);
+    	//System.out.println(list);
     	if (list.isEmpty()) {
     		return new ResponseEntity(HttpStatus.NO_CONTENT);
     	}

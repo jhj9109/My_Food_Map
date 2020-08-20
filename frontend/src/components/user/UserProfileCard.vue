@@ -115,7 +115,7 @@
                 </v-card>
             </v-dialog>
         </v-card-actions>
-
+ 
     </v-card>
 
 </template>
@@ -130,21 +130,6 @@ export default {
           follower_list: [],
           following_list: [],
           dialog: false,
-           messages: [
-        {
-          title: '이용약관 보기',
-          lorem: '제1장 총칙 제1조(목적)본 약관은 MY FOOD DIARY (이하 "당 사이트")가 제공하는 모든 서비스(이하 "서비스")의 이용조건 및 절차, 이용자와 당 사이트의 권리, 의무, 책임사항과 기타 필요한 사항을 규정함을 목적으로 합니다. 제2조(약관의 효력과 변경) ① 당 사이트는 귀하가 본 약관 내용에 동의하는 것을 조건으로 귀하에게 서비스를 제공할 것이며, 귀하가 본 약관의 내용에 동의하는 경우, 당 사이트의 서비스 제공 행위 및 귀하의 서비스 사용 행위에는 본 약관이 우선적으로 적용됩니다.② 당 사이트는 본 약관을 변경할 수 있으며, 변경된 약관은 당 사이트 내에 공지함으로써 이용자가 직접 확인하도록 할 것입니다. 약관을 변경할 경우에는 적용일자 및 변경사유를 명시하여 당 사이트 내에 그 적용일자 30일 전부터 공지합니다. 약관 변경 공지 후 이용자가 명시적으로 약관 변경에 대한 거부의사를 표시하지 아니하면, 이용자가 약관에 동의한 것으로 간주합니다. 이용자가 변경된 약관에 동의하지 아니하는 경우, 이용자는 본인의 회원등록을 취소(회원탈퇴)할 수 있습니다.'
-
-        },
-        {
-          title: '공지사항 보기',
-          lorem: '공지사항 입니다.'
-          
-        },
-        {
-          title: '사용자 작성 리뷰',
-        },
-      ],
     }
     },
     props: [ 'profileUser', 'userInfo'],
@@ -158,29 +143,29 @@ export default {
                 this.$emit('onFollow')
             }
         },
-        onFollow(follower) {
+        onFollow(target) {
           if(!this.userInfo) {
-            this.$router.push({name:'Login', query:{ redirect: 'Profile', params: {nickname: follower.nickname}}})
+            this.$router.push({name:'Login', query:{ redirect: 'Profile', params: {nickname: target.nickname}}})
           }
-          console.log(follower)
-          console.log('팔로우', this.userInfo.userId, follower.id)
+          console.log(target)
+          console.log('팔로우', this.userInfo.userId, target.id)
           UserApi.requestFollow(
             {
               followerId: this.userInfo.userId,
-              followingId: follower.userid,
+              followingId: target.userid,
               no: 0
             },
             res => {
               console.log("res 정보")
               console.log(res)  
               if (res.data.message === "Following -1") {
-                follower.follower -= 1
-                follower.followed = false
+                target.follower -= 1
+                target.followed = false
                 console.log("팔로워 숫자 -1")
               } else {
                 if (res.data.message === "Following +1") {
-                  follower.follower += 1
-                  follower.followed = true
+                  target.follower += 1
+                  target.followed = true
                   console.log("팔로워 숫자 +1")
                 } else {
                   // 성공외 다른 응답이 왔을때 동작
@@ -228,6 +213,13 @@ export default {
             )
         }
     },
+    watch: {
+        dialog(val) {
+            if (!val) {
+                this.$emit('onDialog')
+            }
+        }
+    }
 }
 </script>
 

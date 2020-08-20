@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public MemberDto login(String email, String pw) throws Exception {
 		MemberDto info = userRepository.selectByEmail(email);
-		System.out.println("info " + info);
+		//System.out.println("info " + info);
 		if (info != null && info.getPassword().equals(pw)) {
 			return info;
 		} else {
@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService{
 					finduser.setPassword(user.getNewpassword());
 				}
 			}
-			System.out.println(finduser);
+			//System.out.println(finduser);
 			userRepository.update(finduser);
 			return "OK";
 		} catch (Exception e) {

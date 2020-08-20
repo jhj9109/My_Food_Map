@@ -97,21 +97,23 @@ public class StoreController {
 	}
     
   	
-	@ApiOperation(value = "restaurants 번호로 idrestaurants 의 정보를 찾는다.", response = List.class)
-	@RequestMapping(value = "/restaurants/{restaruantId}", method = RequestMethod.GET)
-	public ResponseEntity<Map<String,Object>> findResByNo(@PathVariable int restaruantId) throws Exception {
-	 	System.out.println(restaruantId);
-	 	RestaurantsDto one = storeservice.search(restaruantId);
-	 	// 리뷰중에 좋아요 제일 많은거 출력
-	 	ReviewDto review = storeservice.rankone(restaruantId);
-	 	
-	 	if(review == null || review.getImage().equals("")||review.getImage()==null) {
-	 		one = storeservice.image(one);	 		
-	 	}else {
-	 		one.setImage(review.getImage());
-	 	}
-		if (one==null || one.getIdrestaurants()==0) {
-			return Fail("no",HttpStatus.NO_CONTENT);
+	 @ApiOperation(value = "restaurants 번호로 idrestaurants 의 정보를 찾는다.", response = List.class)
+		@RequestMapping(value = "/restaurants/{restaruantId}", method = RequestMethod.GET)
+		public ResponseEntity<Map<String,Object>> findResByNo(@PathVariable int restaruantId) throws Exception {
+		 	//System.out.println(restaruantId);
+		 	RestaurantsDto one = storeservice.search(restaruantId);
+		 	// 리뷰중에 좋아요 제일 많은거 출력
+		 	ReviewDto review = storeservice.rankone(restaruantId);
+		 	
+		 	if(review == null || review.getImage().equals("")||review.getImage()==null) {
+		 		one = storeservice.image(one);	 		
+		 	}else {
+		 		one.setImage(review.getImage());
+		 	}
+			if (one==null || one.getIdrestaurants()==0) {
+				return Fail("no",HttpStatus.NO_CONTENT);
+			}
+			return Success(one);
 		}
 		return Success(one);
 	}
@@ -125,4 +127,22 @@ public class StoreController {
    		list = storeservice.image(list);
    		return Success(list);
    	}
+
+    @ApiOperation("식당 검색")
+	@RequestMapping(value="/restaurants/search", method=RequestMethod.POST)
+	public ResponseEntity<Map<String, Object>> SearchStore(@RequestBody RestaurantsDto dto) throws Exception {
+		try {
+			System.out.println(dto.getDoro());
+			List<RestaurantsDto> store_list = storeservice.searchStore(dto.getDoro());
+			store_list = storeservice.meter(store_list);
+			store_list = storeservice.image(store_list);
+			System.out.println(store_list);
+			
+			return Success(store_list);
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		return Fail("식당 검색 실패", HttpStatus.OK);
+	}
+
 }

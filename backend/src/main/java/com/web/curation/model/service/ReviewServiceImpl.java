@@ -39,10 +39,10 @@ public class ReviewServiceImpl implements ReviewService {
 	public boolean searchLike(LikeDto like) {
 		LikeDto dto = reviewDao.searchLike(like);
 		if (dto==null) { 
-			System.out.println("조아요 누르기 시도해보자!");
+			//System.out.println("조아요 누르기 시도해보자!");
 			return false;
 		} else {
-			System.out.println("조아요 빼기 시도해보자!");
+			//System.out.println("조아요 빼기 시도해보자!");
 			return true;
 		}
 	}

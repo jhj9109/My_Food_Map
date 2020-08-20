@@ -1,4 +1,5 @@
 <template>
+  <v-card height="56px">
   <v-footer
     fixed
     flat
@@ -6,8 +7,7 @@
     dark
     width="100%"
     height="56%"
-    class="backgroud_gradient"
-  >
+    class="backgroud_gradient">
     
     <v-row justify='center'>
       <v-btn :to="{ name: 'Restaurant' }" icon>
@@ -31,6 +31,7 @@
         </v-btn>
     </v-row>
   </v-footer>
+  </v-card>
 </template>
 
 <script>

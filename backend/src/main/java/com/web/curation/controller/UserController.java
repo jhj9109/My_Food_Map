@@ -97,7 +97,7 @@ public class UserController {
 	@ApiOperation("닉네임 중복확인")
 	@GetMapping("/user/checkNickname/{nickName}")
 	public ResponseEntity<Map<String, Object>> checkNickname(@PathVariable String nickName) {
-		System.out.println("in Controller: " + nickName);
+		//System.out.println("in Controller: " + nickName);
 		if (userService.ChecknickName(nickName)) {
 			return Success("ok");
 		} else {
@@ -189,7 +189,7 @@ public class UserController {
 		if (dto == null) {
 			return new ResponseEntity(HttpStatus.NO_CONTENT);
 		} else {
-			System.out.println(dto);
+			//System.out.println(dto);
 			return new ResponseEntity<MemberDto>(dto, HttpStatus.OK);			
 		}
 	}
