@@ -102,7 +102,11 @@
                     <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
                   </v-card-actions>
                 </v-card>
+<<<<<<< HEAD
             </v-dialog>
+=======
+              </v-dialog>
+>>>>>>> dc9751d2d3d6b9ef444f64b097043a809b04a3d9
         </v-card-actions>
         <v-btn
             v-if="!userInfo || profileUser.id !== userInfo.userId"
