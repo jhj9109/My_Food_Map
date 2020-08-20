@@ -128,9 +128,14 @@ public class StoreController {
 
     @ApiOperation("식당 검색")
 	@RequestMapping(value="/restaurants/search", method=RequestMethod.POST)
-	public ResponseEntity<Map<String, Object>> SearchStore(String input) throws Exception {
+	public ResponseEntity<Map<String, Object>> SearchStore(@RequestBody RestaurantsDto dto) throws Exception {
 		try {
-			List<RestaurantsDto> store_list = storeservice.searchStore(input);
+			System.out.println(dto.getDoro());
+			List<RestaurantsDto> store_list = storeservice.searchStore(dto.getDoro());
+			store_list = storeservice.meter(store_list);
+			store_list = storeservice.image(store_list);
+			System.out.println(store_list);
+			
 			return Success(store_list);
 		} catch (Exception e){
 			e.printStackTrace();

@@ -9,8 +9,16 @@
         hide-details
         style="margin-top: 5px;"
         label="원하는 키워드로 검색해보세요."
-      ></v-text-field>  
+      ></v-text-field>
+      <v-select
+          :items="items"
+          label="키워드 선택"
+          v-model="select"
+          dense
+          solo
+        ></v-select>
       <v-spacer></v-spacer>
+   
     <!-- 기존 주소 설정 삭제 / 검색 창 추가 -->
     <RestaurantCard
       v-for="restaurant in restaurants"
@@ -25,6 +33,7 @@
 <script>
 import RestaurantCard from '@/components/restaurant/RestaurantCard';
 import RestaurantApi from '@/api/RestaurantApi.js'
+import http from '../../util/http-common';
 
 export default {
   name: 'Restaurant',
@@ -40,6 +49,8 @@ export default {
       offset: 0,
       complete: true,
       message: '',
+      select: '',
+      items: ['음식점명', '지역명','거리순'],
     }
   },
   methods: {
@@ -50,7 +61,6 @@ export default {
         res => {
           this.allRestaurants = res.data.message
           this.restaurants = []
-          console.log("레스토랑 전체 데이터 받기 성공", this.allRestaurants)
           this.complete = false
           this.fetchRestaurants()
         },
@@ -70,6 +80,7 @@ export default {
       this.loading = false
     },
     search() {
+      if(this.select==='지역명'){
             http
                 .post('/map/list', {dong: this.message})
                 .then(({data}) => {
@@ -78,14 +89,35 @@ export default {
                         this.restaurants=[],
                         this.allRestaurants=[],
                         this.allRestaurants = data;
-                        console.log(this.message)
-
+                        
                         this.fetchRestaurants();
                     } else {
                         alert(msg);
                     }
                 }
               );
+      }
+      else{
+        console.log(this.message)
+         http
+                .post('/restaurants/search', {
+                  doro: this.message,
+                  })
+                .then(({data}) => {
+                    let msg = '동 불러오기에 실패하였습니다.';
+                    if (data != null) {
+                        this.restaurants=[],
+                        this.allRestaurants=[],
+                        this.allRestaurants = data.message;
+                        console.log(data)
+                        this.fetchRestaurants();
+                    } else {
+                        alert(msg);
+                    }
+                }
+              );
+
+      }
    },
   },
   watch: {

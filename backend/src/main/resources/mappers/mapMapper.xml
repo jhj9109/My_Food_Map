@@ -32,7 +32,7 @@
   	
   	<select id="searchStore" resultType="RestaurantsDto">
 		select * from restaurants
-		where res_type LIKE CONCAT('%',#{input},'%') or name LIKE CONCAT('%',#{input},'%') or menu LIKE CONCAT('%',#{input},'%')
+		where name LIKE CONCAT('%',#{input},'%') or res_type LIKE CONCAT('%',#{input},'%')
 	</select>
   	
 </mapper>

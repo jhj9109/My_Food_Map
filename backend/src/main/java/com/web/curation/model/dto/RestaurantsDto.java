@@ -28,8 +28,16 @@ public class RestaurantsDto {
 	private String image;
 	private float lat;
 	private float lon;
+	private double Meter;
+	
 
 
+	public double getMeter() {
+		return Meter;
+	}
+	public void setMeter(double meter) {
+		Meter = meter;
+	}
 	public String getImage() {
 		return image;
 	}
@@ -127,7 +135,7 @@ public class RestaurantsDto {
 		return "RestaurantsDto [idrestaurants=" + idrestaurants + ", res_type=" + res_type + ", menu=" + menu
 				+ ", store_number=" + store_number + ", jibun=" + jibun + ", name=" + name + ", code=" + code
 				+ ", time=" + time + ", doro=" + doro + ", grade=" + grade + ", countgrade=" + countgrade + ", typeint="
-				+ typeint + ", img=" + image + ", lat=" + lat + ", lon=" + lon + "]";
+				+ typeint + ", img=" + image + ", lat=" + lat + ", lon=" + lon + "]"+ "meter:" +Meter;
 	}
 	public RestaurantsDto(int idrestaurants, String res_type, String menu, String store_number, String jibun,
 			String name, int code, String time, String doro, float grade, int countgrade, int typeint) {

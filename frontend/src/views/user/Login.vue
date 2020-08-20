@@ -65,25 +65,20 @@
 
                   </v-form>
                 </v-card-text>
-                <v-card-actions>
-
-                <a href="https://kauth.kakao.com/oauth/authorize?client_id=26c62e1d4e23a67774060006069c8b84&redirect_uri=http://i3a409.p.ssafy.io:8399/login&response_type=code">
-                <img src="@/assets/kakaologin.png">
-                </a>
-
-
-             
-                <v-spacer/>
-                <!-- 버튼 색상 변경 -->
-                  <v-spacer/>
-                  <!-- 버튼 색상 변경 -->
-                  <v-btn dark color="#F7B675" tile @click="onLogin"> 로그인 </v-btn>
+         <v-card-actions class="d-flex justify-space-between ml-1 mr-1">
+                  <v-btn :to="{ name: 'Join' }" tile class="mt-1">
+                    회원가입
+                  </v-btn>
+                  <a
+                    href="https://kauth.kakao.com/oauth/authorize?client_id=26c62e1d4e23a67774060006069c8b84&redirect_uri=http://i3a409.p.ssafy.io:8399/login&response_type=code"
+                  >
+                    <v-img width="150" src="@/assets/kakaologin.png" />
+                  </a>
+                  <v-btn dark color="#F7B675" tile @click="onLogin">
+                    로그인
+                  </v-btn>
                 </v-card-actions>
-                <v-card-actions>
-                    <v-spacer/>
-                   <v-btn to="/user/join" tile  class="mt-1"> 회원가입 </v-btn>
-    
-                </v-card-actions>
+
                 
               </v-card>
               

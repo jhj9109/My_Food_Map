@@ -26,6 +26,7 @@ com\web\curation\model\dto\FollowDto.class
 com\web\curation\model\service\MapService.class
 com\web\curation\model\repository\CommentDao.class
 com\web\curation\controller\MapController.class
+com\web\curation\model\service\StoreServiceImpl$1.class
 com\web\curation\model\dto\LikeDto.class
 com\web\curation\controller\UserTestController.class
 com\web\curation\model\service\ReviewService.class
