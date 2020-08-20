@@ -68,6 +68,20 @@ const requestNotice = (data, callback, errorCallback) => {
     .then(callback)
     .catch(errorCallback)
 }
+const requestFollowerList = (data, callback, errorCallback) => {
+    refreshAuthToken()
+    console.log("Follower list 요청 :", hosturl+appname+'/follower/', data)
+    axios.post(hosturl+appname+`/follower/${data}`)
+    .then(callback)
+    .catch(errorCallback)
+}
+const requestFollowingList = (data, callback, errorCallback) => {
+    refreshAuthToken()
+    console.log("Follower list 요청 :", hosturl+appname+'/following/', data)
+    axios.post(hosturl+appname+`/following/${data}`)
+    .then(callback)
+    .catch(errorCallback)
+}
 
 const requestNoticeCheck = (data, callback, errorCallback) => {
     console.log(`Notice 요청 :  ${hosturl}/notice/comment/${data.userId}/${data.reviewId}`)
@@ -85,6 +99,8 @@ const UserApi = {
     requestUserInfoByNickname:(data,callback,errorCallback)=>requestUserInfoByNickname(data,callback,errorCallback),
     requestCheckNickname:(data,callback,errorCallback)=>requestCheckNickname(data,callback,errorCallback),
     requestNotice:(data,callback,errorCallback)=>requestNotice(data,callback,errorCallback),
+    requestFollowerList:(data,callback,errorCallback)=>requestFollowerList(data,callback,errorCallback),
+    requestFollowingList:(data,callback,errorCallback)=>requestFollowingList(data,callback,errorCallback),
     requestNoticeCheck:(data,callback,errorCallback)=>requestNoticeCheck(data,callback,errorCallback),
 }
 
