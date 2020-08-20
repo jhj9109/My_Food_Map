@@ -94,7 +94,7 @@ import RestaurantApi from '@/api/RestaurantApi.js'
         }
       },
       toReview() {
-          this.$router.push({name : 'ReviewCreate', params : { restaurantId : this.restaurantInfo.idrestaurants, restaurantName : this.restaurantInfo.name}});
+          this.$router.push({name : 'ReviewCreate', params : { restaurantId : this.restaurantInfo.idrestaurants, restaurantName : this.restaurantInfo.name, resimage : this.restaurantInfo.image}});
         } 
       },
       mounted() {
