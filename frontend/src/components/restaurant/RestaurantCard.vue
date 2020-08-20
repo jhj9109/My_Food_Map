@@ -41,6 +41,9 @@
           </div>
           <div class="subtitle-2 text-right mb-1">
             <div>
+              <p v-if="restaurantInfo.meter">
+                  거리 : {{restaurantInfo.meter}} M
+              </p>
               <template v-for="type in restaurantInfo.res_type">
                   {{ type }}
               </template>

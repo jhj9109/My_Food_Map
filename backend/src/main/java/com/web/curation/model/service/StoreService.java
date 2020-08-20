@@ -15,6 +15,7 @@ public interface StoreService {
 	public int register(RestaurantsDto dto);
 	public List<RestaurantsDto> image(List<RestaurantsDto> list);
 	public RestaurantsDto image(RestaurantsDto dto);
+	public List<RestaurantsDto> meter(List<RestaurantsDto> list);
 	public List<RestaurantsDto> searchStore(String input);
 
 }
