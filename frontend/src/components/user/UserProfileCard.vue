@@ -106,7 +106,7 @@
                 small
                 color=#F7B675
             >
-                팔로우
+                {{ profileUser.followed ? '언팔로우' : '팔로우' }}
             </v-btn>
         </v-layout>
     </v-card>
