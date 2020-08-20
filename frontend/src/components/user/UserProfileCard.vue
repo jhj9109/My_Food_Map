@@ -92,8 +92,10 @@
                 small
                 color=grey
             >
-                팔로우
-         </v-btn>
+                {{ profileUser.followed ? '언팔로우' : '팔로우' }}
+            </v-btn>
+        </v-layout>
+
         <!-- 팔로워/팔로잉 디자인 수정 팔로우 했을 경우 팔로우 취소로 변경-->
          <v-row justify="center">
       <v-expansion-panels popout>
