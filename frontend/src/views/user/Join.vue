@@ -4,7 +4,7 @@
       <v-row>
         <v-col
           cols="12"
-          md="4"
+          md="12"
         >
           <v-text-field
             v-model="email"
@@ -17,7 +17,7 @@
 
         <v-col
           cols="12"
-          md="4"
+          md="12"
         >
           <v-text-field
             v-model="nickName"
@@ -47,7 +47,7 @@
 
         <v-col
           cols="12"
-          md="4"
+          md="12"
         >
           <v-text-field
             v-model="password"
@@ -60,7 +60,7 @@
 
          <v-col
           cols="12"
-          md="4"
+          md="12"
         >
           <v-text-field
             v-model="passwordConfirm"
