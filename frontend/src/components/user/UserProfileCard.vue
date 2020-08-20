@@ -20,8 +20,7 @@
                 {{profileUser.nickname}}님
             </v-list-item-title>
             <!-- 팔로워 팔로잉 변경 -->
-            <v-list-item-subtitle class="mb-1"
-            >
+            <v-list-item-subtitle class="mb-1">
               <v-dialog v-model="dialog" scrollable max-width="300px">
                 <template v-slot:activator="{ on, attrs }">
                   <div v-bind="attrs"
@@ -147,10 +146,14 @@ export default {
             }
         },
         fetchFollowList() {
-            const userId = this.profileUser.id
+            const profileUserId = this.profileUser.id
+            const userId = this.userInfo.userId
             
             UserApi.requestFollowerList(
-                userId,
+                {
+                    profileUserId,
+                    userId,
+                },
                 res => {
                     console.log("realSetData 콜백 성공, res:", res.data.message)
                     this.follower_list = res.data.message
@@ -161,10 +164,13 @@ export default {
                 }
             )
             UserApi.requestFollowingList(
-                userId,
+                {
+                    profileUserId,
+                    userId,
+                },
                 res => {
                     console.log("realSetData 콜백 성공, res:", res.data.message)
-                    this.follower_list = res.data.message
+                    this.following_list = res.data.message
                 },
                 err => {
                     console.error(err)
