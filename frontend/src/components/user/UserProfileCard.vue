@@ -53,13 +53,14 @@
                                 </v-list-item-content>
                                 <v-list-item-action>
                                     <v-btn
-                                        v-if="!userInfo || follower.id !== userInfo.userId"
+                                        v-if="follower.userid !== userInfo.userId"
                                         @click="onClick"
+                                        style="margin-left:130px; margin-bottom:10px;"
                                         dark
                                         small
-                                        color=#F7B675
+                                        color=grey
                                     >
-                                                        {{ profileUser.followed ? '언팔로우' : '팔로우' }}
+                                        {{ profileUser.followed ? 'Unfollow' : 'Follow' }}
                                     </v-btn>
                                 </v-list-item-action>
                             </v-list-item>
@@ -78,6 +79,18 @@
                                 <v-list-item-content>
                                     <v-list-item-title v-text="following.nickname"></v-list-item-title>
                                 </v-list-item-content>
+                                <v-list-item-action>
+                                    <v-btn
+                                        v-if="following.userid !== userInfo.userId"
+                                        @click="onClick"
+                                        style="margin-left:130px; margin-bottom:10px;"
+                                        dark
+                                        small
+                                        color=grey
+                                    >
+                                        {{ profileUser.followed ? 'Unfollow' : 'Follow' }}
+                                    </v-btn>
+                                </v-list-item-action>
                             </v-list-item>
                         </v-list>
                     </v-tab-item>
@@ -89,19 +102,18 @@
                     <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
                   </v-card-actions>
                 </v-card>
-              </v-dialog>
+            </v-dialog>
         </v-card-actions>
         <v-btn
-                 v-if="!userInfo || profileUser.id !== userInfo.userId"
-                @click="onClick"
-                style="margin-left:130px; margin-bottom:10px;"
-                dark
-                small
-                color=grey
-            >
-                {{ profileUser.followed ? '언팔로우' : '팔로우' }}
-            </v-btn>
-        </v-layout>
+            v-if="!userInfo || profileUser.id !== userInfo.userId"
+            @click="onClick"
+            style="margin-left:130px; margin-bottom:10px;"
+            dark
+            small
+            color=grey
+        >
+            {{ profileUser.followed ? '언팔로우' : '팔로우' }}
+        </v-btn>
 
         <!-- 팔로워/팔로잉 디자인 수정 팔로우 했을 경우 팔로우 취소로 변경-->
          <v-row justify="center">
@@ -170,11 +182,11 @@ export default {
     props: [ 'profileUser', 'userInfo'],
     methods: {
         onClick() {
-            console.log("onClick 반응")
+            // console.log("onClick 반응")
             if (!this.userInfo) {
                 this.$router.push({name:'Login', query:{ redirect: 'Profile', params: {nickname: this.profileUser.nickname}}})
             } else if (this.profileUser.id !== this.userInfo.userId) {
-                console.log("onFollow emit")
+                // console.log("onFollow emit")
                 this.$emit('onFollow')
             }
         },
@@ -188,12 +200,12 @@ export default {
                     userId,
                 },
                 res => {
-                    console.log("realSetData 콜백 성공, res:", res.data.message)
+                    // console.log("realSetData 콜백 성공, res:", res.data.message)
                     this.follower_list = res.data.message
                 },
                 err => {
-                    console.error(err)
-                    console.log("에러반응")
+                    // console.error(err)
+                    // console.log("에러반응")
                 }
             )
             UserApi.requestFollowingList(
@@ -202,12 +214,12 @@ export default {
                     userId,
                 },
                 res => {
-                    console.log("realSetData 콜백 성공, res:", res.data.message)
+                    // console.log("realSetData 콜백 성공, res:", res.data.message)
                     this.following_list = res.data.message
                 },
                 err => {
-                    console.error(err)
-                    console.log("에러반응")
+                    // console.error(err)
+                    // console.log("에러반응")
                 }
             )
         }

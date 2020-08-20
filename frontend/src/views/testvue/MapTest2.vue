@@ -120,7 +120,7 @@ export default {
         fetchRestaurants() {
             const start = this.offset * 5
             const end = start + 5
-            console.log("레스토랑 데이터 갱신 요청", this.allRestaurants.slice(start, end))
+            // console.log("레스토랑 데이터 갱신 요청", this.allRestaurants.slice(start, end))
             const newArray = this
                 .allRestaurants
                 .slice(start, end)
@@ -135,15 +135,15 @@ export default {
         onclick() {
             // this.getGeolocation()
             AppApi.getGeolocation(position => {
-                console.log("position.coords", position.coords)
+                // console.log("position.coords", position.coords)
                 this.lat = position.coords.latitude
                 this.lon = position.coords.longitude
             }, err => {
-                console.log("err", err)
+                // console.log("err", err)
                 if (err.code === 1) {
-                    console.log("사용자가 위치 정보 제공에 거부하였습니다.")
+                    // console.log("사용자가 위치 정보 제공에 거부하였습니다.")
                 } else {
-                    console.log('기타 에러입니다')
+                    // console.log('기타 에러입니다')
                 }
             })
             http
@@ -155,10 +155,10 @@ export default {
                     let msg = '위치 불러오기에 실패하였습니다.';
                     if (data != null) {
                         this.allRestaurants = data;
-                        console.log(this.allRestaurants);
-                        console.log(`window: ${window}`)
-                        console.log(`window.kakao: ${window.kakao}`)
-                        console.log(`window.kakao.maps: ${window.kakao.maps}`)
+                        // console.log(this.allRestaurants);
+                        // console.log(`window: ${window}`)
+                        // console.log(`window.kakao: ${window.kakao}`)
+                        // console.log(`window.kakao.maps: ${window.kakao.maps}`)
                         // clearmap 실행
                         window.kakao && window.kakao.maps
                             ? this.clearMap()
@@ -201,7 +201,7 @@ export default {
             const tempstr = this
                 .allRestaurants[0]
                 .name;
-            console.log(`tempstr: ${tempstr}`)
+            // console.log(`tempstr: ${tempstr}`)
             const container = document.getElementById('map'),
                 mapOption = {
                     center: new kakao
@@ -229,7 +229,7 @@ export default {
                         // result : 결과 목록
                         // status : 응답 코드
                         const restaurant = this.allRestaurants[i]
-                        console.log(result)
+                        // console.log(result)
                         if (status === kakao.maps.services.Status.OK) {
                             const coords = new kakao
                                 .maps
@@ -346,7 +346,7 @@ export default {
                     let msg = '동 불러오기에 실패하였습니다.';
                     if (data != null) {
                         this.allRestaurants = data;
-                        console.log(this.allRestaurants);
+                        // console.log(this.allRestaurants);
                         window.kakao && window.kakao.maps
                             ? this.clearMap()
                             : this.addScript();
@@ -364,7 +364,7 @@ export default {
                     let msg = '동 불러오기에 실패하였습니다.';
                     if (data != null) {
                         this.allRestaurants = data;
-                        console.log(this.allRestaurants);
+                        // console.log(this.allRestaurants);
                         window.kakao && window.kakao.maps
                             ? this.clearMap()
                             : this.addScript();

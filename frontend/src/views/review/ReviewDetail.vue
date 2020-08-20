@@ -76,16 +76,16 @@ export default {
   methods: {
     fetchReview() {
       const reviewId = this.$route.params.reviewId
-      console.log(reviewId)
+      // console.log(reviewId)
       ReviewApi.requestReviewInfo(
         reviewId,
         res => {
-          console.log("fetchReview 콜백 성공, res:", res.data.message)
+          // console.log("fetchReview 콜백 성공, res:", res.data.message)
           this.review = res.data.message
         },
         err => {
-          console.error(err)
-          console.log("에러반응")
+          // console.error(err)
+          // console.log("에러반응")
         }
       )
     },
@@ -94,27 +94,27 @@ export default {
       CommentApi.requestList(
         reviewId,
         res => {
-          console.log("fetchComentList 콜백 성공, res:", res.data.message)
+          // console.log("fetchComentList 콜백 성공, res:", res.data.message)
           this.comment_list = res.data.message
         },
         err => {
-          console.error(err)
-          console.log("에러반응")
+          // console.error(err)
+          // console.log("에러반응")
         }
       )
     },
     onCreate() {
-      console.log("onCreate 메소드 실행", this.comment)
+      // console.log("onCreate 메소드 실행", this.comment)
       const data = {
         userid: Number(this.userInfo.userId),
         reviewid: this.$route.params.reviewId,
         content: this.comment.content,
       }
-      console.log(typeof(data.userId))
+      // console.log(typeof(data.userId))
       CommentApi.requestCreate(
         data,
         res => {
-          console.log("resquestCreate 성공, res : ", res)
+          // console.log("resquestCreate 성공, res : ", res)
           if (res.data.state === 'ok') {
             const today = new Date()
             const y = today.getFullYear(), m = today.getMonth(), d = today.getDate()
@@ -137,12 +137,12 @@ export default {
             // this.$emit('scrollToBottom')
             
           } else {
-            console.log("댓글 작성 실패, res.data: ", res.data)
+            // console.log("댓글 작성 실패, res.data: ", res.data)
             alert(res.data.message || "댓글 작성에 실패했습니다.")
           }
         },
         err => {
-          console.log(err)
+          // console.log(err)
           // 에러작성 페이지로
           this.$router.push( { name: 'ErrorPage' })
         }

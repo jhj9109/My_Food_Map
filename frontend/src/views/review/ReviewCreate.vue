@@ -118,10 +118,10 @@ export default {
     props: ['userInfo'],
     methods: {
         pickFile() {
-			console.log("픽파일")
-			console.log(this)
-			console.log(this.$refs)
-			console.log(this.$refs.image) // ref에 등록된 이름 기준으로 찾아냄 => input
+			// console.log("픽파일")
+			// console.log(this)
+			// console.log(this.$refs)
+			// console.log(this.$refs.image) // ref에 등록된 이름 기준으로 찾아냄 => input
             this.$refs.image.click()
         },
         previewImage(event) {
@@ -140,20 +140,20 @@ export default {
                     this.uploadValue = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
                 },
                 error => { 
-                    console.log(error.message)
+                    // console.log(error.message)
                 },
                 () => {
                     this.uploadValue=100;
                     storageRef.snapshot.ref.getDownloadURL().then((url) => {
                         this.picture =url;
                         this.review.image =url;
-                        console.log('url 저장')
+                        // console.log('url 저장')
                         //this.postingForm
                     });
             });
         },         
         onCreate() {
-            console.log("onCraete 메소드 실행",this.review)
+            // console.log("onCraete 메소드 실행",this.review)
             const data = {
                 userid:  Number(this.userInfo.userId),
                 nickname: this.userInfo.nickname,
@@ -162,23 +162,23 @@ export default {
                 image : this.review.image,
                 resid : this.$route.params.restaurantId,
             }
-            console.log(typeof(data.userId))
+            // console.log(typeof(data.userId))
             ReviewApi.requestCreate(
                 data,
                 res => {
-                    console.log("resquestCreate 성공, res : ", res)
+                    // console.log("resquestCreate 성공, res : ", res)
                     if(res.data.state === 'ok') {
                         // 리뷰 작성 성공 => 작성한 리뷰 페이지로 라우팅
                         alert("리뷰가 작성 되었습니다.")
                         this.$router.push( { name: 'RestaurantReview', params: {restaurantId: this.review.resid }} );
                     } else {
                         // 리뷰 작성 실패 => 에러 원인 알려주기?
-                        console.log("리뷰작성 실패, res.data: ", res.data)
+                        // console.log("리뷰작성 실패, res.data: ", res.data)
                         alert(res.data.message || "리뷰가 작성에 실패했습니다.")
                     }
                 },
                 err => {
-                    console.log(err)
+                    // console.log(err)
                     // 에러작성 페이지로
                     this.$router.push( { name: 'ErrorPage' })
                 }
