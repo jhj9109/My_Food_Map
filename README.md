@@ -12,7 +12,7 @@
 
 ##               
 
-## 				접속 주소 : http://i3a409.p.ssafy.io/
+##    접속 주소 : http://i3a409.p.ssafy.io/
 
  
 
@@ -40,11 +40,16 @@
 
 
 
+
+
+
 ![4](/uploads/0ee09c6446f3a393de7c4719649d18f3/4.PNG)                      
 
 
 
+
 ![5](/uploads/b944825b70c1fbe18120e0c16ef65919/5.PNG)                     
+
 
 
 
@@ -64,6 +69,8 @@
 
 
 
+
+
 ### 🏳️ 사용 기술 스택 🏳️
 
 ![image-20200821021518479](/uploads/b56476344f0ad28533a5ac4696874872/image-20200821021518479.png)
@@ -72,9 +79,13 @@
 
 
 
+
+
 ## **💡**  구현 계획  **💡** 
 
 ![image-20200821021709598](/uploads/6559ea45e25ea06739c681133cedea11/image-20200821021709598.png)
+
+
 
 
 
@@ -106,19 +117,13 @@ npm run serve
 
   The reference documentation includes detailed installation instructions as well as a comprehensive getting
 
-  [started guide.]: https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/html/getting-started.html#getting-started-first-application	"guide"
+ [started guide]( https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/html/getting-started.html#getting-started-first-application )
+
 
   Here is a quick teaser of a complete Spring Boot application in Java:
 
   
 
-- ```
-  The reference documentation includes detailed installation instructions as well as a comprehensive getting started guide.
-  
-  Here is a quick teaser of a complete Spring Boot application in Java:
-  ```
-
-  
 
 ```
 cd backend 

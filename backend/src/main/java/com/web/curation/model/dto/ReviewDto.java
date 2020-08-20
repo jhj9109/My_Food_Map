@@ -18,7 +18,7 @@ public class ReviewDto {
 	private int comment_cnt;
 	private String user_image;
 	
-	
+
 	public String getUser_image() {
 		return user_image;
 	}
