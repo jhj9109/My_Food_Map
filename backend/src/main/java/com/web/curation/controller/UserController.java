@@ -212,13 +212,17 @@ public class UserController {
 	}
 	
 	@ApiOperation("팔로잉 회원 목록")
-	@RequestMapping(value = "/user/following/{userId}", method = RequestMethod.GET)
-	public ResponseEntity<Map<String, Object>> followingList(@PathVariable int userId) throws Exception {
+	@RequestMapping(value = "/user/following/{profileUserId}/{userId}", method = RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> followingList(@PathVariable("profileUserId") int profileUserId, @PathVariable("userId") int userId) throws Exception {
 		try {			
-			List<Integer> following_list = userService.getFollowingList(userId);
+			List<Integer> following_list = userService.getFollowingList(profileUserId);
 			List<MemberDto> followings = new ArrayList<MemberDto>();
 			for (int i=0; i<following_list.size(); i++) {
 				MemberDto following = userService.select(following_list.get(i));
+				FollowDto follow = new FollowDto();
+				follow.setFollowerId(following.getUserid());
+				follow.setFollowingId(userId);
+				following.setFollowed(userService.searchFollow(follow));
 				following.setPassword("");
 				followings.add(following);
 			}
@@ -230,13 +234,17 @@ public class UserController {
 	}
 	
 	@ApiOperation("팔로워 회원 목록")
-	@RequestMapping(value = "/user/follower/{userId}", method = RequestMethod.GET)
-	public ResponseEntity<Map<String, Object>> followerList(@PathVariable int userId) throws Exception {
+	@RequestMapping(value = "/user/follower/{profileUserId}/{userId}", method = RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> followerList(@PathVariable("profileUserId") int profileUserId, @PathVariable("userId") int userId) throws Exception {
 		try {			
-			List<Integer> follower_list = userService.getFollowerList(userId);
+			List<Integer> follower_list = userService.getFollowerList(profileUserId);
 			List<MemberDto> followers = new ArrayList<MemberDto>();
 			for (int i=0; i<follower_list.size(); i++) {
 				MemberDto follower = userService.select(follower_list.get(i));
+				FollowDto follow = new FollowDto();
+				follow.setFollowerId(userId);
+				follow.setFollowingId(follower.getUserid());
+				follower.setFollowed(userService.searchFollow(follow));
 				follower.setPassword("");
 				followers.add(follower);
 			}
