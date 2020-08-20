@@ -1,21 +1,24 @@
 <template>
+
     <v-card width="100%" class="pr-0 pl-0"> <!-- 작성창 고정 -->
+     <Rating :grade="3" :maxStars="5" :hasCounter="true" />
         <v-row>
             <v-col
               cols="12"
               sm="8"
               md="4"
             >
-                <v-card-title class="pb-4">
-                    <h2>{{resname}}</h2>
+                <v-card-title class="pb-0">
+                    <h2>음식점 - {{resname}}</h2>
                 </v-card-title>
                 <v-card-text class="pt-4 pb-0">
                     <v-form>
                         <v-img
-                            v-if="review.image.url"
-                            :src="review.image.url"
-                            height="250px"
-                            width="375px"
+                            v-if="resimage"
+                            :src= "require('@/assets/' + resimage)"
+                            height="200px"
+                            width="300px"
+                            style="margin-left:20px;margin-bottom:20px;"
                         ></v-img>
                         <v-textarea 
                             label="리뷰를 작성해주세요"
@@ -51,23 +54,23 @@
                      </div>
                     </v-form>
                 </v-card-text>
-
+                    
                     <v-card-actions class="ml-5 mr-5 mt-3">
-                    <v-select
-                        class = "pt-0"
-                        width="50"
-                        :loader-height="1"
-                        :items="[1,2,3,4,5]"
-                        label="평점"
-                        v-model="review.rank"
-                    ></v-select>
+                   
+                    <div>
+                      <star-rating v-model="review.rank" :round-start-rating="false" />
+                    </div>
+                    </v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn
+                    <v-btn 
                         @click="onCreate()"
-                    >
-                        Create
+                        class="ma-2 widfull"
+                         outlined="outlined"
+                         color="warning">
+                        <v-icon left="left">mdi-pencil</v-icon>
+                         리뷰 작성
                     </v-btn>
-                </v-card-actions>
+                
             </v-col>
         </v-row>
     </v-card>
@@ -76,16 +79,28 @@
 <script>
 import ReviewApi from "@/api/ReviewApi.js";
 import firebase from 'firebase';
+import StarRating from 'vue-star-rating'
+
 export default {
     name: 'ReviewCreate',
     props: ['restaurantInfo'],
+    components: {
+        StarRating
+    },
+    created() {
+        setTimeout(() => {
+            this.rating = 3.5
+        }, 1000)
+    },
     data() {
         return {
+            rating:0,
             resname: this.$route.params.restaurantName,
+            resimage: this.$route.params.resimage,
             review: {
                 resid : this.$route.params.restaurantId,
                 content: "",
-                rank: 0,
+                rank: 1,
                 image: '',
                 name,
             },

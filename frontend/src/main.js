@@ -7,6 +7,7 @@ import routes from './routes'
 import store from './store'
 
 import firebase from 'firebase'
+import StarRating from 'vue-star-rating'
 var firebaseConfig = {
   apiKey: "AIzaSyAJTdTUoFX7M5kWARggtjzTqeBCdNjtXnI",
   authDomain: "my-food-652b5.firebaseapp.com",
@@ -50,4 +51,5 @@ new Vue({
   render: h => h(App)
 }).$mount('#app')
 
+Vue.component('star-rating',StarRating);
 export default router

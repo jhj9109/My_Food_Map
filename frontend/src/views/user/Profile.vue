@@ -46,6 +46,7 @@ export default {
         follower: 0,
         following: 0,
         followed: false,
+        image:"",
       },
       reviews: null,
       allReviews: null,
@@ -82,6 +83,7 @@ export default {
             this.profileUser.follower = res.data.follower_cnt
             this.profileUser.following = res.data.following_cnt
             this.profileUser.followed = res.data.followed
+            this.profileUser.image = res.data.image
 
             this.setReviews()
             // 리뷰 fetch까지 진행

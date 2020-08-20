@@ -1,5 +1,5 @@
 {
-  "name": "my-app",
+  "name": "my-food-diary",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -16,6 +16,7 @@
     "password-validator": "^5.0.3",
     "vue": "^2.6.11",
     "vue-router": "^3.3.4",
+    "vue-star-rating": "^1.6.1",
     "vuetify": "^2.2.11",
     "vuex": "^3.5.1"
   },
