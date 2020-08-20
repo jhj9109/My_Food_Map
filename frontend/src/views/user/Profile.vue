@@ -45,6 +45,8 @@ export default {
         nickname: "",
         follower: 0,
         following: 0,
+        followed: false,
+        image:"",
       },
       reviews: null,
       allReviews: null,
@@ -80,6 +82,8 @@ export default {
             this.profileUser.nickname = res.data.nickname
             this.profileUser.follower = res.data.follower_cnt
             this.profileUser.following = res.data.following_cnt
+            this.profileUser.followed = res.data.followed
+            this.profileUser.image = res.data.image
 
             this.setReviews()
             // 리뷰 fetch까지 진행
@@ -147,10 +151,12 @@ export default {
           console.log(res)  
           if (res.data.message === "Following -1") {
             this.profileUser.follower -= 1
+            this.profileUser.followed = false
             console.log("팔로워 숫자 -1")
           } else {
             if (res.data.message === "Following +1") {
               this.profileUser.follower += 1
+              this.profileUser.followed = true
               console.log("팔로워 숫자 +1")
             } else {
               // 성공외 다른 응답이 왔을때 동작

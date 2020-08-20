@@ -35,8 +35,7 @@
     >
       <v-list three-line>
         <v-subheader>댓글</v-subheader>
-        <template v-for="item in comment_list">
-          <v-list-item :key="item">
+          <v-list-item v-for="item in comment_list" :key="item.no">
             <!-- 프로필 사진 -->
             <!-- <v-list-item-avatar>
               <v-img :src="item.avatar"></v-img>
@@ -47,7 +46,6 @@
               <v-list-item-subtitle v-html="item.create_date"></v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
-        </template>
       </v-list>
     </v-card>
   </div>
@@ -82,7 +80,7 @@ export default {
       ReviewApi.requestReviewInfo(
         reviewId,
         res => {
-          console.log("realSetData 콜백 성공, res:", res.data.message)
+          console.log("fetchReview 콜백 성공, res:", res.data.message)
           this.review = res.data.message
         },
         err => {
@@ -96,7 +94,7 @@ export default {
       CommentApi.requestList(
         reviewId,
         res => {
-          console.log("realSetData 콜백 성공, res:", res.data.message)
+          console.log("fetchComentList 콜백 성공, res:", res.data.message)
           this.comment_list = res.data.message
         },
         err => {
@@ -118,10 +116,26 @@ export default {
         res => {
           console.log("resquestCreate 성공, res : ", res)
           if (res.data.state === 'ok') {
-            alert("댓글이 작성 되었습니다.")
-            this.fetchCommentList()
+            const today = new Date()
+            const y = today.getFullYear(), m = today.getMonth(), d = today.getDate()
+            const newData = {
+              no: 9999,
+              nickname: this.userInfo.nickname,
+              userid: this.userInfo.userId,
+              reviewid: this.$route.params.reviewId,
+              create_date: `${y}-${m}-${d}`,
+              checked: false,
+              content: this.comment.content,
+            }
+            this.comment_list = [ ...this.comment_list, newData]
             this.comment.content = ''
-            this.$emit('scrollToBottom')
+            alert("댓글이 작성 되었습니다.")
+            const target = document.querySelector('#jhjTarget')
+            target.scrollTop = target.scrollHeight
+            
+            // this.fetchCommentList()
+            // this.$emit('scrollToBottom')
+            
           } else {
             console.log("댓글 작성 실패, res.data: ", res.data)
             alert(res.data.message || "댓글 작성에 실패했습니다.")
