@@ -6,7 +6,7 @@
 
 ![image-20200821013904319](/uploads/20b921a5b788d8716fe584bcbe1ee5fd/image-20200821013904319.png)
 
-![ㅎㅇ](https://img.shields.io/badge/SSAFY-My--Food--Map-red){:width="}
+![ㅎㅇ](https://img.shields.io/badge/SSAFY-My--Food--Map-red)
 
 ![platform](https://img.shields.io/badge/platform-web-green?style=plastic)![](https://img.shields.io/badge/Server-AWS-yellow?style=plastic)![](https://img.shields.io/badge/version-1.0.0-green?style=plastic) ![](https://img.shields.io/badge/Language-Java,JavaScrpict,Html,css-critical?style=plastic) ![](https://img.shields.io/badge/database-Mysql-green?style=plastic)![](https://img.shields.io/badge/Framework-Springboot-brightgreen?style=plastic)![style](https://img.shields.io/badge/library-Vue--Vuetify-blue?style=plastic)
 
@@ -124,13 +124,6 @@ npm run serve
   Here is a quick teaser of a complete Spring Boot application in Java:
 
   
-
-- ```
-  The reference documentation includes detailed installation instructions as well as a comprehensive getting started guide.
-  
-  Here is a quick teaser of a complete Spring Boot application in Java:
-  ```
-
   
 
 ```
