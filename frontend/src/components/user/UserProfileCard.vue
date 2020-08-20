@@ -132,6 +132,7 @@ export default {
             follower_list: [],
             following_list: [],
             dialog: false,
+            tab: 0,
         }
     },
     props: [ 'profileUser', 'userInfo'],
