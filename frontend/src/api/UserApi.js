@@ -71,14 +71,14 @@ const requestNotice = (data, callback, errorCallback) => {
 const requestFollowerList = (data, callback, errorCallback) => {
     refreshAuthToken()
     console.log("Follower list 요청 :", hosturl+appname+'/follower/', data)
-    axios.get(hosturl+appname+`/follower/${data}`)
+    axios.get(hosturl+appname+`/follower/${data.profileUserId}/${data.userId}`)
     .then(callback)
     .catch(errorCallback)
 }
 const requestFollowingList = (data, callback, errorCallback) => {
     refreshAuthToken()
     console.log("Follower list 요청 :", hosturl+appname+'/following/', data)
-    axios.get(hosturl+appname+`/following/${data}`)
+    axios.get(hosturl+appname+`/following/${data.profileUserId}/${data.userId}`)
     .then(callback)
     .catch(errorCallback)
 }

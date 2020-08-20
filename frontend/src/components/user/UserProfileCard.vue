@@ -46,11 +46,22 @@
                             >
                                 <!-- 프로필 사진 -->
                                 <v-list-item-avatar>
-                                    <v-img :src="follower.avatar"></v-img>
+                                    <v-img :src="follower.image"></v-img>
                                 </v-list-item-avatar>
                                 <v-list-item-content>
                                     <v-list-item-title v-text="follower.nickname"></v-list-item-title>
                                 </v-list-item-content>
+                                <v-list-item-action>
+                                    <v-btn
+                                        v-if="!userInfo || follower.id !== userInfo.userId"
+                                        @click="onClick"
+                                        dark
+                                        small
+                                        color=#F7B675
+                                    >
+                                        Follow
+                                    </v-btn>
+                                </v-list-item-action>
                             </v-list-item>
                         </v-list>
                     </v-tab-item>
@@ -62,7 +73,7 @@
                             >
                                 <!-- 프로필 사진 -->
                                 <v-list-item-avatar>
-                                    <v-img :src="following.avatar"></v-img>
+                                    <v-img :src="following.image"></v-img>
                                 </v-list-item-avatar>
                                 <v-list-item-content>
                                     <v-list-item-title v-text="following.nickname"></v-list-item-title>
@@ -172,10 +183,14 @@ export default {
             }
         },
         fetchFollowList() {
-            const userId = this.profileUser.id
+            const profileUserId = this.profileUser.id
+            const userId = this.userInfo.userId
             
             UserApi.requestFollowerList(
-                userId,
+                {
+                    profileUserId,
+                    userId,
+                },
                 res => {
                     console.log("realSetData 콜백 성공, res:", res.data.message)
                     this.follower_list = res.data.message
@@ -186,10 +201,13 @@ export default {
                 }
             )
             UserApi.requestFollowingList(
-                userId,
+                {
+                    profileUserId,
+                    userId,
+                },
                 res => {
                     console.log("realSetData 콜백 성공, res:", res.data.message)
-                    this.follower_list = res.data.message
+                    this.following_list = res.data.message
                 },
                 err => {
                     console.error(err)
