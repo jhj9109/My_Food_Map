@@ -10,7 +10,7 @@ export default {
   state: {
     userInfo : null,
     token : false,
-    messages: null,
+    messages: [],
   },
     
   mutations: {

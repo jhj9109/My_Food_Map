@@ -34,8 +34,12 @@ const router = new VueRouter({
 // 메세지
 router.beforeEach(
   (to, from, next) => {
-    console.log("next")
-    next( store.dispatch('user/getMessages'))
+    console.log("next", store.state.user.userInfo)
+    if ( store.state.user.userInfo ) {
+      next( store.dispatch('user/getMessages'))
+    } else {
+      next()
+    }
   }
 )
 
