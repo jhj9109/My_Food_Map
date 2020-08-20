@@ -15,10 +15,14 @@ public class ReviewDto {
 	private String resname;
 	private String email;
 	private boolean isLike;
+	private int comment_cnt;
 	
-	
-	
-	
+	public int getComment_cnt() {
+		return comment_cnt;
+	}
+	public void setComment_cnt(int comment_cnt) {
+		this.comment_cnt = comment_cnt;
+	}
 	public String getResname() {
 		return resname;
 	}
@@ -96,7 +100,7 @@ public class ReviewDto {
 	public String toString() {
 		return "ReviewDto [no=" + no + ", userid=" + userid + ", resid=" + resid + ", content=" + content + ", rank="
 				+ reviewrank + ", create_date=" + create_date + ", image=" + image + ", like_cnt=" + like_cnt + ", nickname="
-				+ nickname + ", email=" + email + ", isLike=" + isLike + "]";
+				+ nickname + ", email=" + email + ", isLike=" + isLike + ", comment_cnt=" + comment_cnt + "]";
 	}
 	public ReviewDto(int no, String email, String content, int rank, Date create_date, String image, int userid) {
 		super();

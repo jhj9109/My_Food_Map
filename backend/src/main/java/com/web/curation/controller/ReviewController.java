@@ -36,6 +36,9 @@ public class ReviewController {
 	private ReviewService reviewService;
 	
 	@Autowired
+	private CommentService commentService;
+
+	@Autowired
 	private UserService userService;
 
 	@ExceptionHandler
@@ -71,6 +74,7 @@ public class ReviewController {
 				dto.setReviewid(review.getNo());
 				dto.setUserid(userId);
 				review_list.get(i).setLike(reviewService.searchLike(dto));
+				review_list.get(i).setComment_cnt(commentService.count_comment(review.getNo()));
 			}
 			System.out.println();
 			return Success(review_list);
