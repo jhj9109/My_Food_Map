@@ -71,7 +71,7 @@
           ></v-text-field>
 
                         <v-text-field
-                            class="pt-0"
+                            class="pt-0 mt-8"
                             label="이미지 첨부"
                             @click='pickFile'
                             v-model='profile'
@@ -98,15 +98,10 @@
                             
                      </div>
         </v-col>
-            <v-btn
-      :disabled="!valid"
-      @click.prevent="onJoin()"
-    >
-      회원 가입
-    </v-btn>
+        <v-btn class="ml-4" @click="onReset">초기화</v-btn>
+        <v-spacer/>
+        <v-btn class="mr-4" :disabled="!valid" @click.prevent="onJoin()"> 회원 가입 </v-btn>
       </v-row>
-    <br>
-    <v-btn @click="onReset">초기화</v-btn>
 
     </v-container>
 
