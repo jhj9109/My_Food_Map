@@ -63,4 +63,7 @@
 	<select id="reviewnickname" resultType="String">
 		select nickname from user where userid=#{userid}
 	</select>
+	<select id="reviewuserimage" resultType="String">
+		select image from user where userid=#{userid}
+	</select>
 </mapper>

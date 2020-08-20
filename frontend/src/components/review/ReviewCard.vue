@@ -20,13 +20,15 @@
       <v-btn @click="onLike" icon class="float-right mr-3">
         <v-icon :color="reviewInfo.like ? 'red' : ''">mdi-heart</v-icon> {{ reviewInfo.like_cnt }}
       </v-btn>
-      <v-icon large color="blue darken-2" class="float-right mr-3">mdi-message-text</v-icon> {{ reviewInfo }}
+      <v-icon large color="blue darken-2" class="float-right mr-3">mdi-message-text</v-icon>
       <div @click="toRestaurant" v-if="!showNickname" class="ml-1 title">
         {{ reviewInfo.resname }}<br>
       </div>
       <v-row justify="start">
         <div @click="toProfile" v-if="showNickname" class="sub-title mt-0">
-          <v-icon class="mr-1">mdi-account</v-icon>{{ reviewInfo.nickname }}<br>
+          <v-avatar size="40" style="margin:5px;">
+              <v-img :src="reviewInfo.user_image"></v-img>
+           </v-avatar>{{ reviewInfo.nickname }}<br>
         </div>
       </v-row>
 

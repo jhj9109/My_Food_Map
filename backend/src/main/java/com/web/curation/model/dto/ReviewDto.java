@@ -18,6 +18,13 @@ public class ReviewDto {
 	private int comment_cnt;
 	private String user_image;
 	
+	
+	public String getUser_image() {
+		return user_image;
+	}
+	public void setUser_image(String user_image) {
+		this.user_image = user_image;
+	}
 	public int getComment_cnt() {
 		return comment_cnt;
 	}
