@@ -7,7 +7,7 @@ const refreshAuthToken = () => {
     axios.defaults.headers.common['Authorization'] = AuthToken
 }
 const requestList = (reviewId, callback, errorCallback) => {
-    console.log("CommentList 요청 : ", hosturl+appname+'/'+reviewId)
+    // console.log("CommentList 요청 : ", hosturl+appname+'/'+reviewId)
     axios.get(hosturl+appname+'/'+reviewId)
     .then(callback)
     .catch(errorCallback)
@@ -20,7 +20,7 @@ const requestList = (reviewId, callback, errorCallback) => {
 // }
 const requestCreate = (data, callback, errorCallback) => {
     refreshAuthToken()
-    console.log("Create 요청 : ", hosturl+appname+'/create_comment', data)
+    // console.log("Create 요청 : ", hosturl+appname+'/create_comment', data)
     axios.post(hosturl+appname+'/create_comment', data)
     .then(callback)
     .catch(errorCallback)

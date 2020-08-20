@@ -17,7 +17,7 @@
     >
       아직 작성한 리뷰가 없습니다. <br>
       당신의 이야기를 나눠주세요 <br>
-      <v-btn :to="{ name: 'ReviewCreate' }" class="align-center" color="amber" icon>
+      <v-btn :to="{ name: 'Restaurant' }" class="align-center" color="amber" icon>
         <v-icon size="26px">mdi-lead-pencil</v-icon>
       </v-btn>
     </div>
@@ -64,7 +64,7 @@ export default {
       this.offset = 0
       this.complete = true
 
-      console.log("fetchProfile 동작, route와 store 값", this.$route, this.$store)
+      // console.log("fetchProfile 동작, route와 store 값", this.$route, this.$store)
       const userId = this.$store.state.user.userInfo ? this.$store.state.user.userInfo.userId : 0
       const data = {
         userId : userId,
@@ -73,8 +73,8 @@ export default {
       UserApi.requestUserInfoByNickname(
         data,
         res => {
-          console.log("유저 정보 요청 응답 res는")
-          console.log(res)
+          // console.log("유저 정보 요청 응답 res는")
+          // console.log(res)
           if (res.status === 200) {
             // UserPage 접근 성공
             this.profileUser.id = res.data.userid
@@ -94,35 +94,35 @@ export default {
           }
         },
         err => {
-          console.log("유저 정보 요청 응답 err는")
-          console.error(err)
+          // console.log("유저 정보 요청 응답 err는")
+          // console.error(err)
           this.$router.replace({ name: 'ErrorPage'}) // 히스토리 남기지 않음
         }
       )
     },
     setReviews() {
       const profileUserId = this.profileUser.id
-      console.log("요청 id", profileUserId)
+      // console.log("요청 id", profileUserId)
       ReviewApi.requestUserReview(
         profileUserId,
         res => {
-          console.log("리뷰 요청 응답 res => ", res)
+          // console.log("리뷰 요청 응답 res => ", res)
           if (res.data.state === 'ok') {
-            console.log("리뷰 받아오기 성공",  res.data.message) 
+            // console.log("리뷰 받아오기 성공",  res.data.message) 
             if(res.data.message.length !== 0) {
               this.allReviews = res.data.message
               this.reviews = []
               this.complete = false
               this.fetchReviews()
             } else {
-              console.log("빈 배열") 
+              // console.log("빈 배열") 
             }
           } else {
-            console.log("리뷰 받아오기 실패")
+            // console.log("리뷰 받아오기 실패")
           }
         },
         err => {
-          console.error(err)
+          // console.error(err)
         }
       )
     },
@@ -130,16 +130,16 @@ export default {
       const start = this.offset * 10
       const end = this.allReviews.length <= start + 10 ? this.allReviews.length : start + 10
       this.complete = this.allReviews.length <= start + 10 ? true : this.complete
-      console.log("리뷰 데이터 갱신 요청", this.allReviews.slice(start, end), this.complete)
+      // console.log("리뷰 데이터 갱신 요청", this.allReviews.slice(start, end), this.complete)
       this.reviews = [ ...this.reviews, ...this.allReviews.slice(start, end) ]
       this.offset += 1
       this.loading = false
     },
     onFollow() {
       if(!this.userInfo) {
-        this.$router.push({name: 'Login'})
+        this.$router.push({name:'Login', query:{ redirect: 'Profile', params: {nickname: this.profileUser.nickname}}})
       }
-      console.log('팔로우', this.userInfo.userId, this.profileUser.id)
+      // console.log('팔로우', this.userInfo.userId, this.profileUser.id)
       UserApi.requestFollow(
         {
           followerId: this.userInfo.userId,
@@ -147,25 +147,25 @@ export default {
           no: 0
         },
         res => {
-          console.log("res 정보")
-          console.log(res)  
+          // console.log("res 정보")
+          // console.log(res)  
           if (res.data.message === "Following -1") {
             this.profileUser.follower -= 1
             this.profileUser.followed = false
-            console.log("팔로워 숫자 -1")
+            // console.log("팔로워 숫자 -1")
           } else {
             if (res.data.message === "Following +1") {
               this.profileUser.follower += 1
               this.profileUser.followed = true
-              console.log("팔로워 숫자 +1")
+              // console.log("팔로워 숫자 +1")
             } else {
               // 성공외 다른 응답이 왔을때 동작
-              console.log("팔로우 실패", res)
+              // console.log("팔로우 실패", res)
             }
           }
         },
         err => {
-          console.error(err)
+          // console.error(err)
           // 라우팅 하지 않음
         }
       )
@@ -173,14 +173,14 @@ export default {
   },
   watch: {
     isScrollEnd: function(val) {
-      console.log("스크롤엔드 감지 :", val, !this.complete, this.loading)
+      // console.log("스크롤엔드 감지 :", val, !this.complete, this.loading)
       if (val && !this.complete && !this.loading) {
         this.loading = true
         this.fetchReviews()
       }
     },
     $route: function(to, from) {
-      console.log("params만 다른 라우팅 발생", to, from)
+      // console.log("params만 다른 라우팅 발생", to, from)
       if ( to.params.nickname !== from.params.nickname) {
         this.fetchProfile()
       }

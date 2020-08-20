@@ -71,7 +71,7 @@
           ></v-text-field>
 
                         <v-text-field
-                            class="pt-0"
+                            class="pt-0 mt-8"
                             label="이미지 첨부"
                             @click='pickFile'
                             v-model='profile'
@@ -98,15 +98,10 @@
                             
                      </div>
         </v-col>
-            <v-btn
-      :disabled="!valid"
-      @click.prevent="onJoin()"
-    >
-      회원 가입
-    </v-btn>
+        <v-btn class="ml-4" @click="onReset">초기화</v-btn>
+        <v-spacer/>
+        <v-btn class="mr-4" :disabled="!valid" @click.prevent="onJoin()"> 회원 가입 </v-btn>
       </v-row>
-    <br>
-    <v-btn @click="onReset">초기화</v-btn>
 
     </v-container>
 
@@ -164,10 +159,10 @@ export default {
 
   methods: {
     pickFile() {
-			console.log("픽파일")
-			console.log(this)
-			console.log(this.$refs)
-			console.log(this.$refs.image) // ref에 등록된 이름 기준으로 찾아냄 => input
+			// console.log("픽파일")
+			// console.log(this)
+			// console.log(this.$refs)
+			// console.log(this.$refs.image) // ref에 등록된 이름 기준으로 찾아냄 => input
             this.$refs.image.click()
         },
         previewImage(event) {
@@ -186,14 +181,14 @@ export default {
                     this.uploadValue = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
                 },
                 error => { 
-                    console.log(error.message)
+                    // console.log(error.message)
                 },
                 () => {
                     this.uploadValue=100;
                     storageRef.snapshot.ref.getDownloadURL().then((url) => {
                         this.picture =url;
                         this.image =url;
-                        console.log('url 저장')
+                        // console.log('url 저장')
                         //this.postingForm
                     });
             });
@@ -216,7 +211,7 @@ export default {
       UserApi.requestCheckNickname(
         this.nickName,
         res => {
-          console.log(`응답 ${res}, ${res.data}, ${res.data.state}`)
+          // console.log(`응답 ${res}, ${res.data}, ${res.data.state}`)
           if(res.data.state === 'ok') {
             // 중복 검사 통과
             alert("사용가능한 아이디 입니다")
@@ -229,7 +224,7 @@ export default {
           }
         },
         err => {
-          console.log(err)
+          // console.log(err)
           alert("중복검사 에러입니다")  
         }
       )

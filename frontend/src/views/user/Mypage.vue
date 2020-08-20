@@ -64,10 +64,10 @@ export default {
       getUserInfo: 'user/getUserInfo',
     }),
     onInfoChange(){
-      console.log("유저 정보 변경 버튼 눌림")
+      // console.log("유저 정보 변경 버튼 눌림")
     },
     onPasswordChange(){
-      console.log("비밀번호 변경 버튼 눌림")
+      // console.log("비밀번호 변경 버튼 눌림")
     },
   },
   created(){

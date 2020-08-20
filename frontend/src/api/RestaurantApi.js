@@ -9,20 +9,20 @@ const refreshAuthToken = () => {
 }
 const requestLike = (data, callback, errorCallback) => {
     refreshAuthToken()
-    console.log("Like 요청 : ", hosturl+appname+'/like', data)
+    // console.log("Like 요청 : ", hosturl+appname+'/like', data)
     axios.post(hosturl+appname+'/like', data) // userId, restaurantId
     .then(callback)
     .catch(errorCallback)
 }
 const requestList = (callback, errorCallback) => {
-    console.log("List 요청 : ", hosturl+appname)
+    // console.log("List 요청 : ", hosturl+appname)
     axios.post(hosturl+appname)
     .then(callback)
     .catch(errorCallback)
 }
 
 const requestInfo = (restaurantId, callback, errorCallback) => {
-    console.log("Info 요청 : ", hosturl+appname+'/'+restaurantId)
+    // console.log("Info 요청 : ", hosturl+appname+'/'+restaurantId)
     axios.get(hosturl+appname+'/'+restaurantId)
     .then(callback)
     .catch(errorCallback)
@@ -30,13 +30,13 @@ const requestInfo = (restaurantId, callback, errorCallback) => {
 
 const requestCreate = (data, callback, errorCallback) => {
     refreshAuthToken()
-    console.log("Create 요청 : ", hosturl+appname+'/create', data)
+    // console.log("Create 요청 : ", hosturl+appname+'/create', data)
     axios.post(hosturl+appname+'/create', data)
     .then(callback)
     .catch(errorCallback)
 }
 const requestReviews = (data, callback, errorCallback) => {
-    console.log("Reviews 요청 : ", hosturl+appname+'/'+data.restaurantId+'/reviews/'+data.userid)
+    // console.log("Reviews 요청 : ", hosturl+appname+'/'+data.restaurantId+'/reviews/'+data.userid)
     axios.get(hosturl+appname+'/'+data.restaurantId+'/reviews/'+data.userid)
     .then(callback)
     .catch(errorCallback)
