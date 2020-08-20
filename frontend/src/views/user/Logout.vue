@@ -19,7 +19,7 @@ export default {
   //   })
   // },
   beforeMount() {
-    console.log("로그아웃.vue 진입, 삭제할 token값은 : ", localStorage.token)
+    // console.log("로그아웃.vue 진입, 삭제할 token값은 : ", localStorage.token)
     const logoutData = {
       token: localStorage.token,
       nextRoute: this.$route.query ? this.$route.query.redirect : null,

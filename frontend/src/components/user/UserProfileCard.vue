@@ -63,12 +63,14 @@
                                 </v-list-item-content>
                                 <v-list-item-action>
                                     <v-btn
+
                                         v-if="!userInfo || follower.userid !== userInfo.userId"
                                         @click="onFollow(follower)"
                                         dark
                                         small
                                         color=#F7B675>
                                         {{ follower.followed ? 'unFollow' : 'Follow' }}
+
                                     </v-btn>
                                 </v-list-item-action>
                             </v-list-item>
@@ -89,6 +91,7 @@
                                 </v-list-item-content>
                                 <v-list-item-action>
                                     <v-btn
+
                                         v-if="!userInfo || following.userid !== userInfo.userId"
                                         @click="onFollow(following)"
                                         dark
@@ -98,6 +101,7 @@
                                     </v-btn>
                                 </v-list-item-action>
                             </v-list-item>
+
                             </v-list-item>
                         </v-list>
                     </v-tab-item>
@@ -109,11 +113,7 @@
                     <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
                   </v-card-actions>
                 </v-card>
-              </v-dialog>
-
-    
-
-           
+            </v-dialog>
         </v-card-actions>
 
     </v-card>
@@ -150,11 +150,11 @@ export default {
     props: [ 'profileUser', 'userInfo'],
     methods: {
         onClick() {
-            console.log("onClick 반응")
+            // console.log("onClick 반응")
             if (!this.userInfo) {
                 this.$router.push({name:'Login', query:{ redirect: 'Profile', params: {nickname: this.profileUser.nickname}}})
             } else if (this.profileUser.id !== this.userInfo.userId) {
-                console.log("onFollow emit")
+                // console.log("onFollow emit")
                 this.$emit('onFollow')
             }
         },
@@ -204,12 +204,12 @@ export default {
                     userId,
                 },
                 res => {
-                    console.log("realSetData 콜백 성공, res:", res.data.message)
+                    // console.log("realSetData 콜백 성공, res:", res.data.message)
                     this.follower_list = res.data.message
                 },
                 err => {
-                    console.error(err)
-                    console.log("에러반응")
+                    // console.error(err)
+                    // console.log("에러반응")
                 }
             )
             UserApi.requestFollowingList(
@@ -218,12 +218,12 @@ export default {
                     userId,
                 },
                 res => {
-                    console.log("realSetData 콜백 성공, res:", res.data.message)
+                    // console.log("realSetData 콜백 성공, res:", res.data.message)
                     this.following_list = res.data.message
                 },
                 err => {
-                    console.error(err)
-                    console.log("에러반응")
+                    // console.error(err)
+                    // console.log("에러반응")
                 }
             )
         }

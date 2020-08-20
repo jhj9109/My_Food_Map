@@ -119,7 +119,7 @@ export default {
 
   methods:{
     onLogin(){
-      console.log("파라미터 체크1", this.$route)
+      // console.log("파라미터 체크1", this.$route)
       const loginData = {
         email: this.email,
         password: this.password,
