@@ -1,7 +1,7 @@
 <template>
   <v-card
     :loading="loading"
-    class="mx-auto my-2"
+    class="mx-auto my-3"
     max-width="374"
     elevation=24
   > 
@@ -17,40 +17,32 @@
     
     <v-card-text class="pl-3">
       <!-- 추후 식당 이름으로 바꿔야할 부분, 식당 이름이 넘어오지 않아 수정 못함 -->      <!-- 개인 페이지에서는 식당, 식당 페이지에서는 리뷰를 보여줘야할듯 -->
+      <v-btn @click="onLike" icon class="float-right mr-3">
+        {{ reviewInfo.like_cnt }} like <v-icon :color="reviewInfo.like ? 'red' : ''">mdi-heart</v-icon>
+      </v-btn>
       <div @click="toRestaurant" v-if="!showNickname" class="ml-1 title">
         {{ reviewInfo.resname }}<br>
       </div>
       <v-row justify="start">
-        <div @click="toProfile" v-if="showNickname" class="sub-title ml-4 mr-2 mt-0">
-          {{ reviewInfo.nickname }}<br>
+        <div @click="toProfile" v-if="showNickname" class="sub-title mt-0">
+          <v-icon class="mr-1">mdi-account</v-icon>{{ reviewInfo.nickname }}<br>
         </div>
       </v-row>
-          <v-btn
-            icon
-            @click="onLike"
-            class="float-right mr-3"
-          >
-            {{ reviewInfo.like_cnt }} like
-              <v-icon v-if="reviewInfo.like" color="red">mdi-heart</v-icon>
-            <div v-else>
-             <v-icon >mdi-heart</v-icon>
-            </div>
-          </v-btn>
-        <v-row
-          align="center" 
-        >
-        <!-- 디자인 수정 및 백그라운드 색상 설정 -->
-          <v-rating
-            class="ml-0 mb-1 mt-1"
-            :value="reviewInfo.rank"
-            color="amber"
-            dense
-            half-increments
-            readonly
-            size="20"
-            empty-icon
-          />
-        </v-row>
+
+      <v-row align="end">
+      <!-- 디자인 수정 및 백그라운드 색상 설정 -->
+        <v-rating
+          class="ml-0 mb-1 mt-1 mr-1"
+          :value="reviewInfo.reviewrank"
+          color="amber"
+          dense
+          half-increments
+          readonly
+          size="20"
+          empty-icon="mdi-star-outline"/>
+        {{ reviewInfo.create_date }}
+      </v-row>
+
       <div
         @click="onClick"
         class="ml-1 mt-1"
@@ -59,7 +51,7 @@
         {{ reviewInfo.content }} <br>
       </div>
       <div class="text-right">
-        {{ reviewInfo.create_date }}
+        
       </div>
     </v-card-text>
   </v-card>
@@ -75,14 +67,11 @@ import UserApi from '@/api/UserApi.js'
       loading: false,
       showNickname: false,
     }),
-
     methods: {
 			onClick(){
-        // 클릭시 모달 => 도움이 됐어요
-        console.log("onClick 발동")
-        console.log(this.reviewInfo)
-        // console.log(`id :${this.restaurantInfo.id} 음식점 페이지로 이동`)
-        // this.$router.push({ name: 'RestaurantDetail', params: { restaurantId: this.restaurantInfo.id}}); //리뷰 => 리뷰 디테일?
+        // 클릭시 모달 => 도움이 됐어요 or 리뷰 디테일
+        // 리뷰 디테일
+        this.$router.push({ name: 'ReviewDetail', params: { reviewId: this.reviewInfo.no}});
       },
       toProfile() {
         console.log("toProfile 발동")
