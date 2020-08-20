@@ -58,7 +58,7 @@ export default {
 
    methods:{
     tempCheck(){
-     console.log("확인 버튼 눌림")
+    //  console.log("확인 버튼 눌림")
    },
   },
 };

@@ -9,7 +9,17 @@
         <v-list-item three-line>
             <v-list-item-content>
                 <div class="overLine mb-4"></div>
-                <v-list-item-title class="headline mb-1"> {{profileUser.nickname}} 님 </v-list-item-title>
+                <v-list-item-title class="headline mb-1">
+                  {{profileUser.nickname}} 님
+                    <v-btn
+                      v-if="!userInfo || profileUser.id !== userInfo.userId"
+                      @click="onClick"
+                      dark
+                      small
+                      :color="profileUser.followed ? 'blue' : 'grey'">
+                      {{ profileUser.followed ? 'Following' : 'Follow' }}
+                    </v-btn>
+                </v-list-item-title>
                 <v-list-item-subtitle> 일반 - {{profileUser.email}}</v-list-item-subtitle>
             </v-list-item-content>
 
@@ -26,8 +36,8 @@
                 <template v-slot:activator="{ on, attrs }">
                   <div v-bind="attrs"
                   v-on="on" @click="fetchFollowList()">
-                    <v-btn style="margin-bottom:20px;" depressed color="warning">Follower :{{profileUser.follower}}</v-btn> 
-                    <v-btn style="margin-left:70px;margin-bottom:20px;" depressed color="warning">Following :{{profileUser.following}}</v-btn> 
+                    <v-btn style="margin-bottom:20px;" depressed color="warning">Follower {{profileUser.follower}}</v-btn> 
+                    <v-btn style="margin-left:70px;margin-bottom:20px;" depressed color="warning">Following {{profileUser.following}}</v-btn> 
                   </div>
                 </template>
                 <v-card>
@@ -42,7 +52,7 @@
                         <v-list>
                             <v-list-item
                                 v-for="follower in follower_list"
-                                :key="follower.no"
+                                :key="follower.userid"
                             >
                                 <!-- 프로필 사진 -->
                                 <v-list-item-avatar>
@@ -53,13 +63,14 @@
                                 </v-list-item-content>
                                 <v-list-item-action>
                                     <v-btn
-                                        v-if="!userInfo || follower.id !== userInfo.userId"
-                                        @click="onClick"
+
+                                        v-if="!userInfo || follower.userid !== userInfo.userId"
+                                        @click="onFollow(follower)"
                                         dark
                                         small
-                                        color=#F7B675
-                                    >
-                                                        {{ profileUser.followed ? '언팔로우' : '팔로우' }}
+                                        color=#F7B675>
+                                        {{ follower.followed ? 'unFollow' : 'Follow' }}
+
                                     </v-btn>
                                 </v-list-item-action>
                             </v-list-item>
@@ -69,7 +80,7 @@
                         <v-list>
                             <v-list-item
                                 v-for="following in following_list"
-                                :key="following.no"
+                                :key="following.userid"
                             >
                                 <!-- 프로필 사진 -->
                                 <v-list-item-avatar>
@@ -78,6 +89,19 @@
                                 <v-list-item-content>
                                     <v-list-item-title v-text="following.nickname"></v-list-item-title>
                                 </v-list-item-content>
+                                <v-list-item-action>
+                                    <v-btn
+
+                                        v-if="!userInfo || following.userid !== userInfo.userId"
+                                        @click="onFollow(following)"
+                                        dark
+                                        small
+                                        color=#F7B675>
+                                        {{ following.followed ? 'unFollow' : 'Follow' }}
+                                    </v-btn>
+                                </v-list-item-action>
+                            </v-list-item>
+
                             </v-list-item>
                         </v-list>
                     </v-tab-item>
@@ -89,23 +113,9 @@
                     <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
                   </v-card-actions>
                 </v-card>
-              </v-dialog>
+            </v-dialog>
         </v-card-actions>
-        <v-btn
-                 v-if="!userInfo || profileUser.id !== userInfo.userId"
-                @click="onClick"
-                style="margin-left:130px; margin-bottom:10px;"
-                dark
-                small
-                color=grey
-            >
-                {{ profileUser.followed ? '언팔로우' : '팔로우' }}
-            </v-btn>
-  
-
-        <!-- 팔로워/팔로잉 디자인 수정 팔로우 했을 경우 팔로우 취소로 변경-->
-         
-       
+ 
     </v-card>
 
 </template>
@@ -125,13 +135,49 @@ export default {
     props: [ 'profileUser', 'userInfo'],
     methods: {
         onClick() {
-            console.log("onClick 반응")
+            // console.log("onClick 반응")
             if (!this.userInfo) {
                 this.$router.push({name:'Login', query:{ redirect: 'Profile', params: {nickname: this.profileUser.nickname}}})
             } else if (this.profileUser.id !== this.userInfo.userId) {
-                console.log("onFollow emit")
+                // console.log("onFollow emit")
                 this.$emit('onFollow')
             }
+        },
+        onFollow(follower) {
+          if(!this.userInfo) {
+            this.$router.push({name:'Login', query:{ redirect: 'Profile', params: {nickname: follower.nickname}}})
+          }
+          console.log(follower)
+          console.log('팔로우', this.userInfo.userId, follower.id)
+          UserApi.requestFollow(
+            {
+              followerId: this.userInfo.userId,
+              followingId: follower.userid,
+              no: 0
+            },
+            res => {
+              console.log("res 정보")
+              console.log(res)  
+              if (res.data.message === "Following -1") {
+                follower.follower -= 1
+                follower.followed = false
+                console.log("팔로워 숫자 -1")
+              } else {
+                if (res.data.message === "Following +1") {
+                  follower.follower += 1
+                  follower.followed = true
+                  console.log("팔로워 숫자 +1")
+                } else {
+                  // 성공외 다른 응답이 왔을때 동작
+                  console.log("팔로우 실패", res)
+                }
+              }
+            },
+            err => {
+              console.error(err)
+              // 라우팅 하지 않음
+            }
+          )
         },
         fetchFollowList() {
             const profileUserId = this.profileUser.id
@@ -143,12 +189,12 @@ export default {
                     userId,
                 },
                 res => {
-                    console.log("realSetData 콜백 성공, res:", res.data.message)
+                    // console.log("realSetData 콜백 성공, res:", res.data.message)
                     this.follower_list = res.data.message
                 },
                 err => {
-                    console.error(err)
-                    console.log("에러반응")
+                    // console.error(err)
+                    // console.log("에러반응")
                 }
             )
             UserApi.requestFollowingList(
@@ -157,21 +203,16 @@ export default {
                     userId,
                 },
                 res => {
-                    console.log("realSetData 콜백 성공, res:", res.data.message)
+                    // console.log("realSetData 콜백 성공, res:", res.data.message)
                     this.following_list = res.data.message
                 },
                 err => {
-                    console.error(err)
-                    console.log("에러반응")
+                    // console.error(err)
+                    // console.log("에러반응")
                 }
             )
         }
     },
-    // computed: {
-    //     ...mapState({
-    //         userInfo: state => state.user.userInfo,    
-    //     })
-    // }
 }
 </script>
 

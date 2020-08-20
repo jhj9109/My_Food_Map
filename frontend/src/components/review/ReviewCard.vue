@@ -74,7 +74,7 @@ import UserApi from '@/api/UserApi.js'
         this.$router.push({ name: 'ReviewDetail', params: { reviewId: this.reviewInfo.no}});
       },
       toProfile() {
-        console.log("toProfile 발동")
+        // console.log("toProfile 발동")
         this.$router.push({name : 'Profile', params : {nickname : this.reviewInfo.nickname}})
       },
       toRestaurant() {        
@@ -92,19 +92,19 @@ import UserApi from '@/api/UserApi.js'
             if (res.data.message === "Like -1") {
               this.reviewInfo.like_cnt -= 1
               this.reviewInfo.like = false;
-              console.log("좋아요-1")
+              // console.log("좋아요-1")
             } else {
               if (res.data.message === "Like +1") {
                 this.reviewInfo.like_cnt += 1
                 this.reviewInfo.like = true;
-                console.log("좋아요+1")
+                // console.log("좋아요+1")
               } else {
-                console.log("좋아요 요청 실패, res : ", res)
+                // console.log("좋아요 요청 실패, res : ", res)
               }
             }
           },
           err => {
-            console.error(err)
+            // console.error(err)
           }
         )
       },

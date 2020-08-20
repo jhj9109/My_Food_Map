@@ -50,11 +50,11 @@ const  ifNotAuthenticated = (to, from, next) => {
 
  */
 const requireAuth = (to, form, next) => {
-	console.log("requireAuth 체크", Boolean(localStorage.getItem('userInfo')))
+	// console.log("requireAuth 체크", Boolean(localStorage.getItem('userInfo')))
 	if (Boolean(localStorage.getItem('userInfo'))) {
 		return next()
 	} else {
-		console.log("파라미터 체크0", to, to.params)
+		// console.log("파라미터 체크0", to, to.params)
 		next({
 			path : '/user/login',
 			query: { redirect: to.name, params: to.params },

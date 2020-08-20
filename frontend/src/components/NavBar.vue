@@ -164,11 +164,11 @@ export default {
 				reviewId: val
 			},
 			res => {
-				console.log(res)
+				// console.log(res)
 				this.$router.push({name: 'ReviewDetail', params: {reviewId: val}})
 			},
 			err => {
-				console.log(err)
+				// console.log(err)
 			}
 		)
 		}

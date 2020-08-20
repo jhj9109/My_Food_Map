@@ -103,7 +103,7 @@ export default {
     }
   },
   created() {
-    console.log("생성시 토큰 체크")
+    // console.log("생성시 토큰 체크")
     this.checkToken()
     this.checkUserInfo()
   },
@@ -113,7 +113,7 @@ export default {
   },
   beforeUpdate() { 
     // 필요성에 대해서 아직 모르겠음
-    console.log("업데이트전 토큰 체크")
+    // console.log("업데이트전 토큰 체크")
     this.checkToken()
     this.checkUserInfo()
   }
