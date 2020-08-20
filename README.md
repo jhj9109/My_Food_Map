@@ -6,13 +6,13 @@
 
 ![image-20200821013904319](/uploads/20b921a5b788d8716fe584bcbe1ee5fd/image-20200821013904319.png)
 
-![ㅎㅇ](https://img.shields.io/badge/SSAFY-My--Food--Map-red)
+![ㅎㅇ](https://img.shields.io/badge/SSAFY-My--Food--Map-red){:width="}
 
 ![platform](https://img.shields.io/badge/platform-web-green?style=plastic)![](https://img.shields.io/badge/Server-AWS-yellow?style=plastic)![](https://img.shields.io/badge/version-1.0.0-green?style=plastic) ![](https://img.shields.io/badge/Language-Java,JavaScrpict,Html,css-critical?style=plastic) ![](https://img.shields.io/badge/database-Mysql-green?style=plastic)![](https://img.shields.io/badge/Framework-Springboot-brightgreen?style=plastic)![style](https://img.shields.io/badge/library-Vue--Vuetify-blue?style=plastic)
 
 ##               
 
-## 				접속 주소 : http://i3a409.p.ssafy.io/
+##    접속 주소 : http://i3a409.p.ssafy.io/
 
  
 
@@ -40,19 +40,19 @@
 
 
 
-4.  **사용자 별 리뷰 검색 및 팔로잉 팔로워 기능**
+
 
 ![4](/uploads/0ee09c6446f3a393de7c4719649d18f3/4.PNG)                      
 
 
 
-5.  **맛집 리뷰 피드 기능 및 좋아요 기능**
+
 
 ![5](/uploads/b944825b70c1fbe18120e0c16ef65919/5.PNG)                     
 
 
 
-6.  **리뷰 댓글 작성 및 알림 기능**
+
 
 ![6](/uploads/f7ec48bb8a42eb1455dcbfff397aca12/6.PNG)                           
 
@@ -70,6 +70,8 @@
 
 
 
+
+
 ### 🏳️ 사용 기술 스택 🏳️
 
 ![image-20200821021518479](/uploads/b56476344f0ad28533a5ac4696874872/image-20200821021518479.png)
@@ -78,9 +80,13 @@
 
 
 
+
+
 ## **💡**  구현 계획  **💡** 
 
 ![image-20200821021709598](/uploads/6559ea45e25ea06739c681133cedea11/image-20200821021709598.png)
+
+
 
 
 
@@ -112,7 +118,8 @@ npm run serve
 
   The reference documentation includes detailed installation instructions as well as a comprehensive getting
 
-  [started guide.]: https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/html/getting-started.html#getting-started-first-application	"guide"
+ [started guide]( https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/html/getting-started.html#getting-started-first-application )
+
 
   Here is a quick teaser of a complete Spring Boot application in Java:
 
