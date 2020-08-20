@@ -31,6 +31,14 @@ const router = new VueRouter({
   mode: 'history',
 });
 
+// 메세지
+router.beforeEach(
+  (to, from, next) => {
+    console.log("next")
+    next( store.dispatch('user/getMessages'))
+  }
+)
+
 new Vue({
   vuetify,
   router,
