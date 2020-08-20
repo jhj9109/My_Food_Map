@@ -38,7 +38,6 @@ public class StoreServiceImpl implements StoreService{
 	public List<ReviewDto> searchreview(int no) {
 		return storeDao.searchreview(no);
 	}
-
 	@Override
 	public int register(RestaurantsDto dto) {
 		return storeDao.register(dto);
@@ -117,7 +116,7 @@ public class StoreServiceImpl implements StoreService{
 					else
 						list.get(i).setImage("resimg/gimbap2.png");
 					break;
-				case "카페":
+				case "까페":
 					if (list.get(i).getIdrestaurants() % 2 == 0)
 						check = true;
 					else
@@ -294,18 +293,16 @@ public class StoreServiceImpl implements StoreService{
 						list.get(i).setImage("resimg/fastfood2.jpg");
 					break;
 				case "한식":
-					if (list.get(i).getIdrestaurants() % 2 == 0)
-						check = true;
-					else
-						check = false;
-
-					if (check)
-						list.get(i).setImage("resimg/korean.jpg");
-					else
-						list.get(i).setImage("resimg/korean2.png");
+					int tempint = list.get(i).getIdrestaurants() % 10;
+					for(int j=0; j<10; j++) {
+						if(tempint == j) {
+							list.get(i).setImage("resimg/korean"+tempint+".jpg");
+							break;
+						}
+					}
 					break;
 				default:
-					list.get(i).setImage("resimg/korean.jpg");
+					list.get(i).setImage("resimg/korean1.jpg");
 				}
 		}
 		return list;

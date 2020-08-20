@@ -59,7 +59,7 @@
                                         small
                                         color=#F7B675
                                     >
-                                        Follow
+                                                        {{ profileUser.followed ? '언팔로우' : '팔로우' }}
                                     </v-btn>
                                 </v-list-item-action>
                             </v-list-item>
@@ -90,10 +90,6 @@
                   </v-card-actions>
                 </v-card>
               </v-dialog>
-
-    
-
-           
         </v-card-actions>
         <v-btn
                  v-if="!userInfo || profileUser.id !== userInfo.userId"
