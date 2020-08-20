@@ -2,11 +2,13 @@
   <div>
     <!-- 기존 주소 설정 삭제 / 검색 창 추가 -->
       <v-text-field
+        v-model="message"        
+        v-on:keyup.enter="search"
         solo-inverted
         flat
         hide-details
         style="margin-top: 5px;"
-        label="맛집 혹은 유저 정보를 검색해보세요."
+        label="원하는 키워드로 검색해보세요."
       ></v-text-field>  
       <v-spacer></v-spacer>
     <!-- 기존 주소 설정 삭제 / 검색 창 추가 -->
@@ -14,6 +16,7 @@
       v-for="restaurant in restaurants"
       :key="restaurant.idrestaurants"
       :restaurantInfo="restaurant"
+      :userInfo="userInfo"
     />
   </div>
 
@@ -36,6 +39,7 @@ export default {
       loading: true,
       offset: 0,
       complete: true,
+      message: '',
     }
   },
   methods: {
@@ -64,7 +68,25 @@ export default {
       this.restaurants = [ ...this.restaurants, ...this.allRestaurants.slice(start, end) ]
       this.offset += 1
       this.loading = false
-    }
+    },
+    search() {
+            http
+                .post('/map/list', {dong: this.message})
+                .then(({data}) => {
+                    let msg = '동 불러오기에 실패하였습니다.';
+                    if (data != null) {
+                        this.restaurants=[],
+                        this.allRestaurants=[],
+                        this.allRestaurants = data;
+                        console.log(this.message)
+
+                        this.fetchRestaurants();
+                    } else {
+                        alert(msg);
+                    }
+                }
+              );
+   },
   },
   watch: {
     isScrollEnd: function(val) {
@@ -81,5 +103,4 @@ export default {
 }
 </script>
 <style>
-
 </style>

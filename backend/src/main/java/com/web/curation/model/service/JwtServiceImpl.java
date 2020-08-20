@@ -30,7 +30,7 @@ public class JwtServiceImpl implements JwtService{
 	
 	@Override
 	public <T> String create(MemberDto user){
-		System.out.print("Time: {}"+expireMin );
+		//System.out.print("Time: {}"+expireMin );
 		
 		String jwt = Jwts.builder()
 						 .setHeaderParam("typ", "JWT")
@@ -42,7 +42,7 @@ public class JwtServiceImpl implements JwtService{
 						 .claim("nickname", user.getNickname())
 						 .signWith(SignatureAlgorithm.HS256, salt.getBytes())
 						 .compact();
-			System.out.println("jwt 토큰 발행: "+jwt);
+			//System.out.println("jwt 토큰 발행: "+jwt);
 		return jwt;
 	}	
 
@@ -50,7 +50,7 @@ public class JwtServiceImpl implements JwtService{
 	@Override
 	public boolean checkValid(String token) throws RuntimeException {
 		try{
-			System.out.printf("토큰 점검 :{}",token);
+			//System.out.printf("토큰 점검 :{}",token);
 			
 			Jws<Claims> claims = Jwts.parser()
 					  .setSigningKey(salt.getBytes())
@@ -75,18 +75,18 @@ public class JwtServiceImpl implements JwtService{
 		
 		String[] strs=jwtbearer.split(" ");
 		String jwt = strs[strs.length-1];
-		System.out.println("jwt split: "+jwt);
+		//System.out.println("jwt split: "+jwt);
 		Jws<Claims> claims = null;
 		try {
 			claims = Jwts.parser()
 						 .setSigningKey(salt.getBytes("UTF-8"))
 						 .parseClaimsJws(jwt);
 			
-			System.out.println(this.checkValid(jwt));
+			//System.out.println(this.checkValid(jwt));
 		} catch (Exception e) {
 			throw new RuntimeException();
 		}
-		System.out.println(claims.getBody().get(key));
+		//System.out.println(claims.getBody().get(key));
 		if(claims.getBody().get(key)==null || claims.getBody().get(key).equals("")) {
 			return null;
 		}else {
@@ -103,8 +103,8 @@ public class JwtServiceImpl implements JwtService{
 		}catch(final Exception e) {
 			throw new RuntimeException();
 		}
-		System.out.println("Claims : 토큰 얻기");
-		System.out.println(claims);
+		//System.out.println("Claims : 토큰 얻기");
+		//System.out.println(claims);
 		
 		return claims.getBody();
 	}

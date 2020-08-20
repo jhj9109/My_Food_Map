@@ -9,7 +9,7 @@
               md="4"
             >
                 <v-card-title class="pb-0">
-                    <h2>음식점 - {{resname}}</h2>
+                    <h2>{{resname}}</h2>
                 </v-card-title>
                 <v-card-text class="pt-4 pb-0">
                     <v-form>

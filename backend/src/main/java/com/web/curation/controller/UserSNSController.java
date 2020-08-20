@@ -70,12 +70,12 @@ public class UserSNSController {
 	@RequestMapping(value="/login")
 	public  ResponseEntity   login(@RequestParam("code") String code, HttpSession session) {
 		String access_Token = kakao.getAccessToken(code);
-        System.out.println("controller access_token : " + access_Token);
+      //  System.out.println("controller access_token : " + access_Token);
         
         HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
         temptoken = access_Token;
-        System.out.println("login Controller : " + userInfo);
-        System.out.println(userInfo);
+       // System.out.println("login Controller : " + userInfo);
+      //  System.out.println(userInfo);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(URI.create("http://i3a409.p.ssafy.io/user/login/"));
         
@@ -86,7 +86,7 @@ public class UserSNSController {
         }
         try {
 			if(userService.checkuser((String)userInfo.get("email"))) {
-				System.out.println(" 해당 유저가 존재 합니다 ( 로그인 진행 ");
+				//System.out.println(" 해당 유저가 존재 합니다 ( 로그인 진행 ");
 				MemberDto result = userService.login((String)userInfo.get("email"),"kakao123");
 				
 				session.setAttribute("email", userInfo.get("email"));
@@ -95,9 +95,9 @@ public class UserSNSController {
 				headers.setLocation(URI.create("http://i3a409.p.ssafy.io/user/login/"+userInfo.get("email")+"/"+result.getUserid()+"/"+result.getNickname()));
 				return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
 			}else {
-				System.out.println(" 해당 유저가 존재 하지 않습니다 ( 회원가입 진행 ) ");
+				//System.out.println(" 해당 유저가 존재 하지 않습니다 ( 회원가입 진행 ) ");
 				MemberDto dto = new MemberDto();
-				System.out.println(userInfo.get("email"));
+				//System.out.println(userInfo.get("email"));
 				 
 				dto.setEmail((String)userInfo.get("email"));
 				dto.setNickname((String)userInfo.get("nickname"));
@@ -105,7 +105,7 @@ public class UserSNSController {
 				dto.setImage((String)userInfo.get("image"));
 				userService.join(dto);
 				
-				System.out.println(" 회원가입 후 로그인 진행 중 .... ");
+				//System.out.println(" 회원가입 후 로그인 진행 중 .... ");
 				MemberDto result = userService.login((String)userInfo.get("email"),"kakao123");
 				session.setAttribute("email", userInfo.get("email"));
 				session.setAttribute("userid",result.getUserid());
@@ -116,7 +116,7 @@ public class UserSNSController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-        System.out.println("오류 발생");
+        //System.out.println("오류 발생");
         MemberDto dto = null;
         return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
 	}

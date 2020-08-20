@@ -71,7 +71,7 @@ import RestaurantApi from '@/api/RestaurantApi.js'
   export default {
     name: "RestaurantCard",
     // props: ['id', 'title', 'content', 'imgUrl', 'types', 'rank', 'likeCount', 'deal_date'],
-    props: ['restaurantInfo'],
+    props: ['restaurantInfo','userInfo'],
     data: () => ({
       loading: false,
       percent: Math.floor(Math.random() * 100 + 1),
@@ -88,7 +88,7 @@ import RestaurantApi from '@/api/RestaurantApi.js'
     methods: {
 			onClick(){
         // restaurant.vue에서만 이동
-        if (this.$route.name === 'Restaurant') {
+        if (this.$route.name === 'Restaurant' || this.$route.name === 'Map') {
           console.log(`restaurantInfo :${this.restaurantInfo}`)
           this.$router.push({ name: 'RestaurantReview', params: { restaurantId: this.restaurantInfo.idrestaurants}});
         }
