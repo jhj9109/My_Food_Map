@@ -114,6 +114,10 @@ public class KakaoAPI {
             
             userInfo.put("nickname", nickname);
             userInfo.put("email", email);
+            if(properties.getAsJsonObject().get("thumbnail_image_url")!=null) {
+            	String image = properties.getAsJsonObject().get("thumbnail_image_url").getAsString();
+            	userInfo.put("image",image);
+            }
             
         } catch (IOException e) {
             // TODO Auto-generated catch block

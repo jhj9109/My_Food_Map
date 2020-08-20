@@ -12,7 +12,7 @@
 		select * from user where nickname=#{nickname}
 	</select>
 	<insert id="insert">
-		insert into user(email,password,nickname,create_date) values(#{email}, #{password},#{nickname}, CURRENT_TIME())
+		insert into user(email,password,nickname,create_date,image) values(#{email}, #{password},#{nickname}, CURRENT_TIME(),#{image})
 	</insert>
 	<delete id="delete">
 		delete from user where userid=#{userid}

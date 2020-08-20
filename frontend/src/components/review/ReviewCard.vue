@@ -1,16 +1,19 @@
 <template>
   <v-card
     :loading="loading"
-    class="mx-auto my-3"
+    class="mx-auto my-2"
     max-width="374"
+    elevation=24
   > 
   <!-- 이미지 사이즈에 따라 유동적 사이즈 설정, 정사각형으로 보이도록 -->
     <v-img
+      class="white--text align-end"
+      @click="onClick" 
       v-if="reviewInfo.image !== 'null'"
-      height="374"
-      :src="reviewInfo.image"
-      @click="onClick"
-    />
+      max-height="374"
+      :src="reviewInfo.image">
+      <!-- <v-card-title @click="toRestaurant" >파스타집</v-card-title> -->
+    </v-img>
     
     <v-card-text class="pl-3">
       <!-- 추후 식당 이름으로 바꿔야할 부분, 식당 이름이 넘어오지 않아 수정 못함 -->      <!-- 개인 페이지에서는 식당, 식당 페이지에서는 리뷰를 보여줘야할듯 -->

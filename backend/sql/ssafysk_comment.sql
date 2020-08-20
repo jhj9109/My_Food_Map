@@ -43,8 +43,6 @@ CREATE TABLE `comment` (
 
 LOCK TABLES `comment` WRITE;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
-INSERT INTO `comment` VALUES (1,1,2,'ㅇㄱㄹㅇ','2020-08-01 00:00:00',0),(2,6,4,'저도 나왔었어요ㅜㅜㅜ 위생 완전 별로ㅜ웩','2020-08-07 00:00:00',0),(3,1,5,'난 맛있던데;;;','2020-07-18 00:00:00',0),(4,3,2,'난 웨이팅 2시간도 가능 ㄷㄷ','2020-08-03 00:00:00',0);
-/*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
