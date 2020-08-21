@@ -4,7 +4,6 @@
       class="mt-1"
       :reviewInfo="this.review"
     />
-    <!-- 댓글 작성 -->
     <v-card  max-width="374" class="mx-auto">
       <v-row>
         <v-col>
@@ -40,7 +39,7 @@
             </v-list-item-avatar> -->
             <v-list-item-content>
               <div class="d-flex">
-                <p class="text-Subtitle1 mr-2" v-html="item.nickname"></p>
+                <p class="text-Subtitle1 mr-3" v-html="item.nickname"></p>
                 <p class="text-Subtitle2 align-self-end" v-html="item.create_date"></p>
               </div>
               <v-list-item-subtitle v-html="item.content"></v-list-item-subtitle>
