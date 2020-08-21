@@ -10,7 +10,16 @@ public class CommentDto {
 	private Date create_date;
 	private String nickname;
 	private boolean is_checked;
+	private String user_image;
 	
+	
+	
+	public String getUser_image() {
+		return user_image;
+	}
+	public void setUser_image(String user_image) {
+		this.user_image = user_image;
+	}
 	public int getNo() {
 		return no;
 	}

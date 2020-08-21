@@ -56,6 +56,7 @@ public class CommentController {
 			for (int i=0; i<comment_list.size(); i++) {
 				MemberDto user = userService.select(comment_list.get(i).getUserid());
 				comment_list.get(i).setNickname(user.getNickname());
+				comment_list.get(i).setUser_image(userService.userimage(comment_list.get(i).getUserid()));
 			}
 			return Success(comment_list);
 		} catch (Exception e){
