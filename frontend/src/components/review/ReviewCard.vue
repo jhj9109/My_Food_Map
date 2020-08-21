@@ -76,6 +76,7 @@ import UserApi from '@/api/UserApi.js'
     },
     methods: {
 			onClick(){
+
         // 클릭시 모달 => 도움이 됐어요 or 리뷰 디테일
         // 리뷰 디테일
         this.$router.push({ name: 'ReviewDetail', params: { reviewId: this.reviewInfo.no}});

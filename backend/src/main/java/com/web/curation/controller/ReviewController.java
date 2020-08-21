@@ -204,6 +204,7 @@ public class ReviewController {
 			ReviewDto review = reviewService.getReview(reviewId);
 			MemberDto writer = userService.select(review.getUserid());
 			review.setNickname(writer.getNickname());
+			review.setUser_image(userService.userimage(review.getUserid()));
 			//System.out.println(review);
 			return Success(review);
 		} catch (Exception e){

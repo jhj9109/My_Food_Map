@@ -55,7 +55,7 @@ public class ReviewDaoImpl implements ReviewDao {
 		float tgrade = res.getgrade();
 		int tcountgrade = res.getCountgrade();
 		float temp = tgrade * tcountgrade;
-		System.out.println(tgrade+" "+tcountgrade+" "+temp);
+		//System.out.println(tgrade+" "+tcountgrade+" "+temp);
 		
 		float grade = (temp + dto.getReviewrank())/(tcountgrade+1);
 		grade=(float) (Math.round(grade*10)/10.0);

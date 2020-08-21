@@ -56,7 +56,7 @@ export default {
   methods: {
     // 아래는 임시 데이터 세팅을 위한 메소드
     setRestaurants() {
-      console.log("setRestaurants 요청")
+     // console.log("setRestaurants 요청")
       RestaurantApi.requestList(
         res => {
           this.allRestaurants = res.data.message
@@ -66,7 +66,7 @@ export default {
         },
         err => {
           console.error(err)
-          console.log("에러반응")
+          //console.log("에러반응")
         }
       )
     },
@@ -74,7 +74,7 @@ export default {
       const start = this.offset * 5 // 0,1,2,3,4 => 5개 , s = 0 , e = 5
       const end = this.allRestaurants.length <= start + 5 ? this.allRestaurants.length : start + 5
       this.complete = this.allRestaurants.length <= start + 5 ? true : this.complete
-      console.log("리뷰 데이터 갱신 요청", this.allRestaurants.slice(start, end), this.complete)
+    //  console.log("리뷰 데이터 갱신 요청", this.allRestaurants.slice(start, end), this.complete)
       this.restaurants = [ ...this.restaurants, ...this.allRestaurants.slice(start, end) ]
       this.offset += 1
       this.loading = false
@@ -92,7 +92,7 @@ export default {
                         
                         this.fetchRestaurants();
                     } else {
-                        alert(msg);
+                      //  alert(msg);
                     }
                 }
               );
@@ -109,10 +109,10 @@ export default {
                         this.restaurants=[],
                         this.allRestaurants=[],
                         this.allRestaurants = data.message;
-                        console.log(data)
+                      //  console.log(data)
                         this.fetchRestaurants();
                     } else {
-                        alert(msg);
+                    //    alert(msg);
                     }
                 }
               );

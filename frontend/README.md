@@ -1,4 +1,4 @@
-# my-app
+# my-food-map (Vue - Frontend)
 
 ## Project setup
 ```

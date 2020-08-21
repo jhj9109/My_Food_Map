@@ -122,7 +122,7 @@ public class UserSNSController {
 	}
 	
 	@ApiOperation(value = "로그아웃")
-	@RequestMapping(value = "/user/logout", method = RequestMethod.POST)
+	@RequestMapping(value = "/logout", method = RequestMethod.POST)
 	public  ResponseEntity<Map<String, Object>> logout( HttpSession session) throws Exception {
 		 kakao.kakaoLogout(temptoken);
 		 session.removeAttribute("access_Token");

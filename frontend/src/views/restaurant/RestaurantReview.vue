@@ -62,18 +62,18 @@ export default {
     //레스토랑 정보 설정
     setRestaurant() {
       const restaruantId = this.$route.params.restaurantId
-      console.log("realSetData 요청 Id 값 : ", restaruantId, typeof(restaruantId))
+      //console.log("realSetData 요청 Id 값 : ", restaruantId, typeof(restaruantId))
       RestaurantApi.requestInfo(
         restaruantId,
         res => {
-          console.log("realSetData 콜백 성공, res:", res.data.message)
+          //console.log("realSetData 콜백 성공, res:", res.data.message)
           this.restaurant = res.data.message
           // 리뷰도 받아오기
           this.setReviews()
         },
         err => {
-          console.error(err)
-          console.log("에러반응")
+         // console.error(err)
+         // console.log("에러반응")
         }
       )
     },
@@ -87,13 +87,13 @@ export default {
         res => {
           this.allReviews = res.data.message // 전체 데이터
           this.reviews = []
-          console.log("리뷰 리스트 데이터 바인딩 성공", this.allReviews)
+         // console.log("리뷰 리스트 데이터 바인딩 성공", this.allReviews)
           this.complete = false
           this.fetchReviews()
         },
         err => {
           console.error(err)
-          console.log("에러반응")
+         // console.log("에러반응")
         }
       )
     },
@@ -101,7 +101,7 @@ export default {
       const start = this.offset * 10
       const end = this.allReviews.length <= start + 10 ? this.allReviews.length : start + 10
       this.complete = this.allReviews.length <= start + 10 ? true : this.complete
-      console.log("리뷰 데이터 갱신 요청", this.allReviews.slice(start, end), this.complete)
+     // console.log("리뷰 데이터 갱신 요청", this.allReviews.slice(start, end), this.complete)
       this.reviews = [ ...this.reviews, ...this.allReviews.slice(start, end) ]
       this.offset += 1
       this.loading = false
@@ -109,7 +109,7 @@ export default {
   },
   watch: {
     isScrollEnd: function(val) {
-      console.log("스크롤엔드 감지 :", val, !this.complete, this.loading)
+     // console.log("스크롤엔드 감지 :", val, !this.complete, this.loading)
       if (val && !this.complete && !this.loading) {
         this.loading = true
         this.fetchReviews()
