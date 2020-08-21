@@ -20,7 +20,6 @@
       <v-btn @click="onLike" icon class="float-right mr-3">
         <v-icon :color="reviewInfo.like ? 'red' : ''">mdi-heart</v-icon> {{ reviewInfo.like_cnt }}
       </v-btn>
-      <v-icon large color="blue darken-2" class="float-right mr-3">mdi-message-text</v-icon> {{ reviewInfo }}
       <div @click="toRestaurant" v-if="!showNickname" class="ml-1 title">
         {{ reviewInfo.resname }}<br>
       </div>
