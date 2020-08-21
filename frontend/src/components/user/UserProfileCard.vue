@@ -36,8 +36,8 @@
                 <template v-slot:activator="{ on, attrs }">
                   <div v-bind="attrs"
                   v-on="on" @click="fetchFollowList()">
-                    <v-btn style="margin-bottom:20px;" depressed color="warning">Follower {{profileUser.follower}}</v-btn> 
-                    <v-btn style="margin-left:70px;margin-bottom:20px;" depressed color="warning">Following {{profileUser.following}}</v-btn> 
+                    <v-btn style="margin-bottom:20px;" depressed color="warning">Follower {{follower_list.length || profileUser.follower}}</v-btn> 
+                    <v-btn style="margin-left:70px;margin-bottom:20px;" depressed color="warning">Following {{following_list.length || profileUser.following}}</v-btn> 
                   </div>
                 </template>
                 <v-card>
@@ -46,8 +46,8 @@
                   <v-tabs
                     centered
                     >
-                    <v-tab>Follower</v-tab>
-                    <v-tab>Following</v-tab>
+                    <v-tab @click="fetchFollowList()">Follower</v-tab>
+                    <v-tab @click="fetchFollowList()">Following</v-tab>
                     <v-tab-item>
                         <v-list>
                             <v-list-item
@@ -55,10 +55,10 @@
                                 :key="follower.userid"
                             >
                                 <!-- 프로필 사진 -->
-                                <v-list-item-avatar>
+                                <v-list-item-avatar @click="toProfile(follower.nickname)">
                                     <v-img :src="follower.image"></v-img>
                                 </v-list-item-avatar>
-                                <v-list-item-content>
+                                <v-list-item-content@click="toProfile(follower.nickname)">
                                     <v-list-item-title v-text="follower.nickname"></v-list-item-title>
                                 </v-list-item-content>
                                 <v-list-item-action>
@@ -83,10 +83,10 @@
                                 :key="following.userid"
                             >
                                 <!-- 프로필 사진 -->
-                                <v-list-item-avatar>
+                                <v-list-item-avatar @click="toProfile(following.nickname)">
                                     <v-img :src="following.image"></v-img>
-                                </v-list-item-avatar>
-                                <v-list-item-content>
+                                </v-list-item-avatar >
+                                <v-list-item-content @click="toProfile(following.nickname)">
                                     <v-list-item-title v-text="following.nickname"></v-list-item-title>
                                 </v-list-item-content>
                                 <v-list-item-action>
@@ -132,7 +132,7 @@ export default {
           dialog: false,
     }
     },
-    props: [ 'profileUser', 'userInfo'],
+    props: [ 'profileUser', 'userInfo', 'routeFetch'],
     methods: {
         onClick() {
             // console.log("onClick 반응")
@@ -204,21 +204,37 @@ export default {
                 },
                 res => {
                     // console.log("realSetData 콜백 성공, res:", res.data.message)
-                    this.following_list = res.data.message
+                    this.following_list = res.data.message        
                 },
                 err => {
                     // console.error(err)
                     // console.log("에러반응")
                 }
             )
-        }
+            this.emit('completeFetch')
+        },
+        toProfile(targetNickname){
+            this.$emit('toProfile', targetNickname)
+            // this.dialog = false
+            // this.$router.push({name: 'Profile', params: {nickname: targetNickname}})
+            // this.fetchFollowList()
+        },
     },
     watch: {
         dialog(val) {
             if (!val) {
-                this.$emit('onDialog')
+                console.log("dialog", this)
+                this.fetchFollowList()
             }
-        }
+        },
+        // routeFetch() {
+        //     console.log("반응")
+        //     this.fetchFollowList()
+        // }
+
+    },
+    mounted() {
+        this.fetchFollowList()
     }
 }
 </script>

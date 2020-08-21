@@ -3,8 +3,10 @@
     <UserProfileCard
       :profileUser="profileUser"
       @onFollow="onFollow"
-      @onDialog="fetchProfile"
+      @toProfile="toProfile"
       :userInfo="userInfo"
+      @completeFetch="completeFetch"
+
     />
     <ReviewCard
       v-for="review in reviews"
@@ -49,11 +51,13 @@ export default {
         followed: false,
         image:"",
       },
+      profileUserNickname: "",
       reviews: null,
       allReviews: null,
       loading: true,
       offset: 0,
       complete: true,
+      // routeFetch: false,
     }
   },
   methods: {
@@ -85,7 +89,9 @@ export default {
             this.profileUser.following = res.data.following_cnt
             this.profileUser.followed = res.data.followed
             this.profileUser.image = res.data.image
-
+            
+            this.profileUserNickname = res.data.nickname // for userProfileCard refresh
+            
             this.setReviews()
             // 리뷰 fetch까지 진행
           } else {
@@ -171,6 +177,13 @@ export default {
         }
       )
     },
+    toProfile(targetNickname){
+        this.$router.push({name: 'Profile', params: {nickname: targetNickname}})
+        // this.fetchFollowList()
+    },
+    // completeFetch() {
+    //   this.routeFetch = false
+    // }
   },
   watch: {
     isScrollEnd: function(val) {
@@ -184,6 +197,7 @@ export default {
       // console.log("params만 다른 라우팅 발생", to, from)
       if ( to.params.nickname !== from.params.nickname) {
         this.fetchProfile()
+        // this.routeFetch = true
       }
     }
   },
