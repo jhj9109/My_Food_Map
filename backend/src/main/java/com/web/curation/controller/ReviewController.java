@@ -205,7 +205,7 @@ public class ReviewController {
 		try {
 			ReviewDto review = reviewService.getReview(reviewId);
 			MemberDto writer = userService.select(review.getUserid());
-			String resname = reviewService.resname(reviewId);
+			String resname = reviewService.resname(review.getResid());
 			review.setResname(resname);
 			review.setNickname(writer.getNickname());
 			review.setUser_image(userService.userimage(review.getUserid()));
