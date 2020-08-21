@@ -84,6 +84,7 @@ public class StoreController {
 			list.get(i).setResname(resname);
 			String nickname = userService.nickname(temp2);
 			list.get(i).setNickname(nickname);
+			list.get(i).setUser_image(userService.userimage(temp2));
 			dto.setReviewid(review.getNo());
 			dto.setUserid(userid); 
 			review.setLike(reviewService.searchLike(dto));

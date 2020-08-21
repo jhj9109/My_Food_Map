@@ -42,14 +42,13 @@
 
 
 
+
 ![4](/uploads/0ee09c6446f3a393de7c4719649d18f3/4.PNG)                      
 
 
 
 
-
 ![5](/uploads/b944825b70c1fbe18120e0c16ef65919/5.PNG)                     
-
 
 
 
@@ -124,7 +123,7 @@ npm run serve
   Here is a quick teaser of a complete Spring Boot application in Java:
 
   
-  
+
 
 ```
 cd backend 

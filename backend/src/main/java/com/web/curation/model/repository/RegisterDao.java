@@ -14,5 +14,6 @@ public interface RegisterDao {
 	public void delete(MemberDto member) throws SQLException;
 	public void update(MemberDto member) throws SQLException;
 	public String nickname(int userid);
+	public String userimage(int userid);
 	public List<MemberDto> searchUser(String input) throws SQLException;
 }

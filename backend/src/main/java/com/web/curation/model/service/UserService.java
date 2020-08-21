@@ -29,6 +29,7 @@ public interface UserService {
 	public List<Integer> getFollowerList(int userId);
 		
 	public String nickname(int userid);
+	public String userimage(int userid);
 	
 	public boolean checkuser(String email) throws Exception;
 }

@@ -206,4 +206,9 @@ public class UserServiceImpl implements UserService{
 		return userRepository.searchUser(input);
 	}
 
+	@Override
+	public String userimage(int userid) {
+		return userRepository.userimage(userid);
+	}
+
 }
