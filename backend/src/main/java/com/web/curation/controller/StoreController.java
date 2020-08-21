@@ -29,6 +29,7 @@ import com.web.curation.model.dto.MemberDto;
 import com.web.curation.model.dto.MemberPwDto;
 import com.web.curation.model.dto.RestaurantsDto;
 import com.web.curation.model.dto.ReviewDto;
+import com.web.curation.model.service.CommentService;
 import com.web.curation.model.service.ReviewService;
 import com.web.curation.model.service.StoreService;
 import com.web.curation.model.service.UserService;
@@ -51,6 +52,9 @@ public class StoreController {
 	
 	@Autowired
 	private ReviewService reviewService;
+	
+	@Autowired
+	private CommentService commentService;
 	
 	private String loginid;
 
@@ -85,6 +89,7 @@ public class StoreController {
 			String nickname = userService.nickname(temp2);
 			list.get(i).setNickname(nickname);
 			list.get(i).setUser_image(userService.userimage(temp2));
+			list.get(i).setComment_cnt(commentService.count_comment(review.getNo()));
 			dto.setReviewid(review.getNo());
 			dto.setUserid(userid); 
 			review.setLike(reviewService.searchLike(dto));

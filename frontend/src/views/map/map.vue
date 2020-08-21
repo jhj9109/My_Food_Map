@@ -126,11 +126,11 @@ export default {
                 this.lat = position.coords.latitude
                 this.lon = position.coords.longitude
             }, err => {
-                console.log("err", err)
+               // console.log("err", err)
                 if (err.code === 1) {
-                    console.log("사용자가 위치 정보 제공에 거부하였습니다.")
+                    //console.log("사용자가 위치 정보 제공에 거부하였습니다.")
                 } else {
-                    console.log('기타 에러입니다')
+                    //console.log('기타 에러입니다')
                 }
             })
             http
@@ -169,9 +169,9 @@ export default {
                 this.lat = position.coords.latitude
                 this.lon = position.coords.longitude
             }, err => {
-                console.log("err", err)
+                //console.log("err", err)
                 if (err.code === 1) {
-                    console.log("사용자가 위치 정보 제공에 거부하였습니다.")
+                    //console.log("사용자가 위치 정보 제공에 거부하였습니다.")
                 } else {
                    // console.log('기타 에러입니다')
                 }

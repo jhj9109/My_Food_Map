@@ -21,9 +21,9 @@
         <v-btn @click="onLike" icon class="mr-3">
             <v-icon :color="reviewInfo.like ? 'red' : ''">mdi-heart</v-icon> {{ reviewInfo.like_cnt }}
         </v-btn>
-        <v-btn v-if="showButton" @click="onClick" icon class="float-right">
+        <v-btn  @click="onClick" icon class="float-right">
           <v-icon color="blue darken-2">mdi-message-text</v-icon>
-          <!-- {{ reviewInfo.comment_cnt }} -->
+           {{ reviewInfo.comment_cnt }}
         </v-btn>
       </div>
       
@@ -79,8 +79,10 @@ import UserApi from '@/api/UserApi.js'
 
         // 클릭시 모달 => 도움이 됐어요 or 리뷰 디테일
         // 리뷰 디테일
-        this.$router.push({ name: 'ReviewDetail', params: { reviewId: this.reviewInfo.no}});
-      },
+        if(this.$route.name !== 'ReviewDetail') { 
+          this.$router.push({ name: 'ReviewDetail', params: { reviewId: this.reviewInfo.no}});
+        }
+     },
       toProfile() {
         // console.log("toProfile 발동")
         this.$router.push({name : 'Profile', params : {nickname : this.reviewInfo.nickname}})

@@ -51,34 +51,6 @@
                     <v-tab-item>
                         <v-list>
                             <v-list-item
-                                v-for="follower in follower_list"
-                                :key="follower.userid"
-                            >
-                                <!-- 프로필 사진 -->
-                                <v-list-item-avatar @click="toProfile(follower.nickname)">
-                                    <v-img :src="follower.image"></v-img>
-                                </v-list-item-avatar>
-                                <v-list-item-content@click="toProfile(follower.nickname)">
-                                    <v-list-item-title v-text="follower.nickname"></v-list-item-title>
-                                </v-list-item-content>
-                                <v-list-item-action>
-                                    <v-btn
-
-                                        v-if="!userInfo || follower.userid !== userInfo.userId"
-                                        @click="onFollow(follower)"
-                                        dark
-                                        small
-                                        color=#F7B675>
-                                        {{ follower.followed ? 'unFollow' : 'Follow' }}
-
-                                    </v-btn>
-                                </v-list-item-action>
-                            </v-list-item>
-                        </v-list>
-                    </v-tab-item>
-                    <v-tab-item>
-                        <v-list>
-                            <v-list-item
                                 v-for="following in following_list"
                                 :key="following.userid"
                             >
@@ -100,8 +72,6 @@
                                         {{ following.followed ? 'unFollow' : 'Follow' }}
                                     </v-btn>
                                 </v-list-item-action>
-                            </v-list-item>
-
                             </v-list-item>
                         </v-list>
                     </v-tab-item>
@@ -147,8 +117,8 @@ export default {
           if(!this.userInfo) {
             this.$router.push({name:'Login', query:{ redirect: 'Profile', params: {nickname: target.nickname}}})
           }
-          console.log(target)
-          console.log('팔로우', this.userInfo.userId, target.id)
+          //console.log(target)
+         // console.log('팔로우', this.userInfo.userId, target.id)
           UserApi.requestFollow(
             {
               followerId: this.userInfo.userId,

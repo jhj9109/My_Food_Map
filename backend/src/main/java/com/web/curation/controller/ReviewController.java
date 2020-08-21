@@ -112,6 +112,7 @@ public class ReviewController {
 				dto.setReviewid(review.getNo());
 				dto.setUserid(userId);
 				review_list.get(i).setLike(reviewService.searchLike(dto));
+				review_list.get(i).setComment_cnt(commentService.count_comment(review.getNo()));
 				if (userService.searchFollow(follow)) {
 					following_review_list.add(review);
 				}
@@ -141,6 +142,7 @@ public class ReviewController {
 				String nickname = userService.nickname(temp2);
 				user_review.get(i).setNickname(nickname);
 				user_review.get(i).setUser_image(userService.userimage(temp2));
+				user_review.get(i).setComment_cnt(commentService.count_comment(review.getNo()));
 				dto.setReviewid(review.getNo());
 				dto.setUserid(userId);
 				review.setLike(reviewService.searchLike(dto));
@@ -205,6 +207,7 @@ public class ReviewController {
 			MemberDto writer = userService.select(review.getUserid());
 			review.setNickname(writer.getNickname());
 			review.setUser_image(userService.userimage(review.getUserid()));
+			review.setComment_cnt(commentService.count_comment(review.getNo()));
 			//System.out.println(review);
 			return Success(review);
 		} catch (Exception e){
