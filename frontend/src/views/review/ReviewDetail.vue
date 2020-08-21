@@ -1,14 +1,36 @@
 <template>
   <div>
     <ReviewCard
-      class="mt-1"
+      class=""
       :reviewInfo="this.review"
     />
     <!-- 댓글 작성 -->
-    <v-card  max-width="374" class="mx-auto">
+
+    <!-- 댓글 목록 -->
+    <v-card
+      max-width="374"
+      class="mx-auto"
+    >
+      <v-list three-line>
+        <v-subheader>댓글</v-subheader>
+          <v-list-item v-for="item in comment_list" :key="item.no">
+            <!-- 프로필 사진 -->
+            <v-list-item-avatar>
+              <v-img :src="item.user_image"></v-img>
+            </v-list-item-avatar>
+            <v-list-item-content>
+              <v-list-item-title v-html="item.nickname"></v-list-item-title>
+              <v-list-item-subtitle v-html="item.content"></v-list-item-subtitle>
+              <v-list-item-subtitle v-html="item.create_date"></v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+      </v-list>
+    </v-card>
+    <v-card max-width="374" class="pr-0 pl-0 mb-2 mx-auto" elevation="24">
       <v-row>
-        <v-col>
-          
+        <v-col
+          cols="12"
+        >
           <v-card-text class="pt-4 pb-0">
             <v-form>
               <v-textarea 
@@ -19,34 +41,11 @@
             </v-form>
           </v-card-text>
 
-          <v-card-actions class="pt-0 mr-5">
-            <v-spacer/><v-btn @click="onCreate()">Create</v-btn>
+          <v-card-actions class="ml-5 mr-5 mt-3">
+            <v-btn @click="onCreate()">Create</v-btn>
           </v-card-actions>
-
         </v-col>
       </v-row>
-    </v-card>
-    <!-- 댓글 목록 -->
-    <v-card
-      max-width="374"
-      class="mx-auto"
-    >
-      <v-list three-line>
-        <v-subheader>댓글</v-subheader>
-          <v-list-item v-for="item in comment_list" :key="item.no">
-            <!-- 프로필 사진 -->
-            <!-- <v-list-item-avatar>
-              <v-img :src="item.avatar"></v-img>
-            </v-list-item-avatar> -->
-            <v-list-item-content>
-              <div class="d-flex">
-                <p class="text-Subtitle1 mr-2" v-html="item.nickname"></p>
-                <p class="text-Subtitle2 align-self-end" v-html="item.create_date"></p>
-              </div>
-              <v-list-item-subtitle v-html="item.content"></v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
-      </v-list>
     </v-card>
   </div>
 </template>
@@ -116,22 +115,11 @@ export default {
         res => {
           // console.log("resquestCreate 성공, res : ", res)
           if (res.data.state === 'ok') {
-            const today = new Date()
-            const y = today.getFullYear(), m = today.getMonth(), d = today.getDate()
-            const newData = {
-              no: 9999,
-              nickname: this.userInfo.nickname,
-              userid: this.userInfo.userId,
-              reviewid: this.$route.params.reviewId,
-              create_date: `${y}-${m}-${d}`,
-              checked: false,
-              content: this.comment.content,
-            }
-            this.comment_list = [ ...this.comment_list, newData]
             this.comment.content = ''
             alert("댓글이 작성 되었습니다.")
 
-            this.$emit('scrollToBottom')
+            this.fetchCommentList()
+            // this.$emit('scrollToBottom')
             
           } else {
             // console.log("댓글 작성 실패, res.data: ", res.data)
@@ -153,5 +141,6 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+
 </style>
