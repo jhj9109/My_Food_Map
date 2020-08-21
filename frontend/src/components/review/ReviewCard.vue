@@ -18,12 +18,8 @@
     
     <v-card-text class="pl-3">
       <!-- 추후 식당 이름으로 바꿔야할 부분, 식당 이름이 넘어오지 않아 수정 못함 -->      <!-- 개인 페이지에서는 식당, 식당 페이지에서는 리뷰를 보여줘야할듯 -->
-<<<<<<< HEAD
-      <v-btn @click="onLike" icon class="float-right mr-3">
-        <v-icon :color="reviewInfo.like ? 'red' : ''">mdi-heart</v-icon> {{ reviewInfo.like_cnt }}
-      </v-btn>
+
       <v-icon large color="blue darken-2" class="float-right mr-3">mdi-message-text</v-icon>
-=======
       <div class="float-right">
         <v-btn @click="onLike" icon class="mr-3">
             <v-icon :color="reviewInfo.like ? 'red' : ''">mdi-heart</v-icon> {{ reviewInfo.like_cnt }}
@@ -32,17 +28,16 @@
           <v-icon color="dark darken-2">mdi-message-text</v-icon> {{ reviewInfo.comment_cnt }}
         </v-btn>
       </div>
->>>>>>> c2d91aa216ba79f6b2b90dd1ecc87027aa075071
       <div @click="toRestaurant" v-if="!showNickname" class="ml-1 title">
         {{ reviewInfo.resname }}<br>
       </div>
       <v-row justify="start">
         <div @click="toProfile" v-if="showNickname" class="sub-title mt-0">
-<<<<<<< HEAD
+        <!--1-->
           <v-avatar size="40" style="margin:5px;">
               <v-img :src="reviewInfo.user_image"></v-img>
            </v-avatar>{{ reviewInfo.nickname }}<br>
-=======
+        <!--2-->
           <v-list>
             <v-list-item>
               <v-list-item-avatar>
@@ -53,7 +48,7 @@
               </v-list-item-content>
             </v-list-item>
           </v-list>
->>>>>>> c2d91aa216ba79f6b2b90dd1ecc87027aa075071
+        <!--3-->
         </div>
       </v-row>
 
