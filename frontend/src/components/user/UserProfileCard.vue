@@ -156,20 +156,20 @@ export default {
               no: 0
             },
             res => {
-              console.log("res 정보")
-              console.log(res)  
+             // console.log("res 정보")
+             // console.log(res)  
               if (res.data.message === "Following -1") {
                 target.follower -= 1
                 target.followed = false
-                console.log("팔로워 숫자 -1")
+                //console.log("팔로워 숫자 -1")
               } else {
                 if (res.data.message === "Following +1") {
                   target.follower += 1
                   target.followed = true
-                  console.log("팔로워 숫자 +1")
+                 // console.log("팔로워 숫자 +1")
                 } else {
                   // 성공외 다른 응답이 왔을때 동작
-                  console.log("팔로우 실패", res)
+                  //console.log("팔로우 실패", res)
                 }
               }
             },

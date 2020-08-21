@@ -106,7 +106,7 @@ export default {
         fetchRestaurants() {
             const start = this.offset * 5
             const end = start + 4
-            console.log("레스토랑 데이터 갱신 요청", this.allRestaurants.slice(start, end))
+           // console.log("레스토랑 데이터 갱신 요청", this.allRestaurants.slice(start, end))
             const newArray = this
                 .allRestaurants
                 .slice(start, end)
@@ -122,7 +122,7 @@ export default {
         Myplace() {
             // this.getGeolocation()
             AppApi.getGeolocation(position => {
-                console.log("position.coords", position.coords)
+               // console.log("position.coords", position.coords)
                 this.lat = position.coords.latitude
                 this.lon = position.coords.longitude
             }, err => {
@@ -149,7 +149,7 @@ export default {
                             this.listDatao[i] = this.allRestaurants[i].name;
                             this.listimage[i] = this.allRestaurants[i].image;
                         }
-                        console.log(this.listData);
+                        //console.log(this.listData);
                         window.kakao && window.kakao.maps
                             ? this.clearMap()
                             : this.addScript();
@@ -165,7 +165,7 @@ export default {
 
         initMap() {
               AppApi.getGeolocation(position => {
-                console.log("position.coords", position.coords)
+               // console.log("position.coords", position.coords)
                 this.lat = position.coords.latitude
                 this.lon = position.coords.longitude
             }, err => {
@@ -173,7 +173,7 @@ export default {
                 if (err.code === 1) {
                     console.log("사용자가 위치 정보 제공에 거부하였습니다.")
                 } else {
-                    console.log('기타 에러입니다')
+                   // console.log('기타 에러입니다')
                 }
             })
             http
@@ -190,7 +190,7 @@ export default {
                             this.listDatao[i] = this.allRestaurants[i].name;
                             this.listimage[i] = this.allRestaurants[i].image;
                         }
-                        console.log(this.listData);
+                        //console.log(this.listData);
                         window.kakao && window.kakao.maps
                             ? this.clearMap()
                             : this.addScript();
@@ -278,7 +278,7 @@ export default {
                 })(marker, infowindow);
                 if (index === 0) {
                     map.setCenter(coords);
-                    console.log(coords);
+                   // console.log(coords);
                 }
             }
         });
@@ -332,7 +332,7 @@ export default {
                     let msg = '동 불러오기에 실패하였습니다.';
                     if (data != null) {
                         this.allRestaurants = data;
-                        console.log(this.allRestaurants);
+                       // console.log(this.allRestaurants);
                         window.kakao && window.kakao.maps
                             ? this.clearMap()
                             : this.addScript();
@@ -353,13 +353,13 @@ export default {
                         this.restaurants=[],
                         this.allRestaurants=[],
                         this.allRestaurants = data;
-                        console.log(this.message)
+                       // console.log(this.message)
                     
                         for(var i=0; i<this.allRestaurants.length; i++ ){
                            this.listData[i] = this.allRestaurants[i].jibun;
                             this.listDatao[i] = this.allRestaurants[i].name;
                         }
-                        console.log(this.listData);
+                        //console.log(this.listData);
                         window.kakao && window.kakao.maps
                             ? this.clearMap()
                             : this.addScript();

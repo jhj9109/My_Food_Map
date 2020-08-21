@@ -92,7 +92,7 @@ import RestaurantApi from '@/api/RestaurantApi.js'
 			onClick(){
         // restaurant.vue에서만 이동
         if (this.$route.name === 'Restaurant' || this.$route.name === 'Map') {
-          console.log(`restaurantInfo :${this.restaurantInfo}`)
+         // console.log(`restaurantInfo :${this.restaurantInfo}`)
           this.$router.push({ name: 'RestaurantReview', params: { restaurantId: this.restaurantInfo.idrestaurants}});
         }
       },
