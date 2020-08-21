@@ -5,55 +5,50 @@
     max-width="374"
     elevation=24
   > 
-  <!-- 이미지 사이즈에 따라 유동적 사이즈 설정, 정사각형으로 보이도록 -->
+    <!-- 1 이미지 영역-->
     <v-img
       class="white--text align-end"
-      @click="onClick" 
+      @click="toRestaurantReview"
       v-if="reviewInfo.image !== 'null'"
       max-height="374"
       :src="reviewInfo.image">
+      <v-card-title mouseover v-if="reviewInfo.image !== 'null'"> {{ reviewInfo.resname }} </v-card-title>
     </v-img>
-    
+    <!-- 1-1 레스토랑 이름 영역(이미지 없을때) -->
+    <v-card-title v-if="reviewInfo.image === 'null'">{{reviewInfo.resname}}</v-card-title>
+
     <v-card-text class="pl-3">
-      <!-- 추후 식당 이름으로 바꿔야할 부분, 식당 이름이 넘어오지 않아 수정 못함 -->      <!-- 개인 페이지에서는 식당, 식당 페이지에서는 리뷰를 보여줘야할듯 -->
+      
+      <!-- 2 좋아요, 코멘트숫자 영역 : float-right 통해 우측에 정렬되어 있음 -->
 
       <div class="float-right">
         <v-btn @click="onLike" icon class="mr-3">
             <v-icon :color="reviewInfo.like ? 'red' : ''">mdi-heart</v-icon> {{ reviewInfo.like_cnt }}
         </v-btn>
-        <v-btn  @click="onClick" icon class="float-right">
+        <v-btn @click="toReviewDetail" icon class="float-right">
           <v-icon color="blue darken-2">mdi-message-text</v-icon>
-           {{ reviewInfo.comment_cnt }}
+          {{ reviewInfo.comment_cnt }}
         </v-btn>
       </div>
       
-      <div @click="toRestaurant" v-if="!showNickname" class="ml-1 title">
-        {{ reviewInfo.resname }}<br>
-      </div>
-      <v-row class="d-flex">
-        <v-avatar @click="toProfile" v-if="showNickname" size="35" class="mr-2">
+      <!-- 3 닉네임 영역 (레스토랑 이름은 위로 옮기며 삭제) -->
+      <v-row v-if="showNickname" class="d-flex">
+        <v-avatar @click="toProfile" size="35" class="mr-2">
             <v-img :src="reviewInfo.user_image"></v-img>
         </v-avatar>
         <p class="title">{{ reviewInfo.nickname }}</p>
       </v-row>
-
+      <!-- 4 별점과 작성일 영역 -->
       <v-row align="end">
-      <!-- 디자인 수정 및 백그라운드 색상 설정 -->
         <v-rating class="ml-2 mb-1 mt-1 mr-1" :value="reviewInfo.reviewrank"
           color="amber" dense half-increments readonly size="20" empty-icon="mdi-star-outline"
         />
         {{ reviewInfo.create_date }}
       </v-row>
 
-      <div
-        @click="onClick"
-        class="ml-1 mt-1"
-      >
-      <!-- 리뷰 콘텐츠 수정 + 사용자명(nickname 넘어오지 않아 못넣음), 작성일-->
+      <!-- 5 리뷰 컨텐츠 영역 -->
+      <div class="ml-1 mt-1">
         {{ reviewInfo.content }} <br>
-      </div>
-      <div class="text-right">
-        
       </div>
     </v-card-text>
   </v-card>
@@ -69,26 +64,20 @@ import UserApi from '@/api/UserApi.js'
       loading: false,
       showNickname: false,
     }),
-    computed:{
-      showButton() {
-        return this.$route.name === 'RestaurantReview'
-      }
-    },
     methods: {
-			onClick(){
-
-        // 클릭시 모달 => 도움이 됐어요 or 리뷰 디테일
-        // 리뷰 디테일
-        if(this.$route.name !== 'ReviewDetail') { 
+			toReviewDetail(){
+        if(this.$route.name !== 'ReviewDetail') {
           this.$router.push({ name: 'ReviewDetail', params: { reviewId: this.reviewInfo.no}});
         }
-     },
+      },
       toProfile() {
-        // console.log("toProfile 발동")
+        // 프로필페이지에선 보이지않아 분기 불필요
         this.$router.push({name : 'Profile', params : {nickname : this.reviewInfo.nickname}})
       },
-      toRestaurant() {        
-        this.$router.push({ name: 'RestaurantReview', params: { restaurantId: this.reviewInfo.resid}});
+      toRestaurantReview() {  
+        if(this.$route.name !== 'RestaurantReview') {
+          this.$router.push({ name: 'RestaurantReview', params: { restaurantId: this.reviewInfo.resid}});
+        }      
       },
       // 미리 작성해 놓은 Like
       onLike(){
