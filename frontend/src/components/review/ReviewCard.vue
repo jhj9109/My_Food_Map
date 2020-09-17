@@ -15,7 +15,7 @@
       <v-card-title mouseover v-if="reviewInfo.image !== 'null'"> {{ reviewInfo.resname }} </v-card-title>
     </v-img>
     <!-- 1-1 레스토랑 이름 영역(이미지 없을때) -->
-    <v-card-title v-if="reviewInfo.image === 'null'">{{reviewInfo.resname}}</v-card-title>
+    <v-card-title @click="toRestaurantReview" v-if="reviewInfo.image === 'null'">{{reviewInfo.resname}}</v-card-title>
 
     <v-card-text class="pl-3">
       
