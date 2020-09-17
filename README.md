@@ -24,36 +24,36 @@
 
  1 .  **내 위치 기반 맛집 소개 및 지역별 맛집 검색**
 
-   ![map](./img/map.png)
+   ![map](./img/map.PNG)
 
 
 
 2. **높은 평점 순서의 맛집소개 , 가까운 거리 순서로 맛집 소개**
 
-![review](./img/review.png)                                     
+![review](./img/review.PNG)                                     
 
 
 
 3. **로그인 및 음식점 리뷰작성**
 
-![login](./img/login.png)                    
+![login](./img/login.PNG)                    
 
 
 
 
 
 
-![follow](./img/follow.png)                   
+![follow](./img/follow.PNG)                   
 
 
 
 
-![feed](./img/feed.png)                
+![feed](./img/feed.PNG)                
 
 
 
 
-![comment](./img/comment.png)                 
+![comment](./img/comment.PNG)                 
 
 
 
