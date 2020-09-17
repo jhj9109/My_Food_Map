@@ -18,7 +18,7 @@
 
 ###  🔥 서비스 및 기능 소개 🔥
 
-![nyfoodmap2](./img/myfoodmap2.png)
+![myfoodmap2](./img/myfoodmap2.png)
 
 
 
