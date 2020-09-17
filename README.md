@@ -4,7 +4,7 @@
 
 #  README
 
-![image-20200821013904319](/uploads/20b921a5b788d8716fe584bcbe1ee5fd/image-20200821013904319.png)
+![myfoodmap1](./img/myfoodmap1.png)
 
 ![ㅎㅇ](https://img.shields.io/badge/SSAFY-My--Food--Map-red)
 
@@ -18,42 +18,42 @@
 
 ###  🔥 서비스 및 기능 소개 🔥
 
-![image-20200821014248707](/uploads/74e9e71292ba9df784246bea20874d2c/image-20200821014248707.png)
+![nyfoodmap2](./img/myfoodmap2.png)
 
 
 
  1 .  **내 위치 기반 맛집 소개 및 지역별 맛집 검색**
 
-   ![1](/uploads/3baf7823e34ee2f3e0ced40b0ee433bf/1.PNG)
+   ![map](./img/map.png)
 
 
 
 2. **높은 평점 순서의 맛집소개 , 가까운 거리 순서로 맛집 소개**
 
-![2](/uploads/184a332b7a641dcc668542d8f528e1f0/2.PNG)                                         
+![review](./img/review.png)                                     
 
 
 
 3. **로그인 및 음식점 리뷰작성**
 
-![3](/uploads/b69a1fe8031f32e6882dac27dc99231f/3.PNG)                         
+![login](./img/login.png)                    
 
 
 
 
 
 
-![4](/uploads/0ee09c6446f3a393de7c4719649d18f3/4.PNG)                      
+![follow](./img/follow.png)                   
 
 
 
 
-![5](/uploads/b944825b70c1fbe18120e0c16ef65919/5.PNG)                     
+![feed](./img/feed.png)                
 
 
 
 
-![6](/uploads/f7ec48bb8a42eb1455dcbfff397aca12/6.PNG)                           
+![comment](./img/comment.png)                 
 
 
 
@@ -63,7 +63,7 @@
 
 
 
-![image-20200821021409357](/uploads/72984182ebe22931e2a6017c33a1714a/image-20200821021409357.png)
+![teammates](./img/teammates.png)
 
 
 
@@ -73,7 +73,7 @@
 
 ### 🏳️ 사용 기술 스택 🏳️
 
-![image-20200821021518479](/uploads/b56476344f0ad28533a5ac4696874872/image-20200821021518479.png)
+![skills](./img/skills.png)
 
 
 
@@ -83,7 +83,7 @@
 
 ## **💡**  구현 계획  **💡** 
 
-![image-20200821021709598](/uploads/6559ea45e25ea06739c681133cedea11/image-20200821021709598.png)
+![process](./img/process.png)
 
 
 
