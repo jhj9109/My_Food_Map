@@ -12,7 +12,7 @@
 
 ##               
 
-##    접속 주소 : http://i3a409.p.ssafy.io/
+##    접속 주소 : ~~http://i3a409.p.ssafy.io/~~
 
  
 
